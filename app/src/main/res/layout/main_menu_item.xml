@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="menuItem"
+            type="ru.tohaman.testempty.dbase.ListPagerDBItem" />
+
+        <variable
+            name="viewModel"
+            type="ru.tohaman.testempty.viewModel.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_margin_8"
+        android:layout_marginLeft="@dimen/dimen_margin_8"
+        android:layout_marginTop="@dimen/dimen_margin_8"
+        >
+
+        <ImageView
+            android:id="@+id/main_menu_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/ic_icon_rg2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/dimen_margin_8"
+            app:layout_constraintStart_toEndOf="@+id/main_menu_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_menu_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Какой-то этап"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:id="@+id/main_menu_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="коммент к этапу"
+                android:singleLine="true"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav1_clicked">Выбран 2х2</string>
+    <string name="nav2_clicked">Выбран 3х3</string>
+    <string name="nav3_clicked">Выбраны модификации 3х3</string>
+
+    <string name="fav_clicked">Favourite pressed</string>
+    <string name="main_help_clicked">Help button pressed</string>
+    <string name="main_settings_clicked">Выбран пункт Настройки</string>
+    <string name="search_clicked">Search pressed</string>
+</resources>

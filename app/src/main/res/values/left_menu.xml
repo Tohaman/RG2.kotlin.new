@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="begin_2x2">Кубик 2х2</string>
+    <string name="begin_3x3">Кубик 3х3</string>
+    <string name="other_3x3">Модификации 3х3</string>
+</resources>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TestEmpty</string>
+
+    <string name="hello_blank_fragment">Hello fragment 1</string>
+    <string name="hello_blank_fragment2">Fragment2</string>
+    <string name="someimage">SomeImage</string>
+    <string name="tmpOne">Back2One</string>
+    <string name="tmpTwo">Two</string>
+    <string name="next">Next</string>
+
+    <string name="action_search">Поиск</string>
+    <string name="action_help">Помощь</string>
+    <string name="action_favorite">Избранное</string>
+    <string name="main_settings">Настройки</string>
+</resources>
