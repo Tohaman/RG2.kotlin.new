@@ -9,9 +9,12 @@ import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.dbase.ListPagerDBItem
 import ru.tohaman.testempty.recyclerView.MainAdapter
+import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.viewModel.MainViewModel
 
 
@@ -25,10 +28,14 @@ class ListViewFragment : Fragment() {
         val button = view.findViewById<Button>(R.id.next_button)
 
         val rcv = view.findViewById<RecyclerView>(R.id.menuList)
+        rcv.layoutManager = LinearLayoutManager(context)
         val adapter = MainAdapter()
-        rcv.adapter = adapter
+        val menuAdapter = MenuAdapter ()
+        //rcv.adapter = adapter
+        rcv.adapter = menuAdapter
 
-        viewModel.mainMenuItems.observe(viewLifecycleOwner, Observer (adapter::submitList))
+        //viewModel.mainMenuItems.observe(viewLifecycleOwner, Observer (adapter::submitList))
+        viewModel.allItems.observe(viewLifecycleOwner, Observer <List<ListPagerDBItem>>())
 
         val nameObserver = Observer<String> { button.text = it }
         viewModel.curItem.observe(this, nameObserver)

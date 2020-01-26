@@ -22,13 +22,13 @@ class ItemsRepository (app: Application){
 
     fun getPhaseItems (phase: String) = dao.getPhase(phase).toLiveData(Config(30))
 
-    fun getAllItems() {
-        dao.getAllItems()
+    fun getAllItems() = dao.getAllItems()
+
+
+    fun insert(tableItem: ListPagerDBItem) {
+        ioThread { dao.insert(tableItem) }
     }
 
-    fun insert(tableItem: ListPagerDBItem) = ioThread {
-        dao.insert(tableItem)
-    }
     fun remove(tableItem: ListPagerDBItem) = ioThread {
         dao.delete(tableItem)
     }

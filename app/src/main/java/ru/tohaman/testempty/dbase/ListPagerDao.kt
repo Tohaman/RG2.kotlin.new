@@ -20,7 +20,7 @@ interface ListPagerDao {
     }
 
     @Query("SELECT * FROM $table")
-    fun getAllItems(): LiveData<List<ListPagerDBItem?>?>
+    fun getAllItems(): LiveData<List<ListPagerDBItem>>
 
     @Query("SELECT * FROM $table WHERE phase = :phase ORDER BY ID")
     fun getPhase(phase : String): DataSource.Factory<Int, ListPagerDBItem>
