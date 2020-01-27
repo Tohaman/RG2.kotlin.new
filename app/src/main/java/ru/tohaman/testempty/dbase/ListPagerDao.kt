@@ -19,7 +19,7 @@ interface ListPagerDao {
         const val table: String = "ListPagerDBItem"
     }
 
-    @Query("SELECT * FROM $table")
+    @Query("SELECT * FROM $table WHERE phase = 'BEGIN'")
     fun getAllItems(): LiveData<List<ListPagerDBItem>>
 
     @Query("SELECT * FROM $table WHERE phase = :phase ORDER BY ID")

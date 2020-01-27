@@ -8,15 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.ListPagerDBItem
+import ru.tohaman.testempty.viewModel.MainViewModel
 
-class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
-    private var items : List<ListPagerDBItem>? = null
-
-    fun setItems (items: List<ListPagerDBItem>) {
-        this.items = items
-        notifyDataSetChanged()
-    }
-
+class MenuAdapter(private val items: List<ListPagerDBItem>) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.main_menu_item, parent, false)
@@ -24,14 +18,12 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return items?.size ?: 0
+        return items.size
     }
 
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
-        val currentItem = items?.get(position)
-        if (currentItem != null) {
-            holder.bindTo(currentItem)
-        }
+        val currentItem = items[position]
+        holder.bindTo(currentItem)
     }
 
     class MenuHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,17 +30,23 @@ class ListViewFragment : Fragment() {
         val button = view.findViewById<Button>(R.id.next_button)
 
         val rcv = view.findViewById<RecyclerView>(R.id.menuList)
-        rcv.layoutManager = LinearLayoutManager(context)
+        //rcv.layoutManager = LinearLayoutManager(context)
         val adapter = MainAdapter()
-        val menuAdapter = MenuAdapter ()
+        //val menuAdapter = MenuAdapter()
         //rcv.adapter = adapter
-        rcv.adapter = menuAdapter
+        //rcv.adapter = menuAdapter
 
-        //viewModel.mainMenuItems.observe(viewLifecycleOwner, Observer (adapter::submitList))
-        viewModel.allItems.observe(viewLifecycleOwner, Observer <List<ListPagerDBItem>>())
+        //Подписываемся на LiveData из viewModel, для этого передаем два параметра
+        //Первый - LifeCycleOwner, по которому LiveData определяет, надо отправлять в него данные или нет
+        //Второй - callback, в который LiveData будет отправлять данные
+        val callback = Observer<PagedList<ListPagerDBItem>> {it -> MainAdapter().submitList(it)}
+        viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
+        //val callback = Observer<List<ListPagerDBItem>> { it -> rcv.adapter = MenuAdapter(it) }
+        //viewModel.allItems.observe(viewLifecycleOwner, callback)
+
 
         val nameObserver = Observer<String> { button.text = it }
-        viewModel.curItem.observe(this, nameObserver)
+        //viewModel.curItem.observe(this, nameObserver)
 
         view.findViewById<Button>(R.id.next_button).setOnClickListener {
             //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
