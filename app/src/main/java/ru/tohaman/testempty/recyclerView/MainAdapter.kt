@@ -28,9 +28,11 @@ class MainAdapter(private val onClickListener: OnClickListener) :
         fun bind(item: ListPagerDBItem, onClickListener: OnClickListener) {
             val icon = item.icon
             binding.viewMenuItem = item
+            //TODO разобраться как биндить прямо в xml
             binding.mainMenuImage.setImageResource(icon)
             binding.mainMenuTitle.text = item.title
             binding.mainMenuComment.text = item.comment
+
             binding.clickListener = onClickListener
             binding.executePendingBindings()
         }
