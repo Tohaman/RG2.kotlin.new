@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,15 +32,17 @@ class ListViewFragment : Fragment() {
 
         val rcv = view.findViewById<RecyclerView>(R.id.menuList)
         //rcv.layoutManager = LinearLayoutManager(context)
-        val adapter = MainAdapter()
+        val adapter = MainAdapter(MainAdapter.OnClickListener {
+            onItemClick(it)
+        })
         //val menuAdapter = MenuAdapter()
-        //rcv.adapter = adapter
+        rcv.adapter = adapter
         //rcv.adapter = menuAdapter
 
         //Подписываемся на LiveData из viewModel, для этого передаем два параметра
         //Первый - LifeCycleOwner, по которому LiveData определяет, надо отправлять в него данные или нет
         //Второй - callback, в который LiveData будет отправлять данные
-        val callback = Observer<PagedList<ListPagerDBItem>> {it -> MainAdapter().submitList(it)}
+        val callback = Observer<PagedList<ListPagerDBItem>> {it -> adapter.submitList(it)}
         viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
         //val callback = Observer<List<ListPagerDBItem>> { it -> rcv.adapter = MenuAdapter(it) }
         //viewModel.allItems.observe(viewLifecycleOwner, callback)
@@ -56,6 +59,10 @@ class ListViewFragment : Fragment() {
         //initTouches(rcv)
 
         return view
+    }
+
+    private fun onItemClick(item: ListPagerDBItem) {
+        Log.d("TAG", "Click $item")
     }
 
     private fun initTouches(rcv:RecyclerView) {

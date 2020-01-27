@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.ListPagerDBItem
-import ru.tohaman.testempty.viewModel.MainViewModel
 
 class MenuAdapter(private val items: List<ListPagerDBItem>) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 

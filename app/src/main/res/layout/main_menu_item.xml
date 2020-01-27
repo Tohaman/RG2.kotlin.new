@@ -10,8 +10,8 @@
             type="ru.tohaman.testempty.dbase.ListPagerDBItem" />
 
         <variable
-            name="viewModel"
-            type="ru.tohaman.testempty.viewModel.MainViewModel" />
+            name="clickListener"
+            type="ru.tohaman.testempty.recyclerView.MainAdapter.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +20,7 @@
         android:layout_marginRight="@dimen/dimen_margin_8"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
+        android:onClick="@{() -> clickListener.onClick(viewMenuItem)}"
         >
 
         <ImageView
