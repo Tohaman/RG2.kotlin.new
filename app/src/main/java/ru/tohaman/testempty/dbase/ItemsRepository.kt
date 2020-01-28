@@ -3,6 +3,7 @@ package ru.tohaman.testempty.dbase
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.paging.Config
+import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import ru.tohaman.testempty.utils.ioThread
 
@@ -23,7 +24,6 @@ class ItemsRepository (app: Application){
     fun getPhaseItems (phase: String) = dao.getPhase(phase).toLiveData(Config(30))
 
     fun getAllItems() = dao.getAllItems()
-
 
     fun insert(tableItem: ListPagerDBItem) {
         ioThread { dao.insert(tableItem) }

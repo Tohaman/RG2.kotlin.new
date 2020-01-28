@@ -13,19 +13,24 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
     private val repository = ItemsRepository(app)
     var curPhase = "BEGIN"
     var curItem = MutableLiveData<String>()
+    var mainMenuItems = repository.getPhaseItems(curPhase)
 
     init {
         curItem.value = "000000"
+
     }
 
-    fun getCurItem() : LiveData<String> {return curItem}
 
-    val mainMenuItems = repository.getPhaseItems(curPhase)
+    fun getCurItem() : LiveData<String> {return curItem}
 
     internal val allItems = repository.getAllItems()
 
     fun onMainMenuItemClick(menuItem: ListPagerDBItem) {
         Log.d("DEB", "ViewModel.onMainMenuItemClick - $menuItem")
+        curPhase = "MAIN3X3"
+        //repository.insert(ListPagerDBItem("BEGIN",13,"37218368"))
+        //mainMenuItems.value = repository.updateMenu(curPhase)
+
     }
 
 }
