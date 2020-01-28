@@ -63,7 +63,7 @@ class ListViewFragment : Fragment() {
 
     private fun onItemClick(item: ListPagerDBItem) {
         Log.d("DEB", "ListFragment.onItemClick - $item")
-
+        viewModel.onMainMenuItemClick(item)
     }
 
     private fun initTouches(rcv:RecyclerView) {
