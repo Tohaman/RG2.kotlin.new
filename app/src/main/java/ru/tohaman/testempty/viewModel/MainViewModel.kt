@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.tohaman.testempty.dbase.ItemsRepository
+import ru.tohaman.testempty.dbase.ListPagerDBItem
 
 
 class MainViewModel(app: Application) : AndroidViewModel (app) {
@@ -23,9 +24,8 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
 
     internal val allItems = repository.getAllItems()
 
-    fun onMainMenuItemClick(index: Int) {
-        //curItem.value = index.toString()
-        Log.d("DEB", "Index - $index")
+    fun onMainMenuItemClick(menuItem: ListPagerDBItem) {
+        Log.d("DEB", "ViewModel.onMainMenuItemClick - $menuItem")
     }
 
 }

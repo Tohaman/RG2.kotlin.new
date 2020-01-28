@@ -62,7 +62,8 @@ class ListViewFragment : Fragment() {
     }
 
     private fun onItemClick(item: ListPagerDBItem) {
-        Log.d("TAG", "Click $item")
+        Log.d("DEB", "ListFragment.onItemClick - $item")
+
     }
 
     private fun initTouches(rcv:RecyclerView) {
