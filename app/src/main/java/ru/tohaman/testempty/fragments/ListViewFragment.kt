@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import androidx.navigation.Navigation
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,8 +53,7 @@ class ListViewFragment : Fragment() {
         //viewModel.curItem.observe(this, nameObserver)
 
         view.findViewById<Button>(R.id.next_button).setOnClickListener {
-            //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
-
+            Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
         }
 
         //initTouches(rcv)

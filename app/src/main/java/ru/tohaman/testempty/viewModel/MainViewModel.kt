@@ -20,7 +20,6 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
 
     }
 
-
     fun getCurItem() : LiveData<String> {return curItem}
 
     internal val allItems = repository.getAllItems()
@@ -28,7 +27,7 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
     fun onMainMenuItemClick(menuItem: ListPagerDBItem) {
         Log.d("DEB", "ViewModel.onMainMenuItemClick - $menuItem")
         curPhase = "MAIN3X3"
-        //repository.insert(ListPagerDBItem("BEGIN",13,"37218368"))
+        repository.insert(ListPagerDBItem("BEGIN",13,"37218368"))
         //mainMenuItems.value = repository.updateMenu(curPhase)
 
     }

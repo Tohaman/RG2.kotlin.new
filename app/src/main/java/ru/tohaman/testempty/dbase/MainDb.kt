@@ -21,7 +21,11 @@ abstract class MainDb : RoomDatabase() {
 
     abstract fun listPagerDao(): ListPagerDao
 
-    //TODO настроить компаньон объект, чтобы при создании базы, она заполнялась какими-то значениями
+    //TODO настроить компаньон объект, чтобы при создании базы, она заполнялась какими-то значениями, можно брать из произвольного файла
+    //Room.databaseBuilder(appContext, AppDatabase.class, "Sample.db")
+    //.createFromFile(File("mypath"))
+    //.build()
+
     companion object {
         private var instance: MainDb? = null
         @Synchronized
@@ -32,7 +36,8 @@ abstract class MainDb : RoomDatabase() {
                     MainDb::class.java, "base.db"
                 )
                     .addCallback(object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
+                        //TODO заменить на onCreate
+                        override fun onOpen(db: SupportSQLiteDatabase) {
                             fillLPinDB(context.applicationContext)
                         }
                     }).build()
@@ -47,6 +52,7 @@ abstract class MainDb : RoomDatabase() {
         private fun fillLPinDB (context: Context) {
             // inserts in Room are executed on the current thread, so we insert in the background
             ioThread {
+                get(context).listPagerDao().deleteAllItems()
                 //subMenu
                 phaseInit("MAIN3X3", R.array.main3x3_title,R.array.main3x3_icon,R.array.main3x3_descr,R.array.main3x3_url,context)
                 //Phases
