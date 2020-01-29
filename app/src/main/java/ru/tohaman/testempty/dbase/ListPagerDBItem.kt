@@ -3,7 +3,7 @@ package ru.tohaman.testempty.dbase
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity (primaryKeys = ["phase", "id"])
+@Entity (tableName = "mainTable", primaryKeys = ["phase", "id"])
 data class ListPagerDBItem (
     val phase: String,
     val id: Int,

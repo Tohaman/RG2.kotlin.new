@@ -16,7 +16,7 @@ import androidx.room.*
 interface ListPagerDao {
 
     companion object {
-        const val table: String = "ListPagerDBItem"
+        const val table: String = "mainTable"
     }
 
     @Query("SELECT * FROM $table WHERE phase = 'BEGIN'")
@@ -25,10 +25,10 @@ interface ListPagerDao {
     @Query("SELECT * FROM $table WHERE phase = :phase ORDER BY ID")
     fun getPhase(phase : String): DataSource.Factory<Int, ListPagerDBItem>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(listPagerDBItems: List<ListPagerDBItem>)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(listPagerDBItem: ListPagerDBItem?)
 
     @Update

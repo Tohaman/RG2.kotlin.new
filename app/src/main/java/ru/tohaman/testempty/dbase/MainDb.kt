@@ -16,7 +16,7 @@ import ru.tohaman.testempty.utils.ioThread
 В Database классе необходимо описать абстрактные методы для получения Dao объектов, которые нам понадобятся.
  */
 
-@Database(entities = [ListPagerDBItem::class], version = 1)
+@Database(entities = [ListPagerDBItem::class, CurrentPhase::class], version = 1)
 abstract class MainDb : RoomDatabase() {
 
     abstract fun listPagerDao(): ListPagerDao
