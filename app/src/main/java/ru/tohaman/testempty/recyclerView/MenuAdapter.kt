@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.dbase.ListPagerDBItem
+import ru.tohaman.testempty.dbase.MainDBItem
 
-class MenuAdapter(private val items: List<ListPagerDBItem>) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
+class MenuAdapter(private val items: List<MainDBItem>) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.main_menu_item, parent, false)
@@ -30,7 +30,7 @@ class MenuAdapter(private val items: List<ListPagerDBItem>) : RecyclerView.Adapt
         private val commentView = itemView.findViewById<TextView>(R.id.main_menu_comment)
         private val imageView = itemView.findViewById<ImageView>(R.id.main_menu_image)
 
-        fun bindTo(menuItem: ListPagerDBItem) {
+        fun bindTo(menuItem: MainDBItem) {
             titleView.text = menuItem.title
             commentView.text = menuItem.comment
             val icon = menuItem.icon

@@ -6,10 +6,10 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
-import ru.tohaman.testempty.dbase.ListPagerDBItem
+import ru.tohaman.testempty.dbase.PhaseItem
 
 class MainAdapter(private val onClickListener: OnClickListener) :
-        PagedListAdapter<ListPagerDBItem, MainAdapter.MenuViewHolder>(diffCallback) {
+        PagedListAdapter<PhaseItem, MainAdapter.MenuViewHolder>(diffCallback) {
 
     //создает ViewHolder и инициализирует views для списка
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
@@ -24,8 +24,8 @@ class MainAdapter(private val onClickListener: OnClickListener) :
         holder.bind(item, onClickListener)
     }
 
-    class MenuViewHolder private constructor(val binding: MainMenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListPagerDBItem, onClickListener: OnClickListener) {
+    class MenuViewHolder private constructor(private val binding: MainMenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: PhaseItem, onClickListener: OnClickListener) {
             val icon = item.icon
             binding.viewMenuItem = item
             //TODO разобраться как биндить прямо в xml
@@ -48,8 +48,8 @@ class MainAdapter(private val onClickListener: OnClickListener) :
     }
 
 
-    class OnClickListener(val clickListener: (ListPagerDBItem) -> Unit) {
-        fun onClick(menuItem: ListPagerDBItem) = clickListener(menuItem)
+    class OnClickListener(val clickListener: (PhaseItem) -> Unit) {
+        fun onClick(menuItem: PhaseItem) = clickListener(menuItem)
     }
 
     companion object {
@@ -64,11 +64,11 @@ class MainAdapter(private val onClickListener: OnClickListener) :
          * и тот же товар и надо определить изменился ли он. В этом случае DiffUtil вызывает метод
          * areContentsTheSame, чтобы определить, есть ли отличия между старым товаром и новым.
          */
-        private val diffCallback = object : DiffUtil.ItemCallback<ListPagerDBItem>() {
-            override fun areItemsTheSame(oldItem: ListPagerDBItem, newItem: ListPagerDBItem): Boolean =
+        private val diffCallback = object : DiffUtil.ItemCallback<PhaseItem>() {
+            override fun areItemsTheSame(oldItem: PhaseItem, newItem: PhaseItem): Boolean =
                 (oldItem.id == newItem.id) and (oldItem.phase == newItem.phase)
 
-            override fun areContentsTheSame(oldItem: ListPagerDBItem, newItem: ListPagerDBItem): Boolean =
+            override fun areContentsTheSame(oldItem: PhaseItem, newItem: PhaseItem): Boolean =
                 oldItem == newItem
         }
     }

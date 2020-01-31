@@ -16,8 +16,6 @@
 
 package ru.tohaman.testempty.utils
 
-import androidx.lifecycle.LiveData
-import ru.tohaman.testempty.dbase.ListPagerDBItem
 import java.util.concurrent.Executors
 
 private val IO_EXECUTOR = Executors.newSingleThreadExecutor()

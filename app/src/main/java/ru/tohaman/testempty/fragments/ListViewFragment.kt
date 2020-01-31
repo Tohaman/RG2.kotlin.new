@@ -9,16 +9,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.dbase.ListPagerDBItem
+import ru.tohaman.testempty.dbase.MainDBItem
+import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.recyclerView.MainAdapter
-import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.viewModel.MainViewModel
 
 
@@ -43,7 +41,7 @@ class ListViewFragment : Fragment() {
         //Подписываемся на LiveData из viewModel, для этого передаем два параметра
         //Первый - LifeCycleOwner, по которому LiveData определяет, надо отправлять в него данные или нет
         //Второй - callback, в который LiveData будет отправлять данные
-        val callback = Observer<PagedList<ListPagerDBItem>> {it -> adapter.submitList(it)}
+        val callback = Observer<PagedList<PhaseItem>> { it -> adapter.submitList(it)}
         viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
         //val callback = Observer<List<ListPagerDBItem>> { it -> rcv.adapter = MenuAdapter(it) }
         //viewModel.allItems.observe(viewLifecycleOwner, callback)
@@ -61,7 +59,7 @@ class ListViewFragment : Fragment() {
         return view
     }
 
-    private fun onItemClick(item: ListPagerDBItem) {
+    private fun onItemClick(item: PhaseItem) {
         Log.d("DEB", "ListFragment.onItemClick - $item")
         viewModel.onMainMenuItemClick(item)
     }

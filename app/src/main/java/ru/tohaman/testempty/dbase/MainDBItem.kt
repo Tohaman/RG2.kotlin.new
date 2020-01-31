@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity (tableName = "mainTable", primaryKeys = ["phase", "id"])
-data class ListPagerDBItem (
+data class MainDBItem (
     val phase: String,
     val id: Int,
     val title: String = "",
