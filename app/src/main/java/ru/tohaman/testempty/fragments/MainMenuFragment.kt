@@ -12,15 +12,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.recyclerView.MainAdapter
 import ru.tohaman.testempty.viewModel.MainViewModel
 
 
-class ListViewFragment : Fragment() {
+class MainMenuFragment : Fragment() {
     private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(
@@ -30,13 +30,12 @@ class ListViewFragment : Fragment() {
         val button = view.findViewById<Button>(R.id.next_button)
 
         val rcv = view.findViewById<RecyclerView>(R.id.menuList)
-        //rcv.layoutManager = LinearLayoutManager(context)
-        val adapter = MainAdapter(MainAdapter.OnClickListener {
-            onItemClick(it)
-        })
+        rcv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+        val adapter = MainAdapter(MainAdapter.OnClickListener { onMenuItemClick(it)})
         //val menuAdapter = MenuAdapter()
         rcv.adapter = adapter
         //rcv.adapter = menuAdapter
+
 
         //Подписываемся на LiveData из viewModel, для этого передаем два параметра
         //Первый - LifeCycleOwner, по которому LiveData определяет, надо отправлять в него данные или нет
@@ -59,7 +58,7 @@ class ListViewFragment : Fragment() {
         return view
     }
 
-    private fun onItemClick(item: PhaseItem) {
+    private fun onMenuItemClick(item: PhaseItem) {
         Log.d("DEB", "ListFragment.onItemClick - $item")
         viewModel.onMainMenuItemClick(item)
     }

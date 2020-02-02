@@ -81,8 +81,10 @@ abstract class MainDb : RoomDatabase() {
             val url = context.resources.getStringArray(urlArray)
             val cmnt = if (comment != 0) { context.resources.getStringArray(comment) } else { emptyComment}
             for (i in titles.indices) {
-                val listPager = MainDBItem(phase, i, titles[i], icon.getResourceId(i, 0),
-                    description.getResourceId(i, 0), url[i], cmnt[i])
+                val iconID = icon.getResourceId(i, 0)
+                val testIcon = R.drawable.axis_6
+                val descriptionID = description.getResourceId(i, 0)
+                val listPager = MainDBItem(phase, i, titles[i], iconID, descriptionID, url[i], cmnt[i])
                 get(context).listPagerDao().insert(listPager)
             }
             icon.recycle()

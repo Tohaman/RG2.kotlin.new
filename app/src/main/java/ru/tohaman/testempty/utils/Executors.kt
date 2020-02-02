@@ -16,6 +16,8 @@
 
 package ru.tohaman.testempty.utils
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import java.util.concurrent.Executors
 
 private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
@@ -25,4 +27,9 @@ private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
  */
 fun ioThread(f : () -> Unit) {
     IO_EXECUTOR.execute(f)
+}
+
+@BindingAdapter("android:src")
+fun setImageResource(imageView: ImageView, resource: Int) {
+    imageView.setImageResource(resource)
 }

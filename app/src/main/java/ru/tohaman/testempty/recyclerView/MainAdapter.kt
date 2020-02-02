@@ -13,7 +13,7 @@ class MainAdapter(private val onClickListener: OnClickListener) :
 
     //создает ViewHolder и инициализирует views для списка
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-
+        //TODO сделать выбор в зависимости от ViewType
         return MenuViewHolder.from(parent)
     }
 
@@ -24,16 +24,18 @@ class MainAdapter(private val onClickListener: OnClickListener) :
         holder.bind(item, onClickListener)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)?.urlOrType) {
+            "basic" -> 2
+            else -> 1
+        }
+    }
+
     class MenuViewHolder private constructor(private val binding: MainMenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PhaseItem, onClickListener: OnClickListener) {
-            val icon = item.icon
             binding.viewMenuItem = item
-            //TODO разобраться как биндить прямо в xml
-            binding.mainMenuImage.setImageResource(icon)
-            binding.mainMenuTitle.text = item.title
-            binding.mainMenuComment.text = item.comment
-
             binding.clickListener = onClickListener
+            //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }
 

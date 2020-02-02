@@ -27,7 +27,7 @@
             android:id="@+id/main_menu_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_icon_rg2"
+            android:src="@{viewMenuItem.icon}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -49,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Какой-то этап"
+                android:text="@{viewMenuItem.title}"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -58,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_margin_8"
                 tools:text="коммент к этапу"
+                android:text="@{viewMenuItem.comment}"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:singleLine="true"

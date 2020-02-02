@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listViewFragment"
-        android:name="ru.tohaman.testempty.fragments.ListViewFragment"
+        android:name="ru.tohaman.testempty.fragments.MainMenuFragment"
         android:label="fragment_list_view"
         tools:layout="@layout/fragment_list_view">
         <action
