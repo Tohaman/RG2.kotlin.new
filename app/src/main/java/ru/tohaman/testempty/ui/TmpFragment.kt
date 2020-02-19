@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.fragments
+package ru.tohaman.testempty.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

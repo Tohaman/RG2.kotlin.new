@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.activitys
+package ru.tohaman.testempty.ui
 
 import android.os.Bundle
 import androidx.preference.PreferenceManager

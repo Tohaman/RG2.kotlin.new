@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listViewFragment"
-        android:name="ru.tohaman.testempty.fragments.MainMenuFragment"
+        android:name="ru.tohaman.testempty.ui.mainMenu.MainMenuFragment"
         android:label="fragment_list_view"
         tools:layout="@layout/fragment_list_view">
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/tmpFragment"
-        android:name="ru.tohaman.testempty.fragments.TmpFragment"
+        android:name="ru.tohaman.testempty.ui.TmpFragment"
         android:label="fragment_tmp"
         tools:layout="@layout/fragment_tmp" >
         <action

@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.fragments
+package ru.tohaman.testempty.ui.bottomNavigation
 
 import android.content.Context
 import android.os.Bundle

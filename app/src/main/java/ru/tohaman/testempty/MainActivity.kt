@@ -1,15 +1,14 @@
 package ru.tohaman.testempty
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.tohaman.testempty.activitys.MyDefaultActivity
-import ru.tohaman.testempty.fragments.BottomNavigationDrawerFragment
+import ru.tohaman.testempty.ui.MyDefaultActivity
+import ru.tohaman.testempty.ui.bottomNavigation.BottomNavigationDrawerFragment
 
 class MainActivity : MyDefaultActivity() {
 
@@ -34,7 +33,8 @@ class MainActivity : MyDefaultActivity() {
             R.id.main_help -> toast(getString(R.string.main_help_clicked))
             R.id.main_settings -> toast(getString(R.string.main_settings_clicked))
             android.R.id.home -> {
-                val bottomNavDrawerFragment = BottomNavigationDrawerFragment()
+                val bottomNavDrawerFragment =
+                    BottomNavigationDrawerFragment()
                 bottomNavDrawerFragment.show(supportFragmentManager, bottomNavDrawerFragment.tag)
             }
         }

@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.fragments
+package ru.tohaman.testempty.ui.mainMenu
 
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.recyclerView.MainAdapter
+import ru.tohaman.testempty.utils.DebugTag.TAG
 import ru.tohaman.testempty.viewModel.MainViewModel
+import timber.log.Timber
 
 
 class MainMenuFragment : Fragment() {
@@ -59,7 +61,7 @@ class MainMenuFragment : Fragment() {
     }
 
     private fun onMenuItemClick(item: PhaseItem) {
-        Log.d("DEB", "ListFragment.onItemClick - $item")
+        Timber.tag(TAG).d("onItemClick - $item")
         viewModel.onMainMenuItemClick(item)
     }
 

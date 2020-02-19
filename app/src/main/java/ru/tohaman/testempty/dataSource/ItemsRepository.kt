@@ -1,10 +1,11 @@
-package ru.tohaman.testempty.dbase
+package ru.tohaman.testempty.dataSource
 
 import android.app.Application
 import androidx.paging.Config
 import androidx.paging.toLiveData
+import ru.tohaman.testempty.dbase.MainDBItem
+import ru.tohaman.testempty.dbase.mainDatabase
 import ru.tohaman.testempty.utils.ioThread
-import java.util.concurrent.Phaser
 
 /**
  * The Repository ist a simple Java class that abstracts the data layer from the rest of the app
@@ -15,9 +16,9 @@ import java.util.concurrent.Phaser
     asynchronously in ioThread
  */
 
-class ItemsRepository (app: Application){
+class ItemsRepository {
 
-    private val dao = MainDb.get(app).listPagerDao()
+    private val dao = mainDatabase.listPagerDao
     private var allItems  = dao.getAllItems()
 
     //fun getPhaseItems (phase: String) = dao.getPhase(phase).toLiveData(Config(30))

@@ -31,7 +31,8 @@ class MainAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-    class MenuViewHolder private constructor(private val binding: MainMenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MenuViewHolder private constructor(private val binding: MainMenuItemBinding)
+            : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PhaseItem, onClickListener: OnClickListener) {
             binding.viewMenuItem = item
             binding.clickListener = onClickListener
