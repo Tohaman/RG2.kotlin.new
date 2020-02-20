@@ -1,9 +1,12 @@
 package ru.tohaman.testempty.dataSource
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.paging.Config
+import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import ru.tohaman.testempty.dbase.MainDBItem
+import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.dbase.mainDatabase
 import ru.tohaman.testempty.utils.ioThread
 
@@ -16,16 +19,24 @@ import ru.tohaman.testempty.utils.ioThread
     asynchronously in ioThread
  */
 
-class ItemsRepository {
+class ItemsRepository : ItemDataSource {
 
     private val dao = mainDatabase.listPagerDao
     private var allItems  = dao.getAllItems()
 
+    override fun observePhase(phase: String): LiveData<List<MainDBItem>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getPhaseFromMain(phase: String): LiveData<List<MainDBItem>> {
+        return dao.getPhaseFromMain(phase)
+    }
+
     //fun getPhaseItems (phase: String) = dao.getPhase(phase).toLiveData(Config(30))
 
-    fun getAllItems() = dao.getAllItems()
+    override fun getAllItems() = dao.getAllItems()
 
-    fun getCurrentPhase() = dao.getCurrentPhase().toLiveData(Config(30))
+    override fun getCurrentPhase() = dao.getCurrentPhase().toLiveData(Config(30))
 
     fun insert(tableItem: MainDBItem) {
         ioThread { dao.insert(tableItem) }

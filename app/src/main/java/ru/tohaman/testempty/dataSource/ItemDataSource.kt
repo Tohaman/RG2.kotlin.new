@@ -9,7 +9,9 @@ interface ItemDataSource {
 
     fun observePhase(phase: String): LiveData<List<MainDBItem>>
 
-    fun getPhase(phase: String): LiveData<PagedList<PhaseItem>>
+    fun getCurrentPhase(): LiveData<PagedList<PhaseItem>>
 
-    fun getAllItems(): LiveData<MainDBItem>
+    fun getPhaseFromMain(phase: String): LiveData<List<MainDBItem>>
+
+    fun getAllItems(): LiveData<List<MainDBItem>>
 }
