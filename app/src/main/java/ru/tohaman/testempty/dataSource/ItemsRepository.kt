@@ -25,7 +25,7 @@ class ItemsRepository : ItemDataSource {
     private var allItems  = dao.getAllItems()
 
     override fun observePhase(phase: String): LiveData<List<MainDBItem>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return dao.observePhase(phase)
     }
 
     override fun getPhaseFromMain(phase: String): LiveData<List<MainDBItem>> {

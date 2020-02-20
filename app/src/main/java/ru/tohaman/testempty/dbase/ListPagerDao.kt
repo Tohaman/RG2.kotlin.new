@@ -26,6 +26,9 @@ interface ListPagerDao {
     fun getPhaseFromMain(phase : String): LiveData<List<MainDBItem>>
 
     @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
+    fun observePhase(phase : String): LiveData<List<MainDBItem>>
+
+    @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
     fun getPhase(phase : String): List<PhaseItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
