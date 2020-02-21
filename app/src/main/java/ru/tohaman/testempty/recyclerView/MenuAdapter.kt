@@ -3,38 +3,38 @@ package ru.tohaman.testempty.recyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.main_menu_item.view.*
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.MainDBItem
 
-class MenuAdapter(private val items: List<MainDBItem>) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
+class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
+
+    private var items: List<MainDBItem> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.main_menu_item, parent, false)
         return MenuHolder(itemView)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
         val currentItem = items[position]
         holder.bindTo(currentItem)
     }
 
-    class MenuHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleView = itemView.findViewById<TextView>(R.id.main_menu_title)
-        private val commentView = itemView.findViewById<TextView>(R.id.main_menu_comment)
-        private val imageView = itemView.findViewById<ImageView>(R.id.main_menu_image)
+    fun refreshItems(items : List<MainDBItem>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
 
-        fun bindTo(menuItem: MainDBItem) {
-            titleView.text = menuItem.title
-            commentView.text = menuItem.comment
+    class MenuHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bindTo(menuItem: MainDBItem) = with(itemView){
             val icon = menuItem.icon
-            imageView.setImageResource(icon)
+            main_menu_image.setImageResource(icon)
+            main_menu_title.text = menuItem.title
+            main_menu_comment.text = menuItem.comment
         }
     }
 
