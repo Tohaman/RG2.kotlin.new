@@ -60,6 +60,26 @@ class MainMenuFragment : Fragment() {
         return view
     }
 
+    /**
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //инициализируем адаптер и присваиваем его списку
+        val adapter = UserAdapter()
+        userList.layoutManager = LinearLayoutManager(this)
+        userList.adapter = adapter
+
+        //подписываем адаптер на изменения списка
+        userViewModel.getListUsers().observe(this, Observer {
+            it?.let {
+                adapter.refreshUsers(it)
+            }
+        })
+    }
+    */
+
+
     private fun onMenuItemClick(item: PhaseItem) {
         Timber.tag(TAG).d("onItemClick - $item")
         viewModel.onMainMenuItemClick(item)

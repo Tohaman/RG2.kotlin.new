@@ -22,10 +22,10 @@ interface ListPagerDao {
     @Query("SELECT * FROM $table WHERE phase = 'BEGIN'")
     fun getAllItems(): LiveData<List<MainDBItem>>
 
-    @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
+    @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
     fun getPhaseFromMain(phase : String): LiveData<List<MainDBItem>>
 
-    @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
+    @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
     fun observePhase(phase : String): LiveData<List<MainDBItem>>
 
     @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
