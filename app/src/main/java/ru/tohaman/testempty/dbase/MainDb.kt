@@ -70,13 +70,14 @@ abstract class MainDb : RoomDatabase() {
         fun fillLPinDB (context: Context) {
             // inserts in Room are executed on the current thread, so we insert in the background
             ioThread {
+                Timber.d ("FillDb with data")
                 mainDatabase.listPagerDao.deleteAllItems()
                 insertPhasesToMainTable(context)
-                insertCurrentPhases(context)
+                insertCurrentPhases()
             }
         }
 
-        private fun insertCurrentPhases(context: Context) {
+        private fun insertCurrentPhases() {
             mainDatabase.listPagerDao.deleteCurrentItems()
             val curPhaseList = mainDatabase.listPagerDao.getPhase("BEGIN")
             mainDatabase.listPagerDao.insertCurrentItems(curPhaseList)

@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.recyclerView.MainAdapter
+import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.utils.DebugTag.TAG
 import ru.tohaman.testempty.viewModel.MainViewModel
 import timber.log.Timber
@@ -33,26 +35,32 @@ class MainMenuFragment : Fragment() {
 
         val rcv = view.findViewById<RecyclerView>(R.id.menuList)
         rcv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-        val adapter = MainAdapter(MainAdapter.OnClickListener { onMenuItemClick(it)})
-        //val menuAdapter = MenuAdapter()
-        rcv.adapter = adapter
-        //rcv.adapter = menuAdapter
+        //val adapter = MainAdapter(MainAdapter.OnClickListener { onMenuItemClick(it)})
+        //rcv.adapter = adapter
+        val menuAdapter = MenuAdapter()
+        rcv.adapter = menuAdapter
 
 
         //Подписываемся на LiveData из viewModel, для этого передаем два параметра
         //Первый - LifeCycleOwner, по которому LiveData определяет, надо отправлять в него данные или нет
         //Второй - callback, в который LiveData будет отправлять данные
-        val callback = Observer<PagedList<PhaseItem>> { it -> adapter.submitList(it)}
-        viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
-        //val callback = Observer<List<ListPagerDBItem>> { it -> rcv.adapter = MenuAdapter(it) }
-        //viewModel.allItems.observe(viewLifecycleOwner, callback)
+        //val callback = Observer<PagedList<PhaseItem>> { it -> adapter.submitList(it)}
+        //viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
+
+        viewModel.allItems.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Timber.d ("$it")
+                menuAdapter.refreshItems(it)
+            }
+        })
 
 
         val nameObserver = Observer<String> { button.text = it }
         //viewModel.curItem.observe(this, nameObserver)
 
         view.findViewById<Button>(R.id.next_button).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
+            viewModel.onSomeButtonClick()
+            //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
         }
 
         //initTouches(rcv)
