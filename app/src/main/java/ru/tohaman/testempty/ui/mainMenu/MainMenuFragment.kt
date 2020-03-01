@@ -1,7 +1,6 @@
 package ru.tohaman.testempty.ui.mainMenu
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import androidx.paging.PagedList
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.dbase.PhaseItem
-import ru.tohaman.testempty.recyclerView.MainAdapter
 import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.utils.DebugTag.TAG
 import ru.tohaman.testempty.viewModel.MainViewModel
@@ -47,15 +43,13 @@ class MainMenuFragment : Fragment() {
         //val callback = Observer<PagedList<PhaseItem>> { it -> adapter.submitList(it)}
         //viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
 
-        viewModel.allItems.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                Timber.d ("$it")
-                menuAdapter.refreshItems(it)
-            }
-        })
+        viewModel.allItems.observe (viewLifecycleOwner) { value ->
+                Timber.d ("$value")
+                menuAdapter.refreshItems(value)
+        }
 
 
-        val nameObserver = Observer<String> { button.text = it }
+       val nameObserver = Observer<String> { button.text = it }
         //viewModel.curItem.observe(this, nameObserver)
 
         view.findViewById<Button>(R.id.next_button).setOnClickListener {

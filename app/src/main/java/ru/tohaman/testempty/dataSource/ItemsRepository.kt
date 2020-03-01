@@ -24,17 +24,20 @@ class ItemsRepository : ItemDataSource {
     private val dao = mainDatabase.listPagerDao
     private var allItems  = dao.getAllItems()
 
+
     override fun observePhase(phase: String): LiveData<List<MainDBItem>> {
         return dao.observePhase(phase)
     }
 
-    override fun getPhaseFromMain(phase: String): LiveData<List<MainDBItem>> {
+    override suspend fun getPhaseFromMain(phase: String): List<MainDBItem> {
         return dao.getPhaseFromMain(phase)
     }
 
     //fun getPhaseItems (phase: String) = dao.getPhase(phase).toLiveData(Config(30))
 
-    override fun getAllItems() = dao.getAllItems()
+    override suspend fun getAllItems() = dao.getAllItems()
+
+    fun getAllLiveDataItems() = dao.getAllLiveItems()
 
     override fun getCurrentPhase() = dao.getCurrentPhase().toLiveData(Config(30))
 

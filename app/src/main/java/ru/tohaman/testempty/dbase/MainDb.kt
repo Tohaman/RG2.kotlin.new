@@ -28,7 +28,7 @@ private fun buildDataBase(context: Context) = Room.databaseBuilder(
     DATABASE_NAME)
     .addCallback(object : RoomDatabase.Callback() {
         //TODO заменить на onCreate, чтобы пересоздавалась, только если еще нет, а не при каждом запуске
-        override fun onCreate(db: SupportSQLiteDatabase) {
+        override fun onOpen(db: SupportSQLiteDatabase) {
             Timber.tag(TAG).d ("ReCreate database!!! Fill with new data")
             MainDb.fillLPinDB(context)
         }
@@ -46,22 +46,22 @@ abstract class MainDb : RoomDatabase() {
     //.build()
 
     companion object {
-        private var instance: MainDb? = null
-        @Synchronized
-        fun gets(context: Context): MainDb {
-            if (instance == null) {
-                instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    MainDb::class.java, "base.db"
-                ).addCallback(object : RoomDatabase.Callback() {
-
-                        override fun onOpen(db: SupportSQLiteDatabase) {
-                            fillLPinDB(context.applicationContext)
-                        }
-                    }).build()
-            }
-            return instance!!
-        }
+//        private var instance: MainDb? = null
+//        @Synchronized
+//        fun gets(context: Context): MainDb {
+//            if (instance == null) {
+//                instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    MainDb::class.java, "base.db"
+//                ).addCallback(object : RoomDatabase.Callback() {
+//
+//                        override fun onOpen(db: SupportSQLiteDatabase) {
+//                            fillLPinDB(context.applicationContext)
+//                        }
+//                    }).build()
+//            }
+//            return instance!!
+//        }
 
         /**
          * fill database with list of SOME_DATA

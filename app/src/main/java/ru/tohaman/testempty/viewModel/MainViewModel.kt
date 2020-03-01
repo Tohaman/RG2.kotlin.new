@@ -20,11 +20,11 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
     var mainMenuItems = repository.getCurrentPhase()
 
     var ldMainMenuItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
-    var allItems = repository.getAllItems()
+    var allItems = repository.getAllLiveDataItems()
 
     init {
         curItem.value = "000000"
-        val tmp = repository.getAllItems()
+        //val tmp = repository.getAllItems()
         val tmp2 = allItems.value
         ldMainMenuItems.value = tmp2
 
@@ -39,14 +39,15 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
         Timber.d( "ViewModel.onMainMenuItemClick - $menuItem")
         curPhase = "MAIN3X3"
         repository.changePhase(curPhase)
-        ldMainMenuItems.value = repository.getPhaseFromMain(curPhase).value
+        //ldMainMenuItems =
+        allItems = repository.observePhase(curPhase)
         //repository.insert(MainDBItem("BEGIN",13,"37218368"))
         //mainMenuItems.value = repository.updateMenu(curPhase)
     }
 
     fun onSomeButtonClick() {
         Timber.d( "onSomeButtonClick")
-        allItems = repository.getPhaseFromMain("MAIN3X3")
+        allItems = repository.observePhase("MAIN3X3")
     }
 
 }

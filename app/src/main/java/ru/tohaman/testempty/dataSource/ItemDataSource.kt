@@ -11,7 +11,7 @@ interface ItemDataSource {
 
     fun getCurrentPhase(): LiveData<PagedList<PhaseItem>>
 
-    fun getPhaseFromMain(phase: String): LiveData<List<MainDBItem>>
+    suspend fun getPhaseFromMain(phase: String): List<MainDBItem>
 
-    fun getAllItems(): LiveData<List<MainDBItem>>
+    suspend fun getAllItems(): List<MainDBItem>
 }
