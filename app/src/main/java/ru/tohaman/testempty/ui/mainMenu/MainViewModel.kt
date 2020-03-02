@@ -1,15 +1,14 @@
-package ru.tohaman.testempty.viewModel
+package ru.tohaman.testempty.ui.mainMenu
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.dbase.PhaseItem
-import ru.tohaman.testempty.utils.DebugTag.TAG
-import ru.tohaman.testempty.utils.ioThread
 import timber.log.Timber
 
 
@@ -19,35 +18,42 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
     var curItem = MutableLiveData<String>()
     var mainMenuItems = repository.getCurrentPhase()
 
-    var ldMainMenuItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
+    var mutableMainMenuItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
     var allItems = repository.getAllLiveDataItems()
 
     init {
         curItem.value = "000000"
         //val tmp = repository.getAllItems()
-        val tmp2 = allItems.value
-        ldMainMenuItems.value = tmp2
-
-        ioThread {  }
+        //val tmp2 = allItems.value
+        //mutableMainMenuItems.value = tmp2
+        getCurrentPhase()
     }
 
     fun getCurItem() : LiveData<String> {return curItem}
 
-
+    fun getCurrentPhase() {
+        viewModelScope.launch() {
+            val list = repository.getPhaseFromMain(curPhase)
+            mutableMainMenuItems.postValue(list)
+        }
+    }
 
     fun onMainMenuItemClick(menuItem: PhaseItem) {
         Timber.d( "ViewModel.onMainMenuItemClick - $menuItem")
         curPhase = "MAIN3X3"
-        repository.changePhase(curPhase)
+        getCurrentPhase()
+        //repository.changePhase(curPhase)
         //ldMainMenuItems =
-        allItems = repository.observePhase(curPhase)
+        //allItems = repository.observePhase(curPhase)
         //repository.insert(MainDBItem("BEGIN",13,"37218368"))
         //mainMenuItems.value = repository.updateMenu(curPhase)
     }
 
     fun onSomeButtonClick() {
         Timber.d( "onSomeButtonClick")
-        allItems = repository.observePhase("MAIN3X3")
+        curPhase = "AXIS"
+        getCurrentPhase()
+        //allItems = repository.observePhase("MAIN3X3")
     }
 
 }

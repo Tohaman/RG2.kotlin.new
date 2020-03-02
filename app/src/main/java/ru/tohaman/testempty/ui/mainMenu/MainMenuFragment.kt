@@ -16,7 +16,6 @@ import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.utils.DebugTag.TAG
-import ru.tohaman.testempty.viewModel.MainViewModel
 import timber.log.Timber
 
 
@@ -43,7 +42,7 @@ class MainMenuFragment : Fragment() {
         //val callback = Observer<PagedList<PhaseItem>> { it -> adapter.submitList(it)}
         //viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
 
-        viewModel.allItems.observe (viewLifecycleOwner) { value ->
+        viewModel.mutableMainMenuItems.observe (viewLifecycleOwner) { value ->
                 Timber.d ("$value")
                 menuAdapter.refreshItems(value)
         }

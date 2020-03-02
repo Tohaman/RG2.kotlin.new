@@ -22,47 +22,23 @@ import ru.tohaman.testempty.utils.ioThread
 class ItemsRepository : ItemDataSource {
 
     private val dao = mainDatabase.listPagerDao
-    private var allItems  = dao.getAllItems()
+    //private var allItems  = dao.getAllItems()
 
 
-    override fun observePhase(phase: String): LiveData<List<MainDBItem>> {
+    fun observePhase(phase: String): LiveData<List<MainDBItem>> {
         return dao.observePhase(phase)
     }
 
-    override suspend fun getPhaseFromMain(phase: String): List<MainDBItem> {
+    suspend fun getPhaseFromMain(phase: String): List<MainDBItem> {
         return dao.getPhaseFromMain(phase)
     }
 
-    //fun getPhaseItems (phase: String) = dao.getPhase(phase).toLiveData(Config(30))
-
-    override suspend fun getAllItems() = dao.getAllItems()
-
     fun getAllLiveDataItems() = dao.getAllLiveItems()
 
-    override fun getCurrentPhase() = dao.getCurrentPhase().toLiveData(Config(30))
+    fun getCurrentPhase() = dao.getCurrentPhase().toLiveData(Config(30))
 
     fun insert(tableItem: MainDBItem) {
         ioThread { dao.insert(tableItem) }
-    }
-
-    fun remove(tableItem: MainDBItem) = ioThread {
-        dao.delete(tableItem)
-    }
-
-    fun deleteAllItems() = ioThread {
-        dao.deleteAllItems()
-    }
-
-    fun clearCurrentTable() = ioThread {
-        dao.deleteCurrentItems()
-    }
-
-    fun changePhase(phase: String) {
-        ioThread {
-            dao.deleteCurrentItems()
-            val curPhaseList = dao.getPhase(phase)
-            dao.insertCurrentItems(curPhaseList)
-        }
     }
 
 }

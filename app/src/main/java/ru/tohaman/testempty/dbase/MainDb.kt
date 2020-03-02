@@ -13,10 +13,14 @@ import ru.tohaman.testempty.utils.ioThread
 import timber.log.Timber
 
 /**
-Аннотацией Database помечаем основной класс по работе с базой данных. Этот класс должен быть
-абстрактным и наследовать RoomDatabase. В параметрах аннотации Database указываем, какие Entity будут использоваться, и версию базы.
-Для каждого Entity класса из списка entities будет создана таблица.
-В Database классе необходимо описать абстрактные методы для получения Dao объектов, которые нам понадобятся.
+ * Аннотацией Database помечаем основной класс по работе с базой данных. Этот класс должен быть
+ * абстрактным и наследовать RoomDatabase. В параметрах аннотации Database указываем, какие Entity будут использоваться, и версию базы.
+ * Для каждого Entity класса из списка entities будет создана таблица.
+ * В Database классе необходимо описать абстрактные методы для получения Dao объектов, которые нам понадобятся.
+ * Поскольку создание такого класса "дорогое удовольствие", то используем или синглтон (синглет)
+ * через создание в "companion object instance" или глабоальную переменную [mainDatabase]
+ * В аннотации entities задаем используемые в базе entities, по сути - таблицы.
+ * Room сравнивает поля в entities, и если они отличаются от текущих в базе, то нужна миграция, а соответственно повышение версии базы
  */
 
 private const val DATABASE_NAME = "base.db"
@@ -64,7 +68,7 @@ abstract class MainDb : RoomDatabase() {
 //        }
 
         /**
-         * fill database with list of SOME_DATA
+         * статические функции для заполнения базы
          */
 
         fun fillLPinDB (context: Context) {
@@ -84,32 +88,33 @@ abstract class MainDb : RoomDatabase() {
         }
 
         private fun insertPhasesToMainTable(context: Context) {
-            //subMenu
+            //subMenus (пункты меню)
+            phaseInit("G2F", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
             phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
-            //Phases
+            //Phases (обучалки)
+            phaseInit("AXIS", R.array.axis_title, R.array.axis_icon, R.array.axis_descr, R.array.axis_url, context)
             phaseInit("BEGIN", R.array.begin_title, R.array.begin_icon, R.array.begin_descr, R.array.begin_url, context)
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
         }
 
 
         // Инициализация фазы, с заданными массивами Заголовков, Иконок, Описаний, ютуб-ссылок
-        private fun phaseInit(phase: String, titleArray: Int, iconArray: Int, descrArray: Int, urlArray: Int, context: Context, comment : Int = 0) {
+        private fun phaseInit(phase: String, titleArray: Int, iconArray: Int, descriptionArray: Int, urlArray: Int, context: Context, comment : Int = 0) {
             val emptyComment = Array (100) {""}
             val titles =  context.resources.getStringArray(titleArray)
-            val icon = context.resources.obtainTypedArray (iconArray)
-            val description = context.resources.obtainTypedArray (descrArray)
-            val url = context.resources.getStringArray(urlArray)
-            val cmnt = if (comment != 0) { context.resources.getStringArray(comment) } else { emptyComment}
+            val icons = context.resources.obtainTypedArray (iconArray)
+            val descriptions = context.resources.obtainTypedArray (descriptionArray)
+            val urls = context.resources.getStringArray(urlArray)
+            val comments = if (comment != 0) { context.resources.getStringArray(comment) } else { emptyComment}
             for (i in titles.indices) {
-                val iconID = icon.getResourceId(i, 0)
-                val testIcon = R.drawable.axis_6
-                val descriptionID = description.getResourceId(i, 0)
-                val listPager = MainDBItem(phase, i, titles[i], iconID, descriptionID, url[i], cmnt[i])
+                val defaultIcon = R.drawable.ic_alert
+                val iconID = icons.getResourceId(i, defaultIcon)
+                val descriptionID = descriptions.getResourceId(i, 0)
+                val listPager = MainDBItem(phase, i, titles[i], iconID, descriptionID, urls[i], comments[i])
                 mainDatabase.listPagerDao.insert(listPager)
             }
-            icon.recycle()
-            description.recycle()
-
+            icons.recycle()
+            descriptions.recycle()
         }
 
     }

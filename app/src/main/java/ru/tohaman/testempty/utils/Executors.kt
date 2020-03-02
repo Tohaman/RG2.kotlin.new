@@ -24,6 +24,7 @@ private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
 
 /**
  * Utility method to run blocks on a dedicated background thread, used for io/database work.
+ * Метод для выполнения блока (лямбды) в отдельном потоке (Thread)
  */
 fun ioThread(f : () -> Unit) {
     IO_EXECUTOR.execute(f)

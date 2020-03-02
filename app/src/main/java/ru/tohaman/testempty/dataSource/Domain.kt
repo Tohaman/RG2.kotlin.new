@@ -13,7 +13,6 @@ internal fun MutableLiveData<Application>.getApplication():Application = value!!
 object Domain {
 
     fun integrateWith(application: Application) {
-
         applicationLiveData.value = application
     }
 
