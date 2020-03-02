@@ -89,7 +89,7 @@ abstract class MainDb : RoomDatabase() {
 
         private fun insertPhasesToMainTable(context: Context) {
             //subMenus (пункты меню)
-            phaseInit("G2F", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
+            phaseInit("G2F", R.array.g2f_title, R.array.g2f_icon, R.array.g2f_descr, R.array.g2f_url, context)
             phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
             //Phases (обучалки)
             phaseInit("AXIS", R.array.axis_title, R.array.axis_icon, R.array.axis_descr, R.array.axis_url, context)

@@ -9,12 +9,10 @@ import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.MainDBItem
-import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.utils.DebugTag.TAG
 import timber.log.Timber
@@ -50,62 +48,18 @@ class MainMenuFragment : Fragment() {
 
 
        val nameObserver = Observer<String> { button.text = it }
-        //viewModel.curItem.observe(this, nameObserver)
+       viewModel.curItem.observe(viewLifecycleOwner, nameObserver)
 
         button.setOnClickListener {
             viewModel.onSomeButtonClick()
             //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
         }
 
-        //initTouches(rcv)
-
         return view
     }
-
-    /**
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        //инициализируем адаптер и присваиваем его списку
-        val adapter = UserAdapter()
-        userList.layoutManager = LinearLayoutManager(this)
-        userList.adapter = adapter
-
-        //подписываем адаптер на изменения списка
-        userViewModel.getListUsers().observe(this, Observer {
-            it?.let {
-                adapter.refreshUsers(it)
-            }
-        })
-    }
-    */
-
 
     private fun onMenuItemClick(item: MainDBItem) {
         Timber.tag(TAG).d("onItemClick - $item")
         viewModel.onMainMenuItemClick(item)
     }
-
-    private fun initTouches(rcv:RecyclerView) {
-        ItemTouchHelper(object : ItemTouchHelper.Callback() {
-            override fun getMovementFlags(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ): Int = makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
-
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean = false
-
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-        }).attachToRecyclerView(rcv)
-    }
-
 }

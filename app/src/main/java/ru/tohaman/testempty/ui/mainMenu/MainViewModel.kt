@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.ui.mainMenu
 
 import android.app.Application
+import android.provider.Settings.Global.getString
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +15,8 @@ import timber.log.Timber
 
 class MainViewModel(app: Application) : AndroidViewModel (app) {
     private val repository = ItemsRepository()
-    var curPhase = "BEGIN"
+    private val ctx = app.applicationContext
+    var curPhase = "MAIN3X3"
     var curItem = MutableLiveData<String>()
     var mainMenuItems = repository.getCurrentPhase()
 
@@ -22,38 +24,27 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
     var allItems = repository.getAllLiveDataItems()
 
     init {
-        curItem.value = "000000"
-        //val tmp = repository.getAllItems()
-        //val tmp2 = allItems.value
-        //mutableMainMenuItems.value = tmp2
         getCurrentPhase()
     }
-
-    fun getCurItem() : LiveData<String> {return curItem}
 
     fun getCurrentPhase() {
         viewModelScope.launch() {
             val list = repository.getPhaseFromMain(curPhase)
+            curItem.postValue(curPhase)
             mutableMainMenuItems.postValue(list)
         }
     }
 
     fun onMainMenuItemClick(menuItem: MainDBItem) {
         Timber.d( "ViewModel.onMainMenuItemClick - $menuItem")
-        curPhase = "MAIN3X3"
+        curPhase = ctx.getString(menuItem.description)
         getCurrentPhase()
-        //repository.changePhase(curPhase)
-        //ldMainMenuItems =
-        //allItems = repository.observePhase(curPhase)
-        //repository.insert(MainDBItem("BEGIN",13,"37218368"))
-        //mainMenuItems.value = repository.updateMenu(curPhase)
     }
 
     fun onSomeButtonClick() {
-        Timber.d( "onSomeButtonClick")
-        curPhase = "AXIS"
+        Timber.d( "onSomeButtonClick - нажали кнопку для проверки какого-то действия")
+        curPhase = "MAIN3X3"
         getCurrentPhase()
-        //allItems = repository.observePhase("MAIN3X3")
     }
 
 }
