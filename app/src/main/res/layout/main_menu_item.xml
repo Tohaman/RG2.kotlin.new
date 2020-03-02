@@ -7,11 +7,11 @@
     <data>
         <variable
             name="viewMenuItem"
-            type="ru.tohaman.testempty.dbase.PhaseItem" />
+            type="ru.tohaman.testempty.dbase.MainDBItem" />
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.recyclerView.MainAdapter.OnClickListener" />
+            type="ru.tohaman.testempty.recyclerView.MenuAdapter.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

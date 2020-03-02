@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.utils.DebugTag.TAG
@@ -32,7 +33,7 @@ class MainMenuFragment : Fragment() {
         rcv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
         //val adapter = MainAdapter(MainAdapter.OnClickListener { onMenuItemClick(it)})
         //rcv.adapter = adapter
-        val menuAdapter = MenuAdapter()
+        val menuAdapter = MenuAdapter(MenuAdapter.OnClickListener { onMenuItemClick(it)})
         rcv.adapter = menuAdapter
 
 
@@ -51,7 +52,7 @@ class MainMenuFragment : Fragment() {
        val nameObserver = Observer<String> { button.text = it }
         //viewModel.curItem.observe(this, nameObserver)
 
-        view.findViewById<Button>(R.id.next_button).setOnClickListener {
+        button.setOnClickListener {
             viewModel.onSomeButtonClick()
             //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
         }
@@ -81,7 +82,7 @@ class MainMenuFragment : Fragment() {
     */
 
 
-    private fun onMenuItemClick(item: PhaseItem) {
+    private fun onMenuItemClick(item: MainDBItem) {
         Timber.tag(TAG).d("onItemClick - $item")
         viewModel.onMainMenuItemClick(item)
     }

@@ -34,8 +34,9 @@ class MainAdapter(private val onClickListener: OnClickListener) :
     class MenuViewHolder private constructor(private val binding: MainMenuItemBinding)
             : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PhaseItem, onClickListener: OnClickListener) {
-            binding.viewMenuItem = item
-            binding.clickListener = onClickListener
+            //Временно комментирует, т.к. в биндинге переменные другого типа (другого адаптера MenuAdapter)
+            //binding.viewMenuItem = item
+            //binding.clickListener = onClickListener
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }

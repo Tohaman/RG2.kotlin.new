@@ -38,7 +38,7 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
         }
     }
 
-    fun onMainMenuItemClick(menuItem: PhaseItem) {
+    fun onMainMenuItemClick(menuItem: MainDBItem) {
         Timber.d( "ViewModel.onMainMenuItemClick - $menuItem")
         curPhase = "MAIN3X3"
         getCurrentPhase()

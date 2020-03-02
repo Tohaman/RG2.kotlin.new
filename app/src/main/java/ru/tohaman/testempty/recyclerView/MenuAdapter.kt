@@ -4,24 +4,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.main_menu_item.view.*
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.databinding.MainMenuItemBinding
 import ru.tohaman.testempty.dbase.MainDBItem
+import ru.tohaman.testempty.dbase.PhaseItem
 
-class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
-
+class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
+    //тут храним список, который надо отобразить
     private var items: List<MainDBItem> = ArrayList()
 
+    //создает ViewHolder и инициализирует views для списка
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.main_menu_item, parent, false)
-        return MenuHolder(itemView)
+        return MenuHolder.from(parent)
     }
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
-        val currentItem = items[position]
-        holder.bindTo(currentItem)
+        //тут обновляем данные ячейки (вызываем биндер холдера) передаем туда MainDBItem и onClickListener
+        val item = items[position]
+        holder.bind(item, onClickListener)
     }
 
     fun refreshItems(items : List<MainDBItem>) {
@@ -29,12 +31,26 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
         notifyDataSetChanged()
     }
 
-    class MenuHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindTo(menuItem: MainDBItem) = with(itemView){
-            val icon = menuItem.icon
-            main_menu_image.setImageResource(icon)
-            main_menu_title.text = menuItem.title
-            main_menu_comment.text = menuItem.comment
+    class OnClickListener(val clickListener: (MainDBItem) -> Unit) {
+        fun onClick(menuItem: MainDBItem) = clickListener(menuItem)
+    }
+
+    class MenuHolder private constructor(private val binding: MainMenuItemBinding)
+            : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: MainDBItem, onClickListener: OnClickListener) {
+            binding.viewMenuItem = item
+            binding.clickListener = onClickListener
+            //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup) : MenuHolder {
+                val inflater = LayoutInflater.from(parent.context)
+                val binding =  MainMenuItemBinding.inflate(inflater, parent, false)
+
+                return MenuAdapter.MenuHolder(binding)
+            }
         }
     }
 
