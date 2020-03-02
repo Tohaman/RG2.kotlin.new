@@ -9,6 +9,7 @@ import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.dbase.PhaseItem
 import ru.tohaman.testempty.dbase.mainDatabase
 import ru.tohaman.testempty.utils.ioThread
+import timber.log.Timber
 
 /**
  * The Repository ist a simple Java class that abstracts the data layer from the rest of the app
@@ -30,6 +31,7 @@ class ItemsRepository : ItemDataSource {
     }
 
     suspend fun getPhaseFromMain(phase: String): List<MainDBItem> {
+        Timber.d ("getPhaseFromMain with $phase")
         return dao.getPhaseFromMain(phase)
     }
 
@@ -37,8 +39,8 @@ class ItemsRepository : ItemDataSource {
 
     fun getCurrentPhase() = dao.getCurrentPhase().toLiveData(Config(30))
 
-    fun insert(tableItem: MainDBItem) {
-        ioThread { dao.insert(tableItem) }
+    suspend fun insert(tableItem: MainDBItem) {
+         dao.insert(tableItem)
     }
 
 }

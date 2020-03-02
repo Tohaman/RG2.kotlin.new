@@ -1,15 +1,15 @@
 package ru.tohaman.testempty.dbase
 
 import android.content.Context
+import android.provider.Contacts
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import kotlinx.coroutines.*
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.applicationLiveData
 import ru.tohaman.testempty.dataSource.getApplication
-import ru.tohaman.testempty.utils.DebugTag.TAG
-import ru.tohaman.testempty.utils.ioThread
 import timber.log.Timber
 
 /**
@@ -27,16 +27,7 @@ private const val DATABASE_NAME = "base.db"
 
 val mainDatabase: MainDb by lazy { buildDataBase(applicationLiveData.getApplication())}
 
-private fun buildDataBase(context: Context) = Room.databaseBuilder(
-    context, MainDb::class.java,
-    DATABASE_NAME)
-    .addCallback(object : RoomDatabase.Callback() {
-        //TODO заменить на onCreate, чтобы пересоздавалась, только если еще нет, а не при каждом запуске
-        override fun onOpen(db: SupportSQLiteDatabase) {
-            Timber.tag(TAG).d ("ReCreate database!!! Fill with new data")
-            MainDb.fillLPinDB(context)
-        }
-    }).build()
+private fun buildDataBase(context: Context) = MainDb.get(context)
 
 
 @Database(entities = [MainDBItem::class, PhaseItem::class], version = 1)
@@ -50,44 +41,47 @@ abstract class MainDb : RoomDatabase() {
     //.build()
 
     companion object {
-//        private var instance: MainDb? = null
-//        @Synchronized
-//        fun gets(context: Context): MainDb {
-//            if (instance == null) {
-//                instance = Room.databaseBuilder(
-//                    context.applicationContext,
-//                    MainDb::class.java, "base.db"
-//                ).addCallback(object : RoomDatabase.Callback() {
-//
-//                        override fun onOpen(db: SupportSQLiteDatabase) {
-//                            fillLPinDB(context.applicationContext)
-//                        }
-//                    }).build()
-//            }
-//            return instance!!
-//        }
+        private var instance: MainDb? = null
+        @Synchronized
+        fun get(context: Context): MainDb {
+            if (instance == null) {
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    MainDb::class.java, "base.db"
+                ).addCallback(object : RoomDatabase.Callback() {
+
+                        override fun onOpen(db: SupportSQLiteDatabase) {
+                            fillDB(context.applicationContext)
+                        }
+                    }).build()
+            }
+            return instance!!
+        }
 
         /**
          * статические функции для заполнения базы
          */
 
-        fun fillLPinDB (context: Context) {
+        fun fillDB (context: Context) {
             // inserts in Room are executed on the current thread, so we insert in the background
-            ioThread {
+            GlobalScope.launch {
                 Timber.d ("FillDb with data")
                 mainDatabase.listPagerDao.deleteAllItems()
+                Timber.d ("AllItems in base Deleted")
                 insertPhasesToMainTable(context)
+                Timber.d ("MainTable Created")
                 insertCurrentPhases()
+                Timber.d ("База создана")
             }
         }
 
-        private fun insertCurrentPhases() {
+        private suspend fun insertCurrentPhases() {
             mainDatabase.listPagerDao.deleteCurrentItems()
             val curPhaseList = mainDatabase.listPagerDao.getPhase("BEGIN")
             mainDatabase.listPagerDao.insertCurrentItems(curPhaseList)
         }
 
-        private fun insertPhasesToMainTable(context: Context) {
+        private suspend fun insertPhasesToMainTable(context: Context) {
             //subMenus (пункты меню)
             phaseInit("G2F", R.array.g2f_title, R.array.g2f_icon, R.array.g2f_descr, R.array.g2f_url, context)
             phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
@@ -99,7 +93,7 @@ abstract class MainDb : RoomDatabase() {
 
 
         // Инициализация фазы, с заданными массивами Заголовков, Иконок, Описаний, ютуб-ссылок
-        private fun phaseInit(phase: String, titleArray: Int, iconArray: Int, descriptionArray: Int, urlArray: Int, context: Context, comment : Int = 0) {
+        private suspend fun phaseInit(phase: String, titleArray: Int, iconArray: Int, descriptionArray: Int, urlArray: Int, context: Context, comment : Int = 0) {
             val emptyComment = Array (100) {""}
             val titles =  context.resources.getStringArray(titleArray)
             val icons = context.resources.obtainTypedArray (iconArray)

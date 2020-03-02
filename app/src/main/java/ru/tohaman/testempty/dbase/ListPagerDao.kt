@@ -39,10 +39,10 @@ interface ListPagerDao {
     fun getPhase(phase : String): List<PhaseItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(mainDBItems: List<MainDBItem>)
+    suspend fun insert(mainDBItems: List<MainDBItem>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(mainDBItem: MainDBItem?)
+    suspend fun insert(mainDBItem: MainDBItem?)
 
     @Update
     fun update(mainDBItem: MainDBItem?)
@@ -51,15 +51,15 @@ interface ListPagerDao {
     fun delete(mainDBItem: MainDBItem?)
 
     @Query("DELETE FROM $table")
-    fun deleteAllItems()
+    suspend fun deleteAllItems()
 
     @Query("SELECT * FROM $curTable")
     fun getCurrentPhase(): DataSource.Factory<Int, PhaseItem>
 
     @Query ("DELETE FROM $curTable")
-    fun deleteCurrentItems()
+    suspend fun deleteCurrentItems()
 
     @Insert
-    fun insertCurrentItems(phaseItems: List<PhaseItem>)
+    suspend fun insertCurrentItems(phaseItems: List<PhaseItem>)
 
 }
