@@ -1,15 +1,13 @@
 package ru.tohaman.testempty.ui.mainMenu
 
 import android.app.Application
-import android.provider.Settings.Global.getString
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.MainDBItem
-import ru.tohaman.testempty.dbase.PhaseItem
+import ru.tohaman.testempty.utils.DebugTag.TAG
 import timber.log.Timber
 
 
@@ -36,13 +34,13 @@ class MainViewModel(app: Application) : AndroidViewModel (app) {
     }
 
     fun onMainMenuItemClick(menuItem: MainDBItem) {
-        Timber.d( "ViewModel.onMainMenuItemClick - $menuItem")
+        Timber.tag(TAG).d( "ViewModel.onMainMenuItemClick - $menuItem")
         curPhase = ctx.getString(menuItem.description)
         getCurrentPhase()
     }
 
     fun onSomeButtonClick() {
-        Timber.d( "onSomeButtonClick - нажали кнопку для проверки какого-то действия")
+        Timber.tag(TAG).d( "onSomeButtonClick - нажали кнопку для проверки какого-то действия")
         curPhase = "MAIN3X3"
         getCurrentPhase()
     }

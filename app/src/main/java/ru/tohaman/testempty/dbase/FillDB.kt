@@ -3,6 +3,7 @@ package ru.tohaman.testempty.dbase
 import android.content.Context
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.ItemsRepository
+import ru.tohaman.testempty.utils.DebugTag.TAG
 import timber.log.Timber
 
 class FillDB {
@@ -10,11 +11,11 @@ class FillDB {
         private val repository = ItemsRepository()
         suspend fun reCreateDB(context: Context) {
             repository.clearMainTable()
-            Timber.d("Основная таблица очищена")
+            Timber.tag(TAG).d("Основная таблица очищена")
             insertPhasesToMainTable(context)
-            Timber.d("Основная таблица заполнена")
+            Timber.tag(TAG).d("Основная таблица заполнена")
             insertCurrentPhases()
-            Timber.d("Доп.таблица заполнена. База создана")
+            Timber.tag(TAG).d("Доп.таблица заполнена. База создана")
         }
 
         //TODO Возможно лишняя таблица, проверить и удалить, если будет не нужна

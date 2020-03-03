@@ -41,9 +41,9 @@ class MainMenuFragment : Fragment() {
         //val callback = Observer<PagedList<PhaseItem>> { it -> adapter.submitList(it)}
         //viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
 
-        viewModel.mutableMainMenuItems.observe (viewLifecycleOwner) { value ->
-                Timber.d ("$value")
-                menuAdapter.refreshItems(value)
+        viewModel.mutableMainMenuItems.observe(viewLifecycleOwner) { value ->
+            Timber.tag(TAG).d("$value")
+            menuAdapter.refreshItems(value)
         }
 
 

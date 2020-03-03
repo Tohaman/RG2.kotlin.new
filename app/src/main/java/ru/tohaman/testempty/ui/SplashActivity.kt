@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.FillDB
-import ru.tohaman.testempty.dbase.mainDatabase
 import timber.log.Timber
+import ru.tohaman.testempty.utils.DebugTag.TAG
 
 
 class SplashActivity : AppCompatActivity() {
@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun routeToAppropriatePage() {
-        Timber.d("Запускаем основную Activity")
+        Timber.tag(TAG).d("Запускаем основную Activity")
         val intent = Intent(this, MainActivity::class.java)
         //Тут можно сделать запуск какой-то Activity в зависимости от какого-то параметра
 //        when {
@@ -38,7 +38,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun dbInit(context: Context) {
-        Timber.d("Инициализируем БД")
+        Timber.tag(TAG).d("Инициализируем БД")
         //Чтобы дождаться завершения выполнения инициализации, запустим в runBlocking,
         //а поскольку нельзя к БД Room обращаться в основном потоке, то запустим корутину в IO потоке
         runBlocking (Dispatchers.IO){
