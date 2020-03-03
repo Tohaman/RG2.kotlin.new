@@ -12,7 +12,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-
+    <!-- Кастомная AppTheme.Launcher. Устанавливает в качестве фона drawable -->
     <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@drawable/logo</item>
     </style>

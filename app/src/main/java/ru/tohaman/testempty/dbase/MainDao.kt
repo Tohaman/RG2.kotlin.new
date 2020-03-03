@@ -16,15 +16,12 @@ import androidx.room.*
 */
 
 @Dao
-interface ListPagerDao {
+interface MainDao {
 
     companion object {
         const val table: String = "mainTable"
         const val curTable: String = "currentPhase"
     }
-
-//    @Query("SELECT * FROM $table")
-//    suspend fun getAllItems() : List<MainDBItem>
 
     @Query("SELECT * FROM $table WHERE phase = 'BEGIN'")
     fun getAllLiveItems() : LiveData<List<MainDBItem>>
@@ -36,7 +33,7 @@ interface ListPagerDao {
     fun observePhase(phase : String) : LiveData<List<MainDBItem>>
 
     @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
-    fun getPhase(phase : String): List<PhaseItem>
+    suspend fun getPhase(phase : String): List<PhaseItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(mainDBItems: List<MainDBItem>)
@@ -52,6 +49,8 @@ interface ListPagerDao {
 
     @Query("DELETE FROM $table")
     suspend fun deleteAllItems()
+
+    //Запросы для CurrentTable
 
     @Query("SELECT * FROM $curTable")
     fun getCurrentPhase(): DataSource.Factory<Int, PhaseItem>

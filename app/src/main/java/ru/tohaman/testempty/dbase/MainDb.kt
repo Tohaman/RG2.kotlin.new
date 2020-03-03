@@ -1,7 +1,6 @@
 package ru.tohaman.testempty.dbase
 
 import android.content.Context
-import android.provider.Contacts
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -33,7 +32,7 @@ private fun buildDataBase(context: Context) = MainDb.get(context)
 @Database(entities = [MainDBItem::class, PhaseItem::class], version = 1)
 abstract class MainDb : RoomDatabase() {
 
-    abstract val listPagerDao : ListPagerDao
+    abstract val dao : MainDao
 
     //TODO настроить компаньон объект, чтобы при создании базы, она заполнялась какими-то значениями, можно брать из произвольного файла
     //Room.databaseBuilder(appContext, AppDatabase.class, "Sample.db")
@@ -48,69 +47,14 @@ abstract class MainDb : RoomDatabase() {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
                     MainDb::class.java, "base.db"
-                ).addCallback(object : RoomDatabase.Callback() {
-
-                        override fun onOpen(db: SupportSQLiteDatabase) {
-                            fillDB(context.applicationContext)
-                        }
-                    }).build()
+                )
+//                    .addCallback(object : RoomDatabase.Callback() {
+//                        override fun onOpen(db: SupportSQLiteDatabase) { fillDB(context.applicationContext) }
+//                    })
+                    .build()
             }
             return instance!!
         }
-
-        /**
-         * статические функции для заполнения базы
-         */
-
-        fun fillDB (context: Context) {
-            // inserts in Room are executed on the current thread, so we insert in the background
-            GlobalScope.launch {
-                Timber.d ("FillDb with data")
-                mainDatabase.listPagerDao.deleteAllItems()
-                Timber.d ("AllItems in base Deleted")
-                insertPhasesToMainTable(context)
-                Timber.d ("MainTable Created")
-                insertCurrentPhases()
-                Timber.d ("База создана")
-            }
-        }
-
-        private suspend fun insertCurrentPhases() {
-            mainDatabase.listPagerDao.deleteCurrentItems()
-            val curPhaseList = mainDatabase.listPagerDao.getPhase("BEGIN")
-            mainDatabase.listPagerDao.insertCurrentItems(curPhaseList)
-        }
-
-        private suspend fun insertPhasesToMainTable(context: Context) {
-            //subMenus (пункты меню)
-            phaseInit("G2F", R.array.g2f_title, R.array.g2f_icon, R.array.g2f_descr, R.array.g2f_url, context)
-            phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
-            //Phases (обучалки)
-            phaseInit("AXIS", R.array.axis_title, R.array.axis_icon, R.array.axis_descr, R.array.axis_url, context)
-            phaseInit("BEGIN", R.array.begin_title, R.array.begin_icon, R.array.begin_descr, R.array.begin_url, context)
-            phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
-        }
-
-
-        // Инициализация фазы, с заданными массивами Заголовков, Иконок, Описаний, ютуб-ссылок
-        private suspend fun phaseInit(phase: String, titleArray: Int, iconArray: Int, descriptionArray: Int, urlArray: Int, context: Context, comment : Int = 0) {
-            val emptyComment = Array (100) {""}
-            val titles =  context.resources.getStringArray(titleArray)
-            val icons = context.resources.obtainTypedArray (iconArray)
-            val descriptions = context.resources.obtainTypedArray (descriptionArray)
-            val urls = context.resources.getStringArray(urlArray)
-            val comments = if (comment != 0) { context.resources.getStringArray(comment) } else { emptyComment}
-            for (i in titles.indices) {
-                val defaultIcon = R.drawable.ic_alert
-                val iconID = icons.getResourceId(i, defaultIcon)
-                val descriptionID = descriptions.getResourceId(i, 0)
-                val listPager = MainDBItem(phase, i, titles[i], iconID, descriptionID, urls[i], comments[i])
-                mainDatabase.listPagerDao.insert(listPager)
-            }
-            icons.recycle()
-            descriptions.recycle()
-        }
-
     }
 
 }
