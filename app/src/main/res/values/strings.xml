@@ -8,8 +8,8 @@
     <string name="tmpTwo">Two</string>
     <string name="next">Next</string>
 
-    <string name="action_search">Поиск</string>
-    <string name="action_help">Помощь</string>
-    <string name="action_favorite">Избранное</string>
+    <string name="action_info">Инфо</string>
+    <string name="action_learn">Обучение</string>
+    <string name="action_games">Мини игры</string>
     <string name="main_settings">Настройки</string>
 </resources>

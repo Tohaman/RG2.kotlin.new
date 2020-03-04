@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.ui.mainMenu
+package ru.tohaman.testempty.ui.learn
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.recyclerView.MenuAdapter
-import ru.tohaman.testempty.utils.DebugTag.TAG
+import ru.tohaman.testempty.DebugTag.TAG
 import timber.log.Timber
 
 
-class MainMenuFragment : Fragment() {
-    private val viewModel by viewModels<MainViewModel>()
+class LearnFragment : Fragment() {
+    private val viewModel by viewModels<LearnModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

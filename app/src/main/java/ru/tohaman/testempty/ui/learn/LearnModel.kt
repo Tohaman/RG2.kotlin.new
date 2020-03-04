@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.ui.mainMenu
+package ru.tohaman.testempty.ui.learn
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.MainDBItem
-import ru.tohaman.testempty.utils.DebugTag.TAG
+import ru.tohaman.testempty.DebugTag.TAG
 import timber.log.Timber
 
 
-class MainViewModel(app: Application) : AndroidViewModel (app) {
+class LearnModel(app: Application) : AndroidViewModel (app) {
     private val repository = ItemsRepository()
     private val ctx = app.applicationContext
     var curPhase = "MAIN3X3"

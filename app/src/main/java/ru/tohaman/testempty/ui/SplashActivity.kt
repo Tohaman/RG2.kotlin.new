@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.FillDB
 import timber.log.Timber
-import ru.tohaman.testempty.utils.DebugTag.TAG
+import ru.tohaman.testempty.DebugTag.TAG
 
 
 class SplashActivity : AppCompatActivity() {

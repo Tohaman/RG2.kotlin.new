@@ -3,7 +3,7 @@ package ru.tohaman.testempty.dbase
 import android.content.Context
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.ItemsRepository
-import ru.tohaman.testempty.utils.DebugTag.TAG
+import ru.tohaman.testempty.DebugTag.TAG
 import timber.log.Timber
 
 class FillDB {

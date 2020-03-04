@@ -4,8 +4,8 @@
     <string name="nav2_clicked">Выбран 3х3</string>
     <string name="nav3_clicked">Выбраны модификации 3х3</string>
 
-    <string name="fav_clicked">Favourite pressed</string>
-    <string name="main_help_clicked">Help button pressed</string>
+    <string name="learn_clicked">Learn pressed</string>
+    <string name="info_clicked">Info pressed</string>
     <string name="main_settings_clicked">Выбран пункт Настройки</string>
-    <string name="search_clicked">Search pressed</string>
+    <string name="main_games_clicked">Games pressed</string>
 </resources>

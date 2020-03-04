@@ -4,27 +4,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/main_search"
-        android:icon="@drawable/ic_menu_search"
-        android:title="@string/action_search"
-        app:showAsAction="always"/>
+        android:id="@+id/main_info"
+        android:icon="@drawable/ic_menu_info"
+        android:title="@string/action_info"/>
 
     <item
-        android:id="@+id/main_help"
-        android:icon="@drawable/ic_menu_about"
-        android:title="@string/action_help"
-        app:showAsAction="always"/>
+        android:id="@+id/main_learn"
+        android:icon="@drawable/ic_learn"
+        android:title="@string/action_learn"/>
 
     <item
-        android:id="@+id/main_favorite"
-        android:icon="@drawable/ic_menu_favorite"
-        android:title="@string/action_favorite"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/main_games"
+        android:icon="@drawable/ic_menu_timer"
+        android:title="@string/action_games"/>
 
     <item
         android:id="@+id/main_settings"
         android:icon="@drawable/ic_menu_settings"
-        android:title="@string/main_settings"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/main_settings"/>
 
 </menu>

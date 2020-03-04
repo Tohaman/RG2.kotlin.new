@@ -1,9 +1,9 @@
-package ru.tohaman.testempty.utils
+package ru.tohaman.testempty
 
 /**
  * Created by anton on 19.02.20. Тэг для записи в лог
  */
 object DebugTag {
-    val TAG = "RG4"
+    const val TAG = "RG4"
 
 }

@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.ui.bottomNavigation
+package ru.tohaman.testempty.ui.bottomNavigation_deprecated
 
 import android.content.Context
 import android.os.Bundle
