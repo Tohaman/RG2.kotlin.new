@@ -9,7 +9,7 @@
     <string name="next">Next</string>
 
     <string name="action_info">Инфо</string>
-    <string name="action_learn">Обучение</string>
+    <string name="action_learn">Обучалки</string>
     <string name="action_games">Мини игры</string>
     <string name="main_settings">Настройки</string>
 </resources>

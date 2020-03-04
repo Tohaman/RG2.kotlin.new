@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/main_info"
-        android:name="ru.tohaman.testempty.ui.learn.LearnFragment"
-        android:label="fragment_list_view"
-        tools:layout="@layout/fragment_list_view">
+        android:name="ru.tohaman.testempty.ui.info.InfoFragment"
+        android:label="main_info"
+        tools:layout="@layout/fragment_info">
     </fragment>
 
     <fragment
         android:id="@+id/main_learn"
         android:name="ru.tohaman.testempty.ui.learn.LearnFragment"
-        android:label="fragment_list_view"
+        android:label="main_learn"
         tools:layout="@layout/fragment_list_view">
     </fragment>
 
@@ -33,6 +33,18 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <fragment
+        android:id="@+id/main_games"
+        android:name="ru.tohaman.testempty.ui.games.GamesFragment"
+        android:label="@string/main_games_clicked"
+        tools:layout="@layout/fragment_games">
+    </fragment>
 
+    <fragment
+        android:id="@+id/main_settings"
+        android:name="ru.tohaman.testempty.ui.settings.SettingsFragment"
+        android:label="@string/main_settings"
+        tools:layout="@layout/fragment_settings">
+    </fragment>
 
 </navigation>

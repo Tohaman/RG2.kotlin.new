@@ -16,7 +16,7 @@ class TmpFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_tmp, container, false)
 
         view.findViewById<Button>(R.id.button2).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.listViewFragment)
+            Navigation.findNavController(view).navigate(R.id.main_learn)
         }
         return view
     }
