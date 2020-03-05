@@ -12,7 +12,6 @@ import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.ui.bottomNavigation_deprecated.BottomNavigationDrawerFragment
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.ActivityMainBinding
 import timber.log.Timber
@@ -73,11 +72,6 @@ class MainActivity : MyDefaultActivity() {
             R.id.main_settings -> toast(getString(
                 R.string.main_settings_clicked
             ))
-            android.R.id.home -> {
-                val bottomNavDrawerFragment =
-                    BottomNavigationDrawerFragment()
-                bottomNavDrawerFragment.show(supportFragmentManager, bottomNavDrawerFragment.tag)
-            }
         }
         return true
     }

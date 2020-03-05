@@ -1,13 +1,10 @@
-package ru.tohaman.testempty.recyclerView
+package ru.tohaman.testempty.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
 import ru.tohaman.testempty.dbase.MainDBItem
-import ru.tohaman.testempty.dbase.PhaseItem
 
 class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
     //тут храним список, который надо отобразить
@@ -49,7 +46,7 @@ class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.A
                 val inflater = LayoutInflater.from(parent.context)
                 val binding =  MainMenuItemBinding.inflate(inflater, parent, false)
 
-                return MenuAdapter.MenuHolder(binding)
+                return MenuHolder(binding)
             }
         }
     }

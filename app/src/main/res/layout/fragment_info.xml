@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/c_lgr"
+        app:layout_constraintBottom_toBottomOf="@id/infoTabLayout"/>
+    
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/infoTabLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="Тут будут О программе, Сказать спасибо, Подсказки и Где купить головоломки" />
-</LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="fixed"
+        app:tabPaddingTop="16dp"
+        app:tabPaddingBottom="8dp"
+        android:background="@android:color/transparent"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/infoViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/infoTabLayout"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

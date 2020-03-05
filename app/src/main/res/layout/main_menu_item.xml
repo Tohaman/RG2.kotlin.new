@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.recyclerView.MenuAdapter.OnClickListener" />
+            type="ru.tohaman.testempty.adapters.MenuAdapter.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

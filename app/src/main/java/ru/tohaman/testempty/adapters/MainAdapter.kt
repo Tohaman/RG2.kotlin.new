@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.recyclerView
+package ru.tohaman.testempty.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

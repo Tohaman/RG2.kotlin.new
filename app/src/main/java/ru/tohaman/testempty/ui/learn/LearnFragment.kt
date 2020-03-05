@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.MainDBItem
-import ru.tohaman.testempty.recyclerView.MenuAdapter
+import ru.tohaman.testempty.adapters.MenuAdapter
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.ui.UiUtilViewModel
 import timber.log.Timber
