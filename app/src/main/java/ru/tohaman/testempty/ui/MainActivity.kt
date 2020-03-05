@@ -6,20 +6,20 @@ import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.ui.bottomNavigation_deprecated.BottomNavigationDrawerFragment
-import timber.log.Timber
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : MyDefaultActivity() {
 
-    private val uiUtilViewModel by viewModels<UiUtilViewModel>()
+    private val uiUtilViewModel by viewModel<UiUtilViewModel>()
     private lateinit var binding: ActivityMainBinding
 
     private val navController by lazy {

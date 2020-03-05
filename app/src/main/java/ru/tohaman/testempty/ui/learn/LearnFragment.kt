@@ -11,18 +11,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.recyclerView.MenuAdapter
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.ui.UiUtilViewModel
 import timber.log.Timber
 
 
 class LearnFragment : Fragment() {
+    private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private val viewModel by viewModels<LearnModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        uiUtilViewModel.showBottomNav()
 
         val view = inflater.inflate(R.layout.fragment_list_view, container, false)
         val button = view.findViewById<Button>(R.id.next_button)

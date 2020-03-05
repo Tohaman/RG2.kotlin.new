@@ -75,8 +75,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha05'
     implementation "androidx.preference:preference-ktx:1.1.0"
 
+    //Koin для Внедрения зависимостей - https://github.com/InsertKoinIO/koin
+    ext {koin_version = "2.1.2"}
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
-    //Timber для удобного вывода в лог данных
+    //Timber для удобного вывода в лог данных - https://medium.com/mindorks/better-logging-in-android-using-timber-72e40cc2293d
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     testImplementation 'junit:junit:4.13'
