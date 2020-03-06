@@ -27,8 +27,14 @@ class LearnFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         uiUtilViewModel.showBottomNav()
-        val cubeTypes = learnViewModel.cubeTypes
+        var cubeTypes = listOf<CubeType>()
         val adapter = LearnPagerAdapter(this@LearnFragment)
+        learnViewModel.mutableCubeTypes.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.refreshItems(it)
+                cubeTypes = it
+            }
+        })
 
         binding = FragmentLearnBinding.inflate(inflater, container, false)
             .apply {
@@ -42,11 +48,7 @@ class LearnFragment : Fragment() {
                     tab.text = cubeTypes[position].name
                 }.attach()
             }
-        learnViewModel.mutableCubeTypes.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.refreshItems(it)
-            }
-        })
+
         return binding.root
     }
 
