@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.dbase
 
 import android.content.Context
+import org.koin.java.KoinJavaComponent.inject
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.DebugTag.TAG
@@ -8,7 +9,8 @@ import timber.log.Timber
 
 class FillDB {
     companion object {
-        private val repository = ItemsRepository()
+        private val repository : ItemsRepository by inject(ItemsRepository::class.java)
+
         suspend fun reCreateDB(context: Context) {
             repository.clearMainTable()
             Timber.tag(TAG).d("Основная таблица очищена")

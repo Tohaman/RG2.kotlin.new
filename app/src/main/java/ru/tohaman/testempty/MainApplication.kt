@@ -6,7 +6,7 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.tohaman.testempty.dataSource.Domain
-import ru.tohaman.testempty.koin.myModule
+import ru.tohaman.testempty.koin.appModule
 import ru.tohaman.testempty.koin.viewModelsModule
 import timber.log.Timber
 
@@ -28,7 +28,7 @@ class MainApplication : Application() {
             androidFileProperties()
 
             // module list
-            modules(myModule, viewModelsModule)
+            modules(appModule, viewModelsModule)
         }
         // а если надо стартовать Koin  не при загрузке, то надо использовать
         //loadKoinModules(myModule)

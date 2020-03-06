@@ -1,12 +1,15 @@
 package ru.tohaman.testempty.dataSource
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.paging.Config
 import androidx.paging.toLiveData
+import org.koin.android.ext.android.inject
+
 import ru.tohaman.testempty.dbase.MainDBItem
+import ru.tohaman.testempty.dbase.MainDao
+import ru.tohaman.testempty.dbase.MainDb
 import ru.tohaman.testempty.dbase.PhaseItem
-import ru.tohaman.testempty.dbase.mainDatabase
-import timber.log.Timber
 
 /**
  * The Repository ist a simple Java class that abstracts the data layer from the rest of the app
@@ -17,9 +20,7 @@ import timber.log.Timber
     asynchronously in ioThread
  */
 
-class ItemsRepository : ItemDataSource {
-
-    private val dao = mainDatabase.dao
+class ItemsRepository (private val dao : MainDao) : ItemDataSource {
 
     fun observePhase(phase: String): LiveData<List<MainDBItem>> {
         return dao.observePhase(phase)
