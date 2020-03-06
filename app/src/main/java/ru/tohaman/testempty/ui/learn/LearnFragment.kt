@@ -27,26 +27,25 @@ class LearnFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         uiUtilViewModel.showBottomNav()
-        var cubeTypes = listOf<CubeType>()
         val adapter = LearnPagerAdapter(this@LearnFragment)
-        learnViewModel.mutableCubeTypes.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.refreshItems(it)
-                cubeTypes = it
-            }
-        })
 
         binding = FragmentLearnBinding.inflate(inflater, container, false)
             .apply {
                 val viewPager2 =  learnViewPager
-                viewPager2.offscreenPageLimit = cubeTypes.size
                 viewPager2.adapter = adapter
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
-                TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-                    tab.text = cubeTypes[position].name
-                }.attach()
+
+                learnViewModel.mutableCubeTypes.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        adapter.refreshItems(it)
+                        viewPager2.offscreenPageLimit = it.size
+                        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+                            tab.text = it[position].name
+                        }.attach()
+                    }
+                })
             }
 
         return binding.root
@@ -61,14 +60,13 @@ class LearnFragment : Fragment() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return LearnMenuFragment.newInstance(cubeTypes[position].name)
+            return LearnMenuFragment.newInstance(cubeTypes[position])
         }
-
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<CubeType>) {
-            cubeTypes = items
             Timber.tag(DebugTag.TAG).d("Обновляем список в адаптере LearnPagerAdapter")
+            cubeTypes = items
             notifyDataSetChanged()
         }
     }

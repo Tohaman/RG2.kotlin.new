@@ -19,8 +19,8 @@ class FillDB {
             Timber.tag(TAG).d("Основная таблица очищена")
             insertPhasesToMainTable(context)
             Timber.tag(TAG).d("Основная таблица заполнена")
-            insertCurrentPhases()
-            Timber.tag(TAG).d("Доп.таблица заполнена. База создана")
+            //insertCurrentPhases()
+            //Timber.tag(TAG).d("Доп.таблица заполнена. База создана")
         }
 
         //TODO Возможно лишняя таблица, проверить и удалить, если будет не нужна
@@ -39,6 +39,7 @@ class FillDB {
             phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
             phaseInit("MAIN2X2", R.array.main2x2_title, R.array.main2x2_icon, R.array.main2x2_descr, R.array.main2x2_url, context)
             phaseInit("OTHER3X3", R.array.other3x3_title, R.array.other3x3_icon, R.array.other3x3_descr, R.array.other3x3_url, context)
+            phaseInit("OTHER", R.array.other_title, R.array.other_icon, R.array.other_descr, R.array.other_url, context)
 
             //Phases (обучалки)
             phaseInit("AXIS", R.array.axis_title, R.array.axis_icon, R.array.axis_descr, R.array.axis_url, context)

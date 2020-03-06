@@ -12,6 +12,8 @@ import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dbase.entitys.CubeType
+import ru.tohaman.testempty.utils.add
+import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
@@ -22,13 +24,15 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     var curItem = MutableLiveData<String>()
 
     var mutableMainMenuItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
-    var mutableCubeTypes : MutableLiveData<List<CubeType>> = MutableLiveData()
     private var cubeTypes : List<CubeType> = listOf()
+    var mutableCubeTypes : MutableLiveData<List<CubeType>> = cubeTypes.toMutableLiveData()
+    private var curPhasesList : List<List<MainDBItem>> = listOf()
+    var currentPhasesList : MutableLiveData<List<List<MainDBItem>>> = MutableLiveData()
 
     init {
         getCurrentPhase()
         updateCubeTypes()
-        Timber.tag(TAG).d("LearnViewModel проинициализирован, $cubeTypes")
+        updateCurrentPhasesList()
     }
 
     fun getCurrentPhase() {
@@ -46,10 +50,26 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    fun updateCurrentPhasesList() {
+        curPhasesList = listOf()
+        cubeTypes.map {
+            runBlocking {
+                val list = repository.getPhaseFromMain(it.curPhase)
+                curPhasesList.plus(list)
+                Timber.tag(TAG).d("Add ${it.curPhase} - ${list.size}")
+            }
+        }
+        currentPhasesList.postValue(curPhasesList)
+    }
+
     fun onMainMenuItemClick(menuItem: MainDBItem) {
         Timber.tag(TAG).d( "ViewModel.onMainMenuItemClick - $menuItem")
         curPhase = ctx.getString(menuItem.description)
         getCurrentPhase()
+    }
+
+    fun getCubeTypeById (id: Int) : MutableLiveData<CubeType> {
+        return mutableCubeTypes.value?.get(id)?.toMutableLiveData() ?: MutableLiveData()
     }
 
     fun onSomeButtonClick() {

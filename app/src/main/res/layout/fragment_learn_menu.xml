@@ -21,14 +21,14 @@
                 android:foregroundGravity="center"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@+id/next_button"
+                app:layout_constraintBottom_toTopOf="@+id/nextButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/main_menu_item" />
 
             <Button
-                android:id="@+id/next_button"
+                android:id="@+id/nextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/next"
