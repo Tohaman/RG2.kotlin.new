@@ -11,25 +11,41 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.DebugTag
+
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.dbase.MainDBItem
 import ru.tohaman.testempty.adapters.MenuAdapter
-import ru.tohaman.testempty.DebugTag.TAG
-import ru.tohaman.testempty.ui.UiUtilViewModel
+import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import timber.log.Timber
 
-
-class LearnMainFragment : Fragment() {
-    private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
+class LearnMenuFragment : Fragment() {
     private val learnViewModel by sharedViewModel<LearnViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        uiUtilViewModel.showBottomNav()
+    companion object {
+        private const val ARG_CUBE = "cubeType"
+        fun newInstance(phase: String) = LearnMenuFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_CUBE, phase)
+            }
+        }
+    }
 
-        val view = inflater.inflate(R.layout.fragment_learn_main, container, false)
+    private var cubeType: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            cubeType = it.getString(ARG_CUBE)
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+
+        val view = inflater.inflate(R.layout.fragment_learn_menu, container, false)
+
         val button = view.findViewById<Button>(R.id.next_button)
-
+        button.text = cubeType
+/*
         val rcv = view.findViewById<RecyclerView>(R.id.menuList)
         rcv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
         //val adapter = MainAdapter(MainAdapter.OnClickListener { onMenuItemClick(it)})
@@ -45,24 +61,25 @@ class LearnMainFragment : Fragment() {
         //viewModel.mainMenuItems.observe(viewLifecycleOwner, callback)
 
         learnViewModel.mutableMainMenuItems.observe(viewLifecycleOwner) { value ->
-            Timber.tag(TAG).d("$value")
+            Timber.tag(DebugTag.TAG).d("$value")
             menuAdapter.refreshItems(value)
         }
 
 
-       val nameObserver = Observer<String> { button.text = it }
-       learnViewModel.curItem.observe(viewLifecycleOwner, nameObserver)
+        val nameObserver = Observer<String> { button.text = it }
+        learnViewModel.curItem.observe(viewLifecycleOwner, nameObserver)
 
         button.setOnClickListener {
             learnViewModel.onSomeButtonClick()
             //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
         }
+*/
 
         return view
     }
 
     private fun onMenuItemClick(item: MainDBItem) {
-        Timber.tag(TAG).d("onItemClick - $item")
+        Timber.tag(DebugTag.TAG).d("onItemClick - $item")
         learnViewModel.onMainMenuItemClick(item)
     }
 }

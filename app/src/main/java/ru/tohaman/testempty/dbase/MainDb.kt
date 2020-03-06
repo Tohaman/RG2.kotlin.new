@@ -2,7 +2,11 @@ package ru.tohaman.testempty.dbase
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import org.koin.android.ext.android.inject
+import ru.tohaman.testempty.dbase.daos.CubeTypesDao
+import ru.tohaman.testempty.dbase.daos.MainDao
+import ru.tohaman.testempty.dbase.entitys.CubeType
+import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import ru.tohaman.testempty.dbase.entitys.PhaseItem
 
 /**
  * Аннотацией Database помечаем основной класс по работе с базой данных. Этот класс должен быть
@@ -15,7 +19,8 @@ import org.koin.android.ext.android.inject
  * Room сравнивает поля в entities, и если они отличаются от текущих в базе, то нужна миграция, а соответственно повышение версии базы
  */
 
-@Database(entities = [MainDBItem::class, PhaseItem::class], version = 1)
+@Database(entities = [MainDBItem::class, PhaseItem::class, CubeType::class], version = 2)
 abstract class MainDb : RoomDatabase() {
-    abstract val dao : MainDao
+    abstract val mainDao : MainDao
+    abstract val cubeTypesDao : CubeTypesDao
 }

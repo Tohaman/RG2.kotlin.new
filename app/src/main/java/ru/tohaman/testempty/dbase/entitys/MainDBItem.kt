@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.dbase
+package ru.tohaman.testempty.dbase.entitys
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

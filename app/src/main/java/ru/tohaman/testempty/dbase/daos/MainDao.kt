@@ -1,8 +1,10 @@
-package ru.tohaman.testempty.dbase
+package ru.tohaman.testempty.dbase.daos
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
+import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import ru.tohaman.testempty.dbase.entitys.PhaseItem
 
 
 /**

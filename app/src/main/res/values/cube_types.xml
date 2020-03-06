@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ct_names">
+        <item>2X2</item>
+        <item>3X3</item>
+        <item>Модификации 3Х3</item>
+        <item>Большие кубы</item>
+        <item>Другие головоломки</item>
+    </string-array>
+
+    <string-array name="ct_init_phases">
+        <item>MAIN2X2</item>
+        <item>MAIN3X3</item>
+        <item>OTHER3X3</item>
+        <item>BIG_MAIN</item>
+        <item>OTHER</item>
+    </string-array>
+
+    <string-array name="ct_current_phases">
+        <item>MAIN2X2</item>
+        <item>MAIN3X3</item>
+        <item>OTHER3X3</item>
+        <item>BIG_MAIN</item>
+        <item>OTHER</item>
+    </string-array>
+</resources>

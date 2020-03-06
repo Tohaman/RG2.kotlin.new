@@ -6,7 +6,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
-import ru.tohaman.testempty.dbase.PhaseItem
+import ru.tohaman.testempty.dbase.entitys.PhaseItem
 
 class MainAdapter(private val onClickListener: OnClickListener) :
         PagedListAdapter<PhaseItem, MainAdapter.MenuViewHolder>(diffCallback) {

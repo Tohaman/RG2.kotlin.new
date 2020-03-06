@@ -14,9 +14,9 @@
 
     <fragment
         android:id="@+id/main_learn"
-        android:name="ru.tohaman.testempty.ui.learn.LearnMainFragment"
+        android:name="ru.tohaman.testempty.ui.learn.LearnFragment"
         android:label="main_learn"
-        tools:layout="@layout/fragment_learn_main">
+        tools:layout="@layout/fragment_learn">
     </fragment>
 
     <fragment

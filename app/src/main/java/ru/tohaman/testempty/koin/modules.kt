@@ -17,11 +17,12 @@ val appModule = module{
     single<SharedPreferences> { androidContext().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE) }
     single {
         Room.databaseBuilder(androidContext(), MainDb::class.java, DATABASE_NAME)
+            .fallbackToDestructiveMigration() //На время разработки программы, каждый раз пересоздаем базу, вместо миграции
             //.addMigrations(MIGRATION_1_2)
             .build()
     }
     //В ItemRepository нужно передать сылку на dao, берем его предыдущего пункта, т.е. get<MainDb>
-    single { ItemsRepository(get<MainDb>().dao) }
+    single { ItemsRepository(get<MainDb>().mainDao, get<MainDb>().cubeTypesDao) }
 
 }
 

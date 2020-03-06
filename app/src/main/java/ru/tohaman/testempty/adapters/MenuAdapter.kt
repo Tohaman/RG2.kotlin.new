@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
-import ru.tohaman.testempty.dbase.MainDBItem
+import ru.tohaman.testempty.dbase.entitys.MainDBItem
 
 class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
     //тут храним список, который надо отобразить
