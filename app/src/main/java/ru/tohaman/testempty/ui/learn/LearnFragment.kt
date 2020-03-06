@@ -5,13 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import ru.tohaman.testempty.DebugTag.TAG
-import ru.tohaman.testempty.R
+import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.databinding.FragmentLearnBinding
+import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.ui.UiUtilViewModel
 import timber.log.Timber
 
@@ -27,11 +28,11 @@ class LearnFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         uiUtilViewModel.showBottomNav()
         val cubeTypes = learnViewModel.cubeTypes
+        val adapter = LearnPagerAdapter(this@LearnFragment)
 
         binding = FragmentLearnBinding.inflate(inflater, container, false)
             .apply {
                 val viewPager2 =  learnViewPager
-                val adapter = LearnPagerAdapter(this@LearnFragment)
                 viewPager2.offscreenPageLimit = cubeTypes.size
                 viewPager2.adapter = adapter
 
@@ -41,21 +42,32 @@ class LearnFragment : Fragment() {
                     tab.text = cubeTypes[position].name
                 }.attach()
             }
-
+        learnViewModel.mutableCubeTypes.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.refreshItems(it)
+            }
+        })
         return binding.root
     }
 
 
     inner class LearnPagerAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
-        private val cubeTypes = learnViewModel.cubeTypes
+        private var cubeTypes = listOf<CubeType>()
+
         override fun getItemCount(): Int {
-            val size = cubeTypes.size
-            Timber.tag(TAG).d("Размер массива - $size")
-            return size
+            return cubeTypes.size
         }
 
         override fun createFragment(position: Int): Fragment {
             return LearnMenuFragment.newInstance(cubeTypes[position].name)
+        }
+
+
+        //передаем новые данные и оповещаем адаптер о необходимости обновления списка
+        fun refreshItems(items: List<CubeType>) {
+            cubeTypes = items
+            Timber.tag(DebugTag.TAG).d("Обновляем список в адаптере LearnPagerAdapter")
+            notifyDataSetChanged()
         }
     }
 }

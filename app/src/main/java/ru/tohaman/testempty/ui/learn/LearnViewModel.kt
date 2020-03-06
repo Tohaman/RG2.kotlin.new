@@ -22,7 +22,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     var curItem = MutableLiveData<String>()
 
     var mutableMainMenuItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
-    var cubeTypes : List<CubeType> = listOf()
+    var mutableCubeTypes : MutableLiveData<List<CubeType>> = MutableLiveData()
+    private var cubeTypes : List<CubeType> = listOf()
 
     init {
         getCurrentPhase()
@@ -41,6 +42,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private fun updateCubeTypes() {
         runBlocking {
             cubeTypes = repository.getCubeTypes()
+            mutableCubeTypes.postValue(cubeTypes)
         }
     }
 
