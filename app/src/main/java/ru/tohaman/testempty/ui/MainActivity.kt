@@ -14,6 +14,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.ActivityMainBinding
+import ru.tohaman.testempty.ui.shared.MyDefaultActivity
+import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
 class MainActivity : MyDefaultActivity() {
@@ -28,7 +30,7 @@ class MainActivity : MyDefaultActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         DisplayMetrics().apply {
             windowManager.defaultDisplay.getMetrics(this)
-            Timber.tag(TAG).d ("Экран - $xdpi на $ydpi")
+            Timber.tag(TAG).d ("Экран - $heightPixels на $widthPixels")
         }
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)

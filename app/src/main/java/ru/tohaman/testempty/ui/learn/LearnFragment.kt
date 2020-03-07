@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.databinding.FragmentLearnBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
-import ru.tohaman.testempty.ui.UiUtilViewModel
+import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
 

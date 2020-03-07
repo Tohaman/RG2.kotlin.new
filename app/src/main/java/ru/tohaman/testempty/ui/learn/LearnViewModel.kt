@@ -68,6 +68,12 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         getCurrentPhase()
     }
 
+    fun getFragmentPhase(id: Int) : MutableLiveData<List<MainDBItem>> {
+        //val phase = cubeTypes[id].curPhase
+        return currentPhasesList.value?.get(id)?.toMutableLiveData() ?: MutableLiveData()
+    }
+
+
     fun getCubeTypeById (id: Int) : MutableLiveData<CubeType> {
         return mutableCubeTypes.value?.get(id)?.toMutableLiveData() ?: MutableLiveData()
     }

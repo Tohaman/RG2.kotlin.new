@@ -57,10 +57,10 @@ class LearnMenuFragment : Fragment() {
                 val menuAdapter = MenuAdapter(MenuAdapter.OnClickListener { onMenuItemClick(it) })
                 rcv.adapter = menuAdapter
 
-                learnViewModel.mutableMainMenuItems.observe(viewLifecycleOwner) { value ->
-                    Timber.tag(DebugTag.TAG).d("Обновляем menuAdapter - $value")
-                    menuAdapter.refreshItems(value)
-                }
+                learnViewModel.mutableMainMenuItems.observe(viewLifecycleOwner, Observer {
+                    Timber.tag(DebugTag.TAG).d("Обновляем menuAdapter - $it")
+                    menuAdapter.refreshItems(it)
+                })
 
                 learnViewModel.getCubeTypeById(ctId).observe(viewLifecycleOwner, Observer {
                     it?.let {

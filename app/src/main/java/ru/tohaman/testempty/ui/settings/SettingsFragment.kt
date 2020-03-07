@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.ui.UiUtilViewModel
+import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 
 class SettingsFragment  : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()

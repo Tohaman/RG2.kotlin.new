@@ -5,10 +5,11 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import ru.tohaman.testempty.ui.UiUtilViewModel
+import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.MainDb
+import ru.tohaman.testempty.ui.learn.LearnMenuViewModel
 import ru.tohaman.testempty.ui.learn.LearnViewModel
 
 private const val DATABASE_NAME = "base.db"
@@ -29,4 +30,5 @@ val appModule = module{
 val viewModelsModule = module {
     viewModel { UiUtilViewModel() }
     viewModel { LearnViewModel(androidContext()) }
+    viewModel { LearnMenuViewModel(androidContext()) }
 }

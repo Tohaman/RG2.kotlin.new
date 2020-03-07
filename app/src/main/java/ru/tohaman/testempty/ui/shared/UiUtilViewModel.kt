@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.ui
+package ru.tohaman.testempty.ui.shared
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
