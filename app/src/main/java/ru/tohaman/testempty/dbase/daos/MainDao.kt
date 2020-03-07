@@ -32,6 +32,9 @@ interface MainDao {
     suspend fun getPhaseFromMain(phase : String) : List<MainDBItem>
 
     @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
+    fun getLivePhaseFromMain(phase : String) : LiveData<List<MainDBItem>>
+
+    @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
     fun observePhase(phase : String) : LiveData<List<MainDBItem>>
 
     @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")

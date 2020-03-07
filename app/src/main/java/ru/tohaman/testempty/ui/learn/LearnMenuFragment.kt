@@ -46,32 +46,27 @@ class LearnMenuFragment : Fragment() {
 
         binding = FragmentLearnMenuBinding.inflate(inflater, container, false)
             .apply {
+                lifecycleOwner = this@LearnMenuFragment
+                menuList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-                val button = nextButton
-                //button.text = cubeType?.initPhase ?: ""
-
-                val rcv = menuList
-                rcv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                //val adapter = MainAdapter(MainAdapter.OnClickListener { onMenuItemClick(it)})
-                //rcv.adapter = adapter
                 val menuAdapter = MenuAdapter(MenuAdapter.OnClickListener { onMenuItemClick(it) })
-                rcv.adapter = menuAdapter
-
-                learnViewModel.mutableMainMenuItems.observe(viewLifecycleOwner, Observer {
-                    Timber.tag(DebugTag.TAG).d("Обновляем menuAdapter - $it")
+                learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer {
                     menuAdapter.refreshItems(it)
                 })
+                menuList.adapter = menuAdapter
 
+                //Настраиваем кнопку... потом ее уберем
+                val button = nextButton
                 learnViewModel.getCubeTypeById(ctId).observe(viewLifecycleOwner, Observer {
                     it?.let {
                         button.text = it.curPhase
                     }
                 })
-
                 button.setOnClickListener {
                     learnViewModel.onSomeButtonClick()
                     //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
                 }
+
             }
         return binding.root
     }
