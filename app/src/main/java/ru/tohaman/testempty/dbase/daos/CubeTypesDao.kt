@@ -1,9 +1,6 @@
 package ru.tohaman.testempty.dbase.daos
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import ru.tohaman.testempty.dbase.entitys.CubeType
 
 @Dao
@@ -16,6 +13,12 @@ interface CubeTypesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(cubeType: List<CubeType>)
+
+    @Update
+    suspend fun update(cubeType: CubeType)
+
+    @Update
+    suspend fun update(cubeType: List<CubeType>)
 
     @Query("DELETE FROM CubeType")
     suspend fun deleteAllItems()

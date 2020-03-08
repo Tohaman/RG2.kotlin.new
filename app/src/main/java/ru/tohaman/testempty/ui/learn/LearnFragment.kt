@@ -1,16 +1,18 @@
 package ru.tohaman.testempty.ui.learn
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.FragmentLearnBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
@@ -33,6 +35,13 @@ class LearnFragment : Fragment() {
             .apply {
                 val viewPager2 =  learnViewPager
                 viewPager2.adapter = adapter
+
+                viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        learnViewModel.setCurrentCubeType(position)
+                    }
+                })
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE

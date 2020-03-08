@@ -40,6 +40,9 @@ interface MainDao {
     @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
     suspend fun getPhase(phase : String): List<PhaseItem>
 
+    @Query("SELECT distinct * FROM $table WHERE url = 'submenu' ORDER BY ID")
+    suspend fun getSubMenuList(): List<MainDBItem>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(mainDBItems: List<MainDBItem>)
 

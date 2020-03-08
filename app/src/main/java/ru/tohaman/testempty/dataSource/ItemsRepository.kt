@@ -26,6 +26,8 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     suspend fun getPhase(phase: String) : List<PhaseItem> = mainDao.getPhase(phase)
 
+    suspend fun getSubMenuList() : List<MainDBItem> = mainDao.getSubMenuList()
+
     suspend fun getPhaseFromMain(phase: String): List<MainDBItem> = mainDao.getPhaseFromMain(phase)
 
     fun getLivePhaseFromMain(phase: String): LiveData<List<MainDBItem>> = mainDao.getLivePhaseFromMain(phase)
@@ -52,4 +54,8 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
     suspend fun insert2Type(item: CubeType) = typeDao.insert(item)
 
     suspend fun insert2Type(items: List<CubeType>) = typeDao.insert(items)
+
+    suspend fun update(item: CubeType) = typeDao.update(item)
+
+    suspend fun update(items: List<CubeType>) = typeDao.update(items)
 }
