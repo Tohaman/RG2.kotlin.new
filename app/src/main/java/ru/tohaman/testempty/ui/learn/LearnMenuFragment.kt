@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.adapters.MenuAdapter
 import ru.tohaman.testempty.databinding.FragmentLearnMenuBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
@@ -57,9 +58,9 @@ class LearnMenuFragment : Fragment() {
 
                 //Настраиваем кнопку... потом ее уберем
                 val button = nextButton
-                learnViewModel.getCubeTypeById(ctId).observe(viewLifecycleOwner, Observer {
+                learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        button.text = it.curPhase
+                        button.text = it[ctId].curPhase
                     }
                 })
                 button.setOnClickListener {
@@ -72,7 +73,7 @@ class LearnMenuFragment : Fragment() {
     }
 
     private fun onMenuItemClick(item: MainDBItem) {
-        Timber.tag(DebugTag.TAG).d("onItemClick - $item")
+        Timber.d("$TAG onItemClick - $item")
         learnViewModel.onMainMenuItemClick(item)
     }
 }

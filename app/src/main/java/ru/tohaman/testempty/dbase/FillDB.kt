@@ -16,11 +16,11 @@ class FillDB {
         suspend fun reCreateDB(context: Context) {
             repository.clearMainTable()
             repository.clearTypesTable()
-            Timber.tag(TAG).d("Основная таблица очищена")
+            Timber.d( "$TAG Основная таблица очищена")
             insertPhasesToMainTable(context)
-            Timber.tag(TAG).d("Основная таблица заполнена")
+            Timber.d( "$TAG Основная таблица заполнена")
             //insertCurrentPhases()
-            //Timber.tag(TAG).d("Доп.таблица заполнена. База создана")
+            //Timber.d( "$TAG Доп.таблица заполнена. База создана")
         }
 
         //TODO Возможно лишняя таблица, проверить и удалить, если будет не нужна
@@ -36,8 +36,9 @@ class FillDB {
             //subMenus (пункты меню)
             phaseInit("BIG_MAIN", R.array.big_main_title, R.array.big_main_icon, R.array.big_main_descr, R.array.big_main_url, context)
             phaseInit("G2F", R.array.g2f_title, R.array.g2f_icon, R.array.g2f_descr, R.array.g2f_url, context)
-            phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
             phaseInit("MAIN2X2", R.array.main2x2_title, R.array.main2x2_icon, R.array.main2x2_descr, R.array.main2x2_url, context)
+            phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
+            phaseInit("MAIN_F2L", R.array.main_f2l_title, R.array.main_f2l_icon, R.array.main_f2l_descr, R.array.main_f2l_url, context)
             phaseInit("OTHER3X3", R.array.other3x3_title, R.array.other3x3_icon, R.array.other3x3_descr, R.array.other3x3_url, context)
             phaseInit("OTHER", R.array.other_title, R.array.other_icon, R.array.other_descr, R.array.other_url, context)
 
@@ -45,6 +46,7 @@ class FillDB {
             phaseInit("AXIS", R.array.axis_title, R.array.axis_icon, R.array.axis_descr, R.array.axis_url, context)
             phaseInit("BEGIN", R.array.begin_title, R.array.begin_icon, R.array.begin_descr, R.array.begin_url, context)
             phaseInit("BEGIN2X2", R.array.begin2x2_title, R.array.begin2x2_icon, R.array.begin2x2_descr, R.array.begin2x2_url, context)
+            phaseInit("INTF2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
         }
 

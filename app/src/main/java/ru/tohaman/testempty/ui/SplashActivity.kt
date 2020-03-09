@@ -30,11 +30,11 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun routeToAppropriatePage() {
-        Timber.tag(TAG).d("Запускаем основную Activity")
+        Timber.d( "$TAG Запускаем основную Activity")
         val intent = Intent(this, MainActivity::class.java)
         //Тут можно сделать запуск какой-то Activity в зависимости от какого-то параметра
         val savedPhase = sharedPreferences.getString("savedPhase", "3X3")
-        Timber.tag(TAG).d("Сохраненная фаза $savedPhase")
+        Timber.d( "$TAG Сохраненная фаза $savedPhase")
 //        when (){
 //            user == null -> intent = Intent(this, FirstActivity::class.java)
 //            user.hasPhoneNumber() -> intent = Intent(this, EditProfileActivity::class.java)
@@ -44,13 +44,13 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun dbInit(context: Context) {
-        Timber.tag(TAG).d("Инициализируем БД")
+        Timber.d( "$TAG Инициализируем БД")
         //Чтобы дождаться завершения выполнения инициализации, запустим в runBlocking,
         //а поскольку нельзя к БД Room обращаться в основном потоке, то запустим корутину в IO потоке
         runBlocking (Dispatchers.IO){
             //Пересоздаем базу при каждом запуске
             //TODO поменять логику, пересоздаавать базу только при первом входе или обновлении программы
-            //FillDB.reCreateDB(context)
+            FillDB.reCreateDB(context)
         }
     }
 }

@@ -6,12 +6,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import ru.tohaman.testempty.dataSource.ItemsRepository
-import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.entitys.CubeType
+import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
+
 
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
@@ -27,7 +28,9 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         get() = Array<LiveData<List<MainDBItem>>>(typesCount) { mainDBItemsMediatorArray[it]}
 
     private var cubeTypes : List<CubeType> = listOf()
-    var mutableCubeTypes : MutableLiveData<List<CubeType>> = cubeTypes.toMutableLiveData()
+    private var mutableCubeTypes : MutableLiveData<List<CubeType>> = cubeTypes.toMutableLiveData()
+    //Подписываться будем на liveData, чтобы из view не было возможности поменять содержимое переменной, только чтение
+    var liveDataCubeTypes : LiveData<List<CubeType>> = mutableCubeTypes
 
     init {
         //Получаем список MainDBItem в котором в getString(description) имя вызываемой фазы, а в name - из какой фазы она вызвается
@@ -40,8 +43,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         updateCurrentPhasesToArray()
     }
 
-    fun getCubeTypeById (id: Int) : MutableLiveData<CubeType> {
-        return mutableCubeTypes.value?.get(id)?.toMutableLiveData() ?: MutableLiveData()
+    fun getCubeTypeById (id: Int) : LiveData<CubeType> {
+        return mutableCubeTypes.value!![id].toMutableLiveData()
     }
 
     private fun updateCubeTypes() {
@@ -49,13 +52,13 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             cubeTypes = repository.getCubeTypes()
             typesCount = cubeTypes.size
             mutableCubeTypes.postValue(cubeTypes)
-
         }
     }
 
     private fun saveCubeTypes() {
         viewModelScope.launch {
             repository.update(cubeTypes)
+            mutableCubeTypes.postValue(cubeTypes)
         }
     }
 
@@ -73,16 +76,27 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    fun backOnePhase() {
+        val fromPhase = cubeTypes[currentCubeType].curPhase
+        val defaultPhase = cubeTypes[currentCubeType].initPhase
+        val toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
+        Timber.d( "$TAG backOnePhase Page - ${currentCubeType}, fromPhase - $fromPhase, toPhase - $toPhase")
+        if (fromPhase != toPhase) {
+            cubeTypes[currentCubeType].curPhase = toPhase
+            saveCubeTypes()
+            updateCurrentPhasesToArray()
+        }
+    }
 
     fun onMainMenuItemClick(menuItem: MainDBItem) {
-        Timber.tag(TAG).d( "Selected_Page ${currentCubeType} - ViewModel.onMainMenuItemClick - $menuItem")
+        Timber.d( "$TAG Selected_Page ${currentCubeType} - ViewModel.onMainMenuItemClick - $menuItem")
         cubeTypes[currentCubeType].curPhase = ctx.getString(menuItem.description)
         saveCubeTypes()
         updateCurrentPhasesToArray()
     }
 
     fun onSomeButtonClick() {
-        Timber.tag(TAG).d( "onSomeButtonClick - нажали кнопку для проверки какого-то действия")
+        Timber.d( "$TAG onSomeButtonClick - нажали кнопку для проверки какого-то действия")
         cubeTypes[currentCubeType].curPhase = cubeTypes[currentCubeType].initPhase
         saveCubeTypes()
         updateCurrentPhasesToArray()
@@ -96,6 +110,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             }
         }
     }
+
 
     fun getBackPhase(phase: String) {
 

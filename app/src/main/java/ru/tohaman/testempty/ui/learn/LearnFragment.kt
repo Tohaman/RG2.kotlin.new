@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.FragmentLearnBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
@@ -45,9 +44,9 @@ class LearnFragment : Fragment() {
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
-
-                learnViewModel.mutableCubeTypes.observe(viewLifecycleOwner, Observer {
+                learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
+                        Timber.d("$TAG mutableCubeTypes = $it")
                         adapter.refreshItems(it)
                         viewPager2.offscreenPageLimit = it.size
                         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
@@ -55,6 +54,8 @@ class LearnFragment : Fragment() {
                         }.attach()
                     }
                 })
+
+                viewModel = learnViewModel
             }
 
         return binding.root
@@ -74,7 +75,7 @@ class LearnFragment : Fragment() {
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<CubeType>) {
-            Timber.tag(DebugTag.TAG).d("Обновляем список в адаптере LearnPagerAdapter")
+            Timber.d("$TAG Обновляем список в адаптере LearnPagerAdapter")
             cubeTypes = items
             notifyDataSetChanged()
         }

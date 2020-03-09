@@ -30,7 +30,7 @@ class MainActivity : MyDefaultActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         DisplayMetrics().apply {
             windowManager.defaultDisplay.getMetrics(this)
-            Timber.tag(TAG).d ("Экран - $heightPixels на $widthPixels")
+            Timber.d( "$TAG Экран - $heightPixels на $widthPixels")
         }
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
