@@ -10,6 +10,36 @@
         android:name="ru.tohaman.testempty.ui.info.InfoFragment"
         android:label="main_info"
         tools:layout="@layout/fragment_info">
+        <action
+            android:id="@+id/action_main_info_to_info_about"
+            app:destination="@id/info_about" />
+        <action
+            android:id="@+id/action_main_info_to_info_thanks"
+            app:destination="@id/info_thanks" />
+        <action
+            android:id="@+id/action_main_info_to_info_mini_help"
+            app:destination="@id/info_mini_help" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/info_about"
+        android:name="ru.tohaman.testempty.ui.info.InfoFragment"
+        android:label="main_info_about"
+        tools:layout="@layout/fragment_info_about">
+    </fragment>
+
+    <fragment
+        android:id="@+id/info_thanks"
+        android:name="ru.tohaman.testempty.ui.info.InfoThanksFragment"
+        android:label="main_info_thanks"
+        tools:layout="@layout/fragment_info_thanks">
+    </fragment>
+
+    <fragment
+        android:id="@+id/info_mini_help"
+        android:name="ru.tohaman.testempty.ui.info.InfoMiniHelpFragment"
+        android:label="main_info_minihelp"
+        tools:layout="@layout/fragment_info_mini_help">
     </fragment>
 
     <fragment
@@ -17,20 +47,26 @@
         android:name="ru.tohaman.testempty.ui.learn.LearnFragment"
         android:label="main_learn"
         tools:layout="@layout/fragment_learn">
+        <action
+            android:id="@+id/action_main_learn_to_main_learn_main_menu"
+            app:destination="@id/learn_main_menu" />
     </fragment>
 
     <fragment
-        android:id="@+id/learn_detail"
-        android:name="ru.tohaman.testempty.ui.TmpFragment"
-        android:label="learn_detail"
-        tools:layout="@layout/fragment_tmp" >
+        android:id="@+id/learn_main_menu"
+        android:name="ru.tohaman.testempty.ui.learn.LearnMenuFragment"
+        android:label="learn_menu"
+        tools:layout="@layout/fragment_learn_menu">
         <action
-            android:id="@+id/action_tmpFragment_to_listViewFragment"
-            app:destination="@id/main_learn"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_main_learn_main_menu_to_main_learn_main_details"
+            app:destination="@id/learn_main_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/learn_main_details"
+        android:name="ru.tohaman.testempty.ui.learn.LearnDetailMenuFragment"
+        android:label="learn_detail_menu"
+        tools:layout="@layout/fragment_learn_detail_menu">
     </fragment>
 
     <fragment

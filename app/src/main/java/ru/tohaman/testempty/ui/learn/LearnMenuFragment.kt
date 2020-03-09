@@ -22,7 +22,6 @@ import timber.log.Timber
 class LearnMenuFragment : Fragment() {
     private val learnViewModel by sharedViewModel<LearnViewModel>()
     private var ctId : Int = 0
-    private var cubeType : CubeType? = null
     private lateinit var binding : FragmentLearnMenuBinding
 
     companion object {
@@ -39,7 +38,6 @@ class LearnMenuFragment : Fragment() {
         arguments?.let {
             val id = it.getInt(ARG_CUBE)
             ctId = id
-            cubeType = learnViewModel.getCubeTypeById(id).value
         }
     }
 
