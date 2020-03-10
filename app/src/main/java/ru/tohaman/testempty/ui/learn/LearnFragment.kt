@@ -32,10 +32,9 @@ class LearnFragment : Fragment() {
 
         binding = FragmentLearnBinding.inflate(inflater, container, false)
             .apply {
-                val viewPager2 =  learnViewPager
-                viewPager2.adapter = adapter
+                learnViewPager.adapter = adapter
 
-                viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+                learnViewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
                         learnViewModel.setCurrentCubeType(position)
@@ -44,14 +43,16 @@ class LearnFragment : Fragment() {
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+
                 learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         val curType = learnViewModel.getCurrentType()
                         Timber.d("$TAG curType = $curType mutableCubeTypes = $it")
                         adapter.refreshItems(it)
-                        viewPager2.offscreenPageLimit = it.size
-                        viewPager2.setCurrentItem(curType,false)
-                        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+                        learnViewPager.offscreenPageLimit = it.size
+                        //задаем именно smooyjScroll=false, иначе некорректно работает при возврате во фрагмент
+                        learnViewPager.setCurrentItem(curType,false)
+                        TabLayoutMediator(tabLayout, learnViewPager) { tab, position ->
                             tab.text = it[position].name
                         }.attach()
 

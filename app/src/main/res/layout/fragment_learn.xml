@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
 
         <variable
@@ -12,21 +11,22 @@
             type="ru.tohaman.testempty.ui.learn.LearnViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/appBar"
             layout="@layout/include_app_bar"
-            app:title="Обучалки" />
+            app:tabbed="@{true}"
+            app:title="@{@string/action_learn}" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/learnViewPager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appBar"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:preview="@layout/fragment_learn_menu"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,11 +38,10 @@
             app:backgroundTintMode="screen"
             app:backgroundTint="@color/colorAccent"
             android:onClick="@{() -> viewModel.backOnePhase()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:srcCompat="@drawable/ic_fab_backward" />
+            app:srcCompat="@drawable/ic_fab_backward"
+            app:layout_anchor="@+id/learnViewPager"
+            app:layout_anchorGravity="end|bottom"/>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
