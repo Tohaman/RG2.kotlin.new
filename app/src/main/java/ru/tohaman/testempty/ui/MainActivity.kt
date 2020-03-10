@@ -62,16 +62,16 @@ class MainActivity : MyDefaultActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-            R.id.main_learn -> toast(getString(
+            R.id.destLearn -> toast(getString(
                 R.string.learn_clicked
             ))
-            R.id.main_info -> toast(getString(
+            R.id.destInfo -> toast(getString(
                 R.string.info_clicked
             ))
-            R.id.main_games -> toast(getString(
+            R.id.destGames -> toast(getString(
                 R.string.main_games_clicked
             ))
-            R.id.main_settings -> toast(getString(
+            R.id.destSettings -> toast(getString(
                 R.string.main_settings_clicked
             ))
         }

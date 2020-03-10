@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
@@ -28,8 +29,8 @@ class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.A
         notifyDataSetChanged()
     }
 
-    class OnClickListener(val clickListener: (MainDBItem) -> Unit) {
-        fun onClick(menuItem: MainDBItem) = clickListener(menuItem)
+    class OnClickListener(val clickListener: (MainDBItem, View) -> Unit) {
+        fun onClick(menuItem: MainDBItem, view: View) = clickListener(menuItem, view)
     }
 
     class MenuHolder private constructor(private val binding: MainMenuItemBinding)

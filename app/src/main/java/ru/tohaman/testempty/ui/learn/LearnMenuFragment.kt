@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.MenuAdapter
+import ru.tohaman.testempty.databinding.FragmentLearnBinding
 import ru.tohaman.testempty.databinding.FragmentLearnMenuBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
@@ -24,6 +24,8 @@ class LearnMenuFragment : Fragment() {
     private var ctId : Int = 0
     private lateinit var binding : FragmentLearnMenuBinding
 
+    //Поскольку для вызова этого фрагмента НЕ используется Navigation component, то
+    //передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
         private const val ARG_CUBE = "cubeType"
         fun newInstance(cubeType: CubeType) = LearnMenuFragment().apply {
@@ -48,7 +50,7 @@ class LearnMenuFragment : Fragment() {
                 lifecycleOwner = this@LearnMenuFragment
                 menuList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-                val menuAdapter = MenuAdapter(MenuAdapter.OnClickListener { onMenuItemClick(it) })
+                val menuAdapter = MenuAdapter(MenuAdapter.OnClickListener { mainDBItem: MainDBItem, view: View -> onMenuItemClick(mainDBItem, view) })
                 learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer {
                     menuAdapter.refreshItems(it)
                 })
@@ -70,8 +72,16 @@ class LearnMenuFragment : Fragment() {
         return binding.root
     }
 
-    private fun onMenuItemClick(item: MainDBItem) {
+    private fun onMenuItemClick(item: MainDBItem, view: View) {
         Timber.d("$TAG onItemClick - $item")
-        learnViewModel.onMainMenuItemClick(item)
+        if (item.url == "submenu") {
+            learnViewModel.onMainMenuItemClick(item)
+        } else {
+            view.findNavController().navigate(
+                //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
+                //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
+                LearnFragmentDirections.actionToLearnDetails(item.id, item.phase)
+            )
+        }
     }
 }

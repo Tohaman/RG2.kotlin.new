@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TestEmpty</string>
 
+    <string name="wrong">Что-то пошло не так. Попробуйте повторить операцию</string>
+
     <string name="someimage">SomeImage</string>
     <string name="tmpOne">Back2One</string>
     <string name="tmpTwo">Two</string>

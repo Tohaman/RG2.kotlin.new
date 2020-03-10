@@ -19,7 +19,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
     private val ctx = context
     private var typesCount = 0
-    private var currentCubeType = 0
+    //номер закладки открываемой по-умолчанию
+    private var currentCubeType = 1
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
 
     //Массив из MwdiatorLiveData, содержащих списки записей определенной фазы
@@ -42,6 +43,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         //Для каждого типа подгружаем текущую фазу
         updateCurrentPhasesToArray()
     }
+
+    fun getCurrentType(): Int = currentCubeType
 
     fun getCubeTypeById (id: Int) : LiveData<CubeType> {
         return mutableCubeTypes.value!![id].toMutableLiveData()
@@ -80,7 +83,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         val fromPhase = cubeTypes[currentCubeType].curPhase
         val defaultPhase = cubeTypes[currentCubeType].initPhase
         val toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
-        Timber.d( "$TAG backOnePhase Page - ${currentCubeType}, fromPhase - $fromPhase, toPhase - $toPhase")
+        Timber.d( "$TAG backOnePhase Page - $currentCubeType, fromPhase - $fromPhase, toPhase - $toPhase")
         if (fromPhase != toPhase) {
             cubeTypes[currentCubeType].curPhase = toPhase
             saveCubeTypes()
@@ -89,7 +92,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     fun onMainMenuItemClick(menuItem: MainDBItem) {
-        Timber.d( "$TAG Selected_Page ${currentCubeType} - ViewModel.onMainMenuItemClick - $menuItem")
+        Timber.d( "$TAG Selected_Page $currentCubeType - ViewModel.onMainMenuItemClick - $menuItem")
         cubeTypes[currentCubeType].curPhase = ctx.getString(menuItem.description)
         saveCubeTypes()
         updateCurrentPhasesToArray()
@@ -111,19 +114,5 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-
-    fun getBackPhase(phase: String) {
-
-
-//
-//        val submenuLP = listPagers
-//            .filter {("submenu" == it.url) or ("ollPager" == it.url)
-//            }
-//        submenuLP
-//            .filter { (ctx.getString(it.description) == phase) }
-//            .forEach { listPager = it }
-//
-//        return listPager.phase
-    }
 
 }

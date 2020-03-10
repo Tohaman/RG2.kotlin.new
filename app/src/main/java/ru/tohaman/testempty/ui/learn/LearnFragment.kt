@@ -34,6 +34,7 @@ class LearnFragment : Fragment() {
             .apply {
                 val viewPager2 =  learnViewPager
                 viewPager2.adapter = adapter
+                viewPager2.setCurrentItem(learnViewModel.getCurrentType(),true)
 
                 viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
@@ -49,6 +50,7 @@ class LearnFragment : Fragment() {
                         Timber.d("$TAG mutableCubeTypes = $it")
                         adapter.refreshItems(it)
                         viewPager2.offscreenPageLimit = it.size
+                        viewPager2.setCurrentItem(learnViewModel.getCurrentType(),true)
                         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
                             tab.text = it[position].name
                         }.attach()

@@ -17,6 +17,7 @@ class FillDB {
             repository.clearMainTable()
             repository.clearTypesTable()
             Timber.d( "$TAG Основная таблица очищена")
+            insertWrongItem()
             insertPhasesToMainTable(context)
             Timber.d( "$TAG Основная таблица заполнена")
             //insertCurrentPhases()
@@ -28,6 +29,10 @@ class FillDB {
             repository.clearCurrentTable()
             val curPhaseList = repository.getPhase("BEGIN")
             repository.insertItems2CurrentTable(curPhaseList)
+        }
+
+        private suspend fun insertWrongItem() {
+            repository.insert2Main(MainDBItem("WRONG", 0, "Что-то пошло не так", R.drawable.ic_warning, R.string.wrong))
         }
 
         private suspend fun insertPhasesToMainTable(context: Context) {

@@ -4,22 +4,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/main_info"
+        android:id="@+id/destInfo"
         android:icon="@drawable/ic_menu_info"
         android:title="@string/action_info"/>
 
     <item
-        android:id="@+id/main_learn"
+        android:id="@+id/destLearn"
         android:icon="@drawable/ic_learn"
         android:title="@string/action_learn"/>
 
     <item
-        android:id="@+id/main_games"
+        android:id="@+id/destGames"
         android:icon="@drawable/ic_menu_timer"
         android:title="@string/action_games"/>
 
     <item
-        android:id="@+id/main_settings"
+        android:id="@+id/destSettings"
         android:icon="@drawable/ic_menu_settings"
         android:title="@string/main_settings"/>
 

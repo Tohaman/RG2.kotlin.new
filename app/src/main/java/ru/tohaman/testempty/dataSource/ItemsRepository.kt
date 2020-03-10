@@ -30,6 +30,8 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     suspend fun getPhaseFromMain(phase: String): List<MainDBItem> = mainDao.getPhaseFromMain(phase)
 
+    suspend fun getDetailsItems(phase: String): List<MainDBItem> = mainDao.getDetailsItems(phase)
+
     fun getLivePhaseFromMain(phase: String): LiveData<List<MainDBItem>> = mainDao.getLivePhaseFromMain(phase)
 
     fun getAllLiveDataItems() = mainDao.getAllLiveItems()

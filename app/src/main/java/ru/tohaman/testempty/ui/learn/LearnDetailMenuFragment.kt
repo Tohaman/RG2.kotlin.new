@@ -5,38 +5,41 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.DebugTag.TAG
 
-import ru.tohaman.testempty.R
-import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import ru.tohaman.testempty.databinding.FragmentLearnDetailMenuBinding
+import ru.tohaman.testempty.ui.shared.UiUtilViewModel
+import timber.log.Timber
 
 class LearnDetailMenuFragment : Fragment() {
-    companion object {
-        private const val ARG_CUBE1 = "phase"
-        private const val ARG_CUBE2 = "id"
-        fun newInstance(mainDBItem: MainDBItem) = LearnMenuFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_CUBE1, mainDBItem.phase)
-                putInt(ARG_CUBE2, mainDBItem.id)
-            }
-        }
-    }
+    private val args by navArgs<LearnDetailMenuFragmentArgs>()
+    private val phaseId by lazy { args.id }
+    private val phase by lazy { args.phase }
+    private lateinit var binding: FragmentLearnDetailMenuBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            val phase = it.getString(ARG_CUBE1)
-            val id = it.getInt(ARG_CUBE2)
-
-            //cubeType = learnViewModel.getCubeTypeById(id).value
-        }
-    }
+    private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
+    private val learnViewModel by sharedViewModel<LearnViewModel>()
+    private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_learn_detail_menu, container, false)
+        uiUtilViewModel.hideBottomNav()
+        binding = FragmentLearnDetailMenuBinding.inflate(inflater, container, false)
+            .apply {
+                lifecycleOwner = this@LearnDetailMenuFragment
+                viewModel = detailViewModel.apply { setCurrentItems(phaseId, phase) }
+                Timber.d("$TAG DetFragment with phase = $phase")
+            }
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        uiUtilViewModel.showBottomNav()
+        super.onDestroyView()
     }
 
 }
