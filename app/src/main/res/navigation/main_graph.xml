@@ -28,9 +28,9 @@
 
     <fragment
         android:id="@+id/destLearnDetails"
-        android:name="ru.tohaman.testempty.ui.learn.LearnDetailMenuFragment"
+        android:name="ru.tohaman.testempty.ui.learn.LearnDetailFragment"
         android:label="learn_detail_menu"
-        tools:layout="@layout/fragment_learn_detail_menu">
+        tools:layout="@layout/fragment_learn_detail">
         <argument
             android:name="id"
             app:argType="integer"

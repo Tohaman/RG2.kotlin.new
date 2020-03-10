@@ -1,9 +1,7 @@
 package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
@@ -16,19 +14,27 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
     private val ctx = context
     private var currentID = 0
+    private var count = 0
     val mutableCurrentPhase = MutableLiveData<String>()
+
+    private var detailsArray = Array<MediatorLiveData<MainDBItem>>(count) { MediatorLiveData() }
+    val detailsLiveArray: Array<LiveData<MainDBItem>> get() = Array<LiveData<MainDBItem>>(count) {detailsArray[it]}
+
     private var currentItems: List<MainDBItem> = listOf()
     private var mutableCurrentItems : MutableLiveData<List<MainDBItem>> = currentItems.toMutableLiveData()
 
-
-    //private var phaseItems : MutableLiveData<List<MainDBItem>> =
 
     fun setCurrentItems (id: Int, phase: String) {
         viewModelScope.launch {
             currentID = id
             currentItems = repository.getDetailsItems(phase)
             mutableCurrentPhase.postValue(phase)
+            count = currentItems.size
         }
+    }
+
+    fun getItemById(id: Int): MutableLiveData<MainDBItem> {
+        return mutableCurrentItems.value!![id].toMutableLiveData()
     }
 
 }

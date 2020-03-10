@@ -20,8 +20,7 @@
         android:layout_marginRight="@dimen/dimen_margin_8"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
-        android:onClick="@{(view) -> clickListener.onClick(viewMenuItem, view)}"
-        >
+        android:onClick="@{(view) -> clickListener.onClick(viewMenuItem, view)}">
 
         <ImageView
             android:id="@+id/main_menu_image"
@@ -60,7 +59,7 @@
                 android:layout_marginTop="@dimen/dimen_margin_8"
                 tools:text="коммент к этапу"
                 android:text="@{viewMenuItem.comment}"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textSize="12sp"/>
