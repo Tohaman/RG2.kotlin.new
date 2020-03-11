@@ -31,7 +31,9 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private var cubeTypes : List<CubeType> = listOf()
     private var mutableCubeTypes : MutableLiveData<List<CubeType>> = cubeTypes.toMutableLiveData()
     //Подписываться будем на liveData, чтобы из view не было возможности поменять содержимое переменной, только чтение
-    var liveDataCubeTypes : LiveData<List<CubeType>> = mutableCubeTypes
+    //для этого преобразуем MutableLiveData в LiveData
+    val liveDataCubeTypes : LiveData<List<CubeType>>
+        get() = mutableCubeTypes
 
     init {
         //Получаем список MainDBItem в котором в getString(description) имя вызываемой фазы, а в name - из какой фазы она вызвается
