@@ -57,14 +57,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="AAA"
+                android:text="@{mainDBItem.phase}"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="BBB"/>
+                android:text="@{mainDBItem.title}"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -35,9 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="@{tabbed ? View.VISIBLE : View.GONE, default = gone}"
-            app:layout_constraintTop_toTopOf="parent"
             app:tabMode="fixed"
-            app:tabPaddingTop="16dp"
+            app:tabGravity="fill"
+            app:tabPaddingTop="8dp"
+            app:tabTextAppearance="@style/MyCustomTextAppearance"
             app:tabPaddingBottom="8dp"/>
 
     </com.google.android.material.appbar.AppBarLayout>

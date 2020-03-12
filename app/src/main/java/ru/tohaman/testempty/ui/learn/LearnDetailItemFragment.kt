@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_learn.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.DebugTag
+import ru.tohaman.testempty.DebugTag.TAG
 
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.FragmentLearnDetailBinding
 import ru.tohaman.testempty.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import timber.log.Timber
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
@@ -33,6 +36,7 @@ class LearnDetailItemFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             fragmentNum = it.getInt(ARG_CUBE1)
+            Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
         }
     }
 
@@ -42,7 +46,10 @@ class LearnDetailItemFragment : Fragment() {
 
         binding = FragmentLearnDetailItemBinding.inflate(inflater, container, false)
             .apply {
-                //mainDBItem = detailViewModel.getItemByNum(fragmentNum).value
+                val item = detailViewModel.getCurrentItems()[fragmentNum]
+                Timber.d("$TAG mainDBItem = $item")
+                //Timber.d("$TAG ${detailViewModel.getCurrentItems()}")
+                mainDBItem = item
             }
 
         return binding.root

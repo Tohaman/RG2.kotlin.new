@@ -61,7 +61,6 @@ class LearnDetailFragment : Fragment() {
                         //задаем именно smooyjScroll=false, иначе некорректно работает при возврате во фрагмент
                         detailViewPager.setCurrentItem(curType,false)
                         TabLayoutMediator(tabLayout, detailViewPager) { tab, position ->
-                            Timber.d("$TAG Элемент для TabLayout ${it[position]}")
                             tab.text = it[position].title
                         }.attach()
 
@@ -92,7 +91,7 @@ class LearnDetailFragment : Fragment() {
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<MainDBItem>) {
-            Timber.d("$TAG Обновляем список в адаптере LearnPagerAdapter")
+            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter")
             detailItems = items
             notifyDataSetChanged()
         }

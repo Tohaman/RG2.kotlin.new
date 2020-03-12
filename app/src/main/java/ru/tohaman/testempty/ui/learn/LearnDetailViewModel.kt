@@ -42,7 +42,9 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     fun getItemByNum(num: Int): MutableLiveData<MainDBItem> {
-        return mutableCurrentItems.value!![num].toMutableLiveData()
+        return currentItems[num].toMutableLiveData()
     }
+
+    fun getCurrentItems(): List<MainDBItem> = currentItems
 
 }
