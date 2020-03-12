@@ -6,9 +6,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import ru.tohaman.testempty.DebugTag
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.toMutableLiveData
+import timber.log.Timber
 
 class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
@@ -28,12 +31,13 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
 
 
     fun setCurrentItems (id: Int, phase: String) {
-        viewModelScope.launch {
+        runBlocking {
             currentID = id
             currentItems = repository.getDetailsItems(phase)
             mutableCurrentItems.postValue(currentItems)
             mutableCurrentPhase.postValue(phase)
             count = currentItems.size
+            Timber.d("$TAG curItem Initiated $currentItems")
         }
     }
 

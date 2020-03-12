@@ -22,7 +22,7 @@ class LearnDetailItemFragment : Fragment() {
     //передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
         private const val ARG_CUBE1 = "itemId"
-        fun newInstance(mainDBItem: MainDBItem) = LearnMenuFragment().apply {
+        fun newInstance(mainDBItem: MainDBItem) = LearnDetailItemFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_CUBE1, mainDBItem.id)
             }
@@ -42,7 +42,7 @@ class LearnDetailItemFragment : Fragment() {
 
         binding = FragmentLearnDetailItemBinding.inflate(inflater, container, false)
             .apply {
-                mainDBItem = detailViewModel.getItemByNum(fragmentNum).value
+                //mainDBItem = detailViewModel.getItemByNum(fragmentNum).value
             }
 
         return binding.root

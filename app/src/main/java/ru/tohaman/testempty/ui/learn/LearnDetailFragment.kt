@@ -38,6 +38,7 @@ class LearnDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+
         uiUtilViewModel.hideBottomNav()
         val adapter = DetailPagerAdapter(this)
 
@@ -46,6 +47,7 @@ class LearnDetailFragment : Fragment() {
                 lifecycleOwner = this@LearnDetailFragment
                 Timber.d("$TAG DetFragment with phase = $phase")
                 detailViewPager.adapter = adapter
+                title = phase
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
@@ -53,13 +55,13 @@ class LearnDetailFragment : Fragment() {
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         val curType = 0
-                        Timber.d("$TAG mainDbItem = $curType liveCurrentItems = $it")
+                        Timber.d("$TAG liveCurrentItems обновился = $it")
                         adapter.refreshItems(it)
                         //detailViewPager.offscreenPageLimit = it.size
                         //задаем именно smooyjScroll=false, иначе некорректно работает при возврате во фрагмент
                         detailViewPager.setCurrentItem(curType,false)
                         TabLayoutMediator(tabLayout, detailViewPager) { tab, position ->
-                            Timber.d("$TAG ${it[position]}")
+                            Timber.d("$TAG Элемент для TabLayout ${it[position]}")
                             tab.text = it[position].title
                         }.attach()
 
