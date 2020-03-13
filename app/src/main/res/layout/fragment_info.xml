@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <variable
             name="title"
-            type="String" />
+            type="String"/>
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.learn.LearnDetailViewModel" />
+            type="ru.tohaman.testempty.ui.learn.LearnDetailViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +22,9 @@
         <include
             android:id="@+id/appBar"
             layout="@layout/include_app_bar"
-            app:title="Информация"/>
+            app:title="@{title}"
+            app:tabbed="@{true}"
+            />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/infoViewPager"

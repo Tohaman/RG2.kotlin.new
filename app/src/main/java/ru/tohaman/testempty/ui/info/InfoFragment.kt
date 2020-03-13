@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.include_app_bar.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.InfoPagerAdapter
@@ -23,7 +25,11 @@ class InfoFragment : Fragment() {
         val vp =  view.findViewById<ViewPager2>(R.id.infoViewPager)
         vp.adapter = InfoPagerAdapter(this)
 
-        var tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
+
+//        val appBar = view.findViewById<AppBarLayout>(R.id.appBar)
+//        appBar.titleTextView.text = "Инфо"
+
+        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         TabLayoutMediator(tabLayout, vp) { tab, position ->
             var text = ""
             when (position) {
