@@ -22,7 +22,7 @@
         <include
             android:id="@+id/appBar"
             layout="@layout/include_app_bar"
-            app:title="@{title}"
+            app:title='@{title}'
             app:tabbed="@{true}"
             />
 

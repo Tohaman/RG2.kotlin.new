@@ -5,41 +5,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.include_app_bar.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.InfoPagerAdapter
+import ru.tohaman.testempty.databinding.FragmentInfoBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 
 class InfoFragment : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
+    private lateinit var binding : FragmentInfoBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_info, container, false)
         uiUtilViewModel.showBottomNav()
+        val adapter = InfoPagerAdapter(this)
 
-        val vp =  view.findViewById<ViewPager2>(R.id.infoViewPager)
-        vp.adapter = InfoPagerAdapter(this)
+        binding = FragmentInfoBinding.inflate(inflater, container, false)
+            .apply {
 
+                val vp = infoViewPager
+                vp.adapter = adapter
 
-//        val appBar = view.findViewById<AppBarLayout>(R.id.appBar)
-//        appBar.titleTextView.text = "Инфо"
+                title = getString(R.string.info)
 
-        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
-        TabLayoutMediator(tabLayout, vp) { tab, position ->
-            var text = ""
-            when (position) {
-                0 -> text = "О программе"
-                1 -> text = "Спасибо"
-                2 -> text = "Помощь"
+                val tabLayout = appBar.tabLayout
+                TabLayoutMediator(tabLayout, vp) { tab, position ->
+                    var text = ""
+                    when (position) {
+                        0 -> text = "О программе"
+                        1 -> text = "Спасибо"
+                        2 -> text = "Помощь"
+                    }
+                    tab.text = text
+                }.attach()
             }
-            tab.text = text
-        }.attach()
-
-        return view
+        return binding.root
     }
 }
