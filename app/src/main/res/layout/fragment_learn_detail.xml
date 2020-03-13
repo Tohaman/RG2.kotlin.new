@@ -24,13 +24,13 @@
         <include
             android:id="@+id/appBar"
             layout="@layout/include_app_bar"
-            app:tabbed="@{true}"
-            app:title="@{title}" />
+            app:tabbed="@{true}"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/detailViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:preview="@layout/fragment_learn_menu"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

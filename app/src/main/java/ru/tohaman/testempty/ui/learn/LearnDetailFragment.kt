@@ -47,7 +47,7 @@ class LearnDetailFragment : Fragment() {
                 lifecycleOwner = this@LearnDetailFragment
                 Timber.d("$TAG DetFragment with phase = $phase")
                 detailViewPager.adapter = adapter
-                title = phase
+                title = ""
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE

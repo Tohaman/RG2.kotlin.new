@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="8dp"
+            android:visibility='@{(title!="") ? View.VISIBLE : View.GONE}'
             android:text="@{title}"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             tools:text="Home" />
@@ -38,7 +39,6 @@
             app:tabMode="fixed"
             app:tabGravity="fill"
             app:tabPaddingTop="8dp"
-            app:tabTextAppearance="@style/MyCustomTextAppearance"
             app:tabPaddingBottom="8dp"/>
 
     </com.google.android.material.appbar.AppBarLayout>

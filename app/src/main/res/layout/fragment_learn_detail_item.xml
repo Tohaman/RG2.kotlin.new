@@ -2,71 +2,94 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="mainDBItem"
             type="ru.tohaman.testempty.dbase.entitys.MainDBItem" />
     </data>
 
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.learn.LearnFragment">
+        android:layout_height="match_parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/detail_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-<!--            <android.support.design.widget.AppBarLayout-->
-<!--                android:id="@+id/detail.appbar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-<!--                android:fitsSystemWindows="true"-->
-<!--                >-->
+            <include
+                android:id="@+id/content"
+                layout="@layout/content_item_detail"
+                app:item="@{mainDBItem}" />
 
-<!--                <android.support.design.widget.CollapsingToolbarLayout-->
-<!--                    android:id="@+id/detail.collapsing"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-<!--                    android:fitsSystemWindows="true"-->
-<!--                    app:contentScrim="?attr/colorPrimary"-->
-<!--                    app:expandedTitleMarginStart="48dp"-->
-<!--                    app:expandedTitleMarginEnd="64dp">-->
+        </androidx.core.widget.NestedScrollView>
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/detail.backdrop"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:scaleType="centerCrop"-->
-<!--                        android:fitsSystemWindows="true"-->
-<!--                        android:srcCompat="@drawable/axis_8"-->
-<!--                        app:layout_collapseMode="parallax"/>-->
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            app:fabAlignmentMode="center"
+            app:fabCradleMargin="4dp"
+            app:hideOnScroll="true">
 
-<!--                    <android.support.v7.widget.Toolbar-->
-<!--                        android:id="@+id/detail.toolbar"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="?attr/actionBarSize"-->
-<!--                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-<!--                        app:layout_collapseMode="pin"/>-->
-
-<!--                </android.support.design.widget.CollapsingToolbarLayout>-->
-<!--            </android.support.design.widget.AppBarLayout>-->
-
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{mainDBItem.phase}"
-                />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@{mainDBItem.title}"/>
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:padding="16dp"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    app:srcCompat="@drawable/ic_fab_backward"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/share"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <ImageView
+                    android:id="@+id/share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_menu_share"
+                    android:tint="@color/c_w"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/back"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-    </FrameLayout>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="138dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_favorite"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+            app:elevation="6dp"
+            app:layout_anchor="@id/bottom_bar"
+
+            tools:src="@drawable/ic_favorite" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

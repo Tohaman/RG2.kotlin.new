@@ -16,7 +16,7 @@ abstract class MyDefaultActivity : AppCompatActivity() {
 //        setTheme(getThemeFromSharedPreference(this))
         //Включаем поддержку векторной графики на устройствах ниже Лилипопа (5.0)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        val sp = PreferenceManager.getDefaultSharedPreferences(this)
+        //val sp = PreferenceManager.getDefaultSharedPreferences(this)
         //Настраиваем отключение экрана
 //        val isScreenAlwaysOn = sp.getBoolean(IS_SCREEN_ALWAYS_ON, false)
 //        if (isScreenAlwaysOn) {

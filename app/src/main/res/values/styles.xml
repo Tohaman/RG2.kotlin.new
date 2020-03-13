@@ -25,15 +25,10 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-
-    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+    <style name="TabLayoutText" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
-        <item name="android:textAppearance">@style/CustomTabWidgetText</item>
-    </style>
-
-    <style name="CustomTabWidgetText"
-        parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textSize">18sp</item>
     </style>
+
 
 </resources>
