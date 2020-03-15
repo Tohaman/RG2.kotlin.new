@@ -61,7 +61,6 @@
                     android:layout_marginEnd="12dp"
                     android:padding="16dp"
                     app:srcCompat="@drawable/ic_menu_share"
-                    android:tint="@color/c_w"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline1"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -73,7 +72,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="138dp" />
+                    app:layout_constraintGuide_percent="0.35" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.60" />
+
+                <ImageView
+                    android:id="@+id/writeComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_write_comment"
+                    android:tint="@color/c_w"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guideline2"
+                    app:layout_constraintEnd_toStartOf="@+id/azbuka"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/azbuka"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    android:padding="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:srcCompat="@drawable/ic_help"
+                    android:tint="@color/c_w"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/writeComment"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,10 +122,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_favorite"
+            app:backgroundTint="@color/colorAccent"
             style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
             app:elevation="6dp"
             app:layout_anchor="@id/bottom_bar"
-
             tools:src="@drawable/ic_favorite" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

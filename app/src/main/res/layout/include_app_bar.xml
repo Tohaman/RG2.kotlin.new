@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="8dp"
-            android:background="@color/c_p"
             android:visibility='@{(title!="") ? View.VISIBLE : View.GONE}'
             android:text="@{title}"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
@@ -37,7 +36,6 @@
             android:layout_height="wrap_content"
             android:visibility="@{tabbed ? View.VISIBLE : View.GONE, default = gone}"
             app:tabMode="fixed"
-            android:background="@color/blue"
             app:tabGravity="fill"
             app:tabPaddingTop="8dp"
             app:tabPaddingBottom="8dp"/>
