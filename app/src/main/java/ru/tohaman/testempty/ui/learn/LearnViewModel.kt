@@ -39,7 +39,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         //Получаем список MainDBItem в котором в getString(description) имя вызываемой фазы, а в name - из какой фазы она вызвается
         getSubMenuList()
         //Получаем список основных типов головоломок из базы
-        updateCubeTypes()
+        initCubeTypes()
         //Обновляем размер списка в зависимости от числа типов головоломок
         mainDBItemsMediatorArray = Array<MediatorLiveData<List<MainDBItem>>>(typesCount) { MediatorLiveData() }
         //Для каждого типа подгружаем текущую фазу
@@ -48,16 +48,13 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun getCurrentType(): Int = currentCubeType
 
-    fun getCubeTypeById (id: Int) : LiveData<CubeType> {
-        return mutableCubeTypes.value!![id].toMutableLiveData()
-    }
-
-    private fun updateCubeTypes() {
+    private fun initCubeTypes() {
         runBlocking {
             cubeTypes = repository.getCubeTypes()
             typesCount = cubeTypes.size
-            mutableCubeTypes.postValue(cubeTypes)
         }
+        mutableCubeTypes.value = cubeTypes
+        mutableCubeTypes.postValue(cubeTypes)
     }
 
     private fun saveCubeTypes() {

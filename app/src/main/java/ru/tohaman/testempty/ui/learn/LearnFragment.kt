@@ -44,23 +44,21 @@ class LearnFragment : Fragment() {
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
 
-                val curType = learnViewModel.getCurrentType()
+
+                learnViewPager.offscreenPageLimit = 5
 
                 learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
-
+                        val curType = learnViewModel.getCurrentType()
                         Timber.d("$TAG curType = $curType mutableCubeTypes = $it")
                         adapter.refreshItems(it)
-                        learnViewPager.offscreenPageLimit = it.size
                         //задаем именно smooyjScroll=false, иначе некорректно работает при возврате во фрагмент
                         learnViewPager.setCurrentItem(curType,false)
                         TabLayoutMediator(tabLayout, learnViewPager) { tab, position ->
                             tab.text = it[position].name
                         }.attach()
-
                     }
                 })
-
                 viewModel = learnViewModel
             }
 

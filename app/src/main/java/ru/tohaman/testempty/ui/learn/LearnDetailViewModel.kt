@@ -21,7 +21,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
 
     private var currentItems: List<MainDBItem> = listOf()
     private var mutableCurrentItems : MutableLiveData<List<MainDBItem>> = currentItems.toMutableLiveData()
-    val liveCurrentItems
+    val liveCurrentItems: LiveData<List<MainDBItem>>
         get() = mutableCurrentItems
 
 
@@ -30,8 +30,8 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
             currentID = id
             currentItems = repository.getDetailsItems(phase)
         }
+        mutableCurrentItems.value = currentItems
         mutableCurrentItems.postValue(currentItems)
-        liveCurrentItems.value = currentItems
         count = currentItems.size
         Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
     }
