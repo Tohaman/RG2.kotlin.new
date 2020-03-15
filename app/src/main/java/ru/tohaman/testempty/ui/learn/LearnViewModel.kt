@@ -53,6 +53,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             cubeTypes = repository.getCubeTypes()
             typesCount = cubeTypes.size
         }
+        //Вот так задаем значения, чтобы с одной стороны быстро применилось, с другой
+        //уведомило подписчиков об изменении значения
         mutableCubeTypes.value = cubeTypes
         mutableCubeTypes.postValue(cubeTypes)
     }
