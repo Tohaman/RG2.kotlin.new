@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.android.synthetic.main.fragment_learn.*
+import kotlinx.android.synthetic.main.include_youtube_player.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
@@ -48,11 +52,31 @@ class LearnDetailItemFragment : Fragment() {
             .apply {
                 val item = detailViewModel.getCurrentItems()[fragmentNum]
                 Timber.d("$TAG mainDBItem = $item")
-                //Timber.d("$TAG ${detailViewModel.getCurrentItems()}")
                 mainDBItem = item
-            }
 
+                val youTubePlayerView = content.youtubeView.youtubePlayerView
+                lifecycle.addObserver(youTubePlayerView)
+
+                youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        val videoId = item.url
+                        youTubePlayer.cueVideo(videoId, 0f)
+                    }
+                })
+
+                content.youtubeView.enabled = item.url != ""
+
+                setClickListeners(this)
+            }
         return binding.root
+    }
+
+    private fun setClickListeners(binding: FragmentLearnDetailItemBinding) {
+
+        binding.back.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
     }
 
 }

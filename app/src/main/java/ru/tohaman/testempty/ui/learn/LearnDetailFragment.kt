@@ -31,6 +31,7 @@ class LearnDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.d("$TAG onCreate phase = $phase")
         currentId = phaseId
         detailViewModel.setCurrentItems(phaseId, phase)
     }
@@ -45,25 +46,24 @@ class LearnDetailFragment : Fragment() {
         binding = FragmentLearnDetailBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = this@LearnDetailFragment
-                Timber.d("$TAG DetFragment with phase = $phase")
+                //Timber.d("$TAG DetFragment with phase = $phase")
                 detailViewPager.adapter = adapter
                 title=""
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
 
+                val curType = detailViewModel.getItemNum(currentId)
+                //Timber.d("$TAG liveCurrentItems обновился curType = $curType, $it")
+                detailViewPager.offscreenPageLimit = 5
+
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        val curType = 0
-                        Timber.d("$TAG liveCurrentItems обновился = $it")
                         adapter.refreshItems(it)
-                        //detailViewPager.offscreenPageLimit = it.size
-                        //задаем именно smooyjScroll=false, иначе некорректно работает при возврате во фрагмент
                         detailViewPager.setCurrentItem(curType,false)
                         TabLayoutMediator(tabLayout, detailViewPager) { tab, position ->
                             tab.text = it[position].title
                         }.attach()
-
                     }
                 })
 
@@ -82,7 +82,8 @@ class LearnDetailFragment : Fragment() {
         private var detailItems = listOf<MainDBItem>()
 
         override fun getItemCount(): Int {
-            return detailItems.size
+            //Timber.d("$TAG getItemCount = ${detailItems.size} - $detailItems")
+            return detailItems.count()
         }
 
         override fun createFragment(position: Int): Fragment {
@@ -91,7 +92,7 @@ class LearnDetailFragment : Fragment() {
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<MainDBItem>) {
-            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter")
+            //Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
             detailItems = items
             notifyDataSetChanged()
         }

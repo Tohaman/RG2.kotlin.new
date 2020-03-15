@@ -17,12 +17,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
     private val ctx = context
     private var currentID = 0
-    private var count = 10
-    val mutableCurrentPhase = MutableLiveData<String>()
-
-    private var detailsArray = Array<MediatorLiveData<MainDBItem>>(count) { MediatorLiveData() }
-    val detailsLiveArray: Array<LiveData<MainDBItem>>
-        get() = Array<LiveData<MainDBItem>>(count) {detailsArray[it]}
+    private var count = 0
 
     private var currentItems: List<MainDBItem> = listOf()
     private var mutableCurrentItems : MutableLiveData<List<MainDBItem>> = currentItems.toMutableLiveData()
@@ -34,15 +29,18 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
         runBlocking {
             currentID = id
             currentItems = repository.getDetailsItems(phase)
-            mutableCurrentItems.postValue(currentItems)
-            mutableCurrentPhase.postValue(phase)
-            count = currentItems.size
-            Timber.d("$TAG curItem Initiated $currentItems")
         }
+        mutableCurrentItems.postValue(currentItems)
+        liveCurrentItems.value = currentItems
+        count = currentItems.size
+        Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
     }
 
-    fun getItemByNum(num: Int): MutableLiveData<MainDBItem> {
-        return currentItems[num].toMutableLiveData()
+    fun getItemNum(id: Int): Int {
+        currentItems.indices.map { i ->
+            if (currentItems[i].id == id) { return i }
+        }
+        return 0 //Если не нашлось значение (хотя и не должны сюда попадать)
     }
 
     fun getCurrentItems(): List<MainDBItem> = currentItems

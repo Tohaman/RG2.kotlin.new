@@ -44,9 +44,11 @@ class LearnFragment : Fragment() {
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
 
+                val curType = learnViewModel.getCurrentType()
+
                 learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        val curType = learnViewModel.getCurrentType()
+
                         Timber.d("$TAG curType = $curType mutableCubeTypes = $it")
                         adapter.refreshItems(it)
                         learnViewPager.offscreenPageLimit = it.size

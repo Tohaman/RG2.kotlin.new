@@ -55,19 +55,6 @@ class LearnMenuFragment : Fragment() {
                     menuAdapter.refreshItems(it)
                 })
                 menuList.adapter = menuAdapter
-
-                //Настраиваем кнопку... потом ее уберем
-                val button = nextButton
-                learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
-                    it?.let {
-                        button.text = it[ctId].curPhase
-                    }
-                })
-                button.setOnClickListener {
-                    learnViewModel.onSomeButtonClick()
-                    //Navigation.findNavController(view).navigate(R.id.action_title_screen_to_register)
-                }
-
             }
         return binding.root
     }

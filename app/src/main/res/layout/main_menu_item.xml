@@ -24,12 +24,13 @@
 
         <ImageView
             android:id="@+id/main_menu_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@{viewMenuItem.icon}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:srcCompat="@drawable/axis"/>
 
 
         <LinearLayout
@@ -59,7 +60,6 @@
                 android:layout_marginTop="@dimen/dimen_margin_8"
                 tools:text="коммент к этапу"
                 android:text="@{viewMenuItem.comment}"
-                android:maxLines="2"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textSize="12sp"/>
