@@ -1,5 +1,6 @@
 package ru.tohaman.testempty.ui.learn
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import ru.tohaman.testempty.databinding.FragmentLearnDetailBinding
 import ru.tohaman.testempty.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import timber.log.Timber
+import java.lang.IllegalStateException
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
@@ -77,6 +79,16 @@ class LearnDetailItemFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        binding.writeComment.setOnClickListener {
+            context?.let {
+                val builder = AlertDialog.Builder(it)
+                builder.setTitle("Важно")
+                    .setPositiveButton("OK") { dialog, id ->
+                        dialog.cancel()
+                    }
+                builder.create()
+            }
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
 
 }
