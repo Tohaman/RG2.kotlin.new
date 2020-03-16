@@ -44,4 +44,10 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun getCurrentItems(): List<MainDBItem> = currentItems
 
+    fun updateComment(item: MainDBItem) {
+        viewModelScope.launch (Dispatchers.IO)  {
+            repository.updateMainItem(item)
+        }
+    }
+
 }

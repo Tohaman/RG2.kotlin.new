@@ -3,6 +3,8 @@ package ru.tohaman.testempty.ui.learn
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +36,7 @@ class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
+    private lateinit var item: MainDBItem
 
     //Поскольку для вызова этого фрагмента НЕ используется Navigation component, то
     //передача/прием данных осуществляются классически через Bundle putInt/getInt
@@ -60,7 +63,7 @@ class LearnDetailItemFragment : Fragment() {
 
         binding = FragmentLearnDetailItemBinding.inflate(inflater, container, false)
             .apply {
-                val item = detailViewModel.getCurrentItems()[fragmentNum]
+                item = detailViewModel.getCurrentItems()[fragmentNum]
                 Timber.d("$TAG mainDBItem = $item")
                 mainDBItem = item
 
@@ -105,11 +108,26 @@ class LearnDetailItemFragment : Fragment() {
                 textInputEditText.text = comment.toEditable()
                 textInputEditText.hint = "или алгоритм"
                 builder.setTitle("Напишите свой комментарий:")
-                    .setPositiveButton("OK") { dialog, id ->
-                        dialog.cancel()
+                    .setPositiveButton("OK") { _, _ ->
+                        item.comment = textInputEditText.text.toString()
+                        binding.mainDBItem = item
+                        detailViewModel.updateComment(item)
                     }
                     .setNegativeButton("Отмена", null)
-                builder.create().show()
+                val dialog = builder.create()
+                dialog.show()
+
+/**             Можно еще добавить слушатель на изменения вводимого текста
+
+                textInputEditText.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                    }
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    }
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    }
+                })
+*/
             }
         } ?: throw IllegalStateException("Activity cannot be null")
     }

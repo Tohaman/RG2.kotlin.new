@@ -50,7 +50,7 @@ class LearnFragment : Fragment() {
                         val curType = learnViewModel.getCurrentType()
                         Timber.d("$TAG curType = $curType mutableCubeTypes = $it")
                         adapter.refreshItems(it)
-                        //задаем именно smooyjScroll=false, иначе некорректно работает при возврате во фрагмент
+                        //задаем именно smooyjScroll=false, чтобы сразу открывалась нужная страница, без анимации пролистывания
                         learnViewPager.setCurrentItem(curType,false)
                         TabLayoutMediator(tabLayout, learnViewPager) { tab, position ->
                             Timber.d("$TAG tabLayoutMediator = $tab position = $position")
