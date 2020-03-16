@@ -2,6 +2,7 @@ package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
@@ -26,14 +27,12 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
 
 
     fun setCurrentItems (id: Int, phase: String) {
-        runBlocking {
             currentID = id
-            currentItems = repository.getDetailsItems(phase)
-        }
-        mutableCurrentItems.value = currentItems
-        mutableCurrentItems.postValue(currentItems)
-        count = currentItems.size
-        Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
+            runBlocking (Dispatchers.IO) { currentItems = repository.getDetailsItems(phase)}
+            mutableCurrentItems.value = currentItems
+            mutableCurrentItems.postValue(currentItems)
+            count = currentItems.size
+            Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
     }
 
     fun getItemNum(id: Int): Int {

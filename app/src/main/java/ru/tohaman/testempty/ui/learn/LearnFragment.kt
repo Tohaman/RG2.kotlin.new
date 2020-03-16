@@ -33,6 +33,7 @@ class LearnFragment : Fragment() {
         binding = FragmentLearnBinding.inflate(inflater, container, false)
             .apply {
                 learnViewPager.adapter = adapter
+                learnViewPager.offscreenPageLimit = 5
 
                 learnViewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
@@ -44,9 +45,6 @@ class LearnFragment : Fragment() {
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
 
-
-                learnViewPager.offscreenPageLimit = 5
-
                 learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         val curType = learnViewModel.getCurrentType()
@@ -55,6 +53,7 @@ class LearnFragment : Fragment() {
                         //задаем именно smooyjScroll=false, иначе некорректно работает при возврате во фрагмент
                         learnViewPager.setCurrentItem(curType,false)
                         TabLayoutMediator(tabLayout, learnViewPager) { tab, position ->
+                            Timber.d("$TAG tabLayoutMediator = $tab position = $position")
                             tab.text = it[position].name
                         }.attach()
                     }

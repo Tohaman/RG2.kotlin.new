@@ -2,6 +2,7 @@ package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
@@ -18,7 +19,7 @@ import timber.log.Timber
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
     private val ctx = context
-    private var typesCount = 0
+    private var typesCount = 10
     //номер закладки открываемой по-умолчанию
     private var currentCubeType = 1
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
@@ -49,14 +50,12 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     fun getCurrentType(): Int = currentCubeType
 
     private fun initCubeTypes() {
-        runBlocking {
-            cubeTypes = repository.getCubeTypes()
+            runBlocking (Dispatchers.IO) { cubeTypes = repository.getCubeTypes() }
             typesCount = cubeTypes.size
-        }
-        //Вот так задаем значения, чтобы с одной стороны быстро применилось, с другой
-        //уведомило подписчиков об изменении значения
-        mutableCubeTypes.value = cubeTypes
-        mutableCubeTypes.postValue(cubeTypes)
+            //Вот так задаем значения, чтобы с одной стороны быстро применилось, с другой
+            //уведомило подписчиков об изменении значения
+            mutableCubeTypes.value = cubeTypes
+            mutableCubeTypes.postValue(cubeTypes)
     }
 
     private fun saveCubeTypes() {
