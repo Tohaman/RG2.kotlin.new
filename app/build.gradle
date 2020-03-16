@@ -85,6 +85,9 @@ dependencies {
     //YouTube Player
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
+    // Окно "умного рейтига" - App Rate https://github.com/codemybrainsout/smart-app-rate
+    implementation "com.codemybrainsout.rating:ratingdialog:1.0.8"
+
     //Timber для удобного вывода в лог данных - https://medium.com/mindorks/better-logging-in-android-using-timber-72e40cc2293d
     implementation 'com.jakewharton.timber:timber:4.7.1'
 

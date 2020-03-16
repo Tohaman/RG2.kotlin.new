@@ -34,6 +34,9 @@ interface MainDao {
     @Query("SELECT *  FROM $table WHERE phase = :phase and url <> 'submenu' ORDER BY ID")
     suspend fun getDetailsItems(phase : String) : List<MainDBItem>
 
+    @Query("SELECT *  FROM $table WHERE phase = :phase and id = :id")
+    suspend fun getItem(phase : String, id: Int) : MainDBItem
+
     @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
     fun getLivePhaseFromMain(phase : String) : LiveData<List<MainDBItem>>
 
@@ -54,6 +57,9 @@ interface MainDao {
 
     @Update
     fun update(mainDBItem: MainDBItem?)
+
+    @Update
+    fun update(mainDBItem: List<MainDBItem>)
 
     @Delete
     fun delete(mainDBItem: MainDBItem?)

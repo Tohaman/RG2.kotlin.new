@@ -32,6 +32,8 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     suspend fun getDetailsItems(phase: String): List<MainDBItem> = mainDao.getDetailsItems(phase)
 
+    suspend fun getItem(phase: String, id: Int): MainDBItem = mainDao.getItem(phase, id)
+
     fun getLivePhaseFromMain(phase: String): LiveData<List<MainDBItem>> = mainDao.getLivePhaseFromMain(phase)
 
     fun getAllLiveDataItems() = mainDao.getAllLiveItems()
@@ -47,6 +49,10 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
     suspend fun insert2Main(item: MainDBItem) = mainDao.insert(item)
 
     suspend fun insert2Main(items: List<MainDBItem>) = mainDao.insert(items)
+
+    suspend fun updateMainItem(item: MainDBItem?) = mainDao.update(item)
+
+    suspend fun updateMainItem(items: List<MainDBItem>) = mainDao.update(items)
 
 
     suspend fun getCubeTypes() = typeDao.getAllItems()

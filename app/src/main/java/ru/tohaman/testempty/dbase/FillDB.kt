@@ -19,6 +19,7 @@ class FillDB {
             Timber.d( "$TAG Основная таблица очищена")
             insertWrongItem()
             insertPhasesToMainTable(context)
+            updateComments()
             Timber.d( "$TAG Основная таблица заполнена")
             //insertCurrentPhases()
             //Timber.d( "$TAG Доп.таблица заполнена. База создана")
@@ -53,6 +54,12 @@ class FillDB {
             phaseInit("BEGIN2X2", R.array.begin2x2_title, R.array.begin2x2_icon, R.array.begin2x2_descr, R.array.begin2x2_url, context)
             phaseInit("INTF2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
+        }
+
+        private suspend fun updateComments() {
+            val item = repository.getItem("MAIN3X3", 0)
+            item.comment = "some Comment"
+            repository.updateMainItem(item)
         }
 
 

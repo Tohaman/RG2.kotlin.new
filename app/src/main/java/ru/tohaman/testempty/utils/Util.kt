@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.Html
 import android.text.Spanned
 import android.util.Log
+import android.util.TypedValue
 import androidx.core.app.ActivityCompat
 import ru.tohaman.testempty.R
 import java.util.*
@@ -22,6 +23,10 @@ class Pair4Melting (var allComplete: Boolean, var elementsNotOnPlace: SortedMap<
 
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
+// extension method to convert pixels to dp
+fun Int.dp(context: Context):Int = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
+).toInt()
 
 fun spannedString(desc:String, imgGetter: Html.ImageGetter, tagHandler: Html.TagHandler? = null): Spanned {
     // Немного преобразуем текст для корректного отображения.
