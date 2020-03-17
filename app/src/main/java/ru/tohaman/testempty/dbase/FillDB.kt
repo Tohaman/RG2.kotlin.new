@@ -19,7 +19,8 @@ class FillDB {
             Timber.d( "$TAG Основная таблица очищена")
             insertWrongItem()
             insertPhasesToMainTable(context)
-            updateComments()
+            updateTestComments()
+            updateTestFavourites()
             Timber.d( "$TAG Основная таблица заполнена")
             //insertCurrentPhases()
             //Timber.d( "$TAG Доп.таблица заполнена. База создана")
@@ -57,10 +58,21 @@ class FillDB {
             phaseInit("PATTERNS", R.array.patterns_title, R.array.patterns_icon, R.array.patterns_descr, R.array.patterns_url, context, R.array.patterns_comment)
         }
 
-        private suspend fun updateComments() {
+        private suspend fun updateTestComments() {
             val item = repository.getItem("MAIN3X3", 0)
             item.comment = "some Comment"
             repository.updateMainItem(item)
+        }
+
+        private suspend fun updateTestFavourites() {
+            val item1 = repository.getItem("PATTERNS", 1)
+            val item2 = repository.getItem("AXIS", 0)
+            val item3 = repository.getItem("BEGIN", 4)
+            item1.favComment = "Красивый узор"
+            item2.favComment = "Прикольная головоломка"
+            item3.favComment = "Пиф-паф"
+            val items = listOf(item1, item2, item3)
+            repository.updateMainItem(items)
         }
 
 
