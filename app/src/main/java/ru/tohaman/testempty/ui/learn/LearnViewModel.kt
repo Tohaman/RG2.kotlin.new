@@ -72,7 +72,11 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     fun updateCurrentPhasesToArray() {
         viewModelScope.launch {
             cubeTypes.map {
-                val list = repository.getLivePhaseFromMain(it.curPhase)
+                val list = if (it.curPhase != "FAVOURITES") {
+                    repository.getLivePhaseFromMain(it.curPhase)
+                } else {
+                    repository.getLiveFavourites()
+                }
                 //Заменяем пустой MediatorLiveData() на значение из базы
                 mainDBItemsMediatorArray[it.id].addSource(list, mainDBItemsMediatorArray[it.id]::setValue)
             }
