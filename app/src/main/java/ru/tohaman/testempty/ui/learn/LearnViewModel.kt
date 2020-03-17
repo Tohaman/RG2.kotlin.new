@@ -79,16 +79,17 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    fun backOnePhase() {
+    fun backOnePhase() : Boolean {
         val fromPhase = cubeTypes[currentCubeType].curPhase
         val defaultPhase = cubeTypes[currentCubeType].initPhase
         val toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
         Timber.d( "$TAG backOnePhase Page - $currentCubeType, fromPhase - $fromPhase, toPhase - $toPhase")
-        if (fromPhase != toPhase) {
+        return if (fromPhase != toPhase) {
             cubeTypes[currentCubeType].curPhase = toPhase
             saveCubeTypes()
             updateCurrentPhasesToArray()
-        }
+            true
+        } else false
     }
 
     fun onMainMenuItemClick(menuItem: MainDBItem) {

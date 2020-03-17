@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:visibility="@{tabbed ? View.VISIBLE : View.GONE, default = gone}"
             app:tabMode="fixed"
-            app:tabGravity="fill"
+            app:tabGravity="center"
             app:tabPaddingTop="8dp"
             app:tabPaddingBottom="8dp"/>
 

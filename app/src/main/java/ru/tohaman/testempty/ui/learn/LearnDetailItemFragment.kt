@@ -105,6 +105,7 @@ class LearnDetailItemFragment : Fragment() {
                 val textInputEditText = constraintLayout.
                 findViewWithTag<TextInputEditText>("textInputEditTextTag")
 
+                //textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_NONE
                 textInputEditText.text = comment.toEditable()
                 textInputEditText.hint = "или алгоритм"
                 builder.setTitle("Напишите свой комментарий:")

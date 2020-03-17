@@ -1,9 +1,11 @@
 package ru.tohaman.testempty.ui.learn
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -14,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.FragmentLearnBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
+import ru.tohaman.testempty.ui.MainActivity
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
@@ -22,8 +25,24 @@ class LearnFragment : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private val learnViewModel by sharedViewModel<LearnViewModel>()
 
+    private var exit: Boolean = false
     private lateinit var binding : FragmentLearnBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // This callback will only be called when MyFragment is at least Started.
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    //TODO Пересмотреть вызов activity.finish на какой-нибудь super.onBackPressed
+                    if (!learnViewModel.backOnePhase()) quitApp()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+
+        // The callback can be enabled or disabled here or in handleOnBackPressed()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -81,6 +100,15 @@ class LearnFragment : Fragment() {
             Timber.d("$TAG Обновляем список в адаптере LearnPagerAdapter")
             cubeTypes = items
             notifyDataSetChanged()
+        }
+    }
+
+    private fun quitApp() {
+        if (exit) activity?.finish()
+        else {
+            //Тут еще можно вывести тост, что нажмите мол еще раз, чтобы выйти toast("Press Back again to exit.")
+            exit = true
+            Handler().postDelayed({ exit = false }, 2000)
         }
     }
 }
