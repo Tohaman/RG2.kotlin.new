@@ -16,7 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.FragmentLearnBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
-import ru.tohaman.testempty.ui.MainActivity
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
@@ -35,8 +34,7 @@ class LearnFragment : Fragment() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
-                    //TODO Пересмотреть вызов activity.finish на какой-нибудь super.onBackPressed
-                    if (!learnViewModel.backOnePhase()) quitApp()
+                    if (!learnViewModel.canOnePhaseBack()) quitApp()
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

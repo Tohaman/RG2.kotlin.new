@@ -79,7 +79,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    fun backOnePhase() : Boolean {
+    //возвращаем true если вернулись на одну фазу назад или false если и так в главной фазе
+    fun canOnePhaseBack() : Boolean {
         val fromPhase = cubeTypes[currentCubeType].curPhase
         val defaultPhase = cubeTypes[currentCubeType].initPhase
         val toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
