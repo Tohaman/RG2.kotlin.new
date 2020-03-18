@@ -17,6 +17,7 @@
 package ru.tohaman.testempty.utils
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import java.util.concurrent.Executors
@@ -40,4 +41,9 @@ fun setImageResource(imageView: ImageView, resource: Int) {
 @BindingAdapter("app:srcCompat")
 fun bindSrcCompat(imageView: ImageView, drawable: Drawable?) {
     imageView.setImageDrawable(drawable)
+}
+
+@BindingAdapter("app:visibleIfNotEmpty")
+fun visibleIfNotEmpty(view: View, id: String) {
+    view.visibility = if (id != "") View.VISIBLE else View.GONE
 }
