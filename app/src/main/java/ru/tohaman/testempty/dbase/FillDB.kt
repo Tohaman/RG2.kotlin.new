@@ -59,9 +59,15 @@ class FillDB {
         }
 
         private suspend fun updateTestComments() {
-            val item = repository.getItem("MAIN3X3", 0)
-            item.comment = "some Comment"
-            repository.updateMainItem(item)
+            val item1 = repository.getItem("MAIN3X3", 0)
+            val item2 = repository.getItem("ROZOV", 0)
+            val item3 = repository.getItem("ROZOV", 1)
+            item1.comment = "Обязательно надо прочитать"
+            item2.comment = "Пиф-паф (R U R' U')"
+            item3.comment = "Английский пиф-паф (R' F R F')"
+            repository.updateMainItem(item1)
+            repository.updateMainItem(item2)
+            repository.updateMainItem(item3)
         }
 
         private suspend fun updateTestFavourites() {
