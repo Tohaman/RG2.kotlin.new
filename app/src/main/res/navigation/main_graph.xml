@@ -19,7 +19,7 @@
         <action
             android:id="@+id/actionToLearnDetails"
             app:destination="@id/destLearnDetails"
-            app:enterAnim="@anim/nav_default_enter_anim"
+            app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="false"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_margin_8"
                 tools:text="коммент к этапу"
-                android:textColor="@color/c_o"
+                android:textColor="@color/colorPrimary"
                 android:text='@{isFavourite? viewMenuItem.favComment : viewMenuItem.comment}'
                 android:ellipsize="end"
                 android:singleLine="true"
