@@ -16,9 +16,11 @@
 
 package ru.tohaman.testempty.utils
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import java.util.concurrent.Executors
+
 
 private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
 
@@ -33,4 +35,9 @@ fun ioThread(f : () -> Unit) {
 @BindingAdapter("android:src")
 fun setImageResource(imageView: ImageView, resource: Int) {
     imageView.setImageResource(resource)
+}
+
+@BindingAdapter("app:srcCompat")
+fun bindSrcCompat(imageView: ImageView, drawable: Drawable?) {
+    imageView.setImageDrawable(drawable)
 }

@@ -66,6 +66,7 @@ class LearnDetailItemFragment : Fragment() {
                 item = detailViewModel.getCurrentItems()[fragmentNum]
                 Timber.d("$TAG mainDBItem = $item")
                 mainDBItem = item
+                isFavourite = (item.favComment!="")
 
                 val youTubePlayerView = content.youtubeView.youtubePlayerView
                 lifecycle.addObserver(youTubePlayerView)

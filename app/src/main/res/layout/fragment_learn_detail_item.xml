@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="isFavourite"
+            type="Boolean" />
 
         <variable
             name="mainDBItem"
@@ -105,7 +108,7 @@
                     android:scaleY="1.2"
                     android:padding="16dp"
                     android:layout_marginEnd="16dp"
-                    app:srcCompat="@drawable/ic_help"
+                    app:srcCompat="@{isFavourite? @drawable/ic_favorite_checked: @drawable/ic_favorite, default = @drawable/ic_favorite}"
                     android:tint="@color/c_w"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -121,12 +124,14 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_favorite"
-            app:backgroundTint="@color/colorAccent"
-            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+            app:srcCompat="@drawable/ic_transform"
+            app:borderWidth="0dp"
+            android:backgroundTint="@color/colorAccent"
+            app:rippleColor="@color/white"
+
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
             app:elevation="6dp"
-            app:layout_anchor="@id/bottom_bar"
-            tools:src="@drawable/ic_favorite" />
+            app:layout_anchor="@id/bottom_bar"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
