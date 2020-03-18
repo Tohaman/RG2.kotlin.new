@@ -52,7 +52,8 @@ class LearnMenuFragment : Fragment() {
 
                 val menuAdapter = MenuAdapter(MenuAdapter.OnClickListener { mainDBItem: MainDBItem, view: View -> onMenuItemClick(mainDBItem, view) })
                 learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer {
-                    menuAdapter.refreshItems(it)
+                    val phase = learnViewModel.getPhaseNameById(ctId)
+                    menuAdapter.refreshItems(it, phase)
                 })
                 menuList.adapter = menuAdapter
             }

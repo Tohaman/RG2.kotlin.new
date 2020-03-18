@@ -21,7 +21,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val ctx = context
     private var typesCount = 10
     //номер закладки открываемой по-умолчанию
-    private var currentCubeType = 1
+    private var currentCubeType = 2
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
 
     //Массив из MwdiatorLiveData, содержащих списки записей определенной фазы
@@ -65,8 +65,12 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    fun setCurrentCubeType(id : Int) {
+    fun setCurrentCubeType(id: Int) {
         currentCubeType = id
+    }
+
+    fun getPhaseNameById(id: Int): String {
+        return if (id <= cubeTypes.size) cubeTypes[id].curPhase else ""
     }
 
     fun updateCurrentPhasesToArray() {

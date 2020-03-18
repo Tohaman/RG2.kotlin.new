@@ -10,6 +10,10 @@
             type="ru.tohaman.testempty.dbase.entitys.MainDBItem" />
 
         <variable
+            name="isFavourite"
+            type="Boolean" />
+
+        <variable
             name="clickListener"
             type="ru.tohaman.testempty.adapters.MenuAdapter.OnClickListener" />
     </data>
@@ -59,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_margin_8"
                 tools:text="коммент к этапу"
-                android:text="@{viewMenuItem.comment}"
+                android:textColor="@color/c_o"
+                android:text='@{isFavourite? viewMenuItem.favComment : viewMenuItem.comment}'
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textSize="12sp"/>
