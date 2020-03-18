@@ -33,17 +33,3 @@ fun ioThread(f : () -> Unit) {
     IO_EXECUTOR.execute(f)
 }
 
-@BindingAdapter("android:src")
-fun setImageResource(imageView: ImageView, resource: Int) {
-    imageView.setImageResource(resource)
-}
-
-@BindingAdapter("app:srcCompat")
-fun bindSrcCompat(imageView: ImageView, drawable: Drawable?) {
-    imageView.setImageDrawable(drawable)
-}
-
-@BindingAdapter("app:visibleIfNotEmpty")
-fun visibleIfNotEmpty(view: View, id: String) {
-    view.visibility = if (id != "") View.VISIBLE else View.GONE
-}

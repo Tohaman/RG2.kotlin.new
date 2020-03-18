@@ -10,10 +10,6 @@
             name="item"
             type="ru.tohaman.testempty.dbase.entitys.MainDBItem"/>
 
-        <variable
-            name="commentEnabled"
-            type="Boolean"/>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,7 +88,7 @@
             android:id="@+id/description_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="@dimen/dimen_margin_8"
             android:layout_marginRight="@dimen/dimen_margin_8"
             android:htmlText="@{item.description}"

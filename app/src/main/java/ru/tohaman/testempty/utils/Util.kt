@@ -3,11 +3,9 @@ package ru.tohaman.testempty.utils
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.Html
 import android.text.Spanned
-import android.util.Log
 import android.util.TypedValue
 import androidx.core.app.ActivityCompat
 import ru.tohaman.testempty.R

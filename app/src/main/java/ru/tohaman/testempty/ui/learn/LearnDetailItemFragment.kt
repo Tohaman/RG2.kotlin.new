@@ -66,7 +66,6 @@ class LearnDetailItemFragment : Fragment() {
                 item = detailViewModel.getCurrentItems()[fragmentNum]
                 Timber.d("$TAG mainDBItem = $item")
                 mainDBItem = item
-                isFavourite = (item.favComment!="")
 
                 val youTubePlayerView = content.youtubeView.youtubePlayerView
                 lifecycle.addObserver(youTubePlayerView)
@@ -101,10 +100,8 @@ class LearnDetailItemFragment : Fragment() {
                 val constraintLayout = getEditTextLayout(it)
                 builder.setView(constraintLayout)
 
-                val textInputLayout = constraintLayout.
-                findViewWithTag<TextInputLayout>("textInputLayoutTag")
-                val textInputEditText = constraintLayout.
-                findViewWithTag<TextInputEditText>("textInputEditTextTag")
+                val textInputLayout = constraintLayout.findViewWithTag<TextInputLayout>("textInputLayoutTag")
+                val textInputEditText = constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
 
                 //textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_NONE
                 textInputEditText.text = comment.toEditable()
@@ -131,7 +128,7 @@ class LearnDetailItemFragment : Fragment() {
                 })
 */
             }
-        } ?: throw IllegalStateException("Activity cannot be null")
+        }
     }
 
     // get edit text layout

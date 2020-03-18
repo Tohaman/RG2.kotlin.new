@@ -1,6 +1,8 @@
 package ru.tohaman.testempty.ui.learn
 
+import android.graphics.drawable.Drawable
 import android.text.Html
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -33,6 +35,27 @@ fun setHtmlResource(textView: TextView, htmlId: Int) {
     }
 
     textView.text = spannedString(textString, imgGetter, tagHandler)
+}
+
+@BindingAdapter("app:srcCompat")
+fun bindSrcCompat(imageView: ImageView, drawable: Drawable?) {
+    imageView.setImageDrawable(drawable)
+}
+
+@BindingAdapter("app:isComentEmpty", "app:enabledDrawable", "app:disabledDrawable")
+fun setDrawableByComment(imageView: ImageView, string: String, enDrawable: Drawable?, disDrawable: Drawable?) {
+    imageView.setImageDrawable(if (string=="") disDrawable else enDrawable)
+}
+
+@BindingAdapter("app:visibleIfNotEmpty")
+fun visibleIfNotEmpty(view: View, id: String) {
+    view.visibility = if (id != "") View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("app:favComment", "app:setComment")
+fun commentChoose(textView: TextView, favComment: String, comment: String) {
+    val text = if (favComment == "") comment else favComment
+    textView.text = text
 }
 
 

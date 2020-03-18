@@ -5,10 +5,6 @@
 
     <data>
         <variable
-            name="isFavourite"
-            type="Boolean" />
-
-        <variable
             name="mainDBItem"
             type="ru.tohaman.testempty.dbase.entitys.MainDBItem" />
     </data>
@@ -108,7 +104,10 @@
                     android:scaleY="1.2"
                     android:padding="16dp"
                     android:layout_marginEnd="16dp"
-                    app:srcCompat="@{isFavourite? @drawable/ic_favorite_checked: @drawable/ic_favorite, default = @drawable/ic_favorite}"
+                    app:disabledDrawable="@{@drawable/ic_favorite}"
+                    app:enabledDrawable="@{@drawable/ic_favorite_checked}"
+                    app:isComentEmpty="@{mainDBItem.favComment}"
+
                     android:tint="@color/c_w"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
