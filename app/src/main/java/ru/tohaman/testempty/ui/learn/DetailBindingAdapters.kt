@@ -37,9 +37,16 @@ fun setHtmlResource(textView: TextView, htmlId: Int) {
     textView.text = spannedString(textString, imgGetter, tagHandler)
 }
 
-@BindingAdapter("app:srcCompat")
-fun bindSrcCompat(imageView: ImageView, drawable: Drawable?) {
-    imageView.setImageDrawable(drawable)
+private val tagHandler = Html.TagHandler { opening, tag, output, xmlReader ->
+    //Тут можно обрабатывать свои тэги, например mytag, хотя в данном случае можно
+    //просто написть _, _, _, _ -> null
+    if (tag.equals("mytag", true)) {
+        val open = opening
+        val tag1 = tag
+        val out = output
+        val xml = xmlReader
+        Timber.d ("$TAG - tagHandler = $open, $tag1, $out, $xml")
+    }
 }
 
 @BindingAdapter("app:isEnabled", "app:enabledDrawable", "app:disabledDrawable")
@@ -58,22 +65,3 @@ fun commentChoose(textView: TextView, favComment: String, comment: String) {
     textView.text = text
 }
 
-
-@BindingAdapter("showTime")
-fun showTime(textView: TextView, time: Long?) {
-    time?.let {
-        textView.text = "$it сек"
-    }
-}
-
-private val tagHandler = Html.TagHandler { opening, tag, output, xmlReader ->
-    //Тут можно обрабатывать свои тэги, например mytag, хотя в данном случае можно
-    //просто написть _, _, _, _ -> null
-    if (tag.equals("mytag", true)) {
-        val open = opening
-        val tag1 = tag
-        val out = output
-        val xml = xmlReader
-        Timber.d ("$TAG - tagHandler = $open, $tag1, $out, $xml")
-    }
-}
