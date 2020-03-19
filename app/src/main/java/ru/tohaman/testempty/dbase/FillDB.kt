@@ -75,8 +75,11 @@ class FillDB {
             val item2 = repository.getItem("AXIS", 0)
             val item3 = repository.getItem("BEGIN", 4)
             item1.favComment = "Красивый узор"
+            item1.isFavourite = true
             item2.favComment = "Прикольная головоломка"
+            item2.isFavourite = true
             item3.favComment = "Пиф-паф"
+            item3.isFavourite = true
             val items = listOf(item1, item2, item3)
             repository.updateMainItem(items)
         }

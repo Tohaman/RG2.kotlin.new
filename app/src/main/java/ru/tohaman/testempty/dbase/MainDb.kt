@@ -13,13 +13,11 @@ import ru.tohaman.testempty.dbase.entitys.PhaseItem
  * абстрактным и наследовать RoomDatabase. В параметрах аннотации Database указываем, какие Entity будут использоваться, и версию базы.
  * Для каждого Entity класса из списка entities будет создана таблица.
  * В Database классе необходимо описать абстрактные методы для получения Dao объектов, которые нам понадобятся.
- * Поскольку создание такого класса "дорогое удовольствие", то используем или синглтон (синглет)
- * через создание в "companion object instance" или глабоальную переменную [mainDatabase]
  * В аннотации entities задаем используемые в базе entities, по сути - таблицы.
  * Room сравнивает поля в entities, и если они отличаются от текущих в базе, то нужна миграция, а соответственно повышение версии базы
  */
 
-@Database(entities = [MainDBItem::class, PhaseItem::class, CubeType::class], version = 4)
+@Database(entities = [MainDBItem::class, PhaseItem::class, CubeType::class], version = 5)
 abstract class MainDb : RoomDatabase() {
     abstract val mainDao : MainDao
     abstract val cubeTypesDao : CubeTypesDao

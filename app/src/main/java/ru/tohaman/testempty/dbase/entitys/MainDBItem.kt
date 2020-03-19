@@ -25,8 +25,6 @@ data class MainDBItem (
     val description: Int = 0,
     val url: String = "",
     var comment: String = "",
-    var favComment: String = "",
-    val subID: String = "",
-    val subTitle: String = "",
-    val subLongTitle: String = ""
+    var isFavourite: Boolean = false,
+    var favComment: String = ""
 )

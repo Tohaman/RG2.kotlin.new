@@ -37,7 +37,10 @@ interface MainDao {
     @Query("SELECT *  FROM $table WHERE phase = :phase and id = :id")
     suspend fun getItem(phase : String, id: Int) : MainDBItem
 
-    @Query("SELECT *  FROM $table WHERE favComment <> '' ")
+    @Query("SELECT *  FROM $table WHERE isFavourite = 1")
+    fun getFavourites() : List<MainDBItem>
+
+    @Query("SELECT *  FROM $table WHERE isFavourite = 1")
     fun getLiveFavourites() : LiveData<List<MainDBItem>>
 
     @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")

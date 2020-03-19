@@ -34,6 +34,7 @@ import java.lang.IllegalStateException
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
+    private val learnViewModel by sharedViewModel<LearnViewModel>()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
     private lateinit var item: MainDBItem
@@ -128,6 +129,13 @@ class LearnDetailItemFragment : Fragment() {
                 })
 */
             }
+        }
+
+        binding.favourites.setOnClickListener {
+            item.isFavourite = !item.isFavourite
+            binding.mainDBItem = item
+            detailViewModel.updateComment(item)
+            learnViewModel.updateFavourites()
         }
     }
 

@@ -92,28 +92,28 @@
                     android:tint="@color/c_w"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/guideline2"
-                    app:layout_constraintEnd_toStartOf="@+id/azbuka"
+                    app:layout_constraintEnd_toStartOf="@+id/favourites"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
-                    android:id="@+id/azbuka"
+                    android:id="@+id/favourites"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleX="1.2"
                     android:scaleY="1.2"
                     android:padding="16dp"
                     android:layout_marginEnd="16dp"
-                    app:disabledDrawable="@{@drawable/ic_favorite}"
+                    app:disabledDrawable="@{@drawable/ic_favorite_unchecked}"
                     app:enabledDrawable="@{@drawable/ic_favorite_checked}"
-                    app:isComentEmpty="@{mainDBItem.favComment}"
-
+                    app:isEnabled="@{mainDBItem.isFavourite}"
                     android:tint="@color/c_w"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/writeComment"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@drawable/ic_favorite_unchecked"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -127,7 +127,6 @@
             app:borderWidth="0dp"
             android:backgroundTint="@color/colorAccent"
             app:rippleColor="@color/white"
-
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             app:elevation="6dp"
             app:layout_anchor="@id/bottom_bar"/>

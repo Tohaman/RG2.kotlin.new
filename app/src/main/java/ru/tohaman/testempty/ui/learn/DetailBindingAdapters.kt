@@ -42,9 +42,9 @@ fun bindSrcCompat(imageView: ImageView, drawable: Drawable?) {
     imageView.setImageDrawable(drawable)
 }
 
-@BindingAdapter("app:isComentEmpty", "app:enabledDrawable", "app:disabledDrawable")
-fun setDrawableByComment(imageView: ImageView, string: String, enDrawable: Drawable?, disDrawable: Drawable?) {
-    imageView.setImageDrawable(if (string=="") disDrawable else enDrawable)
+@BindingAdapter("app:isEnabled", "app:enabledDrawable", "app:disabledDrawable")
+fun setDrawableByComment(imageView: ImageView, isFavourite: Boolean, enDrawable: Drawable?, disDrawable: Drawable?) {
+    imageView.setImageDrawable(if (isFavourite) enDrawable else disDrawable)
 }
 
 @BindingAdapter("app:visibleIfNotEmpty")

@@ -36,6 +36,8 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     fun getLivePhaseFromMain(phase: String): LiveData<List<MainDBItem>> = mainDao.getLivePhaseFromMain(phase)
 
+    suspend fun getFavourites(): List<MainDBItem> = mainDao.getFavourites()
+
     fun getLiveFavourites(): LiveData<List<MainDBItem>> = mainDao.getLiveFavourites()
 
     fun getAllLiveDataItems() = mainDao.getAllLiveItems()

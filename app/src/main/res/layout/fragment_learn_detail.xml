@@ -34,18 +34,6 @@
             tools:preview="@layout/fragment_learn_menu"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/multiFab"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/fab_margin"-->
-<!--            android:padding="@dimen/mid_padding"-->
-<!--            app:backgroundTintMode="screen"-->
-<!--            app:backgroundTint="@color/colorAccent"-->
-<!--            app:srcCompat="@drawable/ic_favorite"-->
-<!--            app:layout_anchor="@+id/detailViewPager"-->
-<!--            app:layout_anchorGravity="end|bottom"/>-->
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

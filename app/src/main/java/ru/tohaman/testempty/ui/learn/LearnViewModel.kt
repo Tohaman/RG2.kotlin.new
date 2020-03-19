@@ -24,7 +24,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private var currentCubeType = 2
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
 
-    //Массив из MwdiatorLiveData, содержащих списки записей определенной фазы
+    //Массив из MediatorLiveData, содержащих списки записей определенной фазы
     private var mainDBItemsMediatorArray = Array<MediatorLiveData<List<MainDBItem>>>(typesCount) { MediatorLiveData() }
     val mainDBItemLiveArray
         get() = Array<LiveData<List<MainDBItem>>>(typesCount) { mainDBItemsMediatorArray[it]}
@@ -73,7 +73,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         return if (id <= cubeTypes.size) cubeTypes[id].curPhase else ""
     }
 
-    fun updateCurrentPhasesToArray() {
+    private fun updateCurrentPhasesToArray() {
         viewModelScope.launch {
             cubeTypes.map {
                 val list = if (it.curPhase != "FAVOURITES") {
@@ -83,6 +83,17 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
                 }
                 //Заменяем пустой MediatorLiveData() на значение из базы
                 mainDBItemsMediatorArray[it.id].addSource(list, mainDBItemsMediatorArray[it.id]::setValue)
+            }
+        }
+    }
+
+    fun updateFavourites() {
+        viewModelScope.launch(Dispatchers.IO) {
+            cubeTypes.map {
+                if (it.curPhase == "FAVOURITES") {
+                    val favouritesList = repository.getFavourites()
+                    mainDBItemsMediatorArray[it.id].postValue(favouritesList)
+                }
             }
         }
     }
