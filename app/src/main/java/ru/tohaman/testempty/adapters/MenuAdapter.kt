@@ -4,15 +4,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
-import timber.log.Timber
 
-class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
+interface OnClickCallBack {
+    fun openItem(menuItem: MainDBItem, view: View)
+    fun favouriteChange(menuItem: MainDBItem)
+}
+
+class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
     //тут храним список, который надо отобразить
     private var items: List<MainDBItem> = ArrayList()
     private var curPhase: String = ""
+    private var onClickCallBack: OnClickCallBack? = null
+
+    fun attachCallBack(onClickCallBack: OnClickCallBack) {
+        this.onClickCallBack = onClickCallBack
+    }
 
     //создает ViewHolder и инициализирует views для списка
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
@@ -24,7 +32,7 @@ class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.A
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
         //тут обновляем данные ячейки (вызываем биндер холдера) передаем туда MainDBItem и onClickListener
         val item = items[position]
-        holder.bind(item, curPhase, onClickListener)
+        holder.bind(item, curPhase, onClickCallBack)
     }
 
     fun refreshItems(items: List<MainDBItem>, phase: String = items[0].phase) {
@@ -33,16 +41,15 @@ class MenuAdapter(private val onClickListener: OnClickListener) : RecyclerView.A
         notifyDataSetChanged()
     }
 
-    class OnClickListener(val clickListener: (MainDBItem, View) -> Unit) {
-        fun onClick(menuItem: MainDBItem, view: View) = clickListener(menuItem, view)
-    }
+//    class OnClickListener(val clickListener: (MainDBItem, View) -> Unit) {
+//        fun onClick(menuItem: MainDBItem, view: View) = clickListener(menuItem, view)
+//    }
 
     class MenuHolder private constructor(private val binding: MainMenuItemBinding)
             : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MainDBItem, phase: String, onClickListener: OnClickListener) {
+        fun bind(item: MainDBItem, phase: String, onClickCallBack: OnClickCallBack?) {
             binding.viewMenuItem = item
-            binding.clickListener = onClickListener
-            binding.isFavourite = (phase == "FAVOURITES")
+            binding.clickListener = onClickCallBack
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }

@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
-import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.MenuAdapter
-import ru.tohaman.testempty.databinding.FragmentLearnBinding
+import ru.tohaman.testempty.adapters.OnClickCallBack
 import ru.tohaman.testempty.databinding.FragmentLearnMenuBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
@@ -50,7 +49,16 @@ class LearnMenuFragment : Fragment() {
                 lifecycleOwner = this@LearnMenuFragment
                 menuList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-                val menuAdapter = MenuAdapter(MenuAdapter.OnClickListener { mainDBItem: MainDBItem, view: View -> onMenuItemClick(mainDBItem, view) })
+                val menuAdapter = MenuAdapter()
+                menuAdapter.attachCallBack(object: OnClickCallBack {
+                    override fun openItem(item: MainDBItem, view: View) {
+                        onMenuItemClick(item, view)
+                    }
+                    override fun favouriteChange(item: MainDBItem) {
+                        learnViewModel.onFavouriteChangeClick(item)
+                    }
+
+                })
                 learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer {
                     val phase = learnViewModel.getPhaseNameById(ctId)
                     menuAdapter.refreshItems(it, phase)
@@ -60,6 +68,7 @@ class LearnMenuFragment : Fragment() {
         return binding.root
     }
 
+    //TODO перенести метод во viewModel
     private fun onMenuItemClick(item: MainDBItem, view: View) {
         Timber.d("$TAG onItemClick - $item")
         if (item.url == "submenu") {

@@ -76,11 +76,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private fun updateCurrentPhasesToArray() {
         viewModelScope.launch {
             cubeTypes.map {
-                val list = if (it.curPhase != "FAVOURITES") {
-                    repository.getLivePhaseFromMain(it.curPhase)
-                } else {
-                    repository.getLiveFavourites()
-                }
+                val list = getLivePhaseFromRepository(it.curPhase)
                 //Заменяем пустой MediatorLiveData() на значение из базы
                 mainDBItemsMediatorArray[it.id].addSource(list, mainDBItemsMediatorArray[it.id]::setValue)
             }
@@ -119,6 +115,17 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         updateCurrentPhasesToArray()
     }
 
+    fun onFavouriteChangeClick(menuItem: MainDBItem) {
+        Timber.d( "$TAG favouriteChange for - $menuItem")
+        viewModelScope.launch (Dispatchers.IO) {
+            menuItem.isFavourite = !menuItem.isFavourite
+            repository.updateMainItem(menuItem)
+            val currentPhase = cubeTypes[currentCubeType].curPhase
+            val curPhaseList = repository.getPhaseFromMain(asdasdasda)
+            mainDBItemsMediatorArray[currentCubeType].postValue(curPhaseList)
+        }
+    }
+
     fun onSomeButtonClick() {
         Timber.d( "$TAG onSomeButtonClick - нажали кнопку для проверки какого-то действия")
         cubeTypes[currentCubeType].curPhase = cubeTypes[currentCubeType].initPhase
@@ -135,5 +142,12 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    private fun getLivePhaseFromRepository(phase: String): LiveData<List<MainDBItem>> {
+        return if (phase != "FAVOURITES") {
+            repository.getLivePhaseFromMain(phase)
+        } else {
+            repository.getLiveFavourites()
+        }
+    }
 
 }

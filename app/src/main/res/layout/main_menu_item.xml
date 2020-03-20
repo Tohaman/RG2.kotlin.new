@@ -10,12 +10,8 @@
             type="ru.tohaman.testempty.dbase.entitys.MainDBItem" />
 
         <variable
-            name="isFavourite"
-            type="Boolean" />
-
-        <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.MenuAdapter.OnClickListener" />
+            type="ru.tohaman.testempty.adapters.OnClickCallBack" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +20,7 @@
         android:layout_marginRight="@dimen/dimen_margin_8"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
-        android:onClick="@{(view) -> clickListener.onClick(viewMenuItem, view)}">
+        android:onClick="@{(view) -> clickListener.openItem(viewMenuItem, view)}">
 
         <ImageView
             android:id="@+id/main_menu_image"
@@ -86,6 +82,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{(view) -> clickListener.favouriteChange(viewMenuItem)}"
             tools:srcCompat="@drawable/ic_favorite_unchecked"/>
 
         
