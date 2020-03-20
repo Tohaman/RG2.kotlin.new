@@ -17,6 +17,7 @@ import timber.log.Timber
 
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
+    private val FAVOURITES = "FAVOURITES"
     private val repository : ItemsRepository by inject()
     private val ctx = context
     private var typesCount = 10
@@ -84,7 +85,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     private fun getLivePhaseFromRepository(phase: String): LiveData<List<MainDBItem>> {
-        return if (phase != "FAVOURITES") {
+        return if (phase != FAVOURITES) {
             repository.getLivePhaseFromMain(phase)
         } else {
             repository.getLiveFavourites()
@@ -94,7 +95,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     fun updateFavourites() {
         viewModelScope.launch(Dispatchers.IO) {
             cubeTypes.map {
-                if (it.curPhase == "FAVOURITES") {
+                if (it.curPhase == FAVOURITES) {
                     val favouritesList = repository.getFavourites()
                     mainDBItemsMediatorArray[it.id].postValue(favouritesList)
                 }
@@ -106,7 +107,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     fun canOnePhaseBack() : Boolean {
         val fromPhase = cubeTypes[currentCubeType].curPhase
         val defaultPhase = cubeTypes[currentCubeType].initPhase
-        val toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
+        var toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
+        if (defaultPhase == FAVOURITES) toPhase = FAVOURITES
         Timber.d( "$TAG backOnePhase Page - $currentCubeType, fromPhase - $fromPhase, toPhase - $toPhase")
         return if (fromPhase != toPhase) {
             cubeTypes[currentCubeType].curPhase = toPhase
