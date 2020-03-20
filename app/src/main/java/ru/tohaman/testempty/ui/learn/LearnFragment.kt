@@ -34,7 +34,7 @@ class LearnFragment : Fragment() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
-                    if (!learnViewModel.canOnePhaseBack()) quitApp()
+                    if (!learnViewModel.canReturnToOnePhaseBack()) quitApp()
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

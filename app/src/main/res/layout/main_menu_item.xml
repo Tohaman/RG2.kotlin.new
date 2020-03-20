@@ -83,6 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:onClick="@{(view) -> clickListener.favouriteChange(viewMenuItem)}"
+            android:longClickable="true"
             tools:srcCompat="@drawable/ic_favorite_unchecked"/>
 
         

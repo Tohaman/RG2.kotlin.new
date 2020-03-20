@@ -58,6 +58,10 @@ class LearnMenuFragment : Fragment() {
                         learnViewModel.onFavouriteChangeClick(menuItem)
                     }
 
+                    override fun longClick(menuItem: MainDBItem, view: View) {
+                        Timber.d("$TAG onLongItemClick - $menuItem")
+                    }
+
                 })
                 learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer {
                     val phase = learnViewModel.getPhaseNameById(ctId)

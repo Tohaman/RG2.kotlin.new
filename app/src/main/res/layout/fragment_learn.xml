@@ -37,7 +37,7 @@
             android:padding="@dimen/mid_padding"
             app:backgroundTintMode="screen"
             app:backgroundTint="@color/colorAccent"
-            android:onClick="@{() -> viewModel.canOnePhaseBack()}"
+            android:onClick="@{() -> viewModel.canReturnToOnePhaseBack()}"
             app:srcCompat="@drawable/ic_fab_backward"
             app:layout_anchor="@+id/learnViewPager"
             app:layout_anchorGravity="end|bottom"/>
