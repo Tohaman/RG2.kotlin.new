@@ -51,11 +51,11 @@ class LearnMenuFragment : Fragment() {
 
                 val menuAdapter = MenuAdapter()
                 menuAdapter.attachCallBack(object: OnClickCallBack {
-                    override fun openItem(item: MainDBItem, view: View) {
-                        onMenuItemClick(item, view)
+                    override fun openItem(menuItem: MainDBItem, view: View) {
+                        onMenuItemClick(menuItem, view)
                     }
-                    override fun favouriteChange(item: MainDBItem) {
-                        learnViewModel.onFavouriteChangeClick(item)
+                    override fun favouriteChange(menuItem: MainDBItem) {
+                        learnViewModel.onFavouriteChangeClick(menuItem)
                     }
 
                 })
