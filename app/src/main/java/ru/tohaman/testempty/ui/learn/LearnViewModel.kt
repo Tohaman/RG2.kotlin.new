@@ -83,6 +83,14 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    private fun getLivePhaseFromRepository(phase: String): LiveData<List<MainDBItem>> {
+        return if (phase != "FAVOURITES") {
+            repository.getLivePhaseFromMain(phase)
+        } else {
+            repository.getLiveFavourites()
+        }
+    }
+
     fun updateFavourites() {
         viewModelScope.launch(Dispatchers.IO) {
             cubeTypes.map {
@@ -123,27 +131,12 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    fun onSomeButtonClick() {
-        Timber.d( "$TAG onSomeButtonClick - нажали кнопку для проверки какого-то действия")
-        cubeTypes[currentCubeType].curPhase = cubeTypes[currentCubeType].initPhase
-        saveCubeTypes()
-        updateCurrentPhasesToArray()
-    }
-
     private fun getSubMenuList () {
         viewModelScope.launch {
             val subMenusList = repository.getSubMenuList()
             subMenusList.map {it ->
                 backFrom.put(ctx.getString(it.description), it.phase)
             }
-        }
-    }
-
-    private fun getLivePhaseFromRepository(phase: String): LiveData<List<MainDBItem>> {
-        return if (phase != "FAVOURITES") {
-            repository.getLivePhaseFromMain(phase)
-        } else {
-            repository.getLiveFavourites()
         }
     }
 
