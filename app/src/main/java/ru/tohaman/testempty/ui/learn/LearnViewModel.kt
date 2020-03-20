@@ -120,9 +120,6 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         viewModelScope.launch (Dispatchers.IO) {
             menuItem.isFavourite = !menuItem.isFavourite
             repository.updateMainItem(menuItem)
-            val currentPhase = cubeTypes[currentCubeType].curPhase
-            val curPhaseList = repository.getPhaseFromMain(asdasdasda)
-            mainDBItemsMediatorArray[currentCubeType].postValue(curPhaseList)
         }
     }
 
