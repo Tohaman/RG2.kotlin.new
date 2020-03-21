@@ -135,7 +135,7 @@ class LearnDetailItemFragment : Fragment() {
             item.isFavourite = !item.isFavourite
             binding.mainDBItem = item
             detailViewModel.updateComment(item)
-            learnViewModel.updateFavourites()
+            //learnViewModel.updateFavourites()
         }
     }
 

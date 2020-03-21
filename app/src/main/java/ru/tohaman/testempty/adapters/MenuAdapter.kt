@@ -8,9 +8,9 @@ import ru.tohaman.testempty.databinding.MainMenuItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 
 interface OnClickCallBack {
-    fun openItem(menuItem: MainDBItem, view: View)
-    fun favouriteChange(menuItem: MainDBItem)
-    fun longClick(menuItem: MainDBItem, view: View)
+    fun openItem(menuItem: MainDBItem, view: View): Boolean
+    fun favouriteChange(menuItem: MainDBItem): Boolean
+    //fun longClick(menuItem: MainDBItem, view: View): Boolean
 }
 
 class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {

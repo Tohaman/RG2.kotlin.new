@@ -45,7 +45,18 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         //Обновляем размер списка в зависимости от числа типов головоломок
         mainDBItemsMediatorArray = Array<MediatorLiveData<List<MainDBItem>>>(typesCount) { MediatorLiveData() }
         //Для каждого типа подгружаем текущую фазу
-        updateCurrentPhasesToArray()
+        initPhasesToArray()
+    }
+
+    private fun initPhasesToArray() {
+        Timber.d("$TAG initPhasesToArray")
+        viewModelScope.launch {
+            cubeTypes.map {
+                val list = getLivePhaseFromRepository(it.curPhase)
+                //Заменяем пустой MediatorLiveData() на значение из базы
+                mainDBItemsMediatorArray[it.id].addSource(list, mainDBItemsMediatorArray[it.id]::setValue)
+            }
+        }
     }
 
     fun getCurrentType(): Int = currentCubeType
@@ -59,29 +70,12 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             mutableCubeTypes.postValue(cubeTypes)
     }
 
-    private fun saveCubeTypes() {
-        viewModelScope.launch {
-            repository.update(cubeTypes)
-            mutableCubeTypes.postValue(cubeTypes)
-        }
-    }
-
     fun setCurrentCubeType(id: Int) {
         currentCubeType = id
     }
 
     fun getPhaseNameById(id: Int): String {
         return if (id <= cubeTypes.size) cubeTypes[id].curPhase else ""
-    }
-
-    private fun updateCurrentPhasesToArray() {
-        viewModelScope.launch {
-            cubeTypes.map {
-                val list = getLivePhaseFromRepository(it.curPhase)
-                //Заменяем пустой MediatorLiveData() на значение из базы
-                mainDBItemsMediatorArray[it.id].addSource(list, mainDBItemsMediatorArray[it.id]::setValue)
-            }
-        }
     }
 
     private fun getLivePhaseFromRepository(phase: String): LiveData<List<MainDBItem>> {
@@ -109,20 +103,42 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         val defaultPhase = cubeTypes[currentCubeType].initPhase
         var toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
         if (defaultPhase == FAVOURITES) toPhase = FAVOURITES
-        Timber.d( "$TAG backOnePhase Page - $currentCubeType, fromPhase - $fromPhase, toPhase - $toPhase")
+        Timber.d( "$TAG backOnePhase Page - $currentCubeType, fromPhase - $fromPhase, toPhase - $toPhase, $cubeTypes")
         return if (fromPhase != toPhase) {
-            cubeTypes[currentCubeType].curPhase = toPhase
-            saveCubeTypes()
-            updateCurrentPhasesToArray()
+                changePhaseTo(toPhase)
             true
         } else false
     }
 
-    fun onMainMenuItemClick(menuItem: MainDBItem) {
-        Timber.d( "$TAG Selected_Page $currentCubeType - ViewModel.onMainMenuItemClick - $menuItem")
-        cubeTypes[currentCubeType].curPhase = ctx.getString(menuItem.description)
+    private fun changePhaseTo(phase: String) {
+        cubeTypes[currentCubeType].curPhase = phase
         saveCubeTypes()
         updateCurrentPhasesToArray()
+    }
+
+    private fun saveCubeTypes() {
+        Timber.d("$TAG saveCubeTypes $cubeTypes")
+        viewModelScope.launch {
+            repository.update(cubeTypes)
+            //mutableCubeTypes.postValue(cubeTypes)
+        }
+    }
+
+    private fun updateCurrentPhasesToArray() {
+        Timber.d("$TAG updateCurrentPhasesToArray")
+        viewModelScope.launch {
+            cubeTypes.map {
+                val listItem = repository.getPhaseFromMain(it.curPhase)
+                //Заменяем пустой MediatorLiveData() на значение из базы
+                mainDBItemsMediatorArray[it.id].postValue(listItem)
+            }
+        }
+    }
+
+    fun onMainMenuItemClick(menuItem: MainDBItem) {
+        val phase = ctx.getString(menuItem.description)
+        Timber.d( "$TAG Selected_Page $currentCubeType - setToPhase - $phase")
+        changePhaseTo(phase)
     }
 
     fun onFavouriteChangeClick(menuItem: MainDBItem) {
@@ -131,6 +147,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             menuItem.isFavourite = !menuItem.isFavourite
             repository.updateMainItem(menuItem)
         }
+        Timber.d( "$TAG favouriteFinish")
     }
 
     private fun getSubMenuList () {

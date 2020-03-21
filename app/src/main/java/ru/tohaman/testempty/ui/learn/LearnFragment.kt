@@ -70,7 +70,7 @@ class LearnFragment : Fragment() {
                         //задаем именно smooyjScroll=false, чтобы сразу открывалась нужная страница, без анимации пролистывания
                         learnViewPager.setCurrentItem(curType,false)
                         TabLayoutMediator(tabLayout, learnViewPager) { tab, position ->
-                            Timber.d("$TAG tabLayoutMediator = $tab position = $position")
+                            //Timber.d("$TAG tabLayoutMediator = $tab position = $position")
                             tab.text = it[position].name
                         }.attach()
                     }
