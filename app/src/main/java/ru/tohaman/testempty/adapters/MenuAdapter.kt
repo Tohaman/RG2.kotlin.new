@@ -4,13 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import timber.log.Timber
+import java.io.BufferedReader
 
 interface OnClickCallBack {
-    fun openItem(menuItem: MainDBItem, view: View): Boolean
-    fun favouriteChange(menuItem: MainDBItem): Boolean
-    //fun longClick(menuItem: MainDBItem, view: View): Boolean
+    fun openItem(menuItem: MainDBItem, view: View)
+    fun favouriteChange(menuItem: MainDBItem)
+    fun longClick(menuItem: MainDBItem, view: View)
 }
 
 class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
@@ -51,6 +54,10 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
         fun bind(item: MainDBItem, phase: String, onClickCallBack: OnClickCallBack?) {
             binding.viewMenuItem = item
             binding.clickListener = onClickCallBack
+//            binding.favourites.setOnLongClickListener{imageView: View ->
+//                onClickCallBack?.longClick(item, imageView)
+//                true
+//            }
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }

@@ -51,20 +51,19 @@ class LearnMenuFragment : Fragment() {
 
                 val menuAdapter = MenuAdapter()
                 menuAdapter.attachCallBack(object: OnClickCallBack {
-                    override fun openItem(menuItem: MainDBItem, view: View): Boolean {
+                    override fun openItem(menuItem: MainDBItem, view: View) {
                         Timber.d("$TAG openItem $menuItem")
                         onMenuItemClick(menuItem, view)
-                        return false
                     }
-                    override fun favouriteChange(menuItem: MainDBItem): Boolean {
+                    override fun favouriteChange(menuItem: MainDBItem) {
                         Timber.d("$TAG favouriteLambdaChange $menuItem")
                         learnViewModel.onFavouriteChangeClick(menuItem)
-                        return false
                     }
 
-//                    override fun longClick(menuItem: MainDBItem, view: View) {
-//                        Timber.d("$TAG onLongItemClick - $menuItem")
-//                    }
+                    override fun longClick(menuItem: MainDBItem, view: View) {
+                        Timber.d("$TAG onLongItemClick - $menuItem")
+
+                    }
 
                 })
                 learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer {

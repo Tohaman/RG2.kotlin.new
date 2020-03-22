@@ -1,14 +1,9 @@
 package ru.tohaman.testempty.ui.learn
 
-import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.navigation.fragment.findNavController
@@ -17,20 +12,14 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import kotlinx.android.synthetic.main.fragment_learn.*
-import kotlinx.android.synthetic.main.include_youtube_player.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
 
-import ru.tohaman.testempty.R
-import ru.tohaman.testempty.databinding.FragmentLearnDetailBinding
 import ru.tohaman.testempty.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.dp
 import ru.tohaman.testempty.utils.toEditable
 import timber.log.Timber
-import java.lang.IllegalStateException
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
@@ -43,6 +32,8 @@ class LearnDetailItemFragment : Fragment() {
     //передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
         private const val ARG_CUBE1 = "itemId"
+        const val id_show = 100
+        const val id_change = 101
         fun newInstance(mainDBItem: MainDBItem) = LearnDetailItemFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_CUBE1, mainDBItem.id)
@@ -80,9 +71,34 @@ class LearnDetailItemFragment : Fragment() {
 
                 content.youtubeView.enabled = item.url != ""
 
+                //Регистрируем контекстное меню для "Избранного" (будем вызывать при долгом нажатии)
+                registerForContextMenu(favourites)
+
                 setClickListeners(this)
             }
         return binding.root
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menu.add(Menu.NONE, id_show, Menu.NONE, "Показать избранное")
+        menu.add(Menu.NONE, id_change, Menu.NONE, "Добавить/удалить")
+
+    }
+
+    override fun onContextItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            id_show -> {
+                Timber.d("$TAG Показать список избранного вызвано из контекстного меню $item")
+                true
+            }
+            id_change -> {
+                Timber.d("$TAG Сменить статус вызвано из контекстного меню")
+                changeCurrentFavouriteStatus()
+                true
+            }
+            else -> super.onContextItemSelected(menuItem)
+        }
     }
 
     private fun setClickListeners(binding: FragmentLearnDetailItemBinding) {
@@ -132,11 +148,21 @@ class LearnDetailItemFragment : Fragment() {
         }
 
         binding.favourites.setOnClickListener {
-            item.isFavourite = !item.isFavourite
-            binding.mainDBItem = item
-            detailViewModel.updateComment(item)
-            //learnViewModel.updateFavourites()
+            changeCurrentFavouriteStatus()
         }
+
+
+//        binding.favourites.setOnLongClickListener {
+//            Timber.d ("$TAG onBottomFavouriteMenu longClick pressed")
+//
+//            true
+//        }
+    }
+
+    private fun changeCurrentFavouriteStatus() {
+        item.isFavourite = !item.isFavourite
+        binding.mainDBItem = item
+        detailViewModel.updateComment(item)
     }
 
     // get edit text layout
