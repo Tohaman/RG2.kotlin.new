@@ -14,9 +14,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.R
 
 import ru.tohaman.testempty.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import ru.tohaman.testempty.utils.Constants
+import ru.tohaman.testempty.utils.Constants.Companion.id_change
+import ru.tohaman.testempty.utils.Constants.Companion.id_show
 import ru.tohaman.testempty.utils.dp
 import ru.tohaman.testempty.utils.toEditable
 import timber.log.Timber
@@ -32,8 +36,7 @@ class LearnDetailItemFragment : Fragment() {
     //передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
         private const val ARG_CUBE1 = "itemId"
-        const val id_show = 100
-        const val id_change = 101
+
         fun newInstance(mainDBItem: MainDBItem) = LearnDetailItemFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_CUBE1, mainDBItem.id)
@@ -80,19 +83,16 @@ class LearnDetailItemFragment : Fragment() {
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        menu.add(Menu.NONE, id_show, Menu.NONE, "Показать избранное")
-        menu.add(Menu.NONE, id_change, Menu.NONE, "Добавить/удалить")
-
+        activity?.menuInflater?.inflate(R.menu.favourite_context_menu, menu)
     }
 
     override fun onContextItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
-            id_show -> {
+            R.id.show_favourite -> {
                 Timber.d("$TAG Показать список избранного вызвано из контекстного меню $item")
                 true
             }
-            id_change -> {
+            R.id.change_favourite -> {
                 Timber.d("$TAG Сменить статус вызвано из контекстного меню")
                 changeCurrentFavouriteStatus()
                 true

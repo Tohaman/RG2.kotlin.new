@@ -1,14 +1,14 @@
 package ru.tohaman.testempty.adapters
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.MainMenuItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
-import timber.log.Timber
-import java.io.BufferedReader
+
+/**
+ * Если надо в избранном сделать плавное удаление, то надо использовать DiffUtils https://www.youtube.com/watch?v=zqTbV79WOSY
+ */
+
 
 interface OnClickCallBack {
     fun openItem(menuItem: MainDBItem, view: View)
@@ -49,15 +49,15 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 //        fun onClick(menuItem: MainDBItem, view: View) = clickListener(menuItem, view)
 //    }
 
-    class MenuHolder private constructor(private val binding: MainMenuItemBinding)
-            : RecyclerView.ViewHolder(binding.root) {
+    class MenuHolder private constructor(private val binding: MainMenuItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MainDBItem, phase: String, onClickCallBack: OnClickCallBack?) {
             binding.viewMenuItem = item
             binding.clickListener = onClickCallBack
-//            binding.favourites.setOnLongClickListener{imageView: View ->
-//                onClickCallBack?.longClick(item, imageView)
-//                true
-//            }
+//            binding.favourites.setOnCreateContextMenuLis
+            binding.favourites.setOnLongClickListener{imageView: View ->
+                onClickCallBack?.longClick(item, imageView)
+                false
+            }
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }
@@ -70,6 +70,7 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
                 return MenuHolder(binding)
             }
         }
+
     }
 
 }
