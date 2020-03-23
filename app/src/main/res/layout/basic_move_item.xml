@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="basicMoveItem"
+            type="ru.tohaman.testempty.dbase.entitys.BasicMove" />
+
+        <variable
+            name="clickListener"
+            type="ru.tohaman.testempty.adapters.OnClickCallBack" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_margin_8"
+        android:layout_marginLeft="@dimen/dimen_margin_8"
+        android:layout_marginTop="@dimen/dimen_margin_8"
+        >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.40" />
+
+
+        <TextView
+            android:id="@+id/move_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            tools:text="R"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:layout_marginRight="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/main_menu_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded" />
+
+
+        <ImageView
+            android:id="@+id/main_menu_image"
+            android:layout_width="180dp"
+            android:layout_height="80dp"
+            android:padding="8dp"
+            android:srcId="@{basicMoveItem.icon}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:srcCompat="@drawable/basic_4x4_2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
