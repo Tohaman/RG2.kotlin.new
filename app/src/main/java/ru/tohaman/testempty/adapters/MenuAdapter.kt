@@ -56,6 +56,7 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 //            binding.favourites.setOnCreateContextMenuLis
             binding.favourites.setOnLongClickListener{imageView: View ->
                 onClickCallBack?.longClick(item, imageView)
+                //Обработали долгое нажатие (передали в колбэк item, на котором нажали и вернули false, чтобы дальше вызвалось контекстное меню
                 false
             }
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
