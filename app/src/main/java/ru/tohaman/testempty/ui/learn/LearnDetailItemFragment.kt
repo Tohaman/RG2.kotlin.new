@@ -3,9 +3,9 @@ package ru.tohaman.testempty.ui.learn
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -15,15 +15,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
-
 import ru.tohaman.testempty.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
-import ru.tohaman.testempty.utils.Constants
-import ru.tohaman.testempty.utils.Constants.Companion.id_change
-import ru.tohaman.testempty.utils.Constants.Companion.id_show
 import ru.tohaman.testempty.utils.dp
 import ru.tohaman.testempty.utils.toEditable
 import timber.log.Timber
+
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
@@ -105,6 +102,12 @@ class LearnDetailItemFragment : Fragment() {
 
         binding.back.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.fab.setOnClickListener {
+            context?.let {
+                showAzbukaDialog(it, item.phase)
+            }
         }
 
         //вызываем созданный в коде AlertDialog https://android--code.blogspot.com/2020/03/android-kotlin-alertdialog-edittext.html
@@ -202,6 +205,23 @@ class LearnDetailItemFragment : Fragment() {
 
         constraintLayout.addView(textInputLayout)
         return constraintLayout
+    }
+
+    private fun showAzbukaDialog(context: Context, phase: String) {
+        Timber.d("$TAG azbukaDialog $phase")
+
+        MaterialAlertDialogBuilder(context)
+            .setMessage("This is a test of $phase")
+            .setPositiveButton("Ok", null)
+            .show()
+//        val builder = MaterialAlertDialogBuilder(context)
+//        val inflater = requireActivity().layoutInflater
+//        val view: View = inflater.inflate(R.layout.include_recycle_view, null)
+//        builder.setView(view)
+//
+//
+//        val dialog = builder.create()
+//        dialog.show()
     }
 
 }
