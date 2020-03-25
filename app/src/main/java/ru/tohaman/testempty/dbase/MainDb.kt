@@ -4,6 +4,8 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import ru.tohaman.testempty.dbase.daos.CubeTypesDao
 import ru.tohaman.testempty.dbase.daos.MainDao
+import ru.tohaman.testempty.dbase.daos.MovesDao
+import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.dbase.entitys.PhaseItem
@@ -17,8 +19,9 @@ import ru.tohaman.testempty.dbase.entitys.PhaseItem
  * Room сравнивает поля в entities, и если они отличаются от текущих в базе, то нужна миграция, а соответственно повышение версии базы
  */
 
-@Database(entities = [MainDBItem::class, PhaseItem::class, CubeType::class], version = 5)
+@Database(entities = [MainDBItem::class, CubeType::class, BasicMove::class], version = 6)
 abstract class MainDb : RoomDatabase() {
     abstract val mainDao : MainDao
     abstract val cubeTypesDao : CubeTypesDao
+    abstract val movesDao : MovesDao
 }

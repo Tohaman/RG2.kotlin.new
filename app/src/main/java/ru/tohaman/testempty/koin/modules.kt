@@ -9,6 +9,7 @@ import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.MainDb
+import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.ui.learn.LearnDetailViewModel
 import ru.tohaman.testempty.ui.learn.LearnViewModel
 
@@ -23,7 +24,7 @@ val appModule = module{
             .build()
     }
     //В ItemRepository нужно передать сылку на dao, берем его предыдущего пункта, т.е. get<MainDb>
-    single { ItemsRepository(get<MainDb>().mainDao, get<MainDb>().cubeTypesDao) }
+    single { ItemsRepository(get<MainDb>().mainDao, get<MainDb>().cubeTypesDao, get<MainDb>().movesDao)}
 
 }
 

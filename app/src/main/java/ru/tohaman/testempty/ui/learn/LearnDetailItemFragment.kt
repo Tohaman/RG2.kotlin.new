@@ -210,7 +210,7 @@ class LearnDetailItemFragment : Fragment() {
     private fun showAzbukaDialog(context: Context, phase: String) {
         Timber.d("$TAG azbukaDialog $phase")
 
-        val dialog = RecyclerDialog()
+        findNavController().navigate(R.id.recycler_view_dialog)
         //dialog.show(findNavController())
         //https://github.com/hugoats91/NavigationViewModel.git
 

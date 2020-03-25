@@ -2,7 +2,7 @@ package ru.tohaman.testempty.dbase.entitys
 
 import androidx.room.Entity
 
-@Entity(tableName = "basicMove", primaryKeys = ["type", "id"])
+@Entity(tableName = "BasicMove", primaryKeys = ["type", "id"])
 data class BasicMove (
     val id: Int,
     val type: String,       //тип головоломки

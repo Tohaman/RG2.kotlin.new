@@ -7,6 +7,8 @@ import ru.tohaman.testempty.dbase.daos.CubeTypesDao
 
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.dbase.daos.MainDao
+import ru.tohaman.testempty.dbase.daos.MovesDao
+import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.PhaseItem
 
@@ -18,7 +20,7 @@ import ru.tohaman.testempty.dbase.entitys.PhaseItem
     Since Room doesn’t allow database queries on the main thread, then we use suspend fun
  */
 
-class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeTypesDao) : ItemDataSource {
+class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeTypesDao, private val movesDao: MovesDao) : ItemDataSource {
 
     fun observePhase(phase: String): LiveData<List<MainDBItem>> {
         return mainDao.observePhase(phase)
@@ -42,13 +44,8 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     fun getAllLiveDataItems() = mainDao.getAllLiveItems()
 
-    fun getCurrentPhase() = mainDao.getCurrentPhase().toLiveData(Config(30))
 
     suspend fun clearMainTable() = mainDao.deleteAllItems()
-
-    suspend fun clearCurrentTable() = mainDao.deleteCurrentItems()
-
-    suspend fun insertItems2CurrentTable(curPhaseList : List<PhaseItem>) = mainDao.insertCurrentItems(curPhaseList)
 
     suspend fun insert2Main(item: MainDBItem) = mainDao.insert(item)
 
@@ -70,4 +67,11 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
     suspend fun update(item: CubeType) = typeDao.update(item)
 
     suspend fun update(items: List<CubeType>) = typeDao.update(items)
+
+
+    suspend fun insert2Moves(items: List<BasicMove>) = movesDao.insert(items)
+
+    suspend fun getTypeItems(type: String) = movesDao.getTypeItems(type)
+
+    suspend fun clearMovesTable() = movesDao.deleteAllItems()
 }

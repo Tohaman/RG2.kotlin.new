@@ -26,6 +26,17 @@
             app:popExitAnim="@anim/fade_out" />
     </fragment>
 
+    <dialog
+        android:id="@+id/recycler_view_dialog"
+        android:name="ru.tohaman.testempty.ui.learn.RecyclerDialog"
+        android:label="RCV_Dialog"
+        tools:layout="@layout/include_recycle_view">
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue="BASIC3X3" />
+    </dialog>
+
     <fragment
         android:id="@+id/destLearnDetails"
         android:name="ru.tohaman.testempty.ui.learn.LearnDetailFragment"

@@ -26,7 +26,6 @@ class LearnDetailFragment : Fragment() {
     private var currentId = 0
 
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
-    private val learnViewModel by sharedViewModel<LearnViewModel>()
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +35,7 @@ class LearnDetailFragment : Fragment() {
         detailViewModel.setCurrentItems(phaseId, phase)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         uiUtilViewModel.hideBottomNav()
         val adapter = DetailPagerAdapter(this)

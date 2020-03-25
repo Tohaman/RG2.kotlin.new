@@ -5,6 +5,7 @@ import org.koin.java.KoinJavaComponent.inject
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import timber.log.Timber
@@ -16,21 +17,13 @@ class FillDB {
         suspend fun reCreateDB(context: Context) {
             repository.clearMainTable()
             repository.clearTypesTable()
+            repository.clearMovesTable()
             Timber.d( "$TAG Основная таблица очищена")
             insertWrongItem()
             insertPhasesToMainTable(context)
             updateTestComments()
             updateTestFavourites()
             Timber.d( "$TAG Основная таблица заполнена")
-            //insertCurrentPhases()
-            //Timber.d( "$TAG Доп.таблица заполнена. База создана")
-        }
-
-        //TODO Возможно лишняя таблица, проверить и удалить, если будет не нужна
-        private suspend fun insertCurrentPhases() {
-            repository.clearCurrentTable()
-            val curPhaseList = repository.getPhase("BEGIN")
-            repository.insertItems2CurrentTable(curPhaseList)
         }
 
         private suspend fun insertWrongItem() {
@@ -56,6 +49,9 @@ class FillDB {
             phaseInit("INTF2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
             phaseInit("PATTERNS", R.array.patterns_title, R.array.patterns_icon, R.array.patterns_descr, R.array.patterns_url, context, R.array.patterns_comment)
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
+
+            //Подсказки по азбуке вращений
+            basicInit("BASIC3X3", R.array.basic_3x3_moves, R.array.basic_3x3_icon, R.array.basic_3x3_toast, context)
         }
 
         private suspend fun updateTestComments() {
@@ -93,7 +89,7 @@ class FillDB {
             val descriptions = context.resources.obtainTypedArray (descriptionArray)
             val urls = context.resources.getStringArray(urlArray)
             val comments = if (comment != 0) { context.resources.getStringArray(comment) } else { emptyComment}
-            val list = (titles.indices).map { i->
+            val list = (titles.indices).map { i ->
                 val defaultIcon = R.drawable.ic_alert
                 val iconID = icons.getResourceId(i, defaultIcon)
                 val descriptionID = descriptions.getResourceId(i, 0)
@@ -108,6 +104,17 @@ class FillDB {
                 )
             }.apply {  icons.recycle(); descriptions.recycle() }
             repository.insert2Main(list)
+        }
+
+        private suspend fun basicInit(type: String, movesArray: Int, iconsArray: Int, toastsArray: Int, context: Context) {
+            val moves = context.resources.getStringArray(movesArray)
+            val icons = context.resources.obtainTypedArray (iconsArray)
+            val toasts = context.resources.getStringArray(toastsArray)
+            val movesList = (moves.indices).map { i ->
+                val iconId = icons.getResourceId(i, R.drawable.ic_alert)
+                BasicMove(i, type, moves[i], iconId, toasts[i])
+            }
+            repository.insert2Moves(movesList)
         }
 
         private suspend fun cubeTypesInit(context: Context) {

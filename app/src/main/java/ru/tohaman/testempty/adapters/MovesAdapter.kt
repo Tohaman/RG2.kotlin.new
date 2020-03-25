@@ -5,10 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.databinding.BasicMoveItemBinding
 import ru.tohaman.testempty.dbase.entitys.BasicMove
 
-/**
- * Если надо в избранном сделать плавное удаление, то надо использовать DiffUtils https://www.youtube.com/watch?v=zqTbV79WOSY
- */
-
 class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
     //тут храним список, который надо отобразить
     private var items: List<BasicMove> = ArrayList()
@@ -37,10 +33,6 @@ class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
         this.curType = phase
         notifyDataSetChanged()
     }
-
-//    class OnClickListener(val clickListener: (BasicMove, View) -> Unit) {
-//        fun onClick(menuItem: BasicMove, view: View) = clickListener(menuItem, view)
-//    }
 
     class MovesHolder private constructor(private val binding: BasicMoveItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BasicMove, phase: String, onClickCallBack: OnClickCallBack?) {

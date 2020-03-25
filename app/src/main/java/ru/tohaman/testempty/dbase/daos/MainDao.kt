@@ -22,7 +22,6 @@ interface MainDao {
 
     companion object {
         const val table: String = "mainTable"
-        const val curTable: String = "currentPhase"
     }
 
     @Query("SELECT * FROM $table WHERE phase = 'BEGIN'")
@@ -72,16 +71,5 @@ interface MainDao {
 
     @Query("DELETE FROM $table")
     suspend fun deleteAllItems()
-
-    //Запросы для CurrentTable
-
-    @Query("SELECT * FROM $curTable")
-    fun getCurrentPhase(): DataSource.Factory<Int, PhaseItem>
-
-    @Query ("DELETE FROM $curTable")
-    suspend fun deleteCurrentItems()
-
-    @Insert
-    suspend fun insertCurrentItems(phaseItems: List<PhaseItem>)
 
 }
