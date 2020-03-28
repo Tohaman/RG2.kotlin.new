@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -14,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.adapters.MovesAdapter
 import ru.tohaman.testempty.databinding.IncludeRecycleViewBinding
+import ru.tohaman.testempty.dbase.entitys.BasicMove
 import timber.log.Timber
 
 class RecyclerDialog : DialogFragment() {
@@ -27,11 +29,16 @@ class RecyclerDialog : DialogFragment() {
                 val adapter = MovesAdapter()
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)
+                adapter.attachCallBack(object: MovesAdapter.OnClickCallBack {
+                    override fun toastItem(menuItem: BasicMove) {
+                        toast(menuItem.toast)
+                    }
+                })
+
                 dialogViewModel.setTypeItems(type)
 
                 dialogViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        //Timber.d ("$TAG Обновили cubeTypes - $it")
                         adapter.refreshItems(it)
                     }
                 })
@@ -51,6 +58,10 @@ class RecyclerDialog : DialogFragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
         }
+    }
+
+    private fun toast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }

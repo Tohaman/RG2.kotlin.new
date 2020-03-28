@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.OnClickCallBack" />
+            type="ru.tohaman.testempty.adapters.MovesAdapter.OnClickCallBack" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +20,7 @@
         android:layout_marginRight="@dimen/dimen_margin_8"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
+        android:onClick="@{() -> clickListener.toastItem(basicMoveItem)}"
         >
 
         <androidx.constraintlayout.widget.Guideline

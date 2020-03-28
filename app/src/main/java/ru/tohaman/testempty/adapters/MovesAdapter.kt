@@ -51,4 +51,8 @@ class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
 
     }
 
+    interface OnClickCallBack {
+        fun toastItem(menuItem: BasicMove)
+    }
+
 }
