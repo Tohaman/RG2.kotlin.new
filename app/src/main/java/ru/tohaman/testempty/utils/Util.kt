@@ -54,6 +54,17 @@ fun Context.getResource(name:String): Drawable {
     return ActivityCompat.getDrawable(this,resID) ?: defDrawable
 }
 
+fun getPhasesToTypesMap(context: Context): Map<String, String> {
+    val phasesArray = context.resources.getStringArray(R.array.phases)
+    val typesArray = context.resources.getStringArray(R.array.types)
+    var phasesToTypes: MutableMap<String, String> = mutableMapOf()
+    for (i in phasesArray.indices) {
+        phasesToTypes.put(phasesArray[i], typesArray[i])
+    }
+
+    return phasesToTypes
+}
+
 //fun getNameFromListPagers(ListPagers: List<ListPager>, i: Int): String =
 //        if (ListPagers[i].comment == "") {
 //            ListPagers[i].title

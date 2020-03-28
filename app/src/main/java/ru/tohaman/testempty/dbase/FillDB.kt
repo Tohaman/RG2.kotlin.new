@@ -46,12 +46,14 @@ class FillDB {
             phaseInit("AXIS", R.array.axis_title, R.array.axis_icon, R.array.axis_descr, R.array.axis_url, context)
             phaseInit("BEGIN", R.array.begin_title, R.array.begin_icon, R.array.begin_descr, R.array.begin_url, context)
             phaseInit("BEGIN2X2", R.array.begin2x2_title, R.array.begin2x2_icon, R.array.begin2x2_descr, R.array.begin2x2_url, context)
+            phaseInit("BEGIN4X4",R.array.begin4_title,R.array.begin4_icon,R.array.begin4_descr,R.array.begin4_url,context)
             phaseInit("INTF2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
             phaseInit("PATTERNS", R.array.patterns_title, R.array.patterns_icon, R.array.patterns_descr, R.array.patterns_url, context, R.array.patterns_comment)
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
 
             //Подсказки по азбуке вращений
-            basicInit("BASIC3X3", R.array.basic_3x3_moves, R.array.basic_3x3_icon, R.array.basic_3x3_toast, context)
+            basicInit("BASIC3X3", R.array.basic_3x3_moves, R.array.basic_3x3_icon, R.array.basic_3x3_toasts, context)
+            basicInit("BASIC4X4", R.array.basic_4x4_moves, R.array.basic_4x4_icon, R.array.basic_4x4_toasts, context)
         }
 
         private suspend fun updateTestComments() {

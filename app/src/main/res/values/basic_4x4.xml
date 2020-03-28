@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="basic_4x4_moves">
+        <item>@string/basic_4x4_st1_move</item>
+        <item>@string/basic_4x4_st2_move</item>
+        <item>@string/basic_4x4_st3_move</item>
+        <item>@string/basic_4x4_st4_move</item>
+        <item>@string/basic_4x4_st5_move</item>
+        <item>@string/basic_4x4_st6_move</item>
+        <item>@string/basic_4x4_st7_move</item>
+        <item>@string/basic_4x4_st8_move</item>
+        <item>@string/basic_4x4_st9_move</item>
+        <item>@string/basic_4x4_st10_move</item>
+        <item>@string/basic_4x4_st11_move</item>
+        <item>@string/basic_4x4_st12_move</item>
+        <item>@string/basic_4x4_st13_move</item>
+        <item>@string/basic_4x4_st14_move</item>
+        <item>@string/basic_4x4_st15_move</item>
+        <item>@string/basic_4x4_st16_move</item>
+        <item>@string/basic_4x4_st17_move</item>
+        <item>@string/basic_4x4_st18_move</item>
+        <item>@string/basic_4x4_st19_move</item>
+        <item>@string/basic_4x4_st20_move</item>
+        <item>@string/basic_4x4_st21_move</item>
+        <item>@string/basic_4x4_st22_move</item>
+        <item>@string/basic_4x4_st23_move</item>
+        <item>@string/basic_4x4_st24_move</item>
+        <item>@string/basic_4x4_st25_move</item>
+        <item>@string/basic_4x4_st26_move</item>
+        <item>@string/basic_4x4_st27_move</item>
+        <item>@string/basic_4x4_st28_move</item>
+        <item>@string/basic_4x4_st29_move</item>
+        <item>@string/basic_4x4_st30_move</item>
+        <item>@string/basic_4x4_st31_move</item>
+        <item>@string/basic_4x4_st32_move</item>
+        <item>@string/basic_4x4_st33_move</item>
+        <item>@string/basic_4x4_st34_move</item>
+        <item>@string/basic_4x4_st35_move</item>
+        <item>@string/basic_4x4_st36_move</item>
+        <item>@string/basic_4x4_st37_move</item>
+        <item>@string/basic_4x4_st38_move</item>
+        <item>@string/basic_4x4_st39_move</item>
+        <item>@string/basic_4x4_st40_move</item>
+        <item>@string/basic_4x4_st41_move</item>
+        <item>@string/basic_4x4_st42_move</item>
+        <item>@string/basic_4x4_st43_move</item>
+        <item>@string/basic_4x4_st44_move</item>
+        <item>@string/basic_4x4_st45_move</item>
+    </string-array>
+
+    <integer-array name="basic_4x4_icon">
+        <item>@drawable/basic_4x4_1</item>
+        <item>@drawable/basic_4x4_2</item>
+        <item>@drawable/basic_4x4_3</item>
+        <item>@drawable/basic_4x4_4</item>
+        <item>@drawable/basic_4x4_5</item>
+        <item>@drawable/basic_4x4_6</item>
+        <item>@drawable/basic_4x4_7</item>
+        <item>@drawable/basic_4x4_8</item>
+        <item>@drawable/basic_4x4_9</item>
+        <item>@drawable/basic_4x4_10</item>
+        <item>@drawable/basic_4x4_11</item>
+        <item>@drawable/basic_4x4_12</item>
+        <item>@drawable/basic_4x4_13</item>
+        <item>@drawable/basic_4x4_14</item>
+        <item>@drawable/basic_4x4_15</item>
+        <item>@drawable/basic_4x4_16</item>
+        <item>@drawable/basic_4x4_17</item>
+        <item>@drawable/basic_4x4_18</item>
+        <item>@drawable/basic_4x4_19</item>
+        <item>@drawable/basic_4x4_20</item>
+        <item>@drawable/basic_4x4_21</item>
+        <item>@drawable/basic_4x4_22</item>
+        <item>@drawable/basic_4x4_23</item>
+        <item>@drawable/basic_4x4_24</item>
+        <item>@drawable/basic_4x4_25</item>
+        <item>@drawable/basic_4x4_26</item>
+        <item>@drawable/basic_4x4_27</item>
+        <item>@drawable/basic_4x4_28</item>
+        <item>@drawable/basic_4x4_29</item>
+        <item>@drawable/basic_4x4_30</item>
+        <item>@drawable/basic_4x4_31</item>
+        <item>@drawable/basic_4x4_32</item>
+        <item>@drawable/basic_4x4_33</item>
+        <item>@drawable/basic_4x4_34</item>
+        <item>@drawable/basic_4x4_35</item>
+        <item>@drawable/basic_4x4_36</item>
+        <item>@drawable/basic_4x4_37</item>
+        <item>@drawable/basic_4x4_38</item>
+        <item>@drawable/basic_4x4_39</item>
+        <item>@drawable/basic_4x4_40</item>
+        <item>@drawable/basic_4x4_41</item>
+        <item>@drawable/basic_4x4_42</item>
+        <item>@drawable/basic_4x4_43</item>
+        <item>@drawable/basic_4x4_44</item>
+        <item>@drawable/basic_4x4_45</item>
+    </integer-array>
+
+    <string-array name="basic_4x4_toasts">
+        <item>@string/basic_4x4_st1_toast</item>
+        <item>@string/basic_4x4_st2_toast</item>
+        <item>@string/basic_4x4_st3_toast</item>
+        <item>@string/basic_4x4_st4_toast</item>
+        <item>@string/basic_4x4_st5_toast</item>
+        <item>@string/basic_4x4_st6_toast</item>
+        <item>@string/basic_4x4_st7_toast</item>
+        <item>@string/basic_4x4_st8_toast</item>
+        <item>@string/basic_4x4_st9_toast</item>
+        <item>@string/basic_4x4_st10_toast</item>
+        <item>@string/basic_4x4_st11_toast</item>
+        <item>@string/basic_4x4_st12_toast</item>
+        <item>@string/basic_4x4_st13_toast</item>
+        <item>@string/basic_4x4_st14_toast</item>
+        <item>@string/basic_4x4_st15_toast</item>
+        <item>@string/basic_4x4_st16_toast</item>
+        <item>@string/basic_4x4_st17_toast</item>
+        <item>@string/basic_4x4_st18_toast</item>
+        <item>@string/basic_4x4_st19_toast</item>
+        <item>@string/basic_4x4_st20_toast</item>
+        <item>@string/basic_4x4_st21_toast</item>
+        <item>@string/basic_4x4_st22_toast</item>
+        <item>@string/basic_4x4_st23_toast</item>
+        <item>@string/basic_4x4_st24_toast</item>
+        <item>@string/basic_4x4_st25_toast</item>
+        <item>@string/basic_4x4_st26_toast</item>
+        <item>@string/basic_4x4_st27_toast</item>
+        <item>@string/basic_4x4_st28_toast</item>
+        <item>@string/basic_4x4_st29_toast</item>
+        <item>@string/basic_4x4_st30_toast</item>
+        <item>@string/basic_4x4_st31_toast</item>
+        <item>@string/basic_4x4_st32_toast</item>
+        <item>@string/basic_4x4_st33_toast</item>
+        <item>@string/basic_4x4_st34_toast</item>
+        <item>@string/basic_4x4_st35_toast</item>
+        <item>@string/basic_4x4_st36_toast</item>
+        <item>@string/basic_4x4_st37_toast</item>
+        <item>@string/basic_4x4_st38_toast</item>
+        <item>@string/basic_4x4_st39_toast</item>
+        <item>@string/basic_4x4_st40_toast</item>
+        <item>@string/basic_4x4_st41_toast</item>
+        <item>@string/basic_4x4_st42_toast</item>
+        <item>@string/basic_4x4_st43_toast</item>
+        <item>@string/basic_4x4_st44_toast</item>
+        <item>@string/basic_4x4_st45_toast</item>
+    </string-array>
+
+     <string name="basic_4x4_st1_move">R</string>
+    <string name="basic_4x4_st1_toast">Правая по часовой</string>
+    <string name="basic_4x4_st2_move">R\'</string>
+    <string name="basic_4x4_st2_toast">Правая против часовой</string>
+    <string name="basic_4x4_st3_move">2R</string>
+    <string name="basic_4x4_st3_toast">Втророй правый слой по часовой</string>
+    <string name="basic_4x4_st4_move">2R\'</string>
+    <string name="basic_4x4_st4_toast">Втророй правый слой против часовой</string>
+    <string name="basic_4x4_st5_move">Rw</string>
+    <string name="basic_4x4_st5_toast">Два правых слоя по часовой</string>
+    <string name="basic_4x4_st6_move">Rw\'</string>
+    <string name="basic_4x4_st6_toast">Два правых слоя против часовой</string>
+    <string name="basic_4x4_st7_move">R2</string>
+    <string name="basic_4x4_st7_toast">Правая дважды</string>
+    <string name="basic_4x4_st8_move">2R2</string>
+    <string name="basic_4x4_st8_toast">Второй правый слой дважды</string>
+    <string name="basic_4x4_st9_move">Rw2</string>
+    <string name="basic_4x4_st9_toast">Два правых слоя дважды</string>
+    <string name="basic_4x4_st10_move">L</string>
+    <string name="basic_4x4_st10_toast">Левая по часовой</string>
+    <string name="basic_4x4_st11_move">L\'</string>
+    <string name="basic_4x4_st11_toast">Левая против часовой</string>
+    <string name="basic_4x4_st12_move">2L</string>
+    <string name="basic_4x4_st12_toast">Второй левый слой по часовой</string>
+    <string name="basic_4x4_st13_move">2L\'</string>
+    <string name="basic_4x4_st13_toast">Второй левый слой против часовой</string>
+    <string name="basic_4x4_st14_move">Lw</string>
+    <string name="basic_4x4_st14_toast">Два левых слоя по часовой</string>
+    <string name="basic_4x4_st15_move">Lw\'</string>
+    <string name="basic_4x4_st15_toast">Два левых слоя против часовой</string>
+    <string name="basic_4x4_st16_move">L2</string>
+    <string name="basic_4x4_st16_toast">Левая грань дважды</string>
+    <string name="basic_4x4_st17_move">2L2</string>
+    <string name="basic_4x4_st17_toast">Второй левый слой дважды</string>
+    <string name="basic_4x4_st18_move">Lw2</string>
+    <string name="basic_4x4_st18_toast">Два левых слоя дважды</string>
+    <string name="basic_4x4_st19_move">U</string>
+    <string name="basic_4x4_st19_toast">Верхняя по часовой</string>
+    <string name="basic_4x4_st20_move">U\'</string>
+    <string name="basic_4x4_st20_toast">Верхняя против часовой</string>
+    <string name="basic_4x4_st21_move">2U</string>
+    <string name="basic_4x4_st21_toast">Второй верхний слой по часовой</string>
+    <string name="basic_4x4_st22_move">2U\'</string>
+    <string name="basic_4x4_st22_toast">Второй верхний слой против часовой</string>
+    <string name="basic_4x4_st23_move">Uw</string>
+    <string name="basic_4x4_st23_toast">Два вехних слоя по часовой</string>
+    <string name="basic_4x4_st24_move">Uw\'</string>
+    <string name="basic_4x4_st24_toast">Два верхних слоя против часовой</string>
+    <string name="basic_4x4_st25_move">U2</string>
+    <string name="basic_4x4_st25_toast">Верхняя грань дважды</string>
+    <string name="basic_4x4_st26_move">2U2</string>
+    <string name="basic_4x4_st26_toast">Второй верхний слой дважды</string>
+    <string name="basic_4x4_st27_move">Uw2</string>
+    <string name="basic_4x4_st27_toast">Два вехних слоя дважды</string>
+    <string name="basic_4x4_st28_move">F</string>
+    <string name="basic_4x4_st28_toast">Передняя по часовой</string>
+    <string name="basic_4x4_st29_move">F\'</string>
+    <string name="basic_4x4_st29_toast">Передняя против часовой</string>
+    <string name="basic_4x4_st30_move">2F</string>
+    <string name="basic_4x4_st30_toast">Второй передний слой по часовой</string>
+    <string name="basic_4x4_st31_move">2F\'</string>
+    <string name="basic_4x4_st31_toast">Второй передний слой против часовой</string>
+    <string name="basic_4x4_st32_move">Fw</string>
+    <string name="basic_4x4_st32_toast">Два передних слоя по часовой</string>
+    <string name="basic_4x4_st33_move">Fw\'</string>
+    <string name="basic_4x4_st33_toast">Два передних слоя против часовой</string>
+    <string name="basic_4x4_st34_move">B</string>
+    <string name="basic_4x4_st34_toast">Задняя по часовой</string>
+    <string name="basic_4x4_st35_move">B\'</string>
+    <string name="basic_4x4_st35_toast">Задняя против часовой</string>
+    <string name="basic_4x4_st36_move">2B</string>
+    <string name="basic_4x4_st36_toast">Второй задний слой по часовой</string>
+    <string name="basic_4x4_st37_move">2B\'</string>
+    <string name="basic_4x4_st37_toast">Второй задний слой против часовой</string>
+    <string name="basic_4x4_st38_move">Bw</string>
+    <string name="basic_4x4_st38_toast">Два задних слоя по часовой</string>
+    <string name="basic_4x4_st39_move">Bw\'</string>
+    <string name="basic_4x4_st39_toast">Два задних слоя против часовой</string>
+    <string name="basic_4x4_st40_move">x</string>
+    <string name="basic_4x4_st40_toast">По оси Х</string>
+    <string name="basic_4x4_st41_move">x\'</string>
+    <string name="basic_4x4_st41_toast">Против оси Х</string>
+    <string name="basic_4x4_st42_move">y</string>
+    <string name="basic_4x4_st42_toast">По оси Y</string>
+    <string name="basic_4x4_st43_move">y\'</string>
+    <string name="basic_4x4_st43_toast">Против оси Y</string>
+    <string name="basic_4x4_st44_move">z</string>
+    <string name="basic_4x4_st44_toast">По оси Z</string>
+    <string name="basic_4x4_st45_move">z\'</string>
+    <string name="basic_4x4_st45_toast">Против оси Z</string>
+
+</resources>

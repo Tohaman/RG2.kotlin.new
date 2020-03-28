@@ -34,7 +34,7 @@
         <argument
             android:name="type"
             app:argType="string"
-            android:defaultValue="BASIC3X3" />
+            android:defaultValue="BEGIN3X3" />
     </dialog>
 
     <fragment
@@ -50,6 +50,9 @@
             android:name="phase"
             app:argType="string"
             android:defaultValue="WRONG" />
+        <action
+            android:id="@+id/action_destLearnDetails_to_recycler_view_dialog"
+            app:destination="@id/recycler_view_dialog" />
     </fragment>
 
     <fragment

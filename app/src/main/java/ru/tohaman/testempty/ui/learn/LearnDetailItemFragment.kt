@@ -209,24 +209,9 @@ class LearnDetailItemFragment : Fragment() {
 
     private fun showAzbukaDialog(context: Context, phase: String) {
         Timber.d("$TAG azbukaDialog $phase")
+        val arg = phase
+        findNavController().navigate(LearnDetailFragmentDirections.actionDestLearnDetailsToRecyclerViewDialog(arg))
 
-        findNavController().navigate(R.id.recycler_view_dialog)
-        //dialog.show(findNavController())
-        //https://github.com/hugoats91/NavigationViewModel.git
-
-//        MaterialAlertDialogBuilder(context)
-//            .setMessage("This is a test of $phase")
-//            .setPositiveButton("Ok", null)
-//            .show()
-
-//        val builder = MaterialAlertDialogBuilder(context)
-//        val inflater = requireActivity().layoutInflater
-//        val view: View = inflater.inflate(R.layout.include_recycle_view, null)
-//        builder.setView(view)
-//
-//
-//        val dialog = builder.create()
-//        dialog.show()
     }
 
 }

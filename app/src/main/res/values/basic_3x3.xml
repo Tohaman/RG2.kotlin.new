@@ -78,7 +78,7 @@
         <item>@drawable/vbasic_36</item>
     </integer-array>
 
-    <string-array name="basic_3x3_toast">
+    <string-array name="basic_3x3_toasts">
         <item>@string/basic_3x3_st1_toast</item>
         <item>@string/basic_3x3_st2_toast</item>
         <item>@string/basic_3x3_st3_toast</item>

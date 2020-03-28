@@ -8,7 +8,6 @@ import ru.tohaman.testempty.dbase.entitys.BasicMove
 class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
     //тут храним список, который надо отобразить
     private var items: List<BasicMove> = ArrayList()
-    private var curType: String = ""
     private var onClickCallBack: OnClickCallBack? = null
 
     fun attachCallBack(onClickCallBack: OnClickCallBack) {
@@ -25,17 +24,16 @@ class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
     override fun onBindViewHolder(holder: MovesHolder, position: Int) {
         //тут обновляем данные ячейки (вызываем биндер холдера) передаем туда BasicMove и onClickListener
         val item = items[position]
-        holder.bind(item, curType, onClickCallBack)
+        holder.bind(item, onClickCallBack)
     }
 
-    fun refreshItems(items: List<BasicMove>, phase: String = items[0].type) {
+    fun refreshItems(items: List<BasicMove>) {
         this.items = items
-        this.curType = phase
         notifyDataSetChanged()
     }
 
     class MovesHolder private constructor(private val binding: BasicMoveItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BasicMove, phase: String, onClickCallBack: OnClickCallBack?) {
+        fun bind(item: BasicMove, onClickCallBack: OnClickCallBack?) {
             binding.basicMoveItem = item
             binding.clickListener = onClickCallBack
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.

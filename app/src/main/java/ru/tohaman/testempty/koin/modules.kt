@@ -12,6 +12,7 @@ import ru.tohaman.testempty.dbase.MainDb
 import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.ui.learn.LearnDetailViewModel
 import ru.tohaman.testempty.ui.learn.LearnViewModel
+import ru.tohaman.testempty.ui.learn.RecyclerDialogViewModel
 
 private const val DATABASE_NAME = "base.db"
 
@@ -32,4 +33,5 @@ val viewModelsModule = module {
     viewModel { UiUtilViewModel() }
     viewModel { LearnViewModel(androidContext()) }
     viewModel { LearnDetailViewModel(androidContext()) }
+    viewModel { RecyclerDialogViewModel(androidContext()) }
 }

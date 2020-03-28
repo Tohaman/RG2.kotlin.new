@@ -3,6 +3,7 @@ package ru.tohaman.testempty.dataSource
 import androidx.lifecycle.LiveData
 import androidx.paging.Config
 import androidx.paging.toLiveData
+import kotlinx.coroutines.delay
 import ru.tohaman.testempty.dbase.daos.CubeTypesDao
 
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
@@ -71,7 +72,10 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     suspend fun insert2Moves(items: List<BasicMove>) = movesDao.insert(items)
 
-    suspend fun getTypeItems(type: String) = movesDao.getTypeItems(type)
+    suspend fun getTypeItems(type: String): List<BasicMove> {
+        //delay(2000) //имитируем задержку чтения в 2 сек
+        return movesDao.getTypeItems(type)
+    }
 
     suspend fun clearMovesTable() = movesDao.deleteAllItems()
 }

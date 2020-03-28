@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="phases">
+        <item>BEGIN4X4</item>
+        <item>YAU4X4</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>BASIC4X4</item>
+        <item>BASIC4X4</item>
+    </string-array>
+
+</resources>
