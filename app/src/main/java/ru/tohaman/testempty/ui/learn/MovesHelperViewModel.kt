@@ -18,7 +18,7 @@ import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.utils.getPhasesToTypesMap
 import timber.log.Timber
 
-class RecyclerDialogViewModel(context: Context): ViewModel(), KoinComponent {
+class MovesHelperViewModel(context: Context): ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
     private val ctx = context
     private var type = "BASIC3X3"

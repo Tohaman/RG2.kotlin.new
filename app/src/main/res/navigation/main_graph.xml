@@ -28,9 +28,9 @@
 
     <dialog
         android:id="@+id/recycler_view_dialog"
-        android:name="ru.tohaman.testempty.ui.learn.RecyclerDialog"
+        android:name="ru.tohaman.testempty.ui.learn.MovesHelperDialog"
         android:label="RCV_Dialog"
-        tools:layout="@layout/include_recycle_view">
+        tools:layout="@layout/dialog_moves_helper">
         <argument
             android:name="type"
             app:argType="string"

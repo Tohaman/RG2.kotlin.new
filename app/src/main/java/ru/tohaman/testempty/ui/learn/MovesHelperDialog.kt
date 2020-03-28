@@ -9,22 +9,18 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.include_recycle_view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.adapters.MovesAdapter
-import ru.tohaman.testempty.databinding.IncludeRecycleViewBinding
+import ru.tohaman.testempty.databinding.DialogMovesHelperBinding
 import ru.tohaman.testempty.dbase.entitys.BasicMove
-import timber.log.Timber
 
-class RecyclerDialog : DialogFragment() {
-    private val args by navArgs<RecyclerDialogArgs>()
+class MovesHelperDialog : DialogFragment() {
+    private val args by navArgs<MovesHelperDialogArgs>()
     private val type by lazy { args.type}
-    private val dialogViewModel by sharedViewModel<RecyclerDialogViewModel>()
+    private val dialogViewModel by sharedViewModel<MovesHelperViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = IncludeRecycleViewBinding.inflate(inflater, container, false)
+        val binding = DialogMovesHelperBinding.inflate(inflater, container, false)
             .apply {
                 val adapter = MovesAdapter()
                 recyclerView.adapter = adapter
