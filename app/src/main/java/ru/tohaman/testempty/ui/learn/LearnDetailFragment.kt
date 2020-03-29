@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -37,6 +38,7 @@ class LearnDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        Timber.d("$TAG bottomNavHide")
         uiUtilViewModel.hideBottomNav()
         val adapter = DetailPagerAdapter(this)
 
@@ -50,16 +52,29 @@ class LearnDetailFragment : Fragment() {
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
 
-                val curType = detailViewModel.getItemNum(currentId)
+
                 //Timber.d("$TAG liveCurrentItems обновился curType = $curType, $it")
                 detailViewPager.offscreenPageLimit = 5
+                detailViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        currentId = position
+                    }
+                })
+
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
+                        Timber.d("$TAG detailCurItems - ${it.size}, $currentId")
                         adapter.refreshItems(it)
-                        detailViewPager.setCurrentItem(curType,false)
-                        TabLayoutMediator(tabLayout, detailViewPager) { tab, position ->
-                            tab.text = it[position].title
+                        val curId = detailViewModel.getItemNum(currentId)
+                        detailViewPager.setCurrentItem(curId,false)
+                        val tabCount = tabLayout.tabCount
+                        TabLayoutMediator(tabLayout, detailViewPager) {tab, position ->
+                            //Timber.d("$TAG обновляем заголовок в tabLayout ${tabCount} - ${position}")
+                            if (position < tabCount) {
+                                tab.text = it[position].title
+                            }
                         }.attach()
                     }
                 })
@@ -71,7 +86,8 @@ class LearnDetailFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        uiUtilViewModel.showBottomNav()
+//        Timber.d("$TAG bottomNavShow")
+//        uiUtilViewModel.showBottomNav()
         super.onDestroyView()
     }
 
@@ -89,7 +105,7 @@ class LearnDetailFragment : Fragment() {
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<MainDBItem>) {
-            //Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
+            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
             detailItems = items
             notifyDataSetChanged()
         }

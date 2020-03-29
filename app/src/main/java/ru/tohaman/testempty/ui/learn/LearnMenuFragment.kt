@@ -51,9 +51,9 @@ class LearnMenuFragment : Fragment() {
 
                 val menuAdapter = MenuAdapter()
                 menuAdapter.attachCallBack(object: MenuAdapter.OnClickCallBack {
-                    override fun openItem(menuItem: MainDBItem, view: View) {
+                    override fun openItem(menuItem: MainDBItem) {
                         Timber.d("$TAG openItem $menuItem")
-                        onMenuItemClick(menuItem, view)
+                        onMenuItemClick(menuItem)
                     }
                     override fun favouriteChange(menuItem: MainDBItem) {
                         Timber.d("$TAG favouriteLambdaChange $menuItem")
@@ -93,7 +93,7 @@ class LearnMenuFragment : Fragment() {
                 true
             }
             R.id.change_favourite -> {
-                Timber.d("$TAG Сменить статус ${selectedItem}")
+                Timber.d("$TAG Сменить статус $selectedItem")
                 learnViewModel.onFavouriteChangeClick(selectedItem)
                 true
             }
@@ -103,16 +103,16 @@ class LearnMenuFragment : Fragment() {
 
 
     //TODO перенести метод во viewModel
-    private fun onMenuItemClick(item: MainDBItem, view: View) {
+    private fun onMenuItemClick(item: MainDBItem) {
         Timber.d("$TAG onItemClick - $item")
-        if (item.url == "submenu") {
-            learnViewModel.onMainMenuItemClick(item)
-        } else {
-            view.findNavController().navigate(
-                //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
-                //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
-                LearnFragmentDirections.actionToLearnDetails(item.id, item.phase)
-            )
-        }
+    if (item.url == "submenu") {
+        learnViewModel.onMainMenuItemClick(item)
+    } else {
+        findNavController().navigate(
+            //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
+            //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
+            LearnFragmentDirections.actionToLearnDetails(item.id, item.phase)
+        )
     }
+}
 }

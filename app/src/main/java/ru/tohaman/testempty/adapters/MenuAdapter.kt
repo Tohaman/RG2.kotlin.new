@@ -69,7 +69,7 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
     }
 
     interface OnClickCallBack {
-        fun openItem(menuItem: MainDBItem, view: View)
+        fun openItem(menuItem: MainDBItem)
         fun favouriteChange(menuItem: MainDBItem)
         fun longClick(menuItem: MainDBItem, view: View)
     }

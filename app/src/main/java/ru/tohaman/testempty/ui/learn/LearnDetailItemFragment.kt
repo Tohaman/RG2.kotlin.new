@@ -96,6 +96,7 @@ class LearnDetailItemFragment : Fragment() {
             R.id.show_favourite -> {
                 Timber.d("$TAG Показать список избранного вызвано из контекстного меню $item")
                 findNavController().navigate(R.id.dialog_favourites)
+                //
                 true
             }
             R.id.change_favourite -> {

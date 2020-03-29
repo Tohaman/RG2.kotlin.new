@@ -45,6 +45,7 @@ class LearnFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Timber.d("$TAG bottomNavShow")
         uiUtilViewModel.showBottomNav()
         val adapter = LearnPagerAdapter(this@LearnFragment)
 
@@ -84,6 +85,8 @@ class LearnFragment : Fragment() {
 
     override fun onResume() {
         learnViewModel.initPhasesToArray()
+        Timber.d("$TAG bottomNavShow")
+        uiUtilViewModel.showBottomNav()
         super.onResume()
     }
 

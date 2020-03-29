@@ -66,6 +66,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     private fun initCubeTypes() {
             runBlocking (Dispatchers.IO) { cubeTypes = repository.getCubeTypes() }
+
             typesCount = cubeTypes.size
             mutableCubeTypes.postValue(cubeTypes)
     }

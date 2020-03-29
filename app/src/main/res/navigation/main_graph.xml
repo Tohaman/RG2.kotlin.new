@@ -41,8 +41,7 @@
         android:id="@+id/dialog_favourites"
         android:name="ru.tohaman.testempty.ui.learn.FavouritesDialog"
         android:label="Favourites_Dialog"
-        tools:layout="@layout/dialog_recycler_view">
-    </dialog>
+        tools:layout="@layout/dialog_recycler_view"/>
 
 
     <fragment

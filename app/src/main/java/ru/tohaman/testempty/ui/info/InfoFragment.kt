@@ -7,16 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.DebugTag
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.InfoPagerAdapter
 import ru.tohaman.testempty.databinding.FragmentInfoBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
+import timber.log.Timber
 
 class InfoFragment : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private lateinit var binding : FragmentInfoBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Timber.d("$TAG bottomNavShow")
         uiUtilViewModel.showBottomNav()
         val adapter = InfoPagerAdapter(this)
 

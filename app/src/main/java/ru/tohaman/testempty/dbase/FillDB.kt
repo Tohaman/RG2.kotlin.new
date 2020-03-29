@@ -61,7 +61,7 @@ class FillDB {
             val item2 = repository.getItem("ROZOV", 0)
             val item3 = repository.getItem("ROZOV", 1)
             item1.comment = "Обязательно надо прочитать"
-            item2.comment = "Пиф-паф (R U R' U')"
+            item2.comment = "Основные движения + Пиф-паф (R U R' U')"
             item3.comment = "Английский пиф-паф (R' F R F')"
             repository.updateMainItem(item1)
             repository.updateMainItem(item2)

@@ -20,7 +20,7 @@
         android:layout_marginRight="@dimen/dimen_margin_8"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
-        android:onClick="@{(view) -> clickListener.openItem(viewMenuItem, view)}">
+        android:onClick="@{() -> clickListener.openItem(viewMenuItem)}">
 
         <ImageView
             android:id="@+id/main_menu_image"
