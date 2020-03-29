@@ -20,6 +20,7 @@ import timber.log.Timber
 
 class FavouritesDialog : DialogFragment() {
     private val dialogViewModel by sharedViewModel<LearnDetailViewModel>()
+    private val learnViewModel by sharedViewModel<LearnViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DialogRecyclerViewBinding.inflate(inflater, container, false)
@@ -33,7 +34,7 @@ class FavouritesDialog : DialogFragment() {
                             findNavController().popBackStack()
                         }
                         if (menuItem.url == "submenu") {
-                            //learnViewModel.onMainMenuItemClick(item)
+                            learnViewModel.onMainMenuItemClick(menuItem)
                         } else {
                             Timber.d("$TAG navigate to $menuItem")
                             findNavController().navigate(
