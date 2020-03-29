@@ -6,6 +6,7 @@ import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -24,7 +25,7 @@ import timber.log.Timber
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
-    private val learnViewModel by sharedViewModel<LearnViewModel>()
+    //private val learnViewModel by sharedViewModel<LearnViewModel>()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
     private lateinit var item: MainDBItem
@@ -56,8 +57,15 @@ class LearnDetailItemFragment : Fragment() {
         binding = FragmentLearnDetailItemBinding.inflate(inflater, container, false)
             .apply {
                 item = detailViewModel.getCurrentItems()[fragmentNum]
-                Timber.d("$TAG mainDBItem = $item")
-                mainDBItem = item
+//                Timber.d("$TAG mainDBItem = $item")
+//                mainDBItem = item
+
+                detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        item = it[fragmentNum]
+                        mainDBItem = item
+                    }
+                })
 
                 val youTubePlayerView = content.youtubeView.youtubePlayerView
                 lifecycle.addObserver(youTubePlayerView)
@@ -87,6 +95,7 @@ class LearnDetailItemFragment : Fragment() {
         return when (menuItem.itemId) {
             R.id.show_favourite -> {
                 Timber.d("$TAG Показать список избранного вызвано из контекстного меню $item")
+                findNavController().navigate(R.id.dialog_favourites)
                 true
             }
             R.id.change_favourite -> {
@@ -105,9 +114,11 @@ class LearnDetailItemFragment : Fragment() {
         }
 
         binding.fab.setOnClickListener {
-            context?.let {
-                showAzbukaDialog(it, item.phase)
-            }
+            findNavController().navigate(LearnDetailFragmentDirections.actionDestLearnDetailsToRecyclerViewDialog(item.phase))
+        }
+
+        binding.favourites.setOnClickListener {
+            changeCurrentFavouriteStatus()
         }
 
         //вызываем созданный в коде AlertDialog https://android--code.blogspot.com/2020/03/android-kotlin-alertdialog-edittext.html
@@ -123,7 +134,6 @@ class LearnDetailItemFragment : Fragment() {
                 val textInputLayout = constraintLayout.findViewWithTag<TextInputLayout>("textInputLayoutTag")
                 val textInputEditText = constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
 
-                //textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_NONE
                 textInputEditText.text = comment.toEditable()
                 textInputEditText.hint = "или алгоритм"
                 builder.setTitle("Напишите свой комментарий:")
@@ -150,22 +160,10 @@ class LearnDetailItemFragment : Fragment() {
             }
         }
 
-        binding.favourites.setOnClickListener {
-            changeCurrentFavouriteStatus()
-        }
-
-
-//        binding.favourites.setOnLongClickListener {
-//            Timber.d ("$TAG onBottomFavouriteMenu longClick pressed")
-//
-//            true
-//        }
     }
 
     private fun changeCurrentFavouriteStatus() {
-        item.isFavourite = !item.isFavourite
-        binding.mainDBItem = item
-        detailViewModel.updateComment(item)
+        detailViewModel.changeItemFavouriteStatus(item)
     }
 
     // get edit text layout
@@ -205,13 +203,6 @@ class LearnDetailItemFragment : Fragment() {
 
         constraintLayout.addView(textInputLayout)
         return constraintLayout
-    }
-
-    private fun showAzbukaDialog(context: Context, phase: String) {
-        Timber.d("$TAG azbukaDialog $phase")
-        val arg = phase
-        findNavController().navigate(LearnDetailFragmentDirections.actionDestLearnDetailsToRecyclerViewDialog(arg))
-
     }
 
 }

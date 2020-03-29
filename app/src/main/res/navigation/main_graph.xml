@@ -27,15 +27,23 @@
     </fragment>
 
     <dialog
-        android:id="@+id/recycler_view_dialog"
+        android:id="@+id/dialog_moves_helper"
         android:name="ru.tohaman.testempty.ui.learn.MovesHelperDialog"
         android:label="RCV_Dialog"
-        tools:layout="@layout/dialog_moves_helper">
+        tools:layout="@layout/dialog_recycler_view">
         <argument
             android:name="type"
             app:argType="string"
             android:defaultValue="BEGIN3X3" />
     </dialog>
+
+    <dialog
+        android:id="@+id/dialog_favourites"
+        android:name="ru.tohaman.testempty.ui.learn.FavouritesDialog"
+        android:label="Favourites_Dialog"
+        tools:layout="@layout/dialog_recycler_view">
+    </dialog>
+
 
     <fragment
         android:id="@+id/destLearnDetails"
@@ -52,7 +60,10 @@
             android:defaultValue="WRONG" />
         <action
             android:id="@+id/action_destLearnDetails_to_recycler_view_dialog"
-            app:destination="@id/recycler_view_dialog" />
+            app:destination="@id/dialog_moves_helper" />
+        <action
+            android:id="@+id/action_destLearnDetails_to_dialog_favourites"
+            app:destination="@id/dialog_favourites" />
     </fragment>
 
     <fragment

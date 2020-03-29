@@ -39,6 +39,7 @@ class LearnFragment : Fragment() {
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
 
+        learnViewModel.initPhasesToArray()
         // The callback can be enabled or disabled here or in handleOnBackPressed()
     }
 
@@ -79,6 +80,11 @@ class LearnFragment : Fragment() {
             }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        learnViewModel.initPhasesToArray()
+        super.onResume()
     }
 
 

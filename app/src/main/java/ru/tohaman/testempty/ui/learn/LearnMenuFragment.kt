@@ -5,13 +5,13 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.MenuAdapter
-import ru.tohaman.testempty.adapters.OnClickCallBack
 import ru.tohaman.testempty.databinding.FragmentLearnMenuBinding
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
@@ -50,7 +50,7 @@ class LearnMenuFragment : Fragment() {
                 menuList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
                 val menuAdapter = MenuAdapter()
-                menuAdapter.attachCallBack(object: OnClickCallBack {
+                menuAdapter.attachCallBack(object: MenuAdapter.OnClickCallBack {
                     override fun openItem(menuItem: MainDBItem, view: View) {
                         Timber.d("$TAG openItem $menuItem")
                         onMenuItemClick(menuItem, view)
@@ -89,6 +89,7 @@ class LearnMenuFragment : Fragment() {
         return when (item.itemId) {
             R.id.show_favourite -> {
                 Timber.d("$TAG Показать список избранного вызвано из контекстного меню $item")
+                findNavController().navigate(R.id.dialog_favourites)
                 true
             }
             R.id.change_favourite -> {

@@ -10,12 +10,6 @@ import ru.tohaman.testempty.dbase.entitys.MainDBItem
  */
 
 
-interface OnClickCallBack {
-    fun openItem(menuItem: MainDBItem, view: View)
-    fun favouriteChange(menuItem: MainDBItem)
-    fun longClick(menuItem: MainDBItem, view: View)
-}
-
 class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
     //тут храним список, который надо отобразить
     private var items: List<MainDBItem> = ArrayList()
@@ -72,6 +66,12 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
             }
         }
 
+    }
+
+    interface OnClickCallBack {
+        fun openItem(menuItem: MainDBItem, view: View)
+        fun favouriteChange(menuItem: MainDBItem)
+        fun longClick(menuItem: MainDBItem, view: View)
     }
 
 }

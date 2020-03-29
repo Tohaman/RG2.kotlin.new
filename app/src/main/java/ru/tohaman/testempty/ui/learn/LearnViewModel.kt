@@ -1,11 +1,13 @@
 package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
+import org.koin.core.get
 import org.koin.core.inject
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.ItemsRepository
@@ -18,11 +20,12 @@ import timber.log.Timber
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val FAVOURITES = "FAVOURITES"
+    private val CUR_CUBE_TYPE = "CUR_CUBE_TYPE"
     private val repository : ItemsRepository by inject()
     private val ctx = context
     private var typesCount = 10
     //номер закладки открываемой по-умолчанию
-    private var currentCubeType = 2
+    private var currentCubeType = get<SharedPreferences>().getInt(CUR_CUBE_TYPE, 2)
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
 
     //Массив из MediatorLiveData, содержащих списки записей определенной фазы
@@ -48,7 +51,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         initPhasesToArray()
     }
 
-    private fun initPhasesToArray() {
+    fun initPhasesToArray() {
         Timber.d("$TAG initPhasesToArray")
         viewModelScope.launch (Dispatchers.IO) {
             cubeTypes.map {
@@ -69,6 +72,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun setCurrentCubeType(id: Int) {
         currentCubeType = id
+        get<SharedPreferences>().edit().putInt(CUR_CUBE_TYPE, id).apply()
     }
 
     fun getPhaseNameById(id: Int): String {
