@@ -40,11 +40,9 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
         getFavourite()
     }
 
-
     fun setCurrentItems (id: Int, phase: String) {
             currentID = id
             runBlocking (Dispatchers.IO) { currentItems = repository.getDetailsItems(phase)}
-            mutableCurrentItems.value = currentItems
             mutableCurrentItems.postValue(currentItems)
             count = currentItems.size
             Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
@@ -76,7 +74,11 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    private fun getFavourite() {
+    fun refreshFavourites() {
+        mutableFavouritesList.postValue(favouritesList)
+    }
+
+    fun getFavourite() {
         viewModelScope.launch (Dispatchers.IO)  {
             phasesToTypes = getPhasesToTypesMap(ctx).toMutableMap()
             favouritesList = repository.getFavourites()

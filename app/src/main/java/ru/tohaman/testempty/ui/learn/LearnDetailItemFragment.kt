@@ -2,6 +2,7 @@ package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -46,7 +47,7 @@ class LearnDetailItemFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             fragmentNum = it.getInt(ARG_CUBE1)
-            Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
+            //Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
         }
     }
 
@@ -59,6 +60,9 @@ class LearnDetailItemFragment : Fragment() {
                 item = detailViewModel.getCurrentItems()[fragmentNum]
 //                Timber.d("$TAG mainDBItem = $item")
 //                mainDBItem = item
+
+                // Делаем ссылки кликабельными
+                content.descriptionText.movementMethod = LinkMovementMethod.getInstance()
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {

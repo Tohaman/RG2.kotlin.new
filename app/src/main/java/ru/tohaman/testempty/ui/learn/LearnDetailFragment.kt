@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.FragmentLearnDetailBinding
 
@@ -68,7 +69,6 @@ class LearnDetailFragment : Fragment() {
                         Timber.d("$TAG detailCurItems - ${it.size}, $currentId")
                         adapter.refreshItems(it)
                         val curId = detailViewModel.getItemNum(currentId)
-                        detailViewPager.setCurrentItem(curId,false)
                         val tabCount = tabLayout.tabCount
                         TabLayoutMediator(tabLayout, detailViewPager) {tab, position ->
                             //Timber.d("$TAG обновляем заголовок в tabLayout ${tabCount} - ${position}")
@@ -76,6 +76,7 @@ class LearnDetailFragment : Fragment() {
                                 tab.text = it[position].title
                             }
                         }.attach()
+                        detailViewPager.setCurrentItem(curId,true)
                     }
                 })
 
@@ -83,12 +84,6 @@ class LearnDetailFragment : Fragment() {
             }
 
         return binding.root
-    }
-
-    override fun onDestroyView() {
-//        Timber.d("$TAG bottomNavShow")
-//        uiUtilViewModel.showBottomNav()
-        super.onDestroyView()
     }
 
     inner class DetailPagerAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {

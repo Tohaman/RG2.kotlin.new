@@ -25,32 +25,15 @@ class FavouritesDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DialogRecyclerViewBinding.inflate(inflater, container, false)
             .apply {
+                Timber.d("$TAG onCreateViewFavouritesDialog")
                 val adapter = MenuAdapter()
                 adapter.attachCallBack(object: MenuAdapter.OnClickCallBack {
                     override fun openItem(menuItem: MainDBItem) {
-                        Timber.d("$TAG onFavItemClick - $menuItem")
-                        while (findNavController().currentDestination!!.id != R.id.destLearn) {
-                            Timber.d("$TAG popBackStack")
-                            findNavController().popBackStack()
-                        }
-                        if (menuItem.url == "submenu") {
-                            learnViewModel.onMainMenuItemClick(menuItem)
-                        } else {
-                            Timber.d("$TAG navigate to $menuItem")
-                            findNavController().navigate(
-                                //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
-                                //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
-                                LearnFragmentDirections.actionToLearnDetails(menuItem.id, menuItem.phase)
-                            )
-                        }
+                        clickAndCloase(menuItem)
                     }
-
                     override fun favouriteChange(menuItem: MainDBItem) {
-                        //TODO("Not yet implemented")
                     }
-
                     override fun longClick(menuItem: MainDBItem, view: View) {
-                        //TODO("Not yet implemented")
                     }
 
                 })
@@ -58,17 +41,39 @@ class FavouritesDialog : DialogFragment() {
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)
 
+
                 dialogViewModel.liveDataFavouritesList.observe(viewLifecycleOwner, Observer {
                     it?.let {
+                        Timber.d("$TAG o Refresh by ${it.size}")
                         adapter.refreshItems(it)
                     }
                 })
 
+                dialogViewModel.getFavourite()
+
                 closeText.setOnClickListener {
-                    dismiss()   //Единственная кнопка и та для выхода
+                    findNavController().popBackStack()
                 }
             }
         return binding.root
+    }
+
+    private fun clickAndCloase(menuItem: MainDBItem) {
+        Timber.d("$TAG onFavItemClick - $menuItem")
+        while (findNavController().currentDestination!!.id != R.id.destLearn) {
+            Timber.d("$TAG popBackStack")
+            findNavController().popBackStack()
+        }
+        if (menuItem.url == "submenu") {
+            learnViewModel.onMainMenuItemClick(menuItem)
+        } else {
+            Timber.d("$TAG navigate to $menuItem")
+            findNavController().navigate(
+                //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
+                //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
+                LearnFragmentDirections.actionToLearnDetails(menuItem.id, menuItem.phase)
+            )
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,10 +84,6 @@ class FavouritesDialog : DialogFragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
         }
-    }
-
-    private fun toast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }
