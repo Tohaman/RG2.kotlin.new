@@ -19,7 +19,7 @@ import ru.tohaman.testempty.dbase.entitys.PhaseItem
  * Room сравнивает поля в entities, и если они отличаются от текущих в базе, то нужна миграция, а соответственно повышение версии базы
  */
 
-@Database(entities = [MainDBItem::class, CubeType::class, BasicMove::class], version = 6)
+@Database(entities = [MainDBItem::class, CubeType::class, BasicMove::class], version = 7)
 abstract class MainDb : RoomDatabase() {
     abstract val mainDao : MainDao
     abstract val cubeTypesDao : CubeTypesDao
