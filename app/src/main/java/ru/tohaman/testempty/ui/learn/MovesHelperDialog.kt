@@ -28,6 +28,7 @@ class MovesHelperDialog : DialogFragment() {
                         toast(menuItem.toast)
                     }
                 })
+                titleText.text = "Азбука вращений"
 
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)
