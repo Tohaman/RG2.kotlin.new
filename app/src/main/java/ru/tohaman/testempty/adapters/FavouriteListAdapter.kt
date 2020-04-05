@@ -31,17 +31,10 @@ class FavouriteListAdapter() : RecyclerView.Adapter<FavouriteListAdapter.MenuHol
 
     override fun getItemCount(): Int = items.size
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
         //тут обновляем данные ячейки (вызываем биндер холдера) передаем туда MainDBItem и onClickListener
         val item = items[position]
         holder.bind(item, onClickCallBack, touchHelper)
-        holder.binding.swapButton.setOnTouchListener { _, event ->
-            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
-                touchHelper?.startDrag(holder)
-            }
-            false
-        }
     }
 
     fun refreshItems(items: List<MainDBItem>) {
@@ -54,10 +47,16 @@ class FavouriteListAdapter() : RecyclerView.Adapter<FavouriteListAdapter.MenuHol
 //    }
 
     class MenuHolder private constructor(val binding: FavouriteMenuItemBinding): RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("ClickableViewAccessibility")
         fun bind(item: MainDBItem, onClickCallBack: OnClickCallBack?, touchHelper: ItemTouchHelper?) {
             binding.viewMenuItem = item
             binding.clickListener = onClickCallBack
-
+            binding.swapButton.setOnTouchListener { _, event ->
+                if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                    touchHelper?.startDrag(this)
+                }
+                false
+            }
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }
@@ -75,8 +74,6 @@ class FavouriteListAdapter() : RecyclerView.Adapter<FavouriteListAdapter.MenuHol
 
     interface OnClickCallBack {
         fun clickItem(menuItem: MainDBItem)
-        fun arrowUpClick(menuItem: MainDBItem)
-        fun arrowDownClick(menuItem: MainDBItem)
     }
 
 }

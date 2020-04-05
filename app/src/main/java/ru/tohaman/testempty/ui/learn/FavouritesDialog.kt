@@ -105,10 +105,5 @@ class FavouritesDialog : DialogFragment() {
         override fun clickItem(menuItem: MainDBItem) {
             clickAndClose(menuItem)
         }
-        override fun arrowUpClick(menuItem: MainDBItem) {
-        }
-        override fun arrowDownClick(menuItem: MainDBItem) {
-        }
-
     }
 }
