@@ -15,6 +15,7 @@ import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
+import java.text.ParsePosition
 
 
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
@@ -80,14 +81,6 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         return if (id <= cubeTypes.size) cubeTypes[id].curPhase else ""
     }
 
-    private fun getLivePhaseFromRepository(phase: String): LiveData<List<MainDBItem>> {
-        return if (phase != FAVOURITES) {
-            repository.getLivePhaseFromMain(phase)
-        } else {
-            repository.getLiveFavourites()
-        }
-    }
-
     //возвращаем true если вернулись на одну фазу назад или false если и так в главной фазе
     fun canReturnToOnePhaseBack() : Boolean {
         val fromPhase = cubeTypes[currentCubeType].curPhase
@@ -114,6 +107,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    //обновляем данные в текущих фазах (перечитываем из репозитория) для основного меню, выполняем в фоне
     private fun updateCurrentPhasesToArray() {
         Timber.d("$TAG updateCurrentPhasesToArray curTypes = ${cubeTypes[currentCubeType]}")
         viewModelScope.launch (Dispatchers.IO){
@@ -128,7 +122,9 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         return if (phase != FAVOURITES) {
             repository.getPhaseFromMain(phase)
         } else {
-            repository.getFavourites()
+            val list = repository.getFavourites()
+            list.indices.map {i -> list[i].subId = i}
+            list
         }
     }
 
@@ -140,11 +136,30 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun onFavouriteChangeClick(menuItem: MainDBItem) {
         Timber.d( "$TAG favouriteChange for - $menuItem")
-        Timber.d( "$TAG favouriteChange curPhase - ${cubeTypes[currentCubeType].curPhase}")
         viewModelScope.launch (Dispatchers.IO) {
             menuItem.isFavourite = !menuItem.isFavourite
-            repository.updateMainItem(menuItem)
-            updateCurrentPhasesToArray()
+            val list = repository.getFavourites().toMutableList()
+            if (menuItem.isFavourite) {             // добавляем в избранное
+                menuItem.subId = list.size
+            } else {                                // убираем из избранного
+                list.removeAt(menuItem.subId)
+                list.indices.map {i -> list[i].subId = i}
+                menuItem.subId = 0
+            }
+            list.add(menuItem)
+            repository.updateMainItem(list)
+            updateCurrentPhasesToArray()    //обновляем данные в текущих фазах (перечитываем из репозитория) для основного меню
+        }
+    }
+
+    fun onFavouriteSwap(fromPosition: Int, toPosition: Int) {
+        Timber.d( "$TAG swap from $fromPosition. to $toPosition")
+        viewModelScope.launch (Dispatchers.IO) {
+            val list = repository.getFavourites().toMutableList()
+            list[fromPosition].subId = toPosition
+            list[toPosition].subId = fromPosition
+            repository.updateMainItem(list)
+            updateCurrentPhasesToArray()    //обновляем данные в текущих фазах (перечитываем из репозитория)
         }
     }
 

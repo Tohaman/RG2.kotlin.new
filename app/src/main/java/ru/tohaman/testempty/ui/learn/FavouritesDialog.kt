@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
@@ -15,6 +17,7 @@ import ru.tohaman.testempty.adapters.FavouriteListAdapter
 import ru.tohaman.testempty.databinding.DialogRecyclerViewBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import timber.log.Timber
+import java.util.*
 
 class FavouritesDialog : DialogFragment() {
     private val dialogViewModel by sharedViewModel<LearnDetailViewModel>()
@@ -28,19 +31,11 @@ class FavouritesDialog : DialogFragment() {
                 titleText.text = "Избранное"
 
                 val adapter = FavouriteListAdapter()
-                adapter.attachCallBack(object: FavouriteListAdapter.OnClickCallBack {
-                    override fun clickItem(menuItem: MainDBItem) {
-                        clickAndClose(menuItem)
-                    }
-                    override fun arrowUpClick(menuItem: MainDBItem) {
-                    }
-                    override fun arrowDownClick(menuItem: MainDBItem) {
-                    }
-
-                })
+                adapter.attachCallBack(clickCallBack, touchHelper)
 
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)
+                touchHelper.attachToRecyclerView(recyclerView)
 
 
                 dialogViewModel.liveDataFavouritesList.observe(viewLifecycleOwner, Observer {
@@ -87,4 +82,33 @@ class FavouritesDialog : DialogFragment() {
         }
     }
 
+    // Реализуем перетаскивание элементов в списке https://habr.com/ru/post/427681/ https://www.youtube.com/watch?v=dldrLPNoFnk
+    // Используем SimpleCallBack, в этом случае флаги движений задаем сразу в параметрах коллбэка, а не через переопределение getMovementFlags
+    private val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, 0) {
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+                                target: RecyclerView.ViewHolder): Boolean {
+                val fromPosition = viewHolder.adapterPosition
+                val toPosition = target.adapterPosition
+
+                learnViewModel.onFavouriteSwap(fromPosition, toPosition)            //меняем местами в базе (индексы)
+                recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)     //и в адаптере (визуаально)
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                //Свайпы пока не реализуем
+            }
+        })
+
+    private val clickCallBack = object: FavouriteListAdapter.OnClickCallBack {
+        override fun clickItem(menuItem: MainDBItem) {
+            clickAndClose(menuItem)
+        }
+        override fun arrowUpClick(menuItem: MainDBItem) {
+        }
+        override fun arrowDownClick(menuItem: MainDBItem) {
+        }
+
+    }
 }
