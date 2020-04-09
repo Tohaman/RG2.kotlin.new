@@ -102,7 +102,7 @@
     </string-array>
 
 
-    <string name="patterns_st1_title">1. Точки (Вишенка)</string>
+    <string name="patterns_st1_title">1. Точки</string>
     <string name="patterns_st1_descr" formatted="false"><![CDATA[
     <p>Еще больше узоров вы можете найти на сайте <a href=https://speedcubing.ru/tutorial/3x3x3/patterns>speedcubing.ru</a>.</p>
 
@@ -256,7 +256,7 @@
     <string name="patterns_st5_url">l6V7517N_lQ</string>
     <string name="patterns_st5_comment">L2 R\' B2 F2 D2 B2 F2 L2 R2 U2 R\'</string>
 
-    <string name="patterns_st6_title">6. Молния в точку</string>
+    <string name="patterns_st6_title">6. Молнии</string>
     <string name="patterns_st6_descr" formatted="false"><![CDATA[
     <p>Очень интересный и <a href="rg2://ytplay?time=8:58&link=l6V7517N_lQ">необычный узор,</a>
         которого вы не найдете на сайте <a href=https://speedcubing.ru/tutorial/3x3x3/patterns>speedcubing.ru</a>.
@@ -400,7 +400,7 @@
     <string name="patterns_st9_url">l6V7517N_lQ</string>
     <string name="patterns_st9_comment">R2 F2 M2 B2 L2</string>
 
-    <string name="patterns_st10_title">10. Клумба</string>
+    <string name="patterns_st10_title">10. Двойные вращения</string>
     <string name="patterns_st10_descr" formatted="false"><![CDATA[
         <p>Подобных узоров, которые получаются при помощи только двойных вращений каких-либо граней,
         существует огромное множество. Все их, к сожалению, в программе привести нет никакой возможности,
@@ -446,7 +446,7 @@
     <string name="patterns_st11_url">l6V7517N_lQ</string>
     <string name="patterns_st11_comment">D L\' R\' U2 L R D</string>
 
-    <string name="patterns_st12_title">12. ФБК и Буквы Н</string>
+    <string name="patterns_st12_title">12. Буквы Н</string>
     <string name="patterns_st12_descr" formatted="false"><![CDATA[
         <p>Очень простой узор, <a href="rg2://ytplay?time=18:00&link=l6V7517N_lQ">буквы Н</a>
         только на двух гранях. А если взять кубик стандартно,
@@ -471,7 +471,7 @@
     <string name="patterns_st13_descr" formatted="false"><![CDATA[
         <p>Ситуация, когда все элементы (ребра и углы) находятся на своих местах, но все ребра перевернуты.
         Узором такую ситуацию можно назвать лишь \"с натяжкой\", но есть у этого узора одна \"фишка\" -
-        это единственная ситуация в кубике Рубика 3х3, которую НЕВОЗМОЖНО решить, меньше чем за
+        это ЕДИНСТВЕННАЯ ситуация в кубике Рубика 3х3, которую НЕВОЗМОЖНО решить, меньше чем за
         20 ходов. Любую другую ситуацию можно решить за 19 ходов или меньше.</p>
 
         <p style="text-align:center"><img src="pattern_13.xml" width="20%%"></p>
