@@ -78,7 +78,7 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.0"
 
     //Koin для Внедрения зависимостей - https://github.com/InsertKoinIO/koin
-    ext { koin_version = "2.1.2" }
+    ext { koin_version = "2.1.5" }
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 

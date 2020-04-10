@@ -21,18 +21,27 @@
         android:animateLayoutChanges="true"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/appBar"
-            layout="@layout/include_app_bar"
-            app:title="@{title}"
-            app:tabbed="@{true}"/>
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <androidx.viewpager2.widget.ViewPager2
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                app:tabGravity="center"
+                app:tabPaddingTop="8dp"
+                app:tabPaddingBottom="8dp"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/detailViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:preview="@layout/fragment_learn_menu"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

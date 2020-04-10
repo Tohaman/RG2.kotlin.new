@@ -102,9 +102,8 @@ class LearnMenuFragment : Fragment() {
     }
 
 
-    //TODO перенести метод во viewModel
     private fun onMenuItemClick(item: MainDBItem) {
-        Timber.d("$TAG onItemClick - $item")
+        Timber.d("$TAG onItemClick - ${item.id}, ${item.phase}")
     if (item.url == "submenu") {
         learnViewModel.onMainMenuItemClick(item)
     } else {

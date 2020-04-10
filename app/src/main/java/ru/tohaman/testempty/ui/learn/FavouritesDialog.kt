@@ -63,7 +63,7 @@ class FavouritesDialog : DialogFragment() {
         if (menuItem.url == "submenu") {
             learnViewModel.onMainMenuItemClick(menuItem)
         } else {
-            Timber.d("$TAG navigate to $menuItem")
+            Timber.d("$TAG navigate to ${menuItem.id}, ${menuItem.phase}")
             //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
             //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
             findNavController().navigate(
@@ -85,7 +85,6 @@ class FavouritesDialog : DialogFragment() {
     // Реализуем перетаскивание элементов в списке https://habr.com/ru/post/427681/ https://www.youtube.com/watch?v=dldrLPNoFnk
     // Используем SimpleCallBack, в этом случае флаги движений задаем сразу в параметрах коллбэка, а не через переопределение getMovementFlags
     private val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, 0) {
-
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
                                 target: RecyclerView.ViewHolder): Boolean {
                 val fromPosition = viewHolder.adapterPosition

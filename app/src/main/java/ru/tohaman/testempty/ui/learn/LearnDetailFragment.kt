@@ -1,24 +1,25 @@
 package ru.tohaman.testempty.ui.learn
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.FragmentLearnDetailBinding
-
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
+
 
 class LearnDetailFragment : Fragment() {
     private val args by navArgs<LearnDetailFragmentArgs>()
@@ -32,51 +33,42 @@ class LearnDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.d("$TAG onCreate phase = $phase")
+        Timber.d("$TAG onCreate with $phaseId, $phase")
         currentId = phaseId
         detailViewModel.setCurrentItems(phaseId, phase)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        Timber.d("$TAG bottomNavHide")
+        Timber.d("$TAG onCreateView")
         uiUtilViewModel.hideBottomNav()
-        val adapter = DetailPagerAdapter(this)
 
         binding = FragmentLearnDetailBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = this@LearnDetailFragment
-                //Timber.d("$TAG DetFragment with phase = $phase")
+
+                val adapter = DetailPagerAdapter2(childFragmentManager)
                 detailViewPager.adapter = adapter
-                title=""
 
-                val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+                tabLayout.setupWithViewPager(detailViewPager)
 
-
-                //Timber.d("$TAG liveCurrentItems обновился curType = $curType, $it")
-                detailViewPager.offscreenPageLimit = 5
-                detailViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                detailViewPager.offscreenPageLimit = 10
+                detailViewPager.addOnPageChangeListener(object : OnPageChangeListener {
+                    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                        Timber.d("$TAG onPageScrolled")
+                    }
                     override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
+                        Timber.d("$TAG сменилоась страница вьюпейджера")
                         currentId = position
                     }
+                    override fun onPageScrollStateChanged(state: Int) { Timber.d("$TAG onPageScrollStateChanged") }
                 })
-
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         Timber.d("$TAG detailCurItems - ${it.size}, $currentId")
                         adapter.refreshItems(it)
-                        val curId = detailViewModel.getItemNum(currentId)
-                        val tabCount = tabLayout.tabCount
-                        TabLayoutMediator(tabLayout, detailViewPager) {tab, position ->
-                            //Timber.d("$TAG обновляем заголовок в tabLayout ${tabCount} - ${position}")
-                            if (position < tabCount) {
-                                tab.text = it[position].title
-                            }
-                        }.attach()
-                        detailViewPager.setCurrentItem(curId,true)
+                        detailViewPager.setCurrentItem(currentId,false)
                     }
                 })
 
@@ -84,6 +76,11 @@ class LearnDetailFragment : Fragment() {
             }
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        Timber.d ("$TAG onDestroy детаилФагмент")
+        super.onDestroy()
     }
 
     inner class DetailPagerAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -105,5 +102,29 @@ class LearnDetailFragment : Fragment() {
             notifyDataSetChanged()
         }
     }
+
+    inner class DetailPagerAdapter2 (fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        private var detailItems = listOf<MainDBItem>()
+
+        //передаем новые данные и оповещаем адаптер о необходимости обновления списка
+        fun refreshItems(items: List<MainDBItem>) {
+            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
+            detailItems = items
+            notifyDataSetChanged()
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return detailItems[position].title
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return LearnDetailItemFragment.newInstance(detailItems[position])
+        }
+
+        override fun getCount(): Int {
+            return detailItems.count()
+        }
+    }
+
 
 }

@@ -4,10 +4,8 @@ import android.content.Context
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.entitys.BasicMove
@@ -21,6 +19,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val ctx = context
     private var currentID = 0
     private var count = 0
+    var mutableCount: MutableLiveData<Int> = count.toMutableLiveData()
 
     private var currentItems: List<MainDBItem> = listOf()
     private var mutableCurrentItems : MutableLiveData<List<MainDBItem>> = currentItems.toMutableLiveData()
@@ -41,11 +40,16 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     fun setCurrentItems (id: Int, phase: String) {
+        Timber.d("$TAG setCurrentItems start")
+        viewModelScope.launch (Dispatchers.IO)  {
             currentID = id
-            runBlocking (Dispatchers.IO) { currentItems = repository.getDetailsItems(phase)}
+            //runBlocking (Dispatchers.IO) {
+            currentItems = repository.getDetailsItems(phase) //}
             mutableCurrentItems.postValue(currentItems)
             count = currentItems.size
+            mutableCount.postValue(count)
             Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
+        }
     }
 
     fun getItemNum(id: Int): Int {
@@ -65,9 +69,9 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun changeItemFavouriteStatus(item: MainDBItem) {
         item.isFavourite = !item.isFavourite
-        val list = currentItems.toMutableList()
-        list[item.id] = item
-        mutableCurrentItems.postValue(list)
+        val favList = currentItems.toMutableList()
+        favList[item.id] = item
+        mutableCurrentItems.postValue(favList)
         viewModelScope.launch (Dispatchers.IO)  {
             repository.updateMainItem(item)
             getFavourite()
