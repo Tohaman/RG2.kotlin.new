@@ -31,7 +31,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private var mutableCubeTypes : MutableLiveData<List<BasicMove>> = MutableLiveData()
     val liveDataCubeTypes: LiveData<List<BasicMove>> get() = mutableCubeTypes
 
-    private var favouritesList: List<MainDBItem> = listOf()
+    private var favouritesList: MutableList<MainDBItem> = mutableListOf()
     private var mutableFavouritesList: MutableLiveData<List<MainDBItem>> = MutableLiveData()
     val liveDataFavouritesList: LiveData<List<MainDBItem>> get() = mutableFavouritesList
 
@@ -91,7 +91,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     fun getFavourite() {
         viewModelScope.launch (Dispatchers.IO)  {
             phasesToTypes = getPhasesToTypesMap(ctx).toMutableMap()
-            favouritesList = repository.getFavourites()
+            favouritesList = repository.getFavourites().toMutableList()
             mutableFavouritesList.postValue(favouritesList)
         }
     }
@@ -102,6 +102,13 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
             cubeTypes = repository.getTypeItems(type)
             mutableCubeTypes.postValue(cubeTypes)
         }
+    }
+
+    fun onFavouriteSwapPosition(fromPosition: Int, toPosition: Int) {
+        Timber.d( "$TAG swap from $fromPosition. to $toPosition")
+        favouritesList[fromPosition].subId = toPosition
+        favouritesList[toPosition].subId = fromPosition
+        //mutableFavouritesList.postValue(favouritesList)
     }
 
 

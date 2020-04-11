@@ -15,7 +15,7 @@ import ru.tohaman.testempty.dbase.entitys.MainDBItem
 
 class FavouriteListAdapter() : RecyclerView.Adapter<FavouriteListAdapter.MenuHolder>() {
     //тут храним список, который надо отобразить
-    private var items: List<MainDBItem> = ArrayList()
+    private var items: MutableList<MainDBItem> = ArrayList()
     private var onClickCallBack: OnClickCallBack? = null
     private var touchHelper: ItemTouchHelper? = null
 
@@ -38,8 +38,20 @@ class FavouriteListAdapter() : RecyclerView.Adapter<FavouriteListAdapter.MenuHol
     }
 
     fun refreshItems(items: List<MainDBItem>) {
-        this.items = items
+        this.items = items.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun removeItem(position: Int) {
+        items.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, items.size)
+    }
+
+    fun restoreItem(item: MainDBItem, position: Int) {
+        items.add(position, item)
+        // notify item added by position
+        notifyItemInserted(position)
     }
 
 //    class OnClickListener(val clickListener: (MainDBItem, View) -> Unit) {

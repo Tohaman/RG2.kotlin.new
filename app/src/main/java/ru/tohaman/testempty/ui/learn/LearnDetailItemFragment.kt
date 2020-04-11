@@ -47,7 +47,7 @@ class LearnDetailItemFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             fragmentNum = it.getInt(ARG_CUBE1)
-            Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
+            //Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
         }
     }
 
@@ -57,16 +57,12 @@ class LearnDetailItemFragment : Fragment() {
 
         binding = FragmentLearnDetailItemBinding.inflate(inflater, container, false)
             .apply {
-//                item = detailViewModel.getCurrentItems()[fragmentNum]
-//                Timber.d("$TAG mainDBItem = $item")
-//                mainDBItem = item
-
                 // Делаем ссылки кликабельными
                 content.descriptionText.movementMethod = LinkMovementMethod.getInstance()
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        Timber.d("$TAG Фрагмент = $fragmentNum, $it.size")
+                        //Timber.d("$TAG Фрагмент = $fragmentNum, $it.size")
                         if (fragmentNum < it.size) {
                             item = it[fragmentNum]
                             mainDBItem = item

@@ -91,6 +91,9 @@ dependencies {
     //Timber для удобного вывода в лог данных - https://medium.com/mindorks/better-logging-in-android-using-timber-72e40cc2293d
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    //Деократор для красивого удаления записей в RecyclerView свайпом
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.2'
+
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

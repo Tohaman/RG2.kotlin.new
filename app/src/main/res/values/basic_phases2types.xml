@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+<!--    Таблица для построения соответствий головоломок их типам, чтобы вызвать соответствующую азбуку вращений-->
+
     <string-array name="phases">
         <item>BEGIN4X4</item>
         <item>YAU4X4</item>

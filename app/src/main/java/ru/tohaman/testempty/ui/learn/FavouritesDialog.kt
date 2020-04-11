@@ -1,15 +1,23 @@
 package ru.tohaman.testempty.ui.learn
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlinx.android.synthetic.main.fragment_learn_detail.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
@@ -17,11 +25,12 @@ import ru.tohaman.testempty.adapters.FavouriteListAdapter
 import ru.tohaman.testempty.databinding.DialogRecyclerViewBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import timber.log.Timber
-import java.util.*
+
 
 class FavouritesDialog : DialogFragment() {
     private val dialogViewModel by sharedViewModel<LearnDetailViewModel>()
     private val learnViewModel by sharedViewModel<LearnViewModel>()
+    private lateinit var adapter: FavouriteListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DialogRecyclerViewBinding.inflate(inflater, container, false)
@@ -30,7 +39,7 @@ class FavouritesDialog : DialogFragment() {
 
                 titleText.text = "Избранное"
 
-                val adapter = FavouriteListAdapter()
+                adapter = FavouriteListAdapter()
                 adapter.attachCallBack(clickCallBack, touchHelper)
 
                 recyclerView.adapter = adapter
@@ -40,7 +49,7 @@ class FavouritesDialog : DialogFragment() {
 
                 dialogViewModel.liveDataFavouritesList.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        Timber.d("$TAG o Refresh by ${it.size}")
+                        Timber.d("$TAG favList refresh by ${it.size}")
                         adapter.refreshItems(it)
                     }
                 })
@@ -84,25 +93,61 @@ class FavouritesDialog : DialogFragment() {
 
     // Реализуем перетаскивание элементов в списке https://habr.com/ru/post/427681/ https://www.youtube.com/watch?v=dldrLPNoFnk
     // Используем SimpleCallBack, в этом случае флаги движений задаем сразу в параметрах коллбэка, а не через переопределение getMovementFlags
-    private val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, 0) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                                target: RecyclerView.ViewHolder): Boolean {
-                val fromPosition = viewHolder.adapterPosition
-                val toPosition = target.adapterPosition
+    private val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.START or ItemTouchHelper.END) {
 
-                learnViewModel.onFavouriteSwap(fromPosition, toPosition)            //меняем местами в базе (индексы)
-                recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)     //и в адаптере (визуаально)
-                return true
-            }
+        //Обработка перемещений вверх/вниз элементов
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+                            target: RecyclerView.ViewHolder): Boolean {
+            val fromPosition = viewHolder.adapterPosition
+            val toPosition = target.adapterPosition
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                //Свайпы пока не реализуем
+            learnViewModel.onFavouriteSwapPosition(fromPosition, toPosition)            //меняем местами в базе (индексы)
+            recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)             //и в адаптере (визуаально)
+            return true
+        }
+
+        //смахивание элемента в сторону
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            Timber.d("$TAG onSwiped position - $position")
+            (viewHolder as FavouriteListAdapter.MenuHolder).binding.viewMenuItem?.let { //Получаем в it значение свайпнутого элемента
+                val item = it
+                learnViewModel.onFavouriteItemSwipe(item, position)
+                adapter.removeItem(it.subId)
+                val snackbar = Snackbar.make(view!!, "Отменить удаление", Snackbar.LENGTH_LONG)
+                snackbar.setAction("Undo") {
+                    adapter.restoreItem(item, position)
+                    learnViewModel.onFavouriteItemUndoSwipe(item, position)
+                }
+                snackbar.setActionTextColor(ContextCompat.getColor(context!!, R.color.colorAccent))
+                snackbar.show()
             }
-        })
+        }
+
+        //Вызывается после завершения onMoved или onSwiped, обновляем данные во viewModel и автоматом в
+        //адаптере, чтобы установить корректные индексы subID элементов избанного
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            dialogViewModel.getFavourite()
+            super.clearView(recyclerView, viewHolder)
+        }
+
+        //Используем библиотеку с декоратором https://github.com/xabaras/RecyclerViewSwipeDecorator
+        //подробнее в видео https://youtu.be/rcSNkSJ624U чтобы красиво работал onSwiped (с иконкой на заднем фоне)
+        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+            dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addBackgroundColor(ContextCompat.getColor(context!!, R.color.bgRowBackground))
+                .addActionIcon(R.drawable.ic_delete)
+                .create()
+                .decorate()
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        }
+    })
 
     private val clickCallBack = object: FavouriteListAdapter.OnClickCallBack {
         override fun clickItem(menuItem: MainDBItem) {
             clickAndClose(menuItem)
         }
     }
+
 }

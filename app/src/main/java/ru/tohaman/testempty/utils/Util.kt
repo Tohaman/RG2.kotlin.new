@@ -23,7 +23,7 @@ fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(t
 
 // extension method to convert pixels to dp
 fun Int.dp(context: Context):Int = TypedValue.applyDimension(
-    TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
+    TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics
 ).toInt()
 
 fun spannedString(desc:String, imgGetter: Html.ImageGetter, tagHandler: Html.TagHandler? = null): Spanned {
@@ -54,12 +54,14 @@ fun Context.getResource(name:String): Drawable {
     return ActivityCompat.getDrawable(this,resID) ?: defDrawable
 }
 
+//Возвращает Map для определения типа головоломки (трешка, мод, большой куб и т.д.) по фазе головоломки
+//т.е. Phase -> Type
 fun getPhasesToTypesMap(context: Context): Map<String, String> {
     val phasesArray = context.resources.getStringArray(R.array.phases)
     val typesArray = context.resources.getStringArray(R.array.types)
     var phasesToTypes: MutableMap<String, String> = mutableMapOf()
     for (i in phasesArray.indices) {
-        phasesToTypes.put(phasesArray[i], typesArray[i])
+        phasesToTypes[phasesArray[i]] = typesArray[i]
     }
 
     return phasesToTypes

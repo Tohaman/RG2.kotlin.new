@@ -134,7 +134,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         changePhaseTo(phase)
     }
 
-    fun onFavouriteChangeClick(menuItem: MainDBItem) {
+    fun onFavouriteChangeClick(menuItem: MainDBItem, position: Int = menuItem.subId) {
         Timber.d( "$TAG favouriteChange for - $menuItem")
         viewModelScope.launch (Dispatchers.IO) {
             menuItem.isFavourite = !menuItem.isFavourite
@@ -142,7 +142,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             if (menuItem.isFavourite) {             // добавляем в избранное
                 menuItem.subId = list.size
             } else {                                // убираем из избранного
-                list.removeAt(menuItem.subId)
+                Timber.d( "$TAG removeFAV - $position ${list.size}")
+                list.removeAt(position)
                 list.indices.map {i -> list[i].subId = i}
                 menuItem.subId = 0
             }
@@ -152,7 +153,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    fun onFavouriteSwap(fromPosition: Int, toPosition: Int) {
+    fun onFavouriteSwapPosition(fromPosition: Int, toPosition: Int) {
         Timber.d( "$TAG swap from $fromPosition. to $toPosition")
         viewModelScope.launch (Dispatchers.IO) {
             val list = repository.getFavourites().toMutableList()
@@ -161,6 +162,16 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             repository.updateMainItem(list)
             updateCurrentPhasesToArray()    //обновляем данные в текущих фазах (перечитываем из репозитория)
         }
+    }
+
+    fun onFavouriteItemSwipe(item: MainDBItem, position: Int) {
+        Timber.d("$TAG удалить из избранного ${item.phase}, ${item.id}")
+        onFavouriteChangeClick(item, position)
+    }
+
+    fun onFavouriteItemUndoSwipe(item: MainDBItem, position: Int) {
+        Timber.d("$TAG вернуть в избранное ${item.phase}, ${item.id}")
+        onFavouriteChangeClick(item, position)
     }
 
     private fun getSubMenuList () {
