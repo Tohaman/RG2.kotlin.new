@@ -21,10 +21,10 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private var count = 0
     var mutableCount: MutableLiveData<Int> = count.toMutableLiveData()
 
-    private var currentItems: List<MainDBItem> = listOf()
-    private var mutableCurrentItems : MutableLiveData<List<MainDBItem>> = currentItems.toMutableLiveData()
+    private var currentItems: MutableList<MainDBItem> = mutableListOf()
+    private var _currentItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
     val liveCurrentItems: LiveData<List<MainDBItem>>
-        get() = mutableCurrentItems
+        get() = _currentItems
 
     private var phasesToTypes: MutableMap<String, String> = mutableMapOf()
     private var cubeTypes : List<BasicMove> = listOf()
@@ -41,23 +41,24 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun setCurrentItems (id: Int, phase: String) {
         Timber.d("$TAG setCurrentItems start")
+        _currentItems = MutableLiveData()
         viewModelScope.launch (Dispatchers.IO)  {
             currentID = id
             //runBlocking (Dispatchers.IO) {
-            currentItems = repository.getDetailsItems(phase) //}
-            mutableCurrentItems.postValue(currentItems)
+            currentItems = repository.getDetailsItems(phase).toMutableList() //}
+            _currentItems.postValue(currentItems)
             count = currentItems.size
             mutableCount.postValue(count)
             Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
         }
     }
 
-    fun getItemNum(id: Int): Int {
-        currentItems.indices.map { i ->
-            if (currentItems[i].id == id) { return i }
-        }
-        return 0 //Если не нашлось значение (хотя и не должны сюда попадать)
-    }
+//    fun getItemNum(id: Int): Int {
+//        currentItems.indices.map { i ->
+//            if (currentItems[i].id == id) { return i }
+//        }
+//        return 0 //Если не нашлось значение (хотя и не должны сюда попадать)
+//    }
 
     fun getCurrentItems(): List<MainDBItem> = currentItems
 
@@ -68,18 +69,23 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     fun changeItemFavouriteStatus(item: MainDBItem) {
-        item.isFavourite = !item.isFavourite
-        val favList = currentItems.toMutableList()
-        favList[item.id] = item
-        mutableCurrentItems.postValue(favList)
+        Timber.d( "$TAG favouriteChange for - $item")
         viewModelScope.launch (Dispatchers.IO)  {
-            repository.updateMainItem(item)
+            item.isFavourite = !item.isFavourite
+            val list = repository.getFavourites().toMutableList()
+            if (item.isFavourite) { //если  надо добавит в избранное
+                item.subId = list.size
+            } else {
+                list.removeAt(item.subId)
+                list.indices.map { i -> list[i].subId = i }
+                item.subId = 0
+            }
+            list.add(item)                      //добавляем запись в конец списка
+            repository.updateMainItem(list)     //и обновляем избранное в базе
+            currentItems[item.id] = item        //обновляем запись в текущем списке items
+            _currentItems.postValue(currentItems)   //и постим в лайвдату, чтобы обновилось в презентере
             getFavourite()
         }
-    }
-
-    fun refreshFavourites() {
-        mutableFavouritesList.postValue(favouritesList)
     }
 
     fun getFavourite() {

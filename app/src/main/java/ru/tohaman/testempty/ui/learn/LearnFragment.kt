@@ -63,6 +63,10 @@ class LearnFragment : Fragment() {
 
                 val tabLayout = appBar.tabLayout
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+                TabLayoutMediator(tabLayout, learnViewPager) { tab, position ->
+                    //Timber.d("$TAG tabLayoutMediator = $tab position = $position")
+                    tab.text = adapter.getData()[position].name
+                }.attach()
 
                 learnViewModel.liveDataCubeTypes.observe(viewLifecycleOwner, Observer {
                     it?.let {
@@ -71,10 +75,6 @@ class LearnFragment : Fragment() {
                         adapter.refreshItems(it)
                         //задаем именно smooyjScroll=false, чтобы сразу открывалась нужная страница, без анимации пролистывания
                         learnViewPager.setCurrentItem(curType,false)
-                        TabLayoutMediator(tabLayout, learnViewPager) { tab, position ->
-                            //Timber.d("$TAG tabLayoutMediator = $tab position = $position")
-                            tab.text = it[position].name
-                        }.attach()
                     }
                 })
                 viewModel = learnViewModel
@@ -108,6 +108,9 @@ class LearnFragment : Fragment() {
             cubeTypes = items
             notifyDataSetChanged()
         }
+
+        fun getData(): List<CubeType> = cubeTypes
+
     }
 
     private fun quitApp() {

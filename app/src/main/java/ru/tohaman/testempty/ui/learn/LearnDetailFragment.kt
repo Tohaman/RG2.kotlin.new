@@ -7,14 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.adapters.DetailDiffUtils
 import ru.tohaman.testempty.databinding.FragmentLearnDetailBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
@@ -46,22 +52,23 @@ class LearnDetailFragment : Fragment() {
             .apply {
                 lifecycleOwner = this@LearnDetailFragment
 
-                val adapter = DetailPagerAdapter2(childFragmentManager)
+                val adapter = DetailPagerAdapter(this@LearnDetailFragment)
                 detailViewPager.adapter = adapter
 
                 tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
-                tabLayout.setupWithViewPager(detailViewPager)
+                //tabLayout.setupWithViewPager(detailViewPager)
 
-                detailViewPager.offscreenPageLimit = 10
-                detailViewPager.addOnPageChangeListener(object : OnPageChangeListener {
-                    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                        Timber.d("$TAG onPageScrolled")
-                    }
+                TabLayoutMediator(tabLayout, detailViewPager) { tab, position ->
+                    //Timber.d("$TAG tabLayoutMediator = $tab position = $position")
+                    tab.text = adapter.getData()[position].title
+                }.attach()
+
+                detailViewPager.offscreenPageLimit = 5
+                detailViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
-                        Timber.d("$TAG сменилоась страница вьюпейджера")
+                        super.onPageSelected(position)
                         currentId = position
                     }
-                    override fun onPageScrollStateChanged(state: Int) { Timber.d("$TAG onPageScrollStateChanged") }
                 })
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
@@ -101,20 +108,29 @@ class LearnDetailFragment : Fragment() {
             detailItems = items
             notifyDataSetChanged()
         }
+
+        fun getData() : List<MainDBItem> {
+            return detailItems
+        }
     }
 
-    inner class DetailPagerAdapter2 (fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner class DetailPagerAdapter2 (fm: FragmentManager) : FragmentStatePagerAdapter(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         private var detailItems = listOf<MainDBItem>()
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<MainDBItem>) {
             Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
+
             detailItems = items
             notifyDataSetChanged()
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
             return detailItems[position].title
+        }
+
+        fun getData() : List<MainDBItem> {
+            return detailItems
         }
 
         override fun getItem(position: Int): Fragment {

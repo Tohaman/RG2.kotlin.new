@@ -26,7 +26,7 @@
             android:id="@+id/main_menu_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:padding="8dp"
+            android:padding="4dp"
             android:srcId="@{viewMenuItem.icon}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -85,6 +85,18 @@
             android:onClick="@{(view) -> clickListener.favouriteChange(viewMenuItem)}"
             android:longClickable="true"
             tools:srcCompat="@drawable/ic_favorite_unchecked"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="8dp"
+            android:textSize="10sp"
+            app:text='@{viewMenuItem.subId}'
+            android:textColor="@color/white"
+            tools:text="10"
+            />
 
         
     </androidx.constraintlayout.widget.ConstraintLayout>

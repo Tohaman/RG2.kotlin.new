@@ -47,7 +47,7 @@ class LearnDetailItemFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             fragmentNum = it.getInt(ARG_CUBE1)
-            //Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
+            Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
         }
     }
 
@@ -57,7 +57,7 @@ class LearnDetailItemFragment : Fragment() {
 
         binding = FragmentLearnDetailItemBinding.inflate(inflater, container, false)
             .apply {
-                item = detailViewModel.getCurrentItems()[fragmentNum]
+//                item = detailViewModel.getCurrentItems()[fragmentNum]
 //                Timber.d("$TAG mainDBItem = $item")
 //                mainDBItem = item
 
@@ -66,8 +66,12 @@ class LearnDetailItemFragment : Fragment() {
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        item = it[fragmentNum]
-                        mainDBItem = item
+                        Timber.d("$TAG Фрагмент = $fragmentNum, $it.size")
+                        if (fragmentNum < it.size) {
+                            item = it[fragmentNum]
+                            mainDBItem = item
+                            content.youtubeView.enabled = item.url != ""
+                        }
                     }
                 })
 
@@ -81,11 +85,8 @@ class LearnDetailItemFragment : Fragment() {
                     }
                 })
 
-                content.youtubeView.enabled = item.url != ""
-
                 //Регистрируем контекстное меню для "Избранного" (будем вызывать при долгом нажатии)
                 registerForContextMenu(favourites)
-
                 setClickListeners(this)
             }
         return binding.root

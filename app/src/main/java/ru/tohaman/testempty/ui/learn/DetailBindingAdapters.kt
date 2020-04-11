@@ -65,3 +65,8 @@ fun commentChoose(textView: TextView, favComment: String, comment: String) {
     textView.text = text
 }
 
+@BindingAdapter("app:text")
+fun textToString(textView: TextView, int: Int) {
+    textView.text = int.toString()
+}
+
