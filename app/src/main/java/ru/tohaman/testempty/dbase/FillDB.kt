@@ -89,13 +89,19 @@ class FillDB {
             val item1 = repository.getItem("PATTERNS", 1)
             val item2 = repository.getItem("AXIS", 0)
             val item3 = repository.getItem("BEGIN", 4)
+            val item4 = repository.getItem("BIG_CUBES", 1)
             item1.favComment = "Красивый узор"
             item1.isFavourite = true
+            item1.subId = 0
             item2.favComment = "Прикольная головоломка"
             item2.isFavourite = true
+            item2.subId = 1
             item3.favComment = "Пиф-паф"
             item3.isFavourite = true
-            val items = listOf(item1, item2, item3)
+            item3.subId = 2
+            item4.isFavourite = true
+            item4.subId = 3
+            val items = listOf(item1, item2, item3, item4)
             repository.updateMainItem(items)
         }
 
