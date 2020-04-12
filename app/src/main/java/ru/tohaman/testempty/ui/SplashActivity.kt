@@ -50,7 +50,7 @@ class SplashActivity : AppCompatActivity() {
         runBlocking (Dispatchers.IO){
             //Пересоздаем базу при каждом запуске
             //TODO поменять логику, пересоздаавать базу только при первом входе или обновлении программы
-            FillDB.reCreateDB(context)
+            //FillDB.reCreateDB(context)
         }
     }
 }
