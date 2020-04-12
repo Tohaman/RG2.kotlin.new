@@ -106,7 +106,8 @@ class FavouritesDialog : DialogFragment() {
             return true
         }
 
-        //смахивание элемента в сторону
+        //смахивание элемента в сторону, данные обновляем в базе [learnViewModel] и в адаптере,
+        //а не в dialogVIewModel, чтобы не прерывать анимацию
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
             Timber.d("$TAG onSwiped position - $position")

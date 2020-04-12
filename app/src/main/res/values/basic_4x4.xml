@@ -48,7 +48,7 @@
         <item>@string/basic_4x4_st45_move</item>
     </string-array>
 
-    <integer-array name="basic_4x4_icon">
+    <integer-array name="basic_4x4_icons">
         <item>@drawable/basic_4x4_1</item>
         <item>@drawable/basic_4x4_2</item>
         <item>@drawable/basic_4x4_3</item>

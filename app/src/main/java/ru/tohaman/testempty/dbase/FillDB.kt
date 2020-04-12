@@ -35,6 +35,7 @@ class FillDB {
             cubeTypesInit(context)
             //subMenus (пункты меню)
             phaseInit("BIG_MAIN", R.array.big_main_title, R.array.big_main_icon, R.array.big_main_descr, R.array.big_main_url, context)
+            phaseInit("BIG_CUBES",R.array.big_cubes_title,R.array.big_cubes_icon,R.array.big_cubes_descr,R.array.big_cubes_url,context)
             phaseInit("G2F", R.array.g2f_title, R.array.g2f_icon, R.array.g2f_descr, R.array.g2f_url, context)
             phaseInit("MAIN_F2L", R.array.main_f2l_title, R.array.main_f2l_icon, R.array.main_f2l_descr, R.array.main_f2l_url, context)
             phaseInit("MAIN2X2", R.array.main2x2_title, R.array.main2x2_icon, R.array.main2x2_descr, R.array.main2x2_url, context)
@@ -43,11 +44,15 @@ class FillDB {
             phaseInit("OTHER3X3", R.array.other3x3_title, R.array.other3x3_icon, R.array.other3x3_descr, R.array.other3x3_url, context)
 
             //Phases (обучалки)
+            phaseInit("ACCEL",R.array.accel_title,R.array.accel_icon,R.array.accel_descr,R.array.accel_url,context)
             phaseInit("ADV2X2", R.array.adv2x2_title, R.array.adv2x2_icon, R.array.adv2x2_descr, R.array.adv2x2_url, context)
+            phaseInit("ADVF2L",R.array.advf2l_title,R.array.advf2l_icon,R.array.advf2l_descr,R.array.advf2l_url,context)
             phaseInit("AXIS", R.array.axis_title, R.array.axis_icon, R.array.axis_descr, R.array.axis_url, context)
             phaseInit("BEGIN", R.array.begin_title, R.array.begin_icon, R.array.begin_descr, R.array.begin_url, context)
             phaseInit("BEGIN2X2", R.array.begin2x2_title, R.array.begin2x2_icon, R.array.begin2x2_descr, R.array.begin2x2_url, context)
             phaseInit("BEGIN4X4",R.array.begin4_title,R.array.begin4_icon,R.array.begin4_descr,R.array.begin4_url,context)
+            phaseInit("BEGIN5X5",R.array.begin5_title,R.array.begin5_icon,R.array.begin5_descr,R.array.begin5_url,context)
+            phaseInit("BLIND", R.array.blind_title, R.array.blind_icon,R.array.blind_descr,R.array.blind_url,context)
             phaseInit("INTF2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
             phaseInit("MIRROR", R.array.mirror_title, R.array.mirror_icon, R.array.mirror_descr, R.array.mirror_url, context)
             phaseInit("ORTEGA", R.array.ortega_title, R.array.ortega_icon, R.array.ortega_descr, R.array.ortega_url, context)
@@ -55,8 +60,17 @@ class FillDB {
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
 
             //Подсказки по азбуке вращений
-            basicInit("BASIC3X3", R.array.basic_3x3_moves, R.array.basic_3x3_icon, R.array.basic_3x3_toasts, context)
-            basicInit("BASIC4X4", R.array.basic_4x4_moves, R.array.basic_4x4_icon, R.array.basic_4x4_toasts, context)
+            basicInit("BASIC3X3", R.array.basic_3x3_moves, R.array.basic_3x3_icons, R.array.basic_3x3_toasts, context)
+            basicInit("BASIC4X4", R.array.basic_4x4_moves, R.array.basic_4x4_icons, R.array.basic_4x4_toasts, context)
+            basicInit("BASIC5X5", R.array.basic_5x5_moves, R.array.basic_5x5_icons, R.array.basic_5x5_toasts, context)
+            basicInit("BASIC_CLOVER", R.array.basic_clover_moves, R.array.basic_clover_icons, R.array.basic_clover_toasts, context)
+            basicInit("BASIC_CONTAINER", R.array.basic_container_moves, R.array.basic_container_icons, R.array.basic_container_toasts, context)
+            basicInit("BASIC_IVY", R.array.basic_ivy_moves, R.array.basic_ivy_icons, R.array.basic_ivy_toasts, context)
+            basicInit("BASIC_PYRAMINX", R.array.basic_pyraminx_moves, R.array.basic_pyraminx_icons, R.array.basic_pyraminx_toasts, context)
+            basicInit("BASIC_REDI", R.array.basic_redi_moves, R.array.basic_redi_icons, R.array.basic_redi_toasts, context)
+            basicInit("BASIC_SKEWB", R.array.basic_skewb_moves, R.array.basic_skewb_icons, R.array.basic_skewb_toasts, context)
+            basicInit("BASIC_SQUARE", R.array.basic_square_moves, R.array.basic_square_icons, R.array.basic_square_toasts, context)
+
         }
 
         private suspend fun updateTestComments() {

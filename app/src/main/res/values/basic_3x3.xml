@@ -39,7 +39,7 @@
         <item>@string/basic_3x3_st36_move</item>
     </string-array>
 
-    <integer-array name="basic_3x3_icon">
+    <integer-array name="basic_3x3_icons">
         <item>@drawable/vbasic_1</item>
         <item>@drawable/vbasic_2</item>
         <item>@drawable/vbasic_3</item>

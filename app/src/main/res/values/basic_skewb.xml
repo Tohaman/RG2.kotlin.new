@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="basic_skewb_moves">
+        <item>@string/basic_skewb_st1_move</item>
+        <item>@string/basic_skewb_st2_move</item>
+        <item>@string/basic_skewb_st3_move</item>
+        <item>@string/basic_skewb_st4_move</item>
+        <item>@string/basic_skewb_st5_move</item>
+        <item>@string/basic_skewb_st6_move</item>
+        <item>@string/basic_skewb_st7_move</item>
+        <item>@string/basic_skewb_st8_move</item>
+        <item>@string/basic_skewb_st9_move</item>
+        <item>@string/basic_skewb_st10_move</item>
+        <item>@string/basic_skewb_st11_move</item>
+        <item>@string/basic_skewb_st12_move</item>
+    </string-array>
+
+    <integer-array name="basic_skewb_icons">
+        <item>@drawable/basic_skewb_1</item>
+        <item>@drawable/basic_skewb_2</item>
+        <item>@drawable/basic_skewb_3</item>
+        <item>@drawable/basic_skewb_4</item>
+        <item>@drawable/basic_skewb_5</item>
+        <item>@drawable/basic_skewb_6</item>
+        <item>@drawable/basic_skewb_7</item>
+        <item>@drawable/basic_skewb_8</item>
+        <item>@drawable/basic_skewb_9</item>
+        <item>@drawable/basic_skewb_10</item>
+        <item>@drawable/basic_skewb_11</item>
+        <item>@drawable/basic_skewb_12</item>
+    </integer-array>
+
+    <string-array name="basic_skewb_toasts">
+        <item>@string/basic_skewb_st1_toast</item>
+        <item>@string/basic_skewb_st2_toast</item>
+        <item>@string/basic_skewb_st3_toast</item>
+        <item>@string/basic_skewb_st4_toast</item>
+        <item>@string/basic_skewb_st5_toast</item>
+        <item>@string/basic_skewb_st6_toast</item>
+        <item>@string/basic_skewb_st7_toast</item>
+        <item>@string/basic_skewb_st8_toast</item>
+        <item>@string/basic_skewb_st9_toast</item>
+        <item>@string/basic_skewb_st10_toast</item>
+        <item>@string/basic_skewb_st11_toast</item>
+        <item>@string/basic_skewb_st12_toast</item>
+    </string-array>
+
+    <string name="basic_skewb_st1_move">R</string>
+    <string name="basic_skewb_st1_toast">Правая по часовой</string>
+    <string name="basic_skewb_st2_move">R\'</string>
+    <string name="basic_skewb_st2_toast">Правая против часовой</string>
+    <string name="basic_skewb_st3_move">L</string>
+    <string name="basic_skewb_st3_toast">Левая по часовой</string>
+    <string name="basic_skewb_st4_move">L\'</string>
+    <string name="basic_skewb_st4_toast">Левая против часовой</string>
+    <string name="basic_skewb_st5_move">U</string>
+    <string name="basic_skewb_st5_toast">Верх по часовой</string>
+    <string name="basic_skewb_st6_move">U\'</string>
+    <string name="basic_skewb_st6_toast">Верх против часовой</string>
+    <string name="basic_skewb_st7_move">B</string>
+    <string name="basic_skewb_st7_toast">Задняя по часовой</string>
+    <string name="basic_skewb_st8_move">B\'</string>
+    <string name="basic_skewb_st8_toast">Задняя против часовой</string>
+    <string name="basic_skewb_st9_move">F</string>
+    <string name="basic_skewb_st9_toast">Передняя по часовой</string>
+    <string name="basic_skewb_st10_move">F\'</string>
+    <string name="basic_skewb_st10_toast">Передняя против часовой</string>
+    <string name="basic_skewb_st11_move">D</string>
+    <string name="basic_skewb_st11_toast">Нижняя по часовой</string>
+    <string name="basic_skewb_st12_move">D\'</string>
+    <string name="basic_skewb_st12_toast">Нижняя против часовой</string>
+
+</resources>

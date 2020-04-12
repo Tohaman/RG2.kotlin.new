@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="basic_pyraminx_moves">
+        <item>@string/basic_pyraminx_st1_move</item>
+        <item>@string/basic_pyraminx_st2_move</item>
+        <item>@string/basic_pyraminx_st3_move</item>
+        <item>@string/basic_pyraminx_st4_move</item>
+        <item>@string/basic_pyraminx_st5_move</item>
+        <item>@string/basic_pyraminx_st6_move</item>
+        <item>@string/basic_pyraminx_st7_move</item>
+        <item>@string/basic_pyraminx_st8_move</item>
+        <item>@string/basic_pyraminx_st9_move</item>
+        <item>@string/basic_pyraminx_st10_move</item>
+        <item>@string/basic_pyraminx_st11_move</item>
+        <item>@string/basic_pyraminx_st12_move</item>
+        <item>@string/basic_pyraminx_st13_move</item>
+        <item>@string/basic_pyraminx_st14_move</item>
+        <item>@string/basic_pyraminx_st15_move</item>
+        <item>@string/basic_pyraminx_st16_move</item>
+    </string-array>
+
+    <integer-array name="basic_pyraminx_icons">
+        <item>@drawable/basic_pyraminx_1</item>
+        <item>@drawable/basic_pyraminx_2</item>
+        <item>@drawable/basic_pyraminx_3</item>
+        <item>@drawable/basic_pyraminx_4</item>
+        <item>@drawable/basic_pyraminx_5</item>
+        <item>@drawable/basic_pyraminx_6</item>
+        <item>@drawable/basic_pyraminx_7</item>
+        <item>@drawable/basic_pyraminx_8</item>
+        <item>@drawable/basic_pyraminx_9</item>
+        <item>@drawable/basic_pyraminx_10</item>
+        <item>@drawable/basic_pyraminx_11</item>
+        <item>@drawable/basic_pyraminx_12</item>
+        <item>@drawable/basic_pyraminx_13</item>
+        <item>@drawable/basic_pyraminx_14</item>
+        <item>@drawable/basic_pyraminx_15</item>
+        <item>@drawable/basic_pyraminx_16</item>
+    </integer-array>
+
+    <string-array name="basic_pyraminx_toasts">
+        <item>@string/basic_pyraminx_st1_toast</item>
+        <item>@string/basic_pyraminx_st2_toast</item>
+        <item>@string/basic_pyraminx_st3_toast</item>
+        <item>@string/basic_pyraminx_st4_toast</item>
+        <item>@string/basic_pyraminx_st5_toast</item>
+        <item>@string/basic_pyraminx_st6_toast</item>
+        <item>@string/basic_pyraminx_st7_toast</item>
+        <item>@string/basic_pyraminx_st8_toast</item>
+        <item>@string/basic_pyraminx_st9_toast</item>
+        <item>@string/basic_pyraminx_st10_toast</item>
+        <item>@string/basic_pyraminx_st11_toast</item>
+        <item>@string/basic_pyraminx_st12_toast</item>
+        <item>@string/basic_pyraminx_st13_toast</item>
+        <item>@string/basic_pyraminx_st14_toast</item>
+        <item>@string/basic_pyraminx_st15_toast</item>
+        <item>@string/basic_pyraminx_st16_toast</item>
+    </string-array>
+
+    <string name="basic_pyraminx_st1_move">R</string>
+    <string name="basic_pyraminx_st1_toast">Правая по часовой</string>
+    <string name="basic_pyraminx_st2_move">R\'</string>
+    <string name="basic_pyraminx_st2_toast">Правая против часовой</string>
+    <string name="basic_pyraminx_st3_move">L</string>
+    <string name="basic_pyraminx_st3_toast">Левая по часовой</string>
+    <string name="basic_pyraminx_st4_move">L\'</string>
+    <string name="basic_pyraminx_st4_toast">Левая против часовой</string>
+    <string name="basic_pyraminx_st5_move">U</string>
+    <string name="basic_pyraminx_st5_toast">Крыша по часовой</string>
+    <string name="basic_pyraminx_st6_move">U\'</string>
+    <string name="basic_pyraminx_st6_toast">Крыша против часовой</string>
+    <string name="basic_pyraminx_st7_move">B</string>
+    <string name="basic_pyraminx_st7_toast">Задняя по часовой</string>
+    <string name="basic_pyraminx_st8_move">B\'</string>
+    <string name="basic_pyraminx_st8_toast">Задняя против часовой</string>
+    <string name="basic_pyraminx_st9_move">r</string>
+    <string name="basic_pyraminx_st9_toast">Правый угол по часовой</string>
+    <string name="basic_pyraminx_st10_move">r\'</string>
+    <string name="basic_pyraminx_st10_toast">Правый угол против часовой</string>
+    <string name="basic_pyraminx_st11_move">l</string>
+    <string name="basic_pyraminx_st11_toast">Левый угол по часовой</string>
+    <string name="basic_pyraminx_st12_move">l\'</string>
+    <string name="basic_pyraminx_st12_toast">Левый угол против часовой</string>
+    <string name="basic_pyraminx_st13_move">u</string>
+    <string name="basic_pyraminx_st13_toast">Верхний угол по часовой</string>
+    <string name="basic_pyraminx_st14_move">u\'</string>
+    <string name="basic_pyraminx_st14_toast">Верхний угол против часовой</string>
+    <string name="basic_pyraminx_st15_move">b</string>
+    <string name="basic_pyraminx_st15_toast">Задний угол по часовой</string>
+    <string name="basic_pyraminx_st16_move">b\'</string>
+    <string name="basic_pyraminx_st16_toast">Задний угол против часовой</string>
+
+</resources>

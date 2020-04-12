@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="basic_container_moves">
+        <item>@string/basic_container_st1_move</item>
+        <item>@string/basic_container_st2_move</item>
+        <item>@string/basic_container_st3_move</item>
+        <item>@string/basic_container_st4_move</item>
+        <item>@string/basic_container_st5_move</item>
+        <item>@string/basic_container_st6_move</item>
+        <item>@string/basic_container_st7_move</item>
+        <item>@string/basic_container_st8_move</item>
+    </string-array>
+
+    <integer-array name="basic_container_icons">
+        <item>@drawable/container_1_3</item>
+        <item>@drawable/container_1_4</item>
+        <item>@drawable/container_1_5</item>
+        <item>@drawable/container_1_6</item>
+        <item>@drawable/container_1_7</item>
+        <item>@drawable/container_1_8</item>
+        <item>@drawable/container_1_9</item>
+        <item>@drawable/container_1_10</item>
+    </integer-array>
+
+    <string-array name="basic_container_toasts">
+        <item>@string/basic_container_st1_toast</item>
+        <item>@string/basic_container_st2_toast</item>
+        <item>@string/basic_container_st3_toast</item>
+        <item>@string/basic_container_st4_toast</item>
+        <item>@string/basic_container_st5_toast</item>
+        <item>@string/basic_container_st6_toast</item>
+        <item>@string/basic_container_st7_toast</item>
+        <item>@string/basic_container_st8_toast</item>
+    </string-array>
+
+    <string name="basic_container_st1_move">RU</string>
+    <string name="basic_container_st1_toast">Правое верхнее по</string>
+    <string name="basic_container_st2_move">RU\'</string>
+    <string name="basic_container_st2_toast">Правое верхнее против</string>
+    <string name="basic_container_st3_move">LU\'</string>
+    <string name="basic_container_st3_toast">Левое верхнее против</string>
+    <string name="basic_container_st4_move">LU</string>
+    <string name="basic_container_st4_toast">Левое верхнее по</string>
+    <string name="basic_container_st5_move">RD</string>
+    <string name="basic_container_st5_toast">Правое нижнее по</string>
+    <string name="basic_container_st6_move">RD\'</string>
+    <string name="basic_container_st6_toast">Правое нижнее против</string>
+    <string name="basic_container_st7_move">LD\'</string>
+    <string name="basic_container_st7_toast">Левое нижнее против</string>
+    <string name="basic_container_st8_move">LD</string>
+    <string name="basic_container_st8_toast">Левое нижнее по</string>
+
+</resources>
