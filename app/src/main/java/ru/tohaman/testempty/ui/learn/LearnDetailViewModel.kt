@@ -11,15 +11,12 @@ import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.getPhasesToTypesMap
-import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
 class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
     private val ctx = context
-    private var currentID = 0
-    private var count = 0
-    var mutableCount: MutableLiveData<Int> = count.toMutableLiveData()
+    var currentId = 0
 
     private var currentItems: MutableList<MainDBItem> = mutableListOf()
     private var _currentItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
@@ -39,28 +36,21 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
         getFavourite()
     }
 
-    fun setCurrentItems (id: Int, phase: String) {
+    fun setCurrentItems (phase: String, id: Int) {
         Timber.d("$TAG setCurrentItems start")
         _currentItems = MutableLiveData()
         viewModelScope.launch (Dispatchers.IO)  {
-            currentID = id
             //runBlocking (Dispatchers.IO) {
             currentItems = repository.getDetailsItems(phase).toMutableList() //}
             _currentItems.postValue(currentItems)
-            count = currentItems.size
-            mutableCount.postValue(count)
-            Timber.d("$TAG curItem Initiated count=$count items=$currentItems")
+            currentId = getNumByID(id)
+            Timber.d("$TAG curItem Initiated with Id=$currentId count=${currentItems.size} items=$currentItems")
         }
     }
 
-//    fun getItemNum(id: Int): Int {
-//        currentItems.indices.map { i ->
-//            if (currentItems[i].id == id) { return i }
-//        }
-//        return 0 //Если не нашлось значение (хотя и не должны сюда попадать)
-//    }
-
-    fun getCurrentItems(): List<MainDBItem> = currentItems
+    fun getNumByID(id: Int): Int {
+        return currentItems.indexOf(currentItems.first { it.id == id })
+    }
 
     fun updateComment(item: MainDBItem) {
         viewModelScope.launch (Dispatchers.IO)  {

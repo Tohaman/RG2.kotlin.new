@@ -1,9 +1,12 @@
 package ru.tohaman.testempty.ui.shared
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import org.koin.android.ext.android.inject
+import ru.tohaman.testempty.utils.getThemeFromSharedPreference
 
 /**
  * Created by Toha on 07.01.2020.
@@ -11,9 +14,10 @@ import androidx.appcompat.app.AppCompatDelegate
  */
 
 abstract class MyDefaultActivity : AppCompatActivity() {
+    private val sharedPreferences: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        setTheme(getThemeFromSharedPreference(this))
+        setTheme(getThemeFromSharedPreference(sharedPreferences))
         //Включаем поддержку векторной графики на устройствах ниже Лилипопа (5.0)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         //val sp = PreferenceManager.getDefaultSharedPreferences(this)

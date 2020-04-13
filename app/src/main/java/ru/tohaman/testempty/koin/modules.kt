@@ -16,7 +16,8 @@ import ru.tohaman.testempty.ui.settings.SettingsViewModel
 private const val DATABASE_NAME = "base.db"
 
 val appModule = module{
-    single<SharedPreferences> { androidContext().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE) }
+    single<SharedPreferences> {
+        androidContext().getSharedPreferences("${androidContext().applicationInfo.packageName}_preferences", Context.MODE_PRIVATE) }
     single {
         Room.databaseBuilder(androidContext(), MainDb::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration() //На время разработки программы, каждый раз пересоздаем базу, вместо миграции

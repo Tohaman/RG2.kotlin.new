@@ -1,8 +1,10 @@
 package ru.tohaman.testempty.ui
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.DebugTag.TAG
@@ -18,10 +21,11 @@ import ru.tohaman.testempty.ui.shared.MyDefaultActivity
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
-class MainActivity : MyDefaultActivity() {
+class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val uiUtilViewModel by viewModel<UiUtilViewModel>()
     private lateinit var binding: ActivityMainBinding
+    private val sharedPreferences: SharedPreferences by inject()
 
     private val navController by lazy {
         Navigation.findNavController(this, R.id.mainFragment)
@@ -38,6 +42,7 @@ class MainActivity : MyDefaultActivity() {
         binding.lifecycleOwner = this
 
         setupBottomNavMenu()
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     /**
@@ -52,6 +57,16 @@ class MainActivity : MyDefaultActivity() {
         mainNavigation.setupWithNavController(navController)
     }
 
+    override fun onSharedPreferenceChanged(sp: SharedPreferences, key: String?) {
+        Timber.d("$TAG SP Change")
+        //Если изменилась тема в настройках, то меняем ее в программе
+        when (key) {
+            "theme" -> {
+                Timber.d("$TAG Theme set to - ${sp.getString(key, "AppTheme")}")
+                this.recreate()
+            }
+        }
+    }
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        val inflater = menuInflater
 //        inflater.inflate(R.menu.bottomappbar_menu, menu)
@@ -60,28 +75,28 @@ class MainActivity : MyDefaultActivity() {
 
     //-------------------------------------------------------------------------
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
-            R.id.destLearn -> toast(getString(
-                R.string.learn_clicked
-            ))
-            R.id.destInfo -> toast(getString(
-                R.string.info_clicked
-            ))
-            R.id.destGames -> toast(getString(
-                R.string.main_games_clicked
-            ))
-            R.id.destSettings -> toast(getString(
-                R.string.main_settings_clicked
-            ))
-        }
-        return true
-    }
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        when (item!!.itemId) {
+//            R.id.destLearn -> toast(getString(
+//                R.string.learn_clicked
+//            ))
+//            R.id.destInfo -> toast(getString(
+//                R.string.info_clicked
+//            ))
+//            R.id.destGames -> toast(getString(
+//                R.string.main_games_clicked
+//            ))
+//            R.id.destSettings -> toast(getString(
+//                R.string.main_settings_clicked
+//            ))
+//        }
+//        return true
+//    }
 
     // This is an extension method for easy Toast call
-    fun Context.toast(message: CharSequence) {
-        val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.BOTTOM, 0, 200)
-        toast.show()
-    }
+//    fun Context.toast(message: CharSequence) {
+//        val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+//        toast.setGravity(Gravity.BOTTOM, 0, 200)
+//        toast.show()
+//    }
 }

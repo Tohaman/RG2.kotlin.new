@@ -32,16 +32,16 @@ class LearnDetailFragment : Fragment() {
     private val phaseId by lazy { args.id }
     private val phase by lazy { args.phase }
     private lateinit var binding: FragmentLearnDetailBinding
-    private var currentId = 0
+    //private var currentId = 0
 
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.d("$TAG onCreate with $phaseId, $phase")
-        currentId = phaseId
-        detailViewModel.setCurrentItems(phaseId, phase)
+        Timber.d("$TAG onCreate with $phase, $phaseId")
+
+        detailViewModel.setCurrentItems(phase, phaseId)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,15 +67,15 @@ class LearnDetailFragment : Fragment() {
                 detailViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
-                        currentId = position
+                        detailViewModel.currentId = position
                     }
                 })
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        Timber.d("$TAG detailCurItems - ${it.size}, $currentId")
+                        Timber.d("$TAG detailCurItems - ${it.size}, ${detailViewModel.currentId}")
                         adapter.refreshItems(it)
-                        detailViewPager.setCurrentItem(currentId,false)
+                        detailViewPager.setCurrentItem(detailViewModel.currentId,false)
                     }
                 })
 
@@ -83,11 +83,6 @@ class LearnDetailFragment : Fragment() {
             }
 
         return binding.root
-    }
-
-    override fun onDestroy() {
-        Timber.d ("$TAG onDestroy детаилФагмент")
-        super.onDestroy()
     }
 
     inner class DetailPagerAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -119,7 +114,7 @@ class LearnDetailFragment : Fragment() {
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<MainDBItem>) {
-            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
+            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter ${items.size} шт = $items")
 
             detailItems = items
             notifyDataSetChanged()

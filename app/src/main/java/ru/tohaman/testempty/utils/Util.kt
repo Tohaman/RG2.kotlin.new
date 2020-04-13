@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.utils
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Editable
@@ -8,7 +9,9 @@ import android.text.Html
 import android.text.Spanned
 import android.util.TypedValue
 import androidx.core.app.ActivityCompat
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
+import timber.log.Timber
 import java.util.*
 
 /**
@@ -74,14 +77,13 @@ fun getPhasesToTypesMap(context: Context): Map<String, String> {
 //            ListPagers[i].comment
 //        }
 //
-//fun getThemeFromSharedPreference(context: Context) : Int {
-//    Log.v(TAG, "SetActivityTheme")
-//    val sp = PreferenceManager.getDefaultSharedPreferences(context)
-//    val theme = sp.getString("theme", "AppTheme")
-//    return when (theme)  {
-//        "AppThemeLight" -> R.style.AppThemeLight
-//        "AppThemeDayNight" -> R.style.AppThemeDayNight
-//        else -> R.style.AppTheme
-//    }
-//
-//}
+fun getThemeFromSharedPreference(sp: SharedPreferences) : Int {
+    val theme = sp.getString("theme", "AppTheme")
+    Timber.v("$TAG SetActivityTheme - $theme")
+    return when (theme)  {
+        "AppThemeLight" -> R.style.AppThemeLight
+        "AppThemeDayNight" -> R.style.AppThemeDayNight
+        else -> R.style.AppTheme
+    }
+
+}

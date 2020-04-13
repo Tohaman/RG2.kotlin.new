@@ -56,6 +56,7 @@ fun setDrawableByComment(imageView: ImageView, isFavourite: Boolean, enDrawable:
 
 @BindingAdapter("app:visibleIfNotEmpty")
 fun visibleIfNotEmpty(view: View, id: String) {
+    Timber.d("$TAG VisibleIfNotEmpty - $id")
     view.visibility = if (id != "") View.VISIBLE else View.GONE
 }
 

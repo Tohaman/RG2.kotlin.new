@@ -34,11 +34,11 @@ class LearnDetailItemFragment : Fragment() {
     //Поскольку для вызова этого фрагмента НЕ используется Navigation component, то
     //передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
-        private const val ARG_CUBE1 = "itemId"
+        private const val CUR_ITEM_ID = "itemId"
 
         fun newInstance(mainDBItem: MainDBItem) = LearnDetailItemFragment().apply {
             arguments = Bundle().apply {
-                putInt(ARG_CUBE1, mainDBItem.id)
+                putInt(CUR_ITEM_ID, mainDBItem.id)
             }
         }
     }
@@ -46,8 +46,8 @@ class LearnDetailItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            fragmentNum = it.getInt(ARG_CUBE1)
-            //Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
+            fragmentNum = detailViewModel.getNumByID(it.getInt(CUR_ITEM_ID))
+            Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
         }
     }
 
