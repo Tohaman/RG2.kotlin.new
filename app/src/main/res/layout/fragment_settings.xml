@@ -1,15 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/settingsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="Настройки" />
-</LinearLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type="ru.tohaman.testempty.ui.settings.SettingsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/settingsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/dimen_margin_8"
+                android:text="Настройки"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:textSize="18sp"
+                android:text="Тема приложения:"/>
+
+            <RadioGroup
+                android:id="@+id/app_themes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_margin_8"
+                android:checkedButton="@={viewModel.radioChecked}"
+                android:orientation="vertical">
+
+                <RadioButton android:id="@+id/dark_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Темная тема"/>
+
+                <RadioButton android:id="@+id/light_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Светлая тема"/>
+
+                <RadioButton android:id="@+id/auto_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Авто (день/ночь)"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>
