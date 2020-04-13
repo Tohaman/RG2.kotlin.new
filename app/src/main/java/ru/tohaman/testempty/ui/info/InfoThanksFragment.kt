@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.databinding.FragmentInfoAboutBinding
+import ru.tohaman.testempty.databinding.FragmentInfoThanksBinding
 
 /**
  * A simple [Fragment] subclass.
  */
 class InfoThanksFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding = FragmentInfoThanksBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info_thanks, container, false)
-    }
+        return binding.root    }
 
 }
