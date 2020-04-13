@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.*
@@ -14,6 +15,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import kotlinx.android.synthetic.main.content_item_detail.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
@@ -27,6 +30,7 @@ import timber.log.Timber
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
     //private val learnViewModel by sharedViewModel<LearnViewModel>()
+    private val sharedPreferences: SharedPreferences by inject()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
     private lateinit var item: MainDBItem
@@ -59,6 +63,7 @@ class LearnDetailItemFragment : Fragment() {
             .apply {
                 // Делаем ссылки кликабельными
                 content.descriptionText.movementMethod = LinkMovementMethod.getInstance()
+                val isTextSelectable = sharedPreferences.getBoolean("is_text_selectable", false)
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
@@ -66,6 +71,8 @@ class LearnDetailItemFragment : Fragment() {
                         if (fragmentNum < it.size) {
                             item = it[fragmentNum]
                             mainDBItem = item
+                            description_text.setTextIsSelectable(isTextSelectable)
+                            title_text.setTextIsSelectable(isTextSelectable)
                             content.youtubeView.enabled = item.url != ""
                         }
                     }
