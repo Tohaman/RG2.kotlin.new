@@ -6,6 +6,7 @@
         <item>3X3</item>
         <item>Модификации 3Х3</item>
         <item>Большие кубы</item>
+        <item>Скьюбы</item>
         <item>Другие головоломки</item>
     </string-array>
 
@@ -15,7 +16,8 @@
         <item>MAIN3X3</item>
         <item>OTHER3X3</item>
         <item>BIG_MAIN</item>
-        <item>OTHER</item>
+        <item>MAIN_SKEWB</item>
+        <item>MAIN_OTHER</item>
     </string-array>
 
     <string-array name="ct_current_phases">
@@ -24,6 +26,7 @@
         <item>MAIN3X3</item>
         <item>OTHER3X3</item>
         <item>BIG_MAIN</item>
-        <item>OTHER</item>
+        <item>MAIN_SKEWB</item>
+        <item>MAIN_OTHER</item>
     </string-array>
 </resources>

@@ -40,7 +40,8 @@ class FillDB {
             phaseInit("MAIN_F2L", R.array.main_f2l_title, R.array.main_f2l_icon, R.array.main_f2l_descr, R.array.main_f2l_url, context)
             phaseInit("MAIN2X2", R.array.main2x2_title, R.array.main2x2_icon, R.array.main2x2_descr, R.array.main2x2_url, context)
             phaseInit("MAIN3X3", R.array.main3x3_title, R.array.main3x3_icon, R.array.main3x3_descr, R.array.main3x3_url, context)
-            phaseInit("OTHER", R.array.other_title, R.array.other_icon, R.array.other_descr, R.array.other_url, context)
+            phaseInit("MAIN_OTHER", R.array.other_title, R.array.other_icon, R.array.other_descr, R.array.other_url, context)
+            phaseInit("MAIN_SKEWB", R.array.main_skewb_title, R.array.main_skewb_icon, R.array.main_skewb_descr, R.array.main_skewb_url, context)
             phaseInit("OTHER3X3", R.array.other3x3_title, R.array.other3x3_icon, R.array.other3x3_descr, R.array.other3x3_url, context)
 
             //Phases (обучалки)
@@ -71,6 +72,8 @@ class FillDB {
             basicInit("BASIC_SKEWB", R.array.basic_skewb_moves, R.array.basic_skewb_icons, R.array.basic_skewb_toasts, context)
             basicInit("BASIC_SQUARE", R.array.basic_square_moves, R.array.basic_square_icons, R.array.basic_square_toasts, context)
 
+            //Фазы для меню мини-Игр
+            phaseInit("GAMES", R.array.games_title, R.array.games_icon, R.array.games_help, R.array.games_url, context)
         }
 
         private suspend fun updateTestComments() {

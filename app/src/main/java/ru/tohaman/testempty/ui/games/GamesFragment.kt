@@ -5,20 +5,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.adapters.GamesAdapter
+import ru.tohaman.testempty.databinding.FragmentGamesBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
 class GamesFragment : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
+    private val gamesViewModel by sharedViewModel<GamesViewModel>()
+    private lateinit var binding : FragmentGamesBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_games, container, false)
-        Timber.d("$TAG bottomNavShow")
+        Timber.d("$TAG onGames bottomNavShow")
         uiUtilViewModel.showBottomNav()
-        return view
+
+        binding = FragmentGamesBinding.inflate(inflater, container, false)
+            .apply {
+                lifecycleOwner = this@GamesFragment
+                gamesRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                val adapter = GamesAdapter()
+
+                gamesViewModel.gamesList.observe(viewLifecycleOwner, Observer {
+                    adapter.refreshItems(it)
+                })
+
+                gamesRecyclerView.adapter = adapter
+            }
+
+        return binding.root
     }
 }
