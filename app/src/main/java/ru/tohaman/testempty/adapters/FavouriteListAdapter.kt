@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import android.view.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.databinding.FavouriteMenuItemBinding
-import ru.tohaman.testempty.databinding.MainMenuItemBinding
+import ru.tohaman.testempty.databinding.ItemFavouriteMenuBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 
 /**
@@ -58,7 +57,7 @@ class FavouriteListAdapter() : RecyclerView.Adapter<FavouriteListAdapter.MenuHol
 //        fun onClick(menuItem: MainDBItem, view: View) = clickListener(menuItem, view)
 //    }
 
-    class MenuHolder private constructor(val binding: FavouriteMenuItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class MenuHolder private constructor(val binding: ItemFavouriteMenuBinding): RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("ClickableViewAccessibility")
         fun bind(item: MainDBItem, onClickCallBack: OnClickCallBack?, touchHelper: ItemTouchHelper?) {
             binding.viewMenuItem = item
@@ -76,7 +75,7 @@ class FavouriteListAdapter() : RecyclerView.Adapter<FavouriteListAdapter.MenuHol
         companion object {
             fun from(parent: ViewGroup) : MenuHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding =  FavouriteMenuItemBinding.inflate(inflater, parent, false)
+                val binding =  ItemFavouriteMenuBinding.inflate(inflater, parent, false)
 
                 return MenuHolder(binding)
             }

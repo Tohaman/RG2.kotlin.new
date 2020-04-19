@@ -2,7 +2,7 @@ package ru.tohaman.testempty.adapters
 
 import android.view.*
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.databinding.MainMenuItemBinding
+import ru.tohaman.testempty.databinding.ItemMainMenuBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 
 /**
@@ -43,7 +43,7 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 //        fun onClick(menuItem: MainDBItem, view: View) = clickListener(menuItem, view)
 //    }
 
-    class MenuHolder private constructor(private val binding: MainMenuItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class MenuHolder private constructor(private val binding: ItemMainMenuBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MainDBItem, phase: String, onClickCallBack: OnClickCallBack?) {
             binding.viewMenuItem = item
             binding.clickListener = onClickCallBack
@@ -60,7 +60,7 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
         companion object {
             fun from(parent: ViewGroup) : MenuHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding =  MainMenuItemBinding.inflate(inflater, parent, false)
+                val binding =  ItemMainMenuBinding.inflate(inflater, parent, false)
 
                 return MenuHolder(binding)
             }

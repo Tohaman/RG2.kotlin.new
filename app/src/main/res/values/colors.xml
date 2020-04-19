@@ -3,6 +3,7 @@
     <color name="colorPrimary">#FF9800</color>
     <color name="colorPrimaryDark">#F57C00</color>
     <color name="colorAccent">#43A047</color>
+    <color name="colorAccentDark">#1B5E20</color>
     <color name="bgRowBackground">#F20000</color>
     <color name="itemName">#535353</color>
     <color name="description">#a9a9a9</color>

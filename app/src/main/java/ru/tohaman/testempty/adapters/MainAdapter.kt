@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.databinding.MainMenuItemBinding
+import ru.tohaman.testempty.databinding.ItemMainMenuBinding
 import ru.tohaman.testempty.dbase.entitys.PhaseItem
 
 class MainAdapter(private val onClickListener: OnClickListener) :
@@ -31,7 +31,7 @@ class MainAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-    class MenuViewHolder private constructor(private val binding: MainMenuItemBinding)
+    class MenuViewHolder private constructor(private val binding: ItemMainMenuBinding)
             : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PhaseItem, onClickListener: OnClickListener) {
             //Временно комментирует, т.к. в биндинге переменные другого типа (другого адаптера MenuAdapter)
@@ -44,7 +44,7 @@ class MainAdapter(private val onClickListener: OnClickListener) :
         companion object {
             fun from(parent: ViewGroup) : MenuViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding =  MainMenuItemBinding.inflate(inflater, parent, false)
+                val binding =  ItemMainMenuBinding.inflate(inflater, parent, false)
 
                 return MenuViewHolder(binding)
             }

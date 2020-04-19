@@ -2,7 +2,7 @@ package ru.tohaman.testempty.adapters
 
 import android.view.*
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.databinding.BasicMoveItemBinding
+import ru.tohaman.testempty.databinding.ItemBasicMoveBinding
 import ru.tohaman.testempty.dbase.entitys.BasicMove
 
 class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
@@ -32,7 +32,7 @@ class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
         notifyDataSetChanged()
     }
 
-    class MovesHolder private constructor(private val binding: BasicMoveItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class MovesHolder private constructor(private val binding: ItemBasicMoveBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BasicMove, onClickCallBack: OnClickCallBack?) {
             binding.basicMoveItem = item
             binding.clickListener = onClickCallBack
@@ -43,7 +43,7 @@ class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
         companion object {
             fun from(parent: ViewGroup) : MovesHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding =  BasicMoveItemBinding.inflate(inflater, parent, false)
+                val binding =  ItemBasicMoveBinding.inflate(inflater, parent, false)
 
                 return MovesHolder(binding)
             }

@@ -3,7 +3,7 @@ package ru.tohaman.testempty.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.tohaman.testempty.databinding.GameMenuItemBinding
+import ru.tohaman.testempty.databinding.ItemGameMenuBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 
 class GamesAdapter: RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
@@ -30,7 +30,7 @@ class GamesAdapter: RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
         notifyDataSetChanged()
     }
 
-    class GamesHolder private constructor(private val binding: GameMenuItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class GamesHolder private constructor(private val binding: ItemGameMenuBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MainDBItem, onClickCallBack: OnClickCallBack?) {
             binding.viewMenuItem = item
             binding.clickListener = onClickCallBack
@@ -41,7 +41,7 @@ class GamesAdapter: RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
         companion object {
             fun from(parent: ViewGroup) : GamesHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding =  GameMenuItemBinding.inflate(inflater, parent, false)
+                val binding =  ItemGameMenuBinding.inflate(inflater, parent, false)
 
                 return GamesHolder(binding)
             }

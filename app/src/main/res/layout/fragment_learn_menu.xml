@@ -24,7 +24,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/main_menu_item" />
+                tools:listitem="@layout/item_main_menu" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

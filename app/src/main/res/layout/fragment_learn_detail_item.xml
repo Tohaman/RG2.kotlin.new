@@ -20,7 +20,7 @@
 
             <include
                 android:id="@+id/content"
-                layout="@layout/content_item_detail"
+                layout="@layout/include_learn_detail_content"
                 app:item="@{mainDBItem}" />
 
         </androidx.core.widget.NestedScrollView>
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            style="@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="4dp"
             app:hideOnScroll="true">
@@ -89,7 +89,6 @@
                     android:scaleY="1.2"
                     android:padding="16dp"
                     app:srcCompat="@drawable/ic_write_comment"
-                    android:tint="@color/c_w"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/guideline2"
                     app:layout_constraintEnd_toStartOf="@+id/favourites"
@@ -107,7 +106,6 @@
                     app:disabledDrawable="@{@drawable/ic_favorite_unchecked}"
                     app:enabledDrawable="@{@drawable/ic_favorite_checked}"
                     app:isEnabled="@{mainDBItem.isFavourite}"
-                    android:tint="@color/c_w"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

@@ -33,6 +33,7 @@ class FavouritesDialog : DialogFragment() {
     private lateinit var adapter: FavouriteListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        //Используем лэйаут диалога со списком и кнопкой назад (как и для отображения азбуки вращений), но прицепляем длругой адаптер в ресайклвью
         val binding = DialogRecyclerViewBinding.inflate(inflater, container, false)
             .apply {
                 Timber.d("$TAG onCreateViewFavouritesDialog")
