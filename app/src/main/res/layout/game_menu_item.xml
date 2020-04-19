@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.MenuAdapter.OnClickCallBack" />
+            type="ru.tohaman.testempty.adapters.GamesAdapter.OnClickCallBack" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
         android:layout_marginRight="@dimen/dimen_margin_8"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
-        android:onClick="@{() -> clickListener.openItem(viewMenuItem)}">
+        android:onClick="@{() -> clickListener.clickItem(viewMenuItem)}">
 
         <ImageView
             android:id="@+id/main_menu_image"
@@ -68,7 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/game_settings"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{(view) -> clickListener.favouriteChange(viewMenuItem)}"
+            android:onClick="@{(view) -> clickListener.clickHelp(viewMenuItem)}"
             />
 
         <ImageView
@@ -82,7 +82,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{(view) -> clickListener.favouriteChange(viewMenuItem)}"
+            android:onClick="@{(view) -> clickListener.clickSettings(viewMenuItem)}"
             />
 
 

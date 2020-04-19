@@ -33,10 +33,9 @@ class GamesAdapter: RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
     class GamesHolder private constructor(private val binding: GameMenuItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MainDBItem, onClickCallBack: OnClickCallBack?) {
             binding.viewMenuItem = item
-//            binding.basicMoveItem = item
-//            binding.clickListener = onClickCallBack
-//            //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
-//            binding.executePendingBindings()
+            binding.clickListener = onClickCallBack
+            //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
+            binding.executePendingBindings()
         }
 
         companion object {

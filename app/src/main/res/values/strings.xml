@@ -12,6 +12,7 @@
     <string name="action_learn">Обучалки</string>
     <string name="action_games">Мини игры</string>
     <string name="main_settings">Настройки</string>
+    <string name="games_help">Помощь</string>
 
     <string name="info">Инфо</string>
     <string name="commentText">Комментарий:</string>

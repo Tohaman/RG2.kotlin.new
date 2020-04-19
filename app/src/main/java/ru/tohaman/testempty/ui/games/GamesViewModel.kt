@@ -15,9 +15,11 @@ import ru.tohaman.testempty.utils.toMutableLiveData
 class GamesViewModel: ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
 
-    private var simpleGamesList: List<MainDBItem> = listOf()
+    private var simpleGamesList = listOf<MainDBItem>()
     private var _gamesList: MutableLiveData<List<MainDBItem>> = simpleGamesList.toMutableLiveData()
     val gamesList: LiveData<List<MainDBItem>> get() = _gamesList
+
+    var selectedItem = 0
 
     init {
         viewModelScope.launch (Dispatchers.IO) {
@@ -25,4 +27,6 @@ class GamesViewModel: ViewModel(), KoinComponent {
             _gamesList.postValue(simpleGamesList)
         }
     }
+
+
 }

@@ -70,6 +70,9 @@
         android:name="ru.tohaman.testempty.ui.games.GamesFragment"
         android:label="@string/main_games_clicked"
         tools:layout="@layout/fragment_games">
+        <action
+            android:id="@+id/action_destGames_to_gamesHelpFragment"
+            app:destination="@id/gamesHelpFragment" />
     </fragment>
 
     <fragment
@@ -78,5 +81,11 @@
         android:label="@string/main_settings"
         tools:layout="@layout/fragment_settings">
     </fragment>
+
+    <fragment
+        android:id="@+id/gamesHelpFragment"
+        android:name="ru.tohaman.testempty.ui.games.GamesHelpFragment"
+        android:label="GamesHelpFragment"
+        tools:layout="@layout/fragment_games_help"/>
 
 </navigation>
