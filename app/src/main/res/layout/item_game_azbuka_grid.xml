@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="ru.tohaman.testempty.dbase.entitys.AzbukaItem" />
+
+        <variable
+            name="clickListener"
+            type="ru.tohaman.testempty.adapters.MenuAdapter.OnClickCallBack" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray">
+
+        <LinearLayout
+            android:id="@+id/outer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_margin="2dp">
+
+            <ru.tohaman.rg2.ui.SquareRelativeLayout
+                android:id="@+id/inner_sq_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="@color/c_w">
+
+                <TextView
+                    android:id="@+id/item_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.value}"
+                    tools:text="A"
+                    android:textColor="@color/black"
+                    />
+
+            </ru.tohaman.rg2.ui.SquareRelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
