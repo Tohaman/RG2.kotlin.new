@@ -8,14 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import ru.tohaman.testempty.DebugTag.TAG
-import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.*
-import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.toMutableLiveData
-import timber.log.Timber
 
 class GamesViewModel: ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
@@ -24,8 +20,8 @@ class GamesViewModel: ViewModel(), KoinComponent {
     private var _gamesList: MutableLiveData<List<MainDBItem>> = simpleGamesList.toMutableLiveData()
     val gamesList: LiveData<List<MainDBItem>> get() = _gamesList
 
-    private var simpleCurrentAzbuka = listOf<AzbukaSimpleItem>()
-    private var _currentAzbuka = simpleCurrentAzbuka.toMutableLiveData()
+    private var gridViewAzbukaList = listOf<AzbukaSimpleItem>()
+    private var _currentAzbuka = gridViewAzbukaList.toMutableLiveData()
     val currentAzbuka: LiveData<List<AzbukaSimpleItem>> get() = _currentAzbuka
 
     var selectedItem = 0
@@ -37,10 +33,11 @@ class GamesViewModel: ViewModel(), KoinComponent {
 
             val antonAzbuka = getMyAzbuka()
             var newCube = resetCube()
+            newCube = moveZ(newCube)
             val listDBAzbuka = setAzbukaDBItemFromSimple(antonAzbuka, newCube, "AntonsAzbuka")
 
-            simpleCurrentAzbuka = prepareAzbukaToShowInGridView(listDBAzbuka)
-            _currentAzbuka.postValue(simpleCurrentAzbuka)
+            gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
+            _currentAzbuka.postValue(gridViewAzbukaList)
         }
     }
 
