@@ -5,10 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity (tableName = "Azbuka", primaryKeys = ["azbukaName", "id"])
-data class AzbukaItem (
-    @PrimaryKey
-    val id : Int,
+data class AzbukaDBItem (
     var azbukaName : String,
+    var id : Int,
     var value : String,
     var color : Int
 )

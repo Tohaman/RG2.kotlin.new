@@ -5,10 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.adapters.AzbukaGridAdapter
+import ru.tohaman.testempty.dataSource.moveZ
+import ru.tohaman.testempty.dataSource.prepareCubeToShowInGridView
+import ru.tohaman.testempty.dataSource.resetCube
 import ru.tohaman.testempty.databinding.FragmentGamesAzbukaSelectBinding
-import ru.tohaman.testempty.dbase.entitys.AzbukaItem
+import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
+import timber.log.Timber
 
 class GamesAzbukaSettings: Fragment() {
 
@@ -18,10 +24,14 @@ class GamesAzbukaSettings: Fragment() {
         val binding = FragmentGamesAzbukaSelectBinding.inflate(inflater, container, false)
             .apply {
                 val adapter = AzbukaGridAdapter()
-                val list = List<AzbukaItem> (5
-                ) { AzbukaItem(0, "Ant", "A", 1) }
-                adapter.refreshItems(list)
                 content.azbukaGridView.adapter = adapter
+
+                gamesViewModel.currentAzbuka.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        adapter.refreshItems(it)
+                    }
+                })
+
             }
         return binding.root
     }

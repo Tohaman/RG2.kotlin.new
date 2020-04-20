@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="ru.tohaman.testempty.dbase.entitys.AzbukaItem" />
+            type="ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem" />
 
         <variable
             name="clickListener"
@@ -17,13 +17,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray">
+        android:background="@color/transparent">
 
         <LinearLayout
             android:id="@+id/outer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/transparent"
             android:layout_margin="2dp">
 
             <ru.tohaman.rg2.ui.SquareRelativeLayout
@@ -32,8 +32,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_gravity="center"
-                android:gravity="center_horizontal|center_vertical"
-                android:background="@color/c_w">
+                android:gravity="center_horizontal|center_vertical">
 
                 <TextView
                     android:id="@+id/item_text"

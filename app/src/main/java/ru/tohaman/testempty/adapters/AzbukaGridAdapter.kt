@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
+import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.ItemGameAzbukaGridBinding
-import ru.tohaman.testempty.dbase.entitys.AzbukaItem
+import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
 
 
 /**
@@ -16,9 +17,9 @@ import ru.tohaman.testempty.dbase.entitys.AzbukaItem
 
 
 class AzbukaGridAdapter : BaseAdapter() {
-    private var items: List<AzbukaItem> = listOf()
+    private var items: List<AzbukaSimpleItem> = listOf()
 
-    fun refreshItems(list: List<AzbukaItem>) {
+    fun refreshItems(list: List<AzbukaSimpleItem>) {
         items = list
         notifyDataSetChanged()
     }
@@ -34,13 +35,17 @@ class AzbukaGridAdapter : BaseAdapter() {
 
         with (binding) {
             item = items[position]
+            innerSqLayout.setBackgroundResource(items[position].color)
+            if (items[position].value != "") {
+                outerLayout.setBackgroundResource(R.color.black)
+            }
             executePendingBindings()
         }
 
         return binding.root
     }
 
-    override fun getItem(position: Int): AzbukaItem {
+    override fun getItem(position: Int): AzbukaSimpleItem {
         return items[position]
     }
 
