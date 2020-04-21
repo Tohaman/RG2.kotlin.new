@@ -5,5 +5,4 @@ package ru.tohaman.testempty
  */
 object DebugTag {
     const val TAG = "RG4"
-
 }

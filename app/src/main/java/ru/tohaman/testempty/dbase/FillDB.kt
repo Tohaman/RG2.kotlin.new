@@ -2,9 +2,12 @@ package ru.tohaman.testempty.dbase
 
 import android.content.Context
 import org.koin.java.KoinJavaComponent.inject
+import ru.tohaman.testempty.Constants.ANTONS_AZBUKA
+import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
+import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
@@ -15,14 +18,17 @@ class FillDB {
         private val repository : ItemsRepository by inject(ItemsRepository::class.java)
 
         suspend fun reCreateDB(context: Context) {
+            //очищаем все таблицы
             repository.clearMainTable()
             repository.clearTypesTable()
             repository.clearMovesTable()
             Timber.d( "$TAG Основная таблица очищена")
-            insertWrongItem()
-            insertPhasesToMainTable(context)
-            updateTestComments()
-            updateTestFavourites()
+
+            insertWrongItem()                       //добавляем "заглушку" неверную запись
+            insertPhasesToMainTable(context)        //добавляем
+            updateTestComments()                    //добавляем тестовые комментарии
+            updateTestFavourites()                  //добавляем тестовое избранное
+            azbukaInit()                            //Инициализируем азбуку
             Timber.d( "$TAG Основная таблица заполнена")
         }
 
@@ -157,5 +163,20 @@ class FillDB {
                 CubeType(i, names[i], initPhases[i], curPhases[i])
             }.apply {  }
         }
+
+        private suspend fun azbukaInit() {
+            val antonsAzbuka = getMyAzbuka()
+            val maksimsAzbuka = getMaximAzbuka()
+            var cube = resetCube()
+            var dbAzbuka = setAzbukaDBItemFromSimple(antonsAzbuka, cube, ANTONS_AZBUKA)
+            repository.insertAzbuka(dbAzbuka)
+            dbAzbuka = setAzbukaDBItemFromSimple(maksimsAzbuka, cube, MAKSIMS_AZBUKA)
+            repository.insertAzbuka(dbAzbuka)
+            cube = moveZ(cube)
+            cube = moveZ(cube)
+            dbAzbuka = setAzbukaDBItemFromSimple(antonsAzbuka, cube, CURRENT_AZBUKA)
+            repository.updateAzbuka(dbAzbuka)
+        }
+
     }
 }

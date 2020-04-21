@@ -29,14 +29,14 @@ import timber.log.Timber
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
-    //private val learnViewModel by sharedViewModel<LearnViewModel>()
     private val sharedPreferences: SharedPreferences by inject()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
     private lateinit var item: MainDBItem
 
-    //Поскольку для вызова этого фрагмента НЕ используется Navigation component, то
-    //передача/прием данных осуществляются классически через Bundle putInt/getInt
+    //Поскольку для вызова этого фрагмента НЕ используется Navigation component,
+    //т.к. это фрагмент (страница) внутри ViewPager,
+    //то передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
         private const val CUR_ITEM_ID = "itemId"
 

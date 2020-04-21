@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.include_azbuka_grid.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.adapters.AzbukaGridAdapter
@@ -24,7 +25,7 @@ class GamesAzbukaSettings: Fragment() {
         val binding = FragmentGamesAzbukaSelectBinding.inflate(inflater, container, false)
             .apply {
                 val adapter = AzbukaGridAdapter()
-                content.azbukaGridView.adapter = adapter
+                content.includeGrid.azbukaGridView.adapter = adapter
 
                 gamesViewModel.currentAzbuka.observe(viewLifecycleOwner, Observer {
                     it?.let {

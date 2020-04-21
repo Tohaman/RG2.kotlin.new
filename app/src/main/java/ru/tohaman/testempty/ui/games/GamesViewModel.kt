@@ -8,12 +8,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import ru.tohaman.testempty.Constants.ANTONS_AZBUKA
+import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.toMutableLiveData
 
 class GamesViewModel: ViewModel(), KoinComponent {
+    private val antonsAzbuka = "ANTONS_AZBUKA"
     private val repository : ItemsRepository by inject()
 
     private var simpleGamesList = listOf<MainDBItem>()
@@ -31,10 +34,7 @@ class GamesViewModel: ViewModel(), KoinComponent {
             simpleGamesList = repository.getPhaseFromMain("GAMES")
             _gamesList.postValue(simpleGamesList)
 
-            val antonAzbuka = getMyAzbuka()
-            var newCube = resetCube()
-            newCube = moveZ(newCube)
-            val listDBAzbuka = setAzbukaDBItemFromSimple(antonAzbuka, newCube, "AntonsAzbuka")
+            val listDBAzbuka = repository.getAzbukaItems(CURRENT_AZBUKA)
 
             gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
             _currentAzbuka.postValue(gridViewAzbukaList)

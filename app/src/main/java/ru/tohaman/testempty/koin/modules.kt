@@ -26,7 +26,10 @@ val appModule = module{
             .build()
     }
     //В ItemRepository нужно передать сылку на dao, берем его предыдущего пункта, т.е. get<MainDb>
-    single { ItemsRepository(get<MainDb>().mainDao, get<MainDb>().cubeTypesDao, get<MainDb>().movesDao)}
+    single { ItemsRepository(get<MainDb>().mainDao,
+                            get<MainDb>().cubeTypesDao,
+                            get<MainDb>().movesDao,
+                            get<MainDb>().azbukaDao)}
 
 }
 

@@ -4,14 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.paging.Config
 import androidx.paging.toLiveData
 import kotlinx.coroutines.delay
+import ru.tohaman.testempty.dbase.daos.AzbukaDao
 import ru.tohaman.testempty.dbase.daos.CubeTypesDao
 
-import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.dbase.daos.MainDao
 import ru.tohaman.testempty.dbase.daos.MovesDao
-import ru.tohaman.testempty.dbase.entitys.BasicMove
-import ru.tohaman.testempty.dbase.entitys.CubeType
-import ru.tohaman.testempty.dbase.entitys.PhaseItem
+import ru.tohaman.testempty.dbase.entitys.*
 
 /**
  * The Repository ist a simple Java class that abstracts the data layer from the rest of the app
@@ -21,11 +19,12 @@ import ru.tohaman.testempty.dbase.entitys.PhaseItem
     Since Room doesn’t allow database queries on the main thread, then we use suspend fun
  */
 
-class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeTypesDao, private val movesDao: MovesDao) : ItemDataSource {
+class ItemsRepository (private val mainDao : MainDao,
+                       private val typeDao: CubeTypesDao,
+                       private val movesDao: MovesDao,
+                       private val azbukaDao: AzbukaDao) : ItemDataSource {
 
-    fun observePhase(phase: String): LiveData<List<MainDBItem>> {
-        return mainDao.observePhase(phase)
-    }
+    // Работа с основной таблицей
 
     suspend fun getPhase(phase: String) : List<PhaseItem> = mainDao.getPhase(phase)
 
@@ -56,6 +55,7 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     suspend fun updateMainItem(items: List<MainDBItem>) = mainDao.update(items)
 
+    // Работа с таблицей Types
 
     suspend fun getCubeTypes() = typeDao.getAllItems()
 
@@ -69,13 +69,21 @@ class ItemsRepository (private val mainDao : MainDao, private val typeDao: CubeT
 
     suspend fun update(items: List<CubeType>) = typeDao.update(items)
 
-
+    // Работа с таблицей Moves
     suspend fun insert2Moves(items: List<BasicMove>) = movesDao.insert(items)
 
     suspend fun getTypeItems(type: String): List<BasicMove> {
         //delay(2000) //имитируем задержку чтения в 2 сек
         return movesDao.getTypeItems(type)
     }
-
     suspend fun clearMovesTable() = movesDao.deleteAllItems()
+
+
+    // Работа с таблицей Azbuka
+
+    suspend fun getAzbukaItems(azbukaName: String) = azbukaDao.getAzbukaItems(azbukaName)
+
+    suspend fun insertAzbuka(azbukaItem: List<AzbukaDBItem>) = azbukaDao.insert(azbukaItem)
+
+    suspend fun updateAzbuka(azbukaItem: List<AzbukaDBItem>) = azbukaDao.update(azbukaItem)
 }

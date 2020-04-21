@@ -2,13 +2,11 @@ package ru.tohaman.testempty.dbase
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import ru.tohaman.testempty.dbase.daos.AzbukaDao
 import ru.tohaman.testempty.dbase.daos.CubeTypesDao
 import ru.tohaman.testempty.dbase.daos.MainDao
 import ru.tohaman.testempty.dbase.daos.MovesDao
-import ru.tohaman.testempty.dbase.entitys.BasicMove
-import ru.tohaman.testempty.dbase.entitys.CubeType
-import ru.tohaman.testempty.dbase.entitys.MainDBItem
-import ru.tohaman.testempty.dbase.entitys.PhaseItem
+import ru.tohaman.testempty.dbase.entitys.*
 
 /**
  * Аннотацией Database помечаем основной класс по работе с базой данных. Этот класс должен быть
@@ -19,9 +17,10 @@ import ru.tohaman.testempty.dbase.entitys.PhaseItem
  * Room сравнивает поля в entities, и если они отличаются от текущих в базе, то нужна миграция, а соответственно повышение версии базы
  */
 
-@Database(entities = [MainDBItem::class, CubeType::class, BasicMove::class], version = 7)
+@Database(entities = [MainDBItem::class, CubeType::class, BasicMove::class, AzbukaDBItem::class], version = 8)
 abstract class MainDb : RoomDatabase() {
     abstract val mainDao : MainDao
     abstract val cubeTypesDao : CubeTypesDao
     abstract val movesDao : MovesDao
+    abstract val azbukaDao: AzbukaDao
 }

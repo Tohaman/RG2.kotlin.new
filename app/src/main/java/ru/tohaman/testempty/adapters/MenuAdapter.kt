@@ -30,7 +30,7 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
         //тут обновляем данные ячейки (вызываем биндер холдера) передаем туда MainDBItem и onClickListener
         val item = items[position]
-        holder.bind(item, curPhase, onClickCallBack)
+        holder.bind(item, onClickCallBack)
     }
 
     fun refreshItems(items: List<MainDBItem>, phase: String = items[0].phase) {
@@ -44,7 +44,7 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 //    }
 
     class MenuHolder private constructor(private val binding: ItemMainMenuBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MainDBItem, phase: String, onClickCallBack: OnClickCallBack?) {
+        fun bind(item: MainDBItem, onClickCallBack: OnClickCallBack?) {
             binding.viewMenuItem = item
             binding.clickListener = onClickCallBack
 //            binding.favourites.setOnCreateContextMenuLis
