@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View" />
-
         <variable
-            name="enabled"
-            type="boolean" />
+            name="viewModel"
+            type="ru.tohaman.testempty.ui.games.GamesAzbukaButtons" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,6 +74,7 @@
             android:layout_margin="16dp"
             android:rotation="180"
             android:rotationX="0"
+            android:onClick="@{it -> viewModel.clockWiseArrowButtonPressed()}"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/guideline1"
@@ -88,6 +87,7 @@
             android:layout_height="0dp"
             android:layout_margin="16dp"
             app:srcCompat="@drawable/ic_aclock_arrow"
+            android:onClick="@{it -> viewModel.antiClockWiseArrowButtonPressed()}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/guideline5"
@@ -100,6 +100,7 @@
             android:layout_height="0dp"
             android:layout_margin="16dp"
             app:srcCompat="@drawable/ic_arrow_left"
+            android:onClick="@{it -> viewModel.leftArrowButtonPressed()}"
             app:layout_constraintLeft_toRightOf="@+id/guideline2"
             app:layout_constraintRight_toLeftOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent"
@@ -112,6 +113,7 @@
             android:layout_height="0dp"
             android:layout_margin="16dp"
             app:srcCompat="@drawable/ic_arrow_right"
+            android:onClick="@{it -> viewModel.rightArrowButtonPressed()}"
             app:layout_constraintLeft_toRightOf="@+id/guideline3"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

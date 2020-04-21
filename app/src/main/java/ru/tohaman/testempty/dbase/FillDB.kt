@@ -175,7 +175,7 @@ class FillDB {
             cube = moveZ(cube)
             cube = moveZ(cube)
             dbAzbuka = setAzbukaDBItemFromSimple(antonsAzbuka, cube, CURRENT_AZBUKA)
-            repository.updateAzbuka(dbAzbuka)
+            repository.insertAzbuka(dbAzbuka)
         }
 
     }

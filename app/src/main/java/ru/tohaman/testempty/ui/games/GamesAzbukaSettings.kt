@@ -24,6 +24,8 @@ class GamesAzbukaSettings: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentGamesAzbukaSelectBinding.inflate(inflater, container, false)
             .apply {
+                content.includeGrid.viewModel = gamesViewModel
+
                 val adapter = AzbukaGridAdapter()
                 content.includeGrid.azbukaGridView.adapter = adapter
 
