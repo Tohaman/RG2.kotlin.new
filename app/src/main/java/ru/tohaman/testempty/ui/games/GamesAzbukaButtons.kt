@@ -7,4 +7,6 @@ interface GamesAzbukaButtons {
     fun antiClockWiseArrowButtonPressed()
     fun loadAntonsAzbuka()
     fun loadMaksimsAzbuka()
+    fun saveCurrentAzbuka()
+    fun loadCurrentAzbuka()
 }

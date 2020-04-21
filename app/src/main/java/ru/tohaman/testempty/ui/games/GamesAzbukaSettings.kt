@@ -35,6 +35,15 @@ class GamesAzbukaSettings: Fragment() {
                     }
                 })
 
+                content.buttonMyAzbuka.setOnClickListener {
+                    gamesViewModel.loadAntonsAzbuka()
+                }
+
+                content.buttonMaxAzbuka.setOnClickListener {
+                    gamesViewModel.loadMaksimsAzbuka()
+                }
+
+
             }
         return binding.root
     }

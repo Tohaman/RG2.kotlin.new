@@ -14,7 +14,7 @@ import timber.log.Timber
  * Основные движения для кубика
  */
 
-
+//получаем чистый собранный куб из 54 элементов (9*6), белый сверху зеленый к себе, цвета в виде кодов от 0 до 6
 fun resetCube(): IntArray {
     Timber.d ("$TAG resetCube")
     val cube = IntArray(54)
@@ -69,6 +69,33 @@ fun setAzbukaDBItemFromSimple(simpleAzbuka: Array<String>, cube4Color: IntArray,
     return list
 }
 
+//Получаем IntArray (кубик) из азбуки, но цвета в нем закодированы ресурсами, а не кодами от 0 до 6
+fun getCubeFromCurrentAzbuka(curAzbuka: List<AzbukaSimpleItem>): IntArray {
+    val azbuka = IntArray(54) { 0 }
+    for (i in 0..8) {
+        azbuka[i] = curAzbuka[i / 3 * 12 + 3 + i % 3].color
+        azbuka[i + 9] = curAzbuka[(i / 3 + 3) * 12 + i % 3].color
+        azbuka[i + 18] = curAzbuka[(i / 3 + 3) * 12 + 3 + i % 3].color
+        azbuka[i + 27] = curAzbuka[(i / 3 + 3) * 12 + 6 + i % 3].color
+        azbuka[i + 36] = curAzbuka[(i / 3 + 3) * 12 + 9 + i % 3].color
+        azbuka[i + 45] = curAzbuka[(i / 3 + 6) * 12 + 3 + i % 3].color
+    }
+    return azbuka
+}
+
+
+//Меняем цвета в азбуке в соответствии с цветами в coloredCube (заданы ресурсами,а не кодами)
+fun setAzbukaColors(coloredCube: IntArray, curAzbuka: List<AzbukaSimpleItem>): List<AzbukaSimpleItem> {
+    for (i in 0..8) {
+        curAzbuka[i / 3 * 12 + 3 + i % 3].color = coloredCube[i]
+        curAzbuka[(i / 3 + 3) * 12 + i % 3].color = coloredCube[i + 9]
+        curAzbuka[(i / 3 + 3) * 12 + 3 + i % 3].color = coloredCube[i + 18]
+        curAzbuka[(i / 3 + 3) * 12 + 6 + i % 3].color = coloredCube[i + 27]
+        curAzbuka[(i / 3 + 3) * 12 + 9 + i % 3].color = coloredCube[i + 36]
+        curAzbuka[(i / 3 + 6) * 12 + 3 + i % 3].color = coloredCube[i + 45]
+    }
+    return curAzbuka
+}
 
 fun clearList4GridList(): MutableList<AzbukaSimpleItem> {
     Timber.d ("$TAG FragmentScrambleGen clearArray4GridList")
