@@ -16,10 +16,13 @@ import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import ru.tohaman.testempty.interfaces.GamesAzbukaButtons
+import ru.tohaman.testempty.interfaces.SetLetterButtons
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
-class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons {
+class GamesViewModel: ViewModel(), KoinComponent,
+    GamesAzbukaButtons, SetLetterButtons {
     private val repository : ItemsRepository by inject()
 
     private var simpleGamesList = listOf<MainDBItem>()
@@ -31,6 +34,8 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons {
     val currentAzbuka: LiveData<List<AzbukaSimpleItem>> get() = _currentAzbuka
 
     var selectedItem = 0
+
+    var letter = MutableLiveData<String>()
 
     init {
         viewModelScope.launch (Dispatchers.IO) {
@@ -114,6 +119,35 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons {
             gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
             _currentAzbuka.postValue(gridViewAzbukaList)
         }
+    }
+
+
+    override fun clickMinus(newLetter: String) {
+        var ch = newLetter[0]
+        when {
+            //код Ё находится не между Е и Ж
+            (ch == 'Ж') -> { ch = 'Ё' }
+            (ch == 'Ё') -> { ch = 'Е' }
+            (ch == 'А') -> { ch = 'Z' }
+            (ch == 'A') -> { ch = '9' }
+            (ch == '0') -> { ch = 'Я' }
+            else -> {ch--}
+        }
+        letter.postValue(ch.toString())
+    }
+
+    override fun clickPlus(newLetter: String) {
+        var ch = newLetter[0]
+        when {
+            (ch == 'Я') -> { ch = '0' }
+            (ch == '9') -> { ch = 'A'}
+            (ch == 'Z') -> { ch = 'А'}
+            //код Ё находится не между Е и Ж
+            (ch == 'Е') -> { ch = 'Ё' }
+            (ch == 'Ё') -> { ch = 'Ж' }
+            else -> {ch++}
+        }
+        letter.postValue(ch.toString())
     }
 
 

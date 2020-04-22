@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.ui.learn
+package ru.tohaman.testempty.adapters
 
 import android.graphics.drawable.Drawable
 import android.text.Html

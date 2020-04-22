@@ -9,6 +9,7 @@ import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.cubeColor
 import ru.tohaman.testempty.databinding.ItemGameAzbukaGridBinding
+import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
 import timber.log.Timber
 
@@ -21,6 +22,11 @@ import timber.log.Timber
 
 class AzbukaGridAdapter : BaseAdapter() {
     private var items: List<AzbukaSimpleItem> = listOf()
+    private var onClickCallBack: OnClickCallBack? = null
+
+    fun attachCallBack(onClickCallBack: OnClickCallBack) {
+        this.onClickCallBack = onClickCallBack
+    }
 
     fun refreshItems(list: List<AzbukaSimpleItem>) {
         items = list
@@ -38,8 +44,9 @@ class AzbukaGridAdapter : BaseAdapter() {
 
         with (binding) {
             item = items[position]
+            clickListener = onClickCallBack
+            id = position
             val color = items[position].color
-            //Timber.d("$TAG - pos-$position, color-${items[position]}, res-$color")
             innerSqLayout.setBackgroundResource(cubeColor[color])
             if (items[position].value != "") {
                 outerLayout.setBackgroundResource(R.color.black)
@@ -61,5 +68,10 @@ class AzbukaGridAdapter : BaseAdapter() {
     override fun getCount(): Int {
         return items.size
     }
+
+    interface OnClickCallBack {
+        fun clickItem(azbuka: AzbukaSimpleItem, id: Int, view: View)
+    }
+
 
 }

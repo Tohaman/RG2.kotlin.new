@@ -1,20 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorAccent</item>
-        <item name="colorSecondaryVariant">@color/colorAccentDark</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-    </style>
-
-    <!-- Кастомная AppTheme.Launcher. Устанавливает в качестве фона drawable -->
-    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:windowBackground">@drawable/logo</item>
-    </style>
-
     <style name="AppTheme.PopupTheme" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <style name="Widget.Rg2.AppBar" parent="@style/Widget.Design.AppBarLayout">
@@ -33,39 +18,8 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <!-- Base application theme. -->
-    <style name="AppThemeLight" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorAccent</item>
-        <item name="colorSecondaryVariant">@color/colorAccentDark</item>
-        <item name="android:textColorTertiary">@color/textColorTertiaryLight</item>
-    </style>
-
-    <!-- Base application theme. -->
-    <style name="AppThemeDayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorAccent</item>
-        <item name="colorSecondaryVariant">@color/colorAccentDark</item>
-    </style>
-
 
     <!--Значения для фрагмента настроек программы-->
-
-    <string-array name="themes_title">
-        <item>Темная тема</item>
-        <item>Светлая тема</item>
-        <item>Авто (День/ночь)</item>
-    </string-array>
-
-    <string-array name="themes_values">
-        <item>AppTheme</item>
-        <item>AppThemeLight</item>
-        <item>AppThemeDayNight</item>
-    </string-array>
 
     <string-array name="text_size_title">
         <item>Маленький (13)</item>

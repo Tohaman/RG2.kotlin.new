@@ -13,6 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.adapters.AzbukaGridAdapter
 import ru.tohaman.testempty.adapters.GamesAdapter
 import ru.tohaman.testempty.databinding.FragmentGamesBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem

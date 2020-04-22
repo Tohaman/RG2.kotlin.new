@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.ui.games
+package ru.tohaman.testempty.interfaces
 
 interface GamesAzbukaButtons {
     fun leftArrowButtonPressed()

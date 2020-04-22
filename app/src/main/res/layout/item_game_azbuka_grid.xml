@@ -6,12 +6,16 @@
 
     <data>
         <variable
+            name="id"
+            type="Integer" />
+
+        <variable
             name="item"
             type="ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem" />
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.MenuAdapter.OnClickCallBack" />
+            type="ru.tohaman.testempty.adapters.AzbukaGridAdapter.OnClickCallBack" />
     </data>
 
     <LinearLayout
@@ -24,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/transparent"
+            android:onClick="@{(view) -> clickListener.clickItem(item, id, view)}"
             android:layout_margin="2dp">
 
             <ru.tohaman.rg2.ui.SquareRelativeLayout
