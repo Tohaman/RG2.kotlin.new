@@ -16,7 +16,8 @@ val cubeColor = intArrayOf(
         R.color.c_r,
         R.color.c_y,
         R.color.c_g,
-        R.color.c_bl)
+        R.color.c_bl,
+        R.color.transparent)
 
 val cubeColor4PLL = intArrayOf(
         R.color.c_r,

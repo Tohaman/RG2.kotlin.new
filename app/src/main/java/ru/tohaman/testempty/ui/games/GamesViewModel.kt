@@ -13,6 +13,7 @@ import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
 import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
+import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.utils.toMutableLiveData
@@ -91,13 +92,19 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons {
             gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
             _currentAzbuka.postValue(gridViewAzbukaList)
         }
-
     }
 
     override fun saveCurrentAzbuka() {
         viewModelScope.launch (Dispatchers.IO) {
-//            val dbAzbuka = setAzbukaDBItemFromSimple(gridViewAzbukaList, )
-//            repository.updateAzbuka(dbAzbuka)
+            //Получим из текущего состояния списка отображаемого  в GridView (108 элементов)
+            //два "чистых" списка с буквами и цветами
+            val coloredCube = getCubeFromCurrentAzbuka(gridViewAzbukaList)
+            val lettersArray = getLettersFromCurrentAzbuka(gridViewAzbukaList)
+            val dbAzbuka = mutableListOf<AzbukaDBItem>()
+            for (i in lettersArray.indices) {
+                dbAzbuka.add(AzbukaDBItem(CURRENT_AZBUKA, i, lettersArray[i], coloredCube[i]))
+            }
+            repository.updateAzbuka(dbAzbuka)
         }
     }
 

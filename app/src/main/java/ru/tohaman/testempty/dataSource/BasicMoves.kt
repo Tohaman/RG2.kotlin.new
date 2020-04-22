@@ -1,7 +1,5 @@
 package ru.tohaman.testempty.dataSource
 
-import android.util.Log
-import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
@@ -31,12 +29,12 @@ fun prepareCubeToShowInGridView(cube: IntArray) : MutableList<AzbukaSimpleItem> 
     // Задаем для элементов куба букву равную пробелу, и цвет соответствующий элемнтам куба (массива)
     // если остается = "" и цвет прозрачный то это элемент фона (и будет не виден)
     for (i in 0..8) {
-        grList[(i / 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(cubeColor[cube[i]], " ")
-        grList[(i / 3 + 3) * 12 + i % 3] = AzbukaSimpleItem(cubeColor[cube[i + 9]], " ")
-        grList[(i / 3 + 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(cubeColor[cube[i + 18]], " ")
-        grList[(i / 3 + 3) * 12 + 6 + i % 3] = AzbukaSimpleItem(cubeColor[cube[i + 27]], " ")
-        grList[(i / 3 + 3) * 12 + 9 + i % 3] = AzbukaSimpleItem(cubeColor[cube[i + 36]], " ")
-        grList[(i / 3 + 6) * 12 + 3 + i % 3] = AzbukaSimpleItem(cubeColor[cube[i + 45]], " ")
+        grList[(i / 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(cube[i], " ")
+        grList[(i / 3 + 3) * 12 + i % 3] = AzbukaSimpleItem(cube[i + 9], " ")
+        grList[(i / 3 + 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(cube[i + 18], " ")
+        grList[(i / 3 + 3) * 12 + 6 + i % 3] = AzbukaSimpleItem(cube[i + 27], " ")
+        grList[(i / 3 + 3) * 12 + 9 + i % 3] = AzbukaSimpleItem(cube[i + 36], " ")
+        grList[(i / 3 + 6) * 12 + 3 + i % 3] = AzbukaSimpleItem(cube[i + 45], " ")
     }
     return grList
 }
@@ -48,6 +46,7 @@ fun prepareAzbukaToShowInGridView(azbuka: List<AzbukaDBItem>) : MutableList<Azbu
     // Задаем для элементов куба букву равную пробелу, и цвет соответствующий элемнтам куба (массива)
     // если остается = "" и цвет прозрачный то это элемент фона (и будет не виден)
     for (i in 0..8) {
+        Timber.d ("$TAG color - ${azbuka[i].color}")
         grList[(i / 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(azbuka[i].color, azbuka[i].value)
         grList[(i / 3 + 3) * 12 + i % 3] = AzbukaSimpleItem(azbuka[i + 9].color, azbuka[i + 9].value)
         grList[(i / 3 + 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(azbuka[i + 18].color, azbuka[i + 18].value)
@@ -60,16 +59,16 @@ fun prepareAzbukaToShowInGridView(azbuka: List<AzbukaDBItem>) : MutableList<Azbu
 
 // Преобразуем список из AzbukaSimpleItem в список для сохранения в базе, цвета берем из cube4Color (собранный куб, но
 // сверху может быть и не белый цвет)
-fun setAzbukaDBItemFromSimple(simpleAzbuka: Array<String>, cube4Color: IntArray, phase: String) : List<AzbukaDBItem> {
+fun setAzbukaDBItemFromSimple(lettersArray: Array<String>, colorArray: IntArray, phase: String) : List<AzbukaDBItem> {
     Timber.d ("$TAG setAzbukaDBItemFromSimple")
     val list = mutableListOf<AzbukaDBItem>()
-    for (i in simpleAzbuka.indices) {
-        list.add(AzbukaDBItem(phase, i, simpleAzbuka[i], cubeColor[cube4Color[i]]))
+    for (i in lettersArray.indices) {
+        list.add(AzbukaDBItem(phase, i, lettersArray[i], colorArray[i]))
     }
     return list
 }
 
-//Получаем IntArray (кубик) из азбуки, но цвета в нем закодированы ресурсами, а не кодами от 0 до 6
+//Получаем IntArray (кубик) из азбуки
 fun getCubeFromCurrentAzbuka(curAzbuka: List<AzbukaSimpleItem>): IntArray {
     val azbuka = IntArray(54) { 0 }
     for (i in 0..8) {
@@ -83,8 +82,23 @@ fun getCubeFromCurrentAzbuka(curAzbuka: List<AzbukaSimpleItem>): IntArray {
     return azbuka
 }
 
+//Получаем StringArray (массив букв) из азбуки
+fun getLettersFromCurrentAzbuka(curAzbuka: List<AzbukaSimpleItem>): Array<String> {
+    val azbuka = Array(54) { "" }
+    for (i in 0..8) {
+        azbuka[i] = curAzbuka[i / 3 * 12 + 3 + i % 3].value
+        azbuka[i + 9] = curAzbuka[(i / 3 + 3) * 12 + i % 3].value
+        azbuka[i + 18] = curAzbuka[(i / 3 + 3) * 12 + 3 + i % 3].value
+        azbuka[i + 27] = curAzbuka[(i / 3 + 3) * 12 + 6 + i % 3].value
+        azbuka[i + 36] = curAzbuka[(i / 3 + 3) * 12 + 9 + i % 3].value
+        azbuka[i + 45] = curAzbuka[(i / 3 + 6) * 12 + 3 + i % 3].value
+    }
+    return azbuka
+}
 
-//Меняем цвета в азбуке в соответствии с цветами в coloredCube (заданы ресурсами,а не кодами)
+
+
+//Меняем цвета в азбуке в соответствии с цветами в coloredCube
 fun setAzbukaColors(coloredCube: IntArray, curAzbuka: List<AzbukaSimpleItem>): List<AzbukaSimpleItem> {
     for (i in 0..8) {
         curAzbuka[i / 3 * 12 + 3 + i % 3].color = coloredCube[i]
@@ -102,7 +116,7 @@ fun clearList4GridList(): MutableList<AzbukaSimpleItem> {
     // 108 элементов GridList делаем пустыми и прозрачными
     val clearList = mutableListOf<AzbukaSimpleItem>()
     for (i in 0..107) {
-        val azbukaItem = AzbukaSimpleItem(R.color.transparent, "")
+        val azbukaItem = AzbukaSimpleItem(7, "")
         clearList.add(azbukaItem)
     }
     return clearList

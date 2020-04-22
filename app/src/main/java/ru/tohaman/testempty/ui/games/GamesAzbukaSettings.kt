@@ -43,6 +43,13 @@ class GamesAzbukaSettings: Fragment() {
                     gamesViewModel.loadMaksimsAzbuka()
                 }
 
+                content.buttonLoadAzbuka.setOnClickListener {
+                    gamesViewModel.loadCurrentAzbuka()
+                }
+
+                content.buttonSaveAzbuka.setOnClickListener {
+                    gamesViewModel.saveCurrentAzbuka()
+                }
 
             }
         return binding.root

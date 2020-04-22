@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.dataSource.cubeColor
 import ru.tohaman.testempty.databinding.ItemGameAzbukaGridBinding
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
+import timber.log.Timber
 
 
 /**
@@ -35,7 +38,9 @@ class AzbukaGridAdapter : BaseAdapter() {
 
         with (binding) {
             item = items[position]
-            innerSqLayout.setBackgroundResource(items[position].color)
+            val color = items[position].color
+            //Timber.d("$TAG - pos-$position, color-${items[position]}, res-$color")
+            innerSqLayout.setBackgroundResource(cubeColor[color])
             if (items[position].value != "") {
                 outerLayout.setBackgroundResource(R.color.black)
             }
