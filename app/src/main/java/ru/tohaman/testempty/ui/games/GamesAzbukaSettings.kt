@@ -4,22 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
-import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.AzbukaGridAdapter
 import ru.tohaman.testempty.databinding.DialogGetLetterBinding
 import ru.tohaman.testempty.databinding.FragmentGamesAzbukaSelectBinding
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
-import ru.tohaman.testempty.utils.dp
+import ru.tohaman.testempty.utils.toast
 import timber.log.Timber
 
 class GamesAzbukaSettings: Fragment() {
@@ -36,8 +30,14 @@ class GamesAzbukaSettings: Fragment() {
                 content.includeGrid.azbukaGridView.adapter = adapter
 
                 gamesViewModel.currentAzbuka.observe(viewLifecycleOwner, Observer {
+                    it?.let { adapter.refreshItems(it) }
+                })
+
+                gamesViewModel.message.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        adapter.refreshItems(it)
+                        //обнулим message, чтобы при повороте экрана не выводился повторно
+                        gamesViewModel.message.value = null
+                        toast(it, root)
                     }
                 })
 
@@ -50,11 +50,11 @@ class GamesAzbukaSettings: Fragment() {
                 }
 
                 content.buttonLoadAzbuka.setOnClickListener {
-                    gamesViewModel.loadCurrentAzbuka()
+                    gamesViewModel.loadCustomAzbuka()
                 }
 
                 content.buttonSaveAzbuka.setOnClickListener {
-                    gamesViewModel.saveCurrentAzbuka()
+                    gamesViewModel.saveCustomAzbuka()
                 }
 
             }
@@ -74,17 +74,16 @@ class GamesAzbukaSettings: Fragment() {
 
                 binding.onClickListener = gamesViewModel
                 builder.setView(binding.root)
-                gamesViewModel.letter.postValue(letter)
+                gamesViewModel.curLetter.postValue(letter)
 
-                gamesViewModel.letter.observe(viewLifecycleOwner, Observer {
+                gamesViewModel.curLetter.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         binding.letter = it
                     }
                 })
 
                 builder.setPositiveButton("OK") { _, _ ->
-                    //TODO сохранение буквы в CURRENT_AZBUKA
-                    //gamesViewModel.ChangeLetter(id)
+                    gamesViewModel.changeLetter(id)
                 }
                 builder.setNegativeButton("Отмена", null)
 

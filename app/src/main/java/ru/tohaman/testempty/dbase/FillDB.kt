@@ -4,6 +4,7 @@ import android.content.Context
 import org.koin.java.KoinJavaComponent.inject
 import ru.tohaman.testempty.Constants.ANTONS_AZBUKA
 import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
+import ru.tohaman.testempty.Constants.CUSTOM_AZBUKA
 import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.DebugTag.TAG
@@ -175,6 +176,8 @@ class FillDB {
             cube = moveZ(cube)
             cube = moveZ(cube)
             dbAzbuka = setAzbukaDBItemFromSimple(antonsAzbuka, cube, CURRENT_AZBUKA)
+            repository.insertAzbuka(dbAzbuka)
+            dbAzbuka = setAzbukaDBItemFromSimple(antonsAzbuka, cube, CUSTOM_AZBUKA)
             repository.insertAzbuka(dbAzbuka)
         }
 

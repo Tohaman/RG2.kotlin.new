@@ -7,4 +7,5 @@ object Constants {
     const val ANTONS_AZBUKA = "ANTONS_AZBUKA"
     const val MAKSIMS_AZBUKA = "MAKSIMS_AZBUKA"
     const val CURRENT_AZBUKA = "CURRENT_AZBUKA"
+    const val CUSTOM_AZBUKA = "CUSTOM_AZBUKA"
 }

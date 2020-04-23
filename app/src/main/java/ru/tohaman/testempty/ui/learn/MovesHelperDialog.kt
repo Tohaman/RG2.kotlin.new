@@ -5,14 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.MovesAdapter
 import ru.tohaman.testempty.databinding.DialogRecyclerViewBinding
 import ru.tohaman.testempty.dbase.entitys.BasicMove
+import ru.tohaman.testempty.utils.toast
 
 class MovesHelperDialog : DialogFragment() {
     private val args by navArgs<MovesHelperDialogArgs>()
@@ -25,7 +29,7 @@ class MovesHelperDialog : DialogFragment() {
                 val adapter = MovesAdapter()
                 adapter.attachCallBack(object: MovesAdapter.OnClickCallBack {
                     override fun toastItem(menuItem: BasicMove) {
-                        toast(menuItem.toast)
+                        toast(menuItem.toast, root)
                     }
                 })
                 titleText.text = "Азбука вращений"
@@ -55,10 +59,6 @@ class MovesHelperDialog : DialogFragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
         }
-    }
-
-    private fun toast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }

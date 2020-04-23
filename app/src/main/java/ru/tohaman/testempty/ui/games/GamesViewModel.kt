@@ -10,6 +10,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import ru.tohaman.testempty.Constants.ANTONS_AZBUKA
 import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
+import ru.tohaman.testempty.Constants.CUSTOM_AZBUKA
 import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
@@ -35,7 +36,8 @@ class GamesViewModel: ViewModel(), KoinComponent,
 
     var selectedItem = 0
 
-    var letter = MutableLiveData<String>()
+    var curLetter = MutableLiveData<String>()
+    var message = MutableLiveData<String>()
 
     init {
         viewModelScope.launch (Dispatchers.IO) {
@@ -55,6 +57,7 @@ class GamesViewModel: ViewModel(), KoinComponent,
         coloredCube = moveZb(coloredCube)
         gridViewAzbukaList = setAzbukaColors(coloredCube, gridViewAzbukaList)
         _currentAzbuka.postValue(gridViewAzbukaList)
+        updateDBAzbuka(CURRENT_AZBUKA)
     }
 
     override fun rightArrowButtonPressed() {
@@ -63,6 +66,7 @@ class GamesViewModel: ViewModel(), KoinComponent,
         coloredCube = moveZ(coloredCube)
         gridViewAzbukaList = setAzbukaColors(coloredCube, gridViewAzbukaList)
         _currentAzbuka.postValue(gridViewAzbukaList)
+        updateDBAzbuka(CURRENT_AZBUKA)
     }
 
     override fun clockWiseArrowButtonPressed() {
@@ -71,6 +75,7 @@ class GamesViewModel: ViewModel(), KoinComponent,
         coloredCube = moveY(coloredCube)
         gridViewAzbukaList = setAzbukaColors(coloredCube, gridViewAzbukaList)
         _currentAzbuka.postValue(gridViewAzbukaList)
+        updateDBAzbuka(CURRENT_AZBUKA)
     }
 
     override fun antiClockWiseArrowButtonPressed() {
@@ -79,6 +84,7 @@ class GamesViewModel: ViewModel(), KoinComponent,
         coloredCube = moveYb(coloredCube)
         gridViewAzbukaList = setAzbukaColors(coloredCube, gridViewAzbukaList)
         _currentAzbuka.postValue(gridViewAzbukaList)
+        updateDBAzbuka(CURRENT_AZBUKA)
     }
 
     override fun loadAntonsAzbuka() {
@@ -87,6 +93,7 @@ class GamesViewModel: ViewModel(), KoinComponent,
             val listDBAzbuka = repository.getAzbukaItems(ANTONS_AZBUKA)
             gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
             _currentAzbuka.postValue(gridViewAzbukaList)
+            updateDBAzbuka(CURRENT_AZBUKA)
         }
     }
 
@@ -96,34 +103,42 @@ class GamesViewModel: ViewModel(), KoinComponent,
             val listDBAzbuka = repository.getAzbukaItems(MAKSIMS_AZBUKA)
             gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
             _currentAzbuka.postValue(gridViewAzbukaList)
+            updateDBAzbuka(CURRENT_AZBUKA)
         }
     }
 
-    override fun saveCurrentAzbuka() {
+    override fun saveCustomAzbuka() {
+        updateDBAzbuka(CUSTOM_AZBUKA)
+        //Выведем тост (снэк). Запишем сообщение в LiveData, на которую должен быть подписан презентер
+        message.postValue("Азбука сохранена")
+    }
+
+    override fun loadCustomAzbuka() {
         viewModelScope.launch (Dispatchers.IO) {
-            //Получим из текущего состояния списка отображаемого  в GridView (108 элементов)
+            val listDBAzbuka = repository.getAzbukaItems(CUSTOM_AZBUKA)
+            gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
+            _currentAzbuka.postValue(gridViewAzbukaList)
+            updateDBAzbuka(CURRENT_AZBUKA)
+        }
+    }
+
+    //Сохраняем в базе текущую азбуку из gridView под указанным именем (custom или current)
+    private fun updateDBAzbuka(azbukaName: String) {
+        viewModelScope.launch (Dispatchers.IO) {
+            //Получим из текущего состояния списка отображаемого в GridView (108 элементов)
             //два "чистых" списка с буквами и цветами
             val coloredCube = getCubeFromCurrentAzbuka(gridViewAzbukaList)
             val lettersArray = getLettersFromCurrentAzbuka(gridViewAzbukaList)
             val dbAzbuka = mutableListOf<AzbukaDBItem>()
             for (i in lettersArray.indices) {
-                dbAzbuka.add(AzbukaDBItem(CURRENT_AZBUKA, i, lettersArray[i], coloredCube[i]))
+                dbAzbuka.add(AzbukaDBItem(azbukaName, i, lettersArray[i], coloredCube[i]))
             }
             repository.updateAzbuka(dbAzbuka)
         }
     }
 
-    override fun loadCurrentAzbuka() {
-        viewModelScope.launch (Dispatchers.IO) {
-            val listDBAzbuka = repository.getAzbukaItems(CURRENT_AZBUKA)
-            gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
-            _currentAzbuka.postValue(gridViewAzbukaList)
-        }
-    }
-
-
-    override fun clickMinus(newLetter: String) {
-        var ch = newLetter[0]
+    override fun clickMinus(letter: String) {
+        var ch = letter[0]
         when {
             //код Ё находится не между Е и Ж
             (ch == 'Ж') -> { ch = 'Ё' }
@@ -133,11 +148,11 @@ class GamesViewModel: ViewModel(), KoinComponent,
             (ch == '0') -> { ch = 'Я' }
             else -> {ch--}
         }
-        letter.postValue(ch.toString())
+        curLetter.postValue(ch.toString())
     }
 
-    override fun clickPlus(newLetter: String) {
-        var ch = newLetter[0]
+    override fun clickPlus(letter: String) {
+        var ch = letter[0]
         when {
             (ch == 'Я') -> { ch = '0' }
             (ch == '9') -> { ch = 'A'}
@@ -147,8 +162,14 @@ class GamesViewModel: ViewModel(), KoinComponent,
             (ch == 'Ё') -> { ch = 'Ж' }
             else -> {ch++}
         }
-        letter.postValue(ch.toString())
+        curLetter.postValue(ch.toString())
     }
 
+    override fun changeLetter(id: Int) {
+        val letter = curLetter.value ?: "A"
+        gridViewAzbukaList[id].value = letter
+        _currentAzbuka.postValue(gridViewAzbukaList)
+        updateDBAzbuka(CURRENT_AZBUKA)
+    }
 
 }

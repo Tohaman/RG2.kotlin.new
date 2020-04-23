@@ -8,7 +8,10 @@ import android.text.Editable
 import android.text.Html
 import android.text.Spanned
 import android.util.TypedValue
+import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import timber.log.Timber
@@ -85,5 +88,12 @@ fun getThemeFromSharedPreference(sp: SharedPreferences) : Int {
         "AppThemeDayNight" -> R.style.AppThemeDayNight
         else -> R.style.AppTheme
     }
+}
 
+fun toast(message: String, view: View) {
+    //Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+        .setAction("OK") { }
+        .setActionTextColor(ContextCompat.getColor(view.context, R.color.colorAccent))
+        .show()
 }

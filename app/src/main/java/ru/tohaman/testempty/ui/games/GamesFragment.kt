@@ -48,7 +48,7 @@ class GamesFragment : Fragment() {
 
     private val callBack = object: GamesAdapter.OnClickCallBack {
         override fun clickItem(menuItem: MainDBItem) {
-            Timber.d("$TAG Games-clickItem")
+            Timber.d("$TAG Games-clickItem ${menuItem.title}")
         }
 
         override fun clickSettings(menuItem: MainDBItem) {

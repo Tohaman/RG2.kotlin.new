@@ -46,7 +46,6 @@ fun prepareAzbukaToShowInGridView(azbuka: List<AzbukaDBItem>) : MutableList<Azbu
     // Задаем для элементов куба букву равную пробелу, и цвет соответствующий элемнтам куба (массива)
     // если остается = "" и цвет прозрачный то это элемент фона (и будет не виден)
     for (i in 0..8) {
-        Timber.d ("$TAG color - ${azbuka[i].color}")
         grList[(i / 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(azbuka[i].color, azbuka[i].value)
         grList[(i / 3 + 3) * 12 + i % 3] = AzbukaSimpleItem(azbuka[i + 9].color, azbuka[i + 9].value)
         grList[(i / 3 + 3) * 12 + 3 + i % 3] = AzbukaSimpleItem(azbuka[i + 18].color, azbuka[i + 18].value)
