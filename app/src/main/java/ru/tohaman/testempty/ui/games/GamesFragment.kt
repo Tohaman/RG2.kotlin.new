@@ -48,16 +48,17 @@ class GamesFragment : Fragment() {
 
     private val callBack = object: GamesAdapter.OnClickCallBack {
         override fun clickItem(menuItem: MainDBItem) {
-            Timber.d("$TAG Games-clickItem ${menuItem.title}")
+            Timber.d("$TAG Games-clickItem ${menuItem.url}")
+            findNavController().navigate(R.id.action_destGames_to_gamesScrambleGenerator)
         }
 
         override fun clickSettings(menuItem: MainDBItem) {
-            Timber.d("$TAG Games-clickSettings")
+            Timber.d("$TAG Games-clickSettings ${menuItem.url}")
             findNavController().navigate(R.id.gamesAzbukaSettings)
         }
 
         override fun clickHelp(menuItem: MainDBItem) {
-            Timber.d("$TAG Games-clickHelp")
+            Timber.d("$TAG Games-clickHelp ${menuItem.url}")
             gamesViewModel.selectedItem = menuItem.id
             findNavController().navigate(R.id.gamesHelpFragment)
         }

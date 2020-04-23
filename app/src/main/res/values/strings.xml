@@ -28,4 +28,9 @@
     <string name="save_azbuka">Сохранить текущую азбуку</string>
     <string name="load_azbuka">Загрузить сохраненную азбуку</string>
     <string name="set_letter">Выберите букву</string>
+    <string name="games_scramble_generator">Генератор скрамблов</string>
+    <string name="azbukaButtonText">Выбрать азбуку</string>
+    <string name="buttonScrambleGen">Генерировать скрамбл</string>
+    <string name="chkBoxEdgeBuffer">Без переплавки буфера ребер</string>
+    <string name="chkBoxCornerBuffer">Без переплавки буфера углов</string>
 </resources>

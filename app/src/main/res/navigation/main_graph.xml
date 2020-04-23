@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_destGames_to_gamesAzbukaSettings"
             app:destination="@id/gamesAzbukaSettings" />
+        <action
+            android:id="@+id/action_destGames_to_gamesScrambleGenerator"
+            app:destination="@id/gamesScrambleGenerator" />
     </fragment>
 
     <fragment
@@ -96,5 +99,10 @@
         android:name="ru.tohaman.testempty.ui.games.GamesAzbukaSettings"
         android:label="GamesAzbukaSettings"
         tools:layout="@layout/fragment_games_azbuka_select"/>
+
+    <fragment
+        android:id="@+id/gamesScrambleGenerator"
+        android:name="ru.tohaman.testempty.ui.games.GamesScrambleGenerator"
+        android:label="GamesScrambleGenerator" />
 
 </navigation>

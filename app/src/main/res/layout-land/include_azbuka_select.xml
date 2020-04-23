@@ -37,6 +37,7 @@
                     android:id="@+id/button_my_azbuka"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_weight="1"
                     android:layout_margin="@dimen/dimen_margin_8"
                     android:text="@string/antons_azbuka"/>
@@ -46,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_margin_8"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_weight="1"
                     android:text="@string/maksims_azbuka"/>
             </LinearLayout>
@@ -60,6 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dimen_margin_8"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_weight="1"
                     android:text="@string/save_azbuka"/>
 
@@ -68,6 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_margin_8"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_weight="1"
                     android:text="@string/load_azbuka"/>
             </LinearLayout>

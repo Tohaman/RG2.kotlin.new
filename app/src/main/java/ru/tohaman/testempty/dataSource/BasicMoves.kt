@@ -1,7 +1,6 @@
 package ru.tohaman.testempty.dataSource
 
 import ru.tohaman.testempty.DebugTag.TAG
-import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
 import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
 import timber.log.Timber
