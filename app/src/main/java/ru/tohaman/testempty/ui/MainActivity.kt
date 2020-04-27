@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.tohaman.testempty.Constants.THEME
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.databinding.ActivityMainBinding
@@ -61,7 +62,7 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
         Timber.d("$TAG SP Change")
         //Если изменилась тема в настройках, то меняем ее в программе
         when (key) {
-            "theme" -> {
+            THEME -> {
                 Timber.d("$TAG Theme set to - ${sp.getString(key, "AppTheme")}")
                 this.recreate()
             }

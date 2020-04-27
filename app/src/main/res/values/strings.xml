@@ -33,4 +33,13 @@
     <string name="buttonScrambleGen">Генерировать скрамбл</string>
     <string name="chkBoxEdgeBuffer">Без переплавки буфера ребер</string>
     <string name="chkBoxCornerBuffer">Без переплавки буфера углов</string>
+    <string name="scrambleLengthText">Длина скрамбла:</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="scrambleText">Скрамбл:</string>
+    <string name="scramble_def_value">R F L B U2 L B\' R F\' D B R L F D R\' D L</string>
+    <string name="scramble_def_solve">(А Г Ш Т Р Ц Л З Ж) (Ж П М Ф Б В)</string>
+    <string name="timerText">Таймер</string>
+    <string name="scram_waiting">Ищем подходящий скрамбл</string>
+    <string name="checkBoxSolveText">Решение: </string>
 </resources>

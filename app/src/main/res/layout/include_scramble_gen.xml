@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="viewModel"
+            type="ru.tohaman.testempty.interfaces.ScrambleGeneratorButtons" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -16,228 +21,244 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
-        
+
         <Button
             android:id="@+id/button_azbuka"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_margin_8"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:text="@string/azbukaButtonText"
             android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:maxLines="1"
+            android:onClick="@{(view) -> viewModel.azbukaSelect()}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@id/guideline"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button_generate"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_margin_8"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:backgroundTint="@color/colorAccent"
             android:text="@string/buttonScrambleGen"
             android:textSize="12sp"
-            android:backgroundTint="@color/colorAccent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:maxLines="1"
+            android:onClick="@{(view) -> viewModel.generateScramble()}"
             app:layout_constraintLeft_toLeftOf="@id/guideline"
             app:layout_constraintRight_toRightOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_generate">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkBox_edges"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+                        android:text="@string/chkBoxEdgeBuffer" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox_corners"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.isEdgeBufferSet}"
+                        android:layout_weight="1"
+                        android:text="@string/chkBoxCornerBuffer" />
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_margin_8"
+                    android:layout_marginRight="@dimen/dimen_margin_8"
+                    >
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/scrambleLengthText"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="@dimen/dimen_margin_8"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/guideline2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/button_minus"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/minus"
+                        android:layout_marginLeft="@dimen/dimen_margin_8"
+                        app:layout_constraintLeft_toRightOf="@id/guideline2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/scrambleLength"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        tools:text="14"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toRightOf="@+id/button_minus"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/button_plus"
+                        app:layout_constraintRight_toLeftOf="@+id/button_plus"/>
+
+                    <Button
+                        android:id="@+id/button_plus"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plus"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/scramble_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/scrambleText"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/scramble"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="@dimen/dimen_margin_8"
+                        android:text="@string/scramble_def_value"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/scramble_textView" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <GridView
+                        android:id="@+id/scram_gridView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:horizontalSpacing="2dp"
+                        android:numColumns="12"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="h,4:3"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </GridView>
+
+                    <Button
+                        android:id="@+id/timerButton"
+                        style="@style/AppTheme.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/small_margin"
+                        android:text="@string/timerText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/progressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/small_padding"
+                        android:text="@string/scram_waiting"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/progressBar" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/checkBox_solve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkBoxSolveText" />
+
+                    <TextView
+                        android:id="@+id/solve_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/scramble_def_solve"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/checkBox_solve"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_margin="8dp"-->
-<!--        android:orientation="vertical">-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <Button-->
-<!--                android:id="@+id/button_azbuka"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@string/azbukaButtonText"-->
-<!--                android:textSize="12sp" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/button_generate"-->
-<!--                style="@style/AppTheme.Button.Colored"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@string/buttonScrambleGen"-->
-<!--                android:textSize="12sp" />-->
-<!--        </LinearLayout>-->
-
-<!--        <ScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <CheckBox-->
-<!--                        android:id="@+id/checkBox_edges"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="@string/chkBoxEdgeBuffer" />-->
-
-<!--                    <CheckBox-->
-<!--                        android:id="@+id/checkBox_corners"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="@string/chkBoxCornerBuffer" />-->
-<!--                </LinearLayout>-->
-
-<!--                <android.support.constraint.ConstraintLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:text="@string/scrambleLengthText"-->
-<!--                        android:textSize="16sp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/button_minus"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:text="@string/minus"-->
-<!--                        app:layout_constraintRight_toLeftOf="@+id/scrambleLength"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/scrambleLength"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginRight="8dp"-->
-<!--                        android:gravity="center"-->
-<!--                        android:text="14"-->
-<!--                        android:textSize="16sp"-->
-<!--                        app:layout_constraintBaseline_toBaselineOf="@+id/button_plus"-->
-<!--                        app:layout_constraintRight_toLeftOf="@+id/button_plus"-->
-<!--                        tools:ignore="RtlHardcoded" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/button_plus"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="16dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:text="@string/plus"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                </android.support.constraint.ConstraintLayout>-->
-
-<!--                <android.support.constraint.ConstraintLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                    app:layout_constraintRight_toRightOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/scramble_textView"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:text="@string/scrambleText"-->
-<!--                        android:textSize="16sp"-->
-<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/scramble"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:text="@string/scramble_def_value"-->
-<!--                        android:textAlignment="viewStart"-->
-<!--                        android:textSize="16sp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintLeft_toRightOf="@+id/scramble_textView"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/scramble_textView" />-->
-
-<!--                </android.support.constraint.ConstraintLayout>-->
-
-<!--                <android.support.constraint.ConstraintLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="15dp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical">-->
-
-<!--                    <GridView-->
-<!--                        android:id="@+id/scram_gridView"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:horizontalSpacing="1dp"-->
-<!--                        android:numColumns="12"-->
-<!--                        android:stretchMode="columnWidth"-->
-<!--                        android:verticalSpacing="1dp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintDimensionRatio="h,4:3"-->
-<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        tools:ignore="NestedScrolling"></GridView>-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/timerButton"-->
-<!--                        style="@style/AppTheme.Button.Colored"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_margin="@dimen/small_margin"-->
-<!--                        android:text="@string/timerText"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                    <ProgressBar-->
-<!--                        android:id="@+id/progressBar"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"></ProgressBar>-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/progressText"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:padding="@dimen/small_padding"-->
-<!--                        android:text="@string/scram_waiting"-->
-<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/progressBar" />-->
-
-<!--                </android.support.constraint.ConstraintLayout>-->
 
 <!--                <android.support.constraint.ConstraintLayout-->
 <!--                    android:layout_width="match_parent"-->
