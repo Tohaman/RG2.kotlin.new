@@ -11,6 +11,7 @@ import ru.tohaman.testempty.Constants.CURRENT_SCRAMBLE
 import ru.tohaman.testempty.Constants.SCRAMBLE_LENGTH
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.utils.ObservableViewModel
+import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
 class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
@@ -29,8 +30,8 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
     private var _edgeBuffer = MutableLiveData(get<SharedPreferences>().getBoolean(BUFFER_EDGE, false))
     val edgeBuffer: LiveData<Boolean> get() = _edgeBuffer
 
-    private var _scrambleLength = MutableLiveData(get<SharedPreferences>().getInt(SCRAMBLE_LENGTH, 14))
-    val scrambleLength: LiveData<Int> get() = _scrambleLength
+    private var _scrambleLength = get<SharedPreferences>().getInt(SCRAMBLE_LENGTH, 14)
+    var scrambleLength = _scrambleLength.toMutableLiveData()
 
     init {
         _showPreloader.postValue(false)
@@ -60,5 +61,16 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
         _edgeBuffer.postValue(value)
     }
 
+    fun lengthPlus() {
+        Timber.d("$TAG lengthPlus")
+        _scrambleLength =+ 1
+        scrambleLength.value = _scrambleLength
+    }
+
+    fun lengthMinus() {
+        Timber.d("$TAG lengthMinus")
+        _scrambleLength =- 1
+        scrambleLength.postValue(_scrambleLength)
+    }
 
 }
