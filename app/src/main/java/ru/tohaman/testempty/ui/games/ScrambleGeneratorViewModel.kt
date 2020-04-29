@@ -9,6 +9,7 @@ import ru.tohaman.testempty.Constants.BUFFER_CORNER
 import ru.tohaman.testempty.Constants.BUFFER_EDGE
 import ru.tohaman.testempty.Constants.CURRENT_SCRAMBLE
 import ru.tohaman.testempty.Constants.SCRAMBLE_LENGTH
+import ru.tohaman.testempty.Constants.SHOW_SOLVING
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.utils.ObservableViewModel
 import ru.tohaman.testempty.utils.toMutableLiveData
@@ -20,10 +21,6 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
     private var _showPreloader = MutableLiveData<Boolean>()
     val showPreloader: LiveData<Boolean> get() = _showPreloader
 
-    private var curScramble = get<SharedPreferences>().getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L")
-    private var _currentScramble = MutableLiveData<String>()
-    val currentScramble: LiveData<String> get() = _currentScramble
-
     private var _cornerBuffer = MutableLiveData(get<SharedPreferences>().getBoolean(BUFFER_CORNER, true))
     val cornerBuffer: LiveData<Boolean> get() = _cornerBuffer
 
@@ -32,6 +29,16 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
 
     private var _scrambleLength = get<SharedPreferences>().getInt(SCRAMBLE_LENGTH, 14)
     var scrambleLength = _scrambleLength.toMutableLiveData()
+
+    private var curScramble = get<SharedPreferences>().getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L")
+    private var _currentScramble = MutableLiveData<String>()
+    val currentScramble: LiveData<String> get() = _currentScramble
+
+    private var _showSolving = MutableLiveData(get<SharedPreferences>().getBoolean(SHOW_SOLVING, true))
+    val showSolving: LiveData<Boolean> get() = _showSolving
+
+    private var _solvingText = MutableLiveData<String>()
+    val solvingText: LiveData<String> get() = _solvingText
 
     init {
         _showPreloader.postValue(false)
