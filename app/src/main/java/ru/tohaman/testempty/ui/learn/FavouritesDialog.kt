@@ -1,9 +1,6 @@
 package ru.tohaman.testempty.ui.learn
 
-import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
-import kotlinx.android.synthetic.main.fragment_learn_detail.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
@@ -116,13 +112,13 @@ class FavouritesDialog : DialogFragment() {
                 val item = it
                 learnViewModel.onFavouriteItemSwipe(item, position)
                 adapter.removeItem(it.subId)
-                val snackbar = Snackbar.make(view!!, "Отменить удаление", Snackbar.LENGTH_LONG)
-                snackbar.setAction("Undo") {
+                val snackBar = Snackbar.make(view!!, "Отменить удаление", Snackbar.LENGTH_LONG)
+                snackBar.setAction("Undo") {
                     adapter.restoreItem(item, position)
                     learnViewModel.onFavouriteItemUndoSwipe(item, position)
                 }
-                snackbar.setActionTextColor(ContextCompat.getColor(context!!, R.color.colorAccent))
-                snackbar.show()
+                snackBar.setActionTextColor(ContextCompat.getColor(context!!, R.color.colorAccent))
+                snackBar.show()
             }
         }
 

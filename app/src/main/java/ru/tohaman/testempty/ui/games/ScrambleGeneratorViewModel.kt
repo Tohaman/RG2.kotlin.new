@@ -1,23 +1,19 @@
 package ru.tohaman.testempty.ui.games
 
 import android.content.SharedPreferences
-import androidx.databinding.Bindable
-import androidx.databinding.Observable
-import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import ru.tohaman.testempty.Constants.BUFFER_CORNER
 import ru.tohaman.testempty.Constants.BUFFER_EDGE
 import ru.tohaman.testempty.Constants.CURRENT_SCRAMBLE
+import ru.tohaman.testempty.Constants.SCRAMBLE_LENGTH
 import ru.tohaman.testempty.DebugTag.TAG
-import ru.tohaman.testempty.interfaces.ScrambleGeneratorButtons
 import ru.tohaman.testempty.utils.ObservableViewModel
 import timber.log.Timber
 
-class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent, ScrambleGeneratorButtons {
+class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
 
 
     private var _showPreloader = MutableLiveData<Boolean>()
@@ -27,39 +23,41 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent, Scramble
     private var _currentScramble = MutableLiveData<String>()
     val currentScramble: LiveData<String> get() = _currentScramble
 
-    private var cornerBufferSet = get<SharedPreferences>().getBoolean(BUFFER_CORNER, true)
-    private var edgeBufferSet = MutableLiveData<Boolean>(get<SharedPreferences>().getBoolean(BUFFER_EDGE, true))
+    private var _cornerBuffer = MutableLiveData(get<SharedPreferences>().getBoolean(BUFFER_CORNER, true))
+    val cornerBuffer: LiveData<Boolean> get() = _cornerBuffer
+
+    private var _edgeBuffer = MutableLiveData(get<SharedPreferences>().getBoolean(BUFFER_EDGE, false))
+    val edgeBuffer: LiveData<Boolean> get() = _edgeBuffer
+
+    private var _scrambleLength = MutableLiveData(get<SharedPreferences>().getInt(SCRAMBLE_LENGTH, 14))
+    val scrambleLength: LiveData<Int> get() = _scrambleLength
 
     init {
         _showPreloader.postValue(false)
         _currentScramble.postValue(curScramble)
     }
 
-    override var isCornerBufferSet: Boolean
-        @Bindable
-        get() = cornerBufferSet
-        set(value) {
-            Timber.d("$TAG CorenerBuffer Changed - $value")
-            cornerBufferSet = value
-        }
-
-    override var isEdgeBufferSet: MutableLiveData<Boolean>
-        get() {
-            Timber.d("$TAG EdgeBuffer get")
-            return edgeBufferSet
-        }
-        set(value) {
-            Timber.d("$TAG EdgeBuffer set")
-            edgeBufferSet = value
-        }
-
-
-    override fun generateScramble() {
-        _showPreloader.postValue(true)
+    fun azbukaSelect() {
+        Timber.d("$TAG AzbukaSelect Pressed")
+        _edgeBuffer.postValue(true)
+        _cornerBuffer.postValue(true)
     }
 
-    override fun azbukaSelect() {
-        _showPreloader.postValue(false)
+
+    fun generateScramble() {
+        Timber.d("$TAG generateScramble Pressed")
+        _edgeBuffer.postValue(false)
+        _cornerBuffer.postValue(false)
+    }
+
+    fun cornerCheck(value: Boolean) {
+        Timber.d("$TAG cornerCheck $value")
+        _cornerBuffer.postValue(value)
+    }
+
+    fun edgeCheck(value: Boolean) {
+        Timber.d("$TAG edgeCheck $value")
+        _edgeBuffer.postValue(value)
     }
 
 

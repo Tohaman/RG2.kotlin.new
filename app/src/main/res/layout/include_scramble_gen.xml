@@ -4,9 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
+
+        <import type="android.widget.CompoundButton" />
+
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.interfaces.ScrambleGeneratorButtons" />
+            type="ru.tohaman.testempty.ui.games.ScrambleGeneratorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,19 +73,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <CheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/checkBox_edges"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:checked="@{viewModel.edgeBuffer}"
+                        android:onClick="@{(view) -> viewModel.edgeCheck(((CompoundButton)view).isChecked())}"
                         android:layout_weight="1"
                         android:text="@string/chkBoxEdgeBuffer" />
 
-                    <CheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/checkBox_corners"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.isEdgeBufferSet}"
+                        android:checked="@{viewModel.cornerBuffer}"
+                        android:onClick="@{(view) -> viewModel.cornerCheck(((CompoundButton)view).isChecked())}"
                         android:layout_weight="1"
                         android:text="@string/chkBoxCornerBuffer" />
                 </LinearLayout>
@@ -129,6 +135,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         tools:text="14"
+                        android:text="@{viewModel.scrambleLength.toString()}"
                         android:textSize="18sp"
                         app:layout_constraintLeft_toRightOf="@+id/button_minus"
                         app:layout_constraintBaseline_toBaselineOf="@+id/button_plus"
@@ -234,11 +241,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <CheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/checkBox_solve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
                         android:text="@string/checkBoxSolveText" />
 
                     <TextView
