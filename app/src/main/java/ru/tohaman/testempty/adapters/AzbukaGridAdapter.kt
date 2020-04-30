@@ -5,13 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
-import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.cubeColor
 import ru.tohaman.testempty.databinding.ItemGameAzbukaGridBinding
-import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
-import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
-import timber.log.Timber
+import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
 
 
 /**

@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem" />
+            type="ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem" />
 
         <variable
             name="clickListener"

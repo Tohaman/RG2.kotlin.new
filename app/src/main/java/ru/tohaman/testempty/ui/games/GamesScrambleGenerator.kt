@@ -20,29 +20,9 @@ class GamesScrambleGenerator: Fragment() {
             .apply {
                 content.viewModel = scrambleGeneratorViewModel
 
-                scrambleGeneratorViewModel.showPreloader.observe(viewLifecycleOwner, preloaderObserver)
-                scrambleGeneratorViewModel.currentScramble.observe(viewLifecycleOwner, Observer {
-                    it?.let {
-                        content.scramble.text = it
-                    }
-                })
             }
 
         return binding.root
-    }
-
-    private val preloaderObserver: Observer<Boolean> = Observer {
-        it?.let {
-            with (binding) {
-                if (it) {
-                    content.progressBar.visibility = View.VISIBLE
-                    content.progressText.visibility = View.VISIBLE
-                } else {
-                    content.progressBar.visibility = View.GONE
-                    content.progressText.visibility = View.GONE
-                }
-            }
-        }
     }
 
 }

@@ -12,7 +12,7 @@ import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.adapters.AzbukaGridAdapter
 import ru.tohaman.testempty.databinding.DialogGetLetterBinding
 import ru.tohaman.testempty.databinding.FragmentGamesAzbukaSelectBinding
-import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
+import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.utils.toast
 import timber.log.Timber
 

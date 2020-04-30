@@ -1,6 +1,9 @@
 package ru.tohaman.testempty.ui.games
 
 import android.content.SharedPreferences
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.koin.core.KoinComponent
@@ -11,15 +14,14 @@ import ru.tohaman.testempty.Constants.CURRENT_SCRAMBLE
 import ru.tohaman.testempty.Constants.SCRAMBLE_LENGTH
 import ru.tohaman.testempty.Constants.SHOW_SOLVING
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.dataSource.generateScramble
 import ru.tohaman.testempty.utils.ObservableViewModel
-import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
 class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
 
-
-    private var _showPreloader = MutableLiveData<Boolean>()
-    val showPreloader: LiveData<Boolean> get() = _showPreloader
+    private var _showPreloader = false
+    val showPreloader = ObservableBoolean(_showPreloader)
 
     private var _cornerBuffer = MutableLiveData(get<SharedPreferences>().getBoolean(BUFFER_CORNER, true))
     val cornerBuffer: LiveData<Boolean> get() = _cornerBuffer
@@ -28,11 +30,10 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
     val edgeBuffer: LiveData<Boolean> get() = _edgeBuffer
 
     private var _scrambleLength = get<SharedPreferences>().getInt(SCRAMBLE_LENGTH, 14)
-    var scrambleLength = _scrambleLength.toMutableLiveData()
+    var scrambleLength = ObservableField<String>(_scrambleLength.toString())
 
-    private var curScramble = get<SharedPreferences>().getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L")
-    private var _currentScramble = MutableLiveData<String>()
-    val currentScramble: LiveData<String> get() = _currentScramble
+    private var _currentScramble = get<SharedPreferences>().getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
+    var currentScramble = ObservableField<String>(_currentScramble)
 
     private var _showSolving = MutableLiveData(get<SharedPreferences>().getBoolean(SHOW_SOLVING, true))
     val showSolving: LiveData<Boolean> get() = _showSolving
@@ -40,22 +41,17 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
     private var _solvingText = MutableLiveData<String>()
     val solvingText: LiveData<String> get() = _solvingText
 
-    init {
-        _showPreloader.postValue(false)
-        _currentScramble.postValue(curScramble)
-    }
 
     fun azbukaSelect() {
         Timber.d("$TAG AzbukaSelect Pressed")
-        _edgeBuffer.postValue(true)
-        _cornerBuffer.postValue(true)
+        showPreloader.set(false)
     }
 
 
     fun generateScramble() {
         Timber.d("$TAG generateScramble Pressed")
-        _edgeBuffer.postValue(false)
-        _cornerBuffer.postValue(false)
+        showPreloader.set(true)
+        currentScramble.set(generateScramble(_scrambleLength))
     }
 
     fun cornerCheck(value: Boolean) {
@@ -69,15 +65,17 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
     }
 
     fun lengthPlus() {
-        Timber.d("$TAG lengthPlus")
-        _scrambleLength =+ 1
-        scrambleLength.value = _scrambleLength
+        Timber.d("$TAG lengthPlus $_scrambleLength")
+        _scrambleLength += 1
+        if (_scrambleLength > 40) {_scrambleLength = 40}
+        scrambleLength.set(_scrambleLength.toString())
     }
 
     fun lengthMinus() {
-        Timber.d("$TAG lengthMinus")
-        _scrambleLength =- 1
-        scrambleLength.postValue(_scrambleLength)
+        Timber.d("$TAG lengthMinus $_scrambleLength")
+        _scrambleLength -= 1
+        if (_scrambleLength < 3) { _scrambleLength = 3}
+        scrambleLength.set(_scrambleLength.toString())
     }
 
 }

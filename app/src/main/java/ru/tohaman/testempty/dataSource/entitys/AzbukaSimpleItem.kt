@@ -1,4 +1,4 @@
-package ru.tohaman.testempty.dbase.entitys
+package ru.tohaman.testempty.dataSource.entitys
 
 import android.graphics.Color
 import androidx.room.Entity

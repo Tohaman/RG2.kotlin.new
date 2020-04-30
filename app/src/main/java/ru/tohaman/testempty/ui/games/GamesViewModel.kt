@@ -15,7 +15,7 @@ import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
-import ru.tohaman.testempty.dbase.entitys.AzbukaSimpleItem
+import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.interfaces.GamesAzbukaButtons
 import ru.tohaman.testempty.interfaces.SetLetterButtons

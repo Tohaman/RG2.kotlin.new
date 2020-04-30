@@ -22,9 +22,6 @@ import java.util.*
  */
 
 
-class SolveCube (var cube: IntArray, var solve: String)   // куб, решение
-class Pair4Melting (var allComplete: Boolean, var elementsNotOnPlace: SortedMap<Int, Int>)
-
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
 // extension method to convert pixels to dp
