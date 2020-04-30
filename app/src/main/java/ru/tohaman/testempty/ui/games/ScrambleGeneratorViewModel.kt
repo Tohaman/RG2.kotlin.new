@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.ui.games
 
 import android.content.SharedPreferences
+import android.database.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
@@ -8,17 +9,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.koin.core.KoinComponent
 import org.koin.core.get
+import org.koin.core.inject
 import ru.tohaman.testempty.Constants.BUFFER_CORNER
 import ru.tohaman.testempty.Constants.BUFFER_EDGE
 import ru.tohaman.testempty.Constants.CURRENT_SCRAMBLE
 import ru.tohaman.testempty.Constants.SCRAMBLE_LENGTH
 import ru.tohaman.testempty.Constants.SHOW_SOLVING
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.dataSource.ItemsRepository
+import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.dataSource.generateScramble
+import ru.tohaman.testempty.dataSource.resetCube
 import ru.tohaman.testempty.utils.ObservableViewModel
+import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
 class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
+    private val repository : ItemsRepository by inject()
 
     private var _showPreloader = false
     val showPreloader = ObservableBoolean(_showPreloader)
@@ -35,11 +42,15 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
     private var _currentScramble = get<SharedPreferences>().getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
     var currentScramble = ObservableField<String>(_currentScramble)
 
-    private var _showSolving = MutableLiveData(get<SharedPreferences>().getBoolean(SHOW_SOLVING, true))
-    val showSolving: LiveData<Boolean> get() = _showSolving
+    private var gridViewAzbukaList = listOf<AzbukaSimpleItem>()
+    private var _currentAzbuka = gridViewAzbukaList.toMutableLiveData()
+    val currentAzbuka: LiveData<List<AzbukaSimpleItem>> get() = _currentAzbuka
 
-    private var _solvingText = MutableLiveData<String>()
-    val solvingText: LiveData<String> get() = _solvingText
+    private var _showSolving = get<SharedPreferences>().getBoolean(SHOW_SOLVING, true)
+    val showSolving = ObservableBoolean(_showSolving)
+
+    private var _solvingText = "Тут решение скрамбла для блайнда"
+    val solvingText = ObservableField<String>(_solvingText)
 
 
     fun azbukaSelect() {
@@ -52,6 +63,7 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
         Timber.d("$TAG generateScramble Pressed")
         showPreloader.set(true)
         currentScramble.set(generateScramble(_scrambleLength))
+        //resetCube()
     }
 
     fun cornerCheck(value: Boolean) {

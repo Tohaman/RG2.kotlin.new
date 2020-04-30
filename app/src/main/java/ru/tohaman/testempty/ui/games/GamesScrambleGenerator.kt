@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.include_scramble_gen.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.databinding.FragmentGamesScrambleGeneratorBinding
 
 class GamesScrambleGenerator: Fragment() {
@@ -19,7 +20,7 @@ class GamesScrambleGenerator: Fragment() {
         binding = FragmentGamesScrambleGeneratorBinding.inflate(inflater, container, false)
             .apply {
                 content.viewModel = scrambleGeneratorViewModel
-
+                scrambleGeneratorViewModel.currentAzbuka
             }
 
         return binding.root

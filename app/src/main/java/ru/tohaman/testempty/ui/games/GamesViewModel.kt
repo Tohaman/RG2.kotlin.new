@@ -22,8 +22,7 @@ import ru.tohaman.testempty.interfaces.SetLetterButtons
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
-class GamesViewModel: ViewModel(), KoinComponent,
-    GamesAzbukaButtons, SetLetterButtons {
+class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterButtons {
     private val repository : ItemsRepository by inject()
 
     private var simpleGamesList = listOf<MainDBItem>()

@@ -252,6 +252,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:checked="@={viewModel.showSolving}"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:text="@string/checkBoxSolveText" />
@@ -261,7 +262,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="@string/scramble_def_solve"
+                        android:text="@{viewModel.solvingText}"
+                        tools:text="@string/scramble_def_solve"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/checkBox_solve"
                         app:layout_constraintRight_toRightOf="parent"

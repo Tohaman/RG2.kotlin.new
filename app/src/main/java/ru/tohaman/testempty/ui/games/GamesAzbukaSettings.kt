@@ -82,6 +82,7 @@ class GamesAzbukaSettings: Fragment() {
                     }
                 })
 
+                //Добавим к диалогу кнопочки (OK и Cancel) и обработчики нажатий на эти кнопочки
                 builder.setPositiveButton("OK") { _, _ ->
                     gamesViewModel.changeLetter(id)
                 }
@@ -90,7 +91,6 @@ class GamesAzbukaSettings: Fragment() {
                 val dialog = builder.create()
                 dialog.show()
 
-                //Добавим к диалогу кнопочки (OK и Cancel) и обработчики нажатий на эти кнопочки
             }
         }
     }
