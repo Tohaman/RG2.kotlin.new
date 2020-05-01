@@ -14,14 +14,14 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:padding="@dimen/dimen_margin_8">
+            android:background="@color/transparent">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/games_scramble_generator"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                 android:textSize="26sp" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -31,9 +31,16 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <include
-                android:id="@+id/content"
-                layout="@layout/include_scramble_gen" />
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/detail_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/content"
+                    layout="@layout/include_scramble_gen" />
+
+            </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>
 
