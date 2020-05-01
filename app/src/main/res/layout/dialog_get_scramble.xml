@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
+
         <variable
             name="scramble"
             type="String" />
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.ScrambleDialogViewModel" />
+            type="ru.tohaman.testempty.interfaces.ScrambleDialogInt" />
 
     </data>
 
@@ -22,39 +24,141 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/set_letter"
+            android:text="@string/set_scramble"
             android:gravity="center"
             android:layout_margin="@dimen/big_margin"
             android:textSize="24sp"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="R U R' U'"
+            android:text="@{viewModel.dialogScrambleText}"
+            android:gravity="center"
+            android:layout_margin="@dimen/dimen_margin_8"
+            android:textSize="18sp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/dimen_margin_8">
+            android:orientation="horizontal">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{(view) -> onClickListener.clickMinus(letter)}"
-                android:text="-"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{scramble}"
-                android:textSize="18sp"
-                android:layout_margin="@dimen/big_margin"/>
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:onClick='@{(view) -> viewModel.pressMoveButton("L")}'
+                android:text="L"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{(view) -> onClickListener.clickPlus(letter)}"
-                android:text="+"/>
+                style="@style/Widget.AppCompat.Button.Small"
+                android:onClick='@{(view) -> viewModel.pressMoveButton("R")}'
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:text="R"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:onClick='@{(view) -> viewModel.pressModifier("1")}'
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:text="'"/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:onClick='@{(view) -> viewModel.pressMoveButton("D")}'
+                android:text="D"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:onClick='@{(view) -> viewModel.pressMoveButton("U")}'
+                android:text="U"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:onClick='@{(view) -> viewModel.pressModifier("2")}'
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:text="2"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:onClick='@{(view) -> viewModel.pressMoveButton("B")}'
+                android:text="B"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:onClick='@{(view) -> viewModel.pressMoveButton("F")}'
+                android:text="F"/>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:onClick='@{(view) -> viewModel.pressModifier("w")}'
+                android:layout_marginRight="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/dimen_margin_8"
+                android:text="w"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick='@{(view) -> viewModel.pressBackSpace()}'
+                android:text="del"/>
+
+         </LinearLayout>
+
 
     </LinearLayout>
 

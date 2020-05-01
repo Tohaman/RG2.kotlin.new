@@ -10,7 +10,7 @@
 
         <variable
             name="onClickListener"
-            type="ru.tohaman.testempty.interfaces.SetLetterButtons" />
+            type="ru.tohaman.testempty.interfaces.SetLetterButtonsInt" />
 
     </data>
 

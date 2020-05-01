@@ -18,11 +18,11 @@ import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
 import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.interfaces.GamesAzbukaButtons
-import ru.tohaman.testempty.interfaces.SetLetterButtons
+import ru.tohaman.testempty.interfaces.SetLetterButtonsInt
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
-class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterButtons {
+class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterButtonsInt {
     private val repository : ItemsRepository by inject()
 
     private var simpleGamesList = listOf<MainDBItem>()

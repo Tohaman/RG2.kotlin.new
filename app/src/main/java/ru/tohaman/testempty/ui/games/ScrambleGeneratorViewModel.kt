@@ -20,10 +20,11 @@ import ru.tohaman.testempty.Constants.SHOW_SOLVING
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
+import ru.tohaman.testempty.interfaces.ScrambleDialogInt
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
-class ScrambleGeneratorViewModel: ViewModel(), KoinComponent {
+class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt {
     private val repository : ItemsRepository by inject()
 
     private var _showPreloader = false
@@ -76,20 +77,24 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent {
         viewModelScope.launch {
             showPreloader.set(true)                                         //выводим прелоадер
             //Подбираем скрамбл
-            _currentScramble = generateScrambleWithParam(edgeBuffer.get(), cornerBuffer.get(), _scrambleLength, currentLetters)
-            //выводим текст подобранного скрамбла
-            currentScramble.set(_currentScramble)
-            //Выполняем скрамбл и отображаем его в grid
-            currentCube = runScramble(clearCube, _currentScramble)          //мешаем кубик по скрамблу
-            gridViewAzbukaList = prepareCubeToShowInGridView(currentCube)   //задаем List для gridView
-            _currentAzbuka.postValue(gridViewAzbukaList)                    //публикуем в gridView
-            //выводим решение или его длину
-            showSolving()
-            //сохраняем скрамбл
-            get<SharedPreferences>().edit().putString(CURRENT_SCRAMBLE, _currentScramble).apply()
+            val scramble = generateScrambleWithParam(edgeBuffer.get(), cornerBuffer.get(), _scrambleLength, currentLetters)
+            updateScramble(scramble)
             showPreloader.set(false)                                        //убираем прелоадер
         }
     }
+
+    fun updateScramble(scramble: String) {
+        _currentScramble = scramble
+        currentScramble.set(scramble)
+        get<SharedPreferences>().edit().putString(CURRENT_SCRAMBLE, scramble).apply()
+        //Выполняем скрамбл и отображаем его в grid
+        currentCube = runScramble(clearCube, _currentScramble)          //мешаем кубик по скрамблу
+        gridViewAzbukaList = prepareCubeToShowInGridView(currentCube)   //задаем List для gridView
+        _currentAzbuka.postValue(gridViewAzbukaList)                    //публикуем в gridView
+        //выводим решение или его длину
+        showSolving()
+    }
+
 
     private fun showSolving() {
         val solving = if (showSolving.get()) {
@@ -135,4 +140,41 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent {
         showSolving()
         get<SharedPreferences>().edit().putBoolean(SHOW_SOLVING, value).apply()
     }
+
+    //Магия obsrvable меняем tmpScramble, а dialogScrambleText меняется сам
+    private var tmpScramble = ObservableField<String>("")
+
+    override var dialogScrambleText: ObservableField<String>
+        get() = tmpScramble
+        set(value) {
+            Timber.d("$TAG set $value ")
+        }
+
+    override fun pressMoveButton(letter: String) {
+        var scramble = tmpScramble.get() ?: ""
+        scramble += " $letter"
+        tmpScramble.set(scramble.trim())
+    }
+
+    override fun pressBackSpace() {
+        var scramble = tmpScramble.get() ?: ""
+        val lastSymbol = scramble.takeLast(1)
+        val n = if (lastSymbol == " ") 2 else 1
+        scramble = scramble.dropLast(n)
+        tmpScramble.set(scramble.trim())
+    }
+
+    override fun pressModifier(modifier: String) {
+        var scramble = tmpScramble.get() ?: ""
+        val lastSymbol = scramble.takeLast(1)
+        val mod = if (modifier == "1") {"'"} else modifier
+        scramble = when (lastSymbol) {
+            "", "'", "2" -> scramble
+            else -> "$scramble$mod"
+        }
+
+        tmpScramble.set(scramble)
+    }
+
+
 }

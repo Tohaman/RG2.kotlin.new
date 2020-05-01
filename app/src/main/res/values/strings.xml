@@ -42,4 +42,5 @@
     <string name="timerText">Таймер</string>
     <string name="scram_waiting">Ищем подходящий скрамбл</string>
     <string name="checkBoxSolveText">Решение: </string>
+    <string name="set_scramble">Задайте скрамбл</string>
 </resources>
