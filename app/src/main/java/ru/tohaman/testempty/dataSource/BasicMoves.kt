@@ -812,3 +812,5 @@ fun getMyAzbuka() = arrayOf(
     "З","-","Е",
     "З","Ж","Ж"
 )
+
+val emptyAzbuka = Array<String>(54) {" "}

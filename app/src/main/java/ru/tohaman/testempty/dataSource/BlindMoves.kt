@@ -52,8 +52,12 @@ fun Random.nextInt(range: IntRange): Int {
     return range.first + nextInt(range.last - range.first)
 }
 
-fun runScramble(cube: IntArray, scrm: String): IntArray {
-    var scrambleString = scrm
+fun runScramble(originalCube: IntArray, scramble: String): IntArray {
+    val cube = IntArray (54) {0}
+    cube.mapIndexed { index, i ->
+        cube[index] = originalCube[index]
+    }
+    var scrambleString = scramble
     scrambleString = scrambleString.replace("'", "1")
     scrambleString = scrambleString.replace("r", "Rw")
     scrambleString = scrambleString.replace("l", "Lw")

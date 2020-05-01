@@ -48,6 +48,7 @@ class AzbukaGridAdapter : BaseAdapter() {
             if (items[position].value != "") {
                 outerLayout.setBackgroundResource(R.color.black)
             }
+            //if((position == 53) or (position == 54)) {outOutLayout.setBackgroundResource(R.color.red)} //подсветка буфера
             executePendingBindings()
         }
 
