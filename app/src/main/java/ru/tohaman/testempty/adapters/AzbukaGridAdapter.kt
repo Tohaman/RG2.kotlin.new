@@ -19,6 +19,7 @@ import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
 
 class AzbukaGridAdapter : BaseAdapter() {
     private var items: List<AzbukaSimpleItem> = listOf()
+    var isShowBuffer = false
     private var onClickCallBack: OnClickCallBack? = null
 
     fun attachCallBack(onClickCallBack: OnClickCallBack) {
@@ -48,7 +49,7 @@ class AzbukaGridAdapter : BaseAdapter() {
             if (items[position].value != "") {
                 outerLayout.setBackgroundResource(R.color.black)
             }
-            //if((position == 53) or (position == 54)) {outOutLayout.setBackgroundResource(R.color.red)} //подсветка буфера
+            if(isShowBuffer and ((position == 53) or (position == 54))) {outOutLayout.setBackgroundResource(R.color.red)} //подсветка буфера
             executePendingBindings()
         }
 

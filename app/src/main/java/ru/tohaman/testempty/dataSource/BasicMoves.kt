@@ -11,16 +11,6 @@ import timber.log.Timber
  * Основные движения для кубика
  */
 
-//получаем чистый собранный куб из 54 элементов (9*6), белый сверху зеленый к себе, цвета в виде кодов от 0 до 6
-fun resetCube(): IntArray {
-    Timber.d ("$TAG resetCube")
-    val cube = IntArray(54)
-    for (i in cube.indices) {
-        cube[i] = i / 9
-    }
-    return cube
-}
-
 fun prepareCubeToShowInGridView(cube: IntArray) : MutableList<AzbukaSimpleItem> {
     Timber.d ("$TAG prepareCubeToShowInGridView")
     // очищаем grList = ListOf<(R.color.transparent, "")> - 108штук

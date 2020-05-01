@@ -1,6 +1,5 @@
 package ru.tohaman.testempty.dataSource
 
-import android.util.Log
 import timber.log.Timber
 import java.util.*
 
@@ -16,7 +15,7 @@ fun getColorOfElement(cube: IntArray, firstElement: Int, secondElement: Int): In
 
 //Генерация скрамбла определенной длинны (без учета переплавки буфера)
 fun generateScramble(length: Int): String {
-    Timber.d("TAG FragmentScrambleGen generateScramble $length")
+    Timber.d("TAG generateScramble $length")
     val random = Random()
     var scramble = ""
     var i = 0
@@ -53,10 +52,7 @@ fun Random.nextInt(range: IntRange): Int {
 }
 
 fun runScramble(originalCube: IntArray, scramble: String): IntArray {
-    val cube = IntArray (54) {0}
-    cube.mapIndexed { index, i ->
-        cube[index] = originalCube[index]
-    }
+    val cube = originalCube.clone()
     var scrambleString = scramble
     scrambleString = scrambleString.replace("'", "1")
     scrambleString = scrambleString.replace("r", "Rw")
@@ -67,6 +63,7 @@ fun runScramble(originalCube: IntArray, scramble: String): IntArray {
     scrambleString = scrambleString.replace("b", "Bw")
     scrambleString = scrambleString.replace("(", "")
     scrambleString = scrambleString.replace(")", "")
+    //Преобразовываем строку в массив, разделитель пробел
     val arrayOfScramble = scrambleString.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
     arrayOfScramble.indices
             .map { arrayOfScramble[it] }
@@ -129,325 +126,349 @@ fun runScramble(originalCube: IntArray, scramble: String): IntArray {
     return cube
 }
 
-fun zapad(cube: IntArray): IntArray {  //Алгоритм Запад
-    runScramble(cube, "R U R' U' R' F R2 U' R' U' R U R' F'")
-    return cube
+//Алгоритм Запад
+fun zapad(cube: IntArray): IntArray = runScramble(cube, "R U R' U' R' F R2 U' R' U' R U R' F'")
+
+//Алгоритм Юг
+fun yug(cube: IntArray): IntArray = runScramble(cube, "R U R' F' R U R' U' R' F R2 U' R' U'")
+
+//Алгоритм Пиф-паф
+fun pifPaf(cube: IntArray): IntArray = runScramble(cube, "R U R' U'")
+
+//Алгоритм Экватор
+fun ekvator(cube: IntArray): IntArray = runScramble(cube, "R U R' F' R U2 R' U2 R' F R U R U2 R' U'")
+
+//Алгоритм Австралия
+fun australia(cube: IntArray): IntArray = runScramble(cube, "F R U' R' U' R U R' F' R U R' U' R' F R F'")
+
+//белосинее ребро
+fun blind19(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "M2 D' L2")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L2 D M2")
+    return tmpCube
 }
 
-fun yug(cube: IntArray): IntArray {  //Алгоритм Юг
-    runScramble(cube, "R U R' F' R U R' U' R' F R2 U' R' U'")
-    return cube
+//белозеленое
+fun blind25(cube: IntArray): IntArray = yug(cube)
+
+//белооранжевое
+fun blind21(cube: IntArray): IntArray = zapad(cube)
+
+//зеленобелое
+fun blind46(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "M D' L2")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L2 D M'")
+    return tmpCube
 }
 
-fun pifPaf(cube: IntArray): IntArray {  //Алгоритм Пиф-паф
-    runScramble(cube, "R U R' U'")
-    return cube
+//зеленокрасное
+fun blind50(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "Dw2 L")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L' Dw2")
+    return tmpCube
 }
 
-fun ekvator(cube: IntArray): IntArray {  //Алгоритм Экватор
-    runScramble(cube, "R U R' F' R U2 R' U2 R' F R U R U2 R' U'")
-    return cube
+//зеленожелтое
+fun blind52(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "M'")
+    tmpCube = yug(tmpCube)
+    tmpCube = runScramble(tmpCube, "M")
+    return tmpCube
 }
 
-fun australia(cube: IntArray): IntArray {  //Алгоритм Австралия
-    runScramble(cube, "F R U' R' U' R U R' F' R U R' U' R' F R F'")
-    return cube
+//зеленооранжевое
+fun blind48(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "L'")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L")
+    return tmpCube
 }
 
-fun blind19(cube: IntArray): IntArray {  //белосинее ребро
-    runScramble(cube, "M2 D' L2")
-    zapad(cube)
-    runScramble(cube, "L2 D M2")
-    return cube
+//синебелое
+fun blind7(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "M")
+    tmpCube = yug(tmpCube)
+    tmpCube = runScramble(tmpCube, "M'")
+    return tmpCube
 }
 
-fun blind25(cube: IntArray): IntArray {  //белозеленое
-    yug(cube)
-    return cube
+//синекрасное
+fun blind5(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "Dw2 L'")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L Dw2")
+    return tmpCube
 }
 
-fun blind21(cube: IntArray): IntArray {  //белооранжевое
-    zapad(cube)
-    return cube
+//синежелтое
+fun blind1(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D2 M'")
+    tmpCube = yug(tmpCube)
+    tmpCube = runScramble(tmpCube, "M D2")
+    return tmpCube
 }
 
-fun blind46(cube: IntArray): IntArray {  //зеленобелое
-    runScramble(cube, "M D' L2")
-    zapad(cube)
-    runScramble(cube, "L2 D M'")
-    return cube
+//синеоранжевое
+fun blind3(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "L")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L'")
+    return tmpCube
 }
 
-fun blind50(cube: IntArray): IntArray {  //зеленокрасное
-    runScramble(cube, "Dw2 L")
-    zapad(cube)
-    runScramble(cube, "L' Dw2")
-    return cube
+//оранжевобелое
+fun blind14(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "L2 D M'")
+    tmpCube = yug(tmpCube)
+    tmpCube = runScramble(tmpCube, "M D' L2")
+    return tmpCube
 }
 
-fun blind52(cube: IntArray): IntArray {  //зеленожелтое
-    runScramble(cube, "M'")
-    yug(cube)
-    runScramble(cube, "M")
-    return cube
+//оранжевозеленое
+fun blind16(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "Dw' L")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L' Dw")
+    return tmpCube
 }
 
-fun blind48(cube: IntArray): IntArray {  //зеленооранжевое
-    runScramble(cube, "L'")
-    zapad(cube)
-    runScramble(cube, "L")
-    return cube
+//оранжевожелтое
+fun blind12(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D M'")
+    tmpCube = yug(tmpCube)
+    tmpCube = runScramble(tmpCube, "M D'")
+    return tmpCube
 }
 
-fun blind7(cube: IntArray): IntArray {  //синебелое
-    runScramble(cube, "M")
-    yug(cube)
-    runScramble(cube, "M'")
-    return cube
+//оранжевосинее
+fun blind10(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "Dw L'")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L Dw'")
+    return tmpCube
 }
 
-fun blind5(cube: IntArray): IntArray {  //синекрасное
-    runScramble(cube, "Dw2 L'")
-    zapad(cube)
-    runScramble(cube, "L Dw2")
-    return cube
+//краснозеленое
+fun blind34(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "Dw' L'")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L Dw")
+    return tmpCube
 }
 
-fun blind1(cube: IntArray): IntArray {  //синежелтое
-    runScramble(cube, "D2 M'")
-    yug(cube)
-    runScramble(cube, "M D2")
-    return cube
+//красножелтое
+fun blind32(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D' M'")
+    tmpCube = yug(tmpCube)
+    tmpCube = runScramble(tmpCube, "M D")
+    return tmpCube
 }
 
-fun blind3(cube: IntArray): IntArray {  //синеоранжевое
-    runScramble(cube, "L")
-    zapad(cube)
-    runScramble(cube, "L'")
-    return cube
+//красносинее
+fun blind28(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "Dw L")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L' Dw'")
+    return tmpCube
 }
 
-fun blind14(cube: IntArray): IntArray {  //оранжевобелое
-    runScramble(cube, "L2 D M'")
-    yug(cube)
-    runScramble(cube, "M D' L2")
-    return cube
+//желтосинее
+fun blind37(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D L2")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L2 D'")
+    return tmpCube
 }
 
-fun blind16(cube: IntArray): IntArray {  //оранжевозеленое
-    runScramble(cube, "Dw' L")
-    zapad(cube)
-    runScramble(cube, "L' Dw")
-    return cube
+//желтокрасное
+fun blind39(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D2 L2")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L2 D2")
+    return tmpCube
 }
 
-fun blind12(cube: IntArray): IntArray {  //оранжевожелтое
-    runScramble(cube, "D M'")
-    yug(cube)
-    runScramble(cube, "M D'")
-    return cube
+//желтозеленое
+fun blind43(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D' L2")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L2 D")
+    return tmpCube
 }
 
-fun blind10(cube: IntArray): IntArray {  //оранжевосинее
-    runScramble(cube, "Dw L'")
-    zapad(cube)
-    runScramble(cube, "L Dw'")
-    return cube
-}
-
-fun blind34(cube: IntArray): IntArray {  //краснозеленое
-    runScramble(cube, "Dw' L'")
-    zapad(cube)
-    runScramble(cube, "L Dw")
-    return cube
-}
-
-fun blind32(cube: IntArray): IntArray {  //красножелтое
-    runScramble(cube, "D' M'")
-    yug(cube)
-    runScramble(cube, "M D")
-    return cube
-}
-
-fun blind28(cube: IntArray): IntArray {  //красносинее
-    runScramble(cube, "Dw L")
-    zapad(cube)
-    runScramble(cube, "L' Dw'")
-    return cube
-}
-
-fun blind37(cube: IntArray): IntArray {  //желтосинее
-    runScramble(cube, "D L2")
-    zapad(cube)
-    runScramble(cube, "L2 D'")
-    return cube
-}
-
-fun blind39(cube: IntArray): IntArray {  //желтокрасное
-    runScramble(cube, "D2 L2")
-    zapad(cube)
-    runScramble(cube, "L2 D2")
-    return cube
-}
-
-fun blind43(cube: IntArray): IntArray {  //желтозеленое
-    runScramble(cube, "D' L2")
-    zapad(cube)
-    runScramble(cube, "L2 D")
-    return cube
-}
-
-fun blind41(cube: IntArray): IntArray {  //желтооранжевое
-    runScramble(cube, "L2")
-    zapad(cube)
-    runScramble(cube, "L2")
-    return cube
+//желтооранжевое
+fun blind41(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "L2")
+    tmpCube = zapad(tmpCube)
+    tmpCube = runScramble(tmpCube, "L2")
+    return tmpCube
 }
 
 //--------------------------------------------------------------------------------------------------
 
-fun blind20(cube: IntArray): IntArray {  //белосинекрасный угол
-    runScramble(cube, "R D' F'")
-    australia(cube)
-    runScramble(cube, "F D R'")
-    return cube
+//белосинекрасный угол
+fun blind20(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "R D' F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F D R'")
+    return tmpCube
 }
 
-fun blind26(cube: IntArray): IntArray {  //белокраснозеленый угол
-    australia(cube)
-    return cube
+//белокраснозеленый угол
+fun blind26(cube: IntArray) = australia(cube)
+
+//белозеленооранжевый угол
+fun blind24(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "F' D R")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R' D' F")
+    return tmpCube
 }
 
-fun blind24(cube: IntArray): IntArray {  //белозеленооранжевый угол
-    runScramble(cube, "F' D R")
-    australia(cube)
-    runScramble(cube, "R' D' F")
-    return cube
+//зеленооранжевобелый
+fun blind45(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "F' D F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F D' F")
+    return tmpCube
 }
 
-fun blind45(cube: IntArray): IntArray {  //зеленооранжевобелый
-    runScramble(cube, "F' D F'")
-    australia(cube)
-    runScramble(cube, "F D' F")
-    return cube
+//зеленобелосиний
+fun blind47(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "F R")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R' F'")
+    return tmpCube
 }
 
-fun blind47(cube: IntArray): IntArray {  //зеленобелосиний
-    runScramble(cube, "F R")
-    australia(cube)
-    runScramble(cube, "R' F'")
-    return cube
+//зеленокрасножелтый
+fun blind53(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "R")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R'")
+    return tmpCube
 }
 
-fun blind53(cube: IntArray): IntArray {  //зеленокрасножелтый
-    runScramble(cube, "R")
-    australia(cube)
-    runScramble(cube, "R'")
-    return cube
+//зеленожелтооранжевый
+fun blind51(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F D'")
+    return tmpCube
 }
 
-fun blind51(cube: IntArray): IntArray {  //зеленожелтооранжевый
-    runScramble(cube, "D F'")
-    australia(cube)
-    runScramble(cube, "F D'")
-    return cube
+//синекраснобелый
+fun blind8(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "R'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R")
+    return tmpCube
 }
 
-fun blind8(cube: IntArray): IntArray {  //синекраснобелый
-    runScramble(cube, "R'")
-    australia(cube)
-    runScramble(cube, "R")
-    return cube
+//синежелтокрасный
+fun blind2(cube: IntArray): IntArray {
+    var tmpCube  = runScramble(cube, "D' F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F D")
+    return tmpCube
 }
 
-fun blind2(cube: IntArray): IntArray {  //синежелтокрасный
-    runScramble(cube, "D' F'")
-    australia(cube)
-    runScramble(cube, "F D")
-    return cube
+//синеоранжевожелтый
+fun blind0(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D2 R")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R' D2")
+    return tmpCube
 }
 
-fun blind0(cube: IntArray): IntArray {  //синеоранжевожелтый
-    runScramble(cube, "D2 R")
-    australia(cube)
-    runScramble(cube, "R' D2")
-    return cube
+//оранжевобелозеленый
+fun blind17(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "F")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F'")
+    return tmpCube
 }
 
-fun blind17(cube: IntArray): IntArray {  //оранжевобелозеленый
-    runScramble(cube, "F")
-    australia(cube)
-    runScramble(cube, "F'")
-    return cube
+//оранжевозеленожелтый
+fun blind15(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D R")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R' D'")
+    return tmpCube
 }
 
-fun blind15(cube: IntArray): IntArray {  //оранжевозеленожелтый
-    runScramble(cube, "D R")
-    australia(cube)
-    runScramble(cube, "R' D'")
-    return cube
+//оранжевожелтосиний
+fun blind9(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D2 F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F D2")
+    return tmpCube
 }
 
-fun blind9(cube: IntArray): IntArray {  //оранжевожелтосиний
-    runScramble(cube, "D2 F'")
-    australia(cube)
-    runScramble(cube, "F D2")
-    return cube
+//краснобелосиний
+fun blind27(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "R2 F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F R2")
+    return tmpCube
 }
 
-fun blind27(cube: IntArray): IntArray {  //краснобелосиний
-    runScramble(cube, "R2 F'")
-    australia(cube)
-    runScramble(cube, "F R2")
-    return cube
+//краснозеленобелый
+fun blind33(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "R' F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F R")
+    return tmpCube
 }
 
-fun blind33(cube: IntArray): IntArray {  //краснозеленобелый
-    runScramble(cube, "R' F'")
-    australia(cube)
-    runScramble(cube, "F R")
-    return cube
+//красножелтозеленый
+fun blind35(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F")
+    return tmpCube
 }
 
-fun blind35(cube: IntArray): IntArray {  //красножелтозеленый
-    runScramble(cube, "F'")
-    australia(cube)
-    runScramble(cube, "F")
-    return cube
+//красносинежелтый
+fun blind29(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "R F'")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "F R'")
+    return tmpCube
 }
 
-fun blind29(cube: IntArray): IntArray {  //красносинежелтый
-    runScramble(cube, "R F'")
-    australia(cube)
-    runScramble(cube, "F R'")
-    return cube
+//желтосинеоранжевый
+fun blind38(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D' R2")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R2 D")
+    return tmpCube
 }
 
-fun blind38(cube: IntArray): IntArray {  //желтосинеоранжевый
-    runScramble(cube, "D' R2")
-    australia(cube)
-    runScramble(cube, "R2 D")
-    return cube
+//желтокрасносиний
+fun blind36(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "R2")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R2")
+    return tmpCube
 }
 
-fun blind36(cube: IntArray): IntArray {  //желтокрасносиний
-    runScramble(cube, "R2")
-    australia(cube)
-    runScramble(cube, "R2")
-    return cube
+//желтозеленокрасный
+fun blind42(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D R2")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R2 D'")
+    return tmpCube
 }
 
-fun blind42(cube: IntArray): IntArray {  //желтозеленокрасный
-    runScramble(cube, "D R2")
-    australia(cube)
-    runScramble(cube, "R2 D'")
-    return cube
-}
-
-fun blind44(cube: IntArray): IntArray {  //желтооранжевозеленый
-    runScramble(cube, "D2 R2")
-    australia(cube)
-    runScramble(cube, "R2 D2")
-    return cube
+//желтооранжевозеленый
+fun blind44(cube: IntArray): IntArray {
+    var tmpCube = runScramble(cube, "D2 R2")
+    tmpCube = australia(tmpCube)
+    tmpCube = runScramble(tmpCube, "R2 D2")
+    return tmpCube
 }
 

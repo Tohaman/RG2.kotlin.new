@@ -27,6 +27,7 @@ class GamesAzbukaSettings: Fragment() {
 
                 val adapter = AzbukaGridAdapter()
                 adapter.attachCallBack(callBack)
+                adapter.isShowBuffer = true
                 content.includeGrid.azbukaGridView.adapter = adapter
 
                 gamesViewModel.currentAzbuka.observe(viewLifecycleOwner, Observer {

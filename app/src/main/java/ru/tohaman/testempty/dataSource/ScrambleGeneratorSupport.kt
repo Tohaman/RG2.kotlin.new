@@ -1,13 +1,14 @@
 package ru.tohaman.testempty.dataSource
 
 import ru.tohaman.testempty.dataSource.entitys.Pair4Melting
+import ru.tohaman.testempty.dataSource.entitys.ScrambleCondition
 import ru.tohaman.testempty.dataSource.entitys.SolveCube
 import timber.log.Timber
 import java.util.*
 
 fun generateScrambleWithParam(checkEdge: Boolean, checkCorner: Boolean, lenScramble: Int, azbuka: Array<String>): String {
     Timber.d("TAG Ищем скрамбл подходящий по параметрам переплавок буфера и длине")
-    var scramble: String
+    var scramble = ""
     do {
         var result = true
         //сгенерируем скрамбл длинны указанной в поле ScrambleLength
@@ -16,11 +17,11 @@ fun generateScrambleWithParam(checkEdge: Boolean, checkCorner: Boolean, lenScram
         //разбираем кубик по скрамблу
         val genScrambleCube = runScramble(resetCube(), scramble)
         // получаем решение кубика (solve,isEdgeMelted,isCornerMelted)
-        val triple = getSolve(genScrambleCube, azbuka)
-        val isEdgeMelted = triple.second
-        val isCornerMelted = triple.third
+        val condition = getSolve(genScrambleCube, azbuka)
+        val isEdgeMelted = condition.edgeBuffer
+        val isCornerMelted = condition.cornerBuffer
 
-        Timber.d("TAG Проверка Scramble $scramble, Переплавка буфера ребер - ${triple.second} , Переплавка буфера углов - ${triple.third}")
+        Timber.d("TAG Проверка Scramble $scramble, Переплавка буфера ребер - ${condition.edgeBuffer} , Переплавка буфера углов - ${condition.cornerBuffer}")
         if (isEdgeMelted && checkEdge) { result = false }
         if (isCornerMelted && checkCorner) { result = false }
     } while (!result)
@@ -29,8 +30,19 @@ fun generateScrambleWithParam(checkEdge: Boolean, checkCorner: Boolean, lenScram
     return scramble
 }
 
-//Возвращаем решение, была ли переплавка буф.ребер, была ли переплавка буф.углов
-private fun getSolve(mainCube: IntArray, azbuka: Array<String>):  Triple<String, Boolean, Boolean>  {
+//получаем чистый собранный куб из 54 элементов (9*6), белый сверху зеленый к себе, цвета в виде кодов от 0 до 6
+//на котором выполняем сгенерированный скрамбл и проверяем переплавки
+fun resetCube(): IntArray {
+    //Timber.d ("$TAG resetCube")
+    val cube = IntArray(54)
+    for (i in cube.indices) {
+        cube[i] = i / 9
+    }
+    return cube
+}
+
+//Возвращаем трипл из 1.решения, 2.была ли переплавка буф.ребер, 3.была ли переплавка буф.углов
+fun getSolve(mainCube: IntArray, azbuka: Array<String>):  ScrambleCondition  {
     var solve = "("
     var cube = mainCube.clone()
     var isEdgeMelted = false        //изначально считаем, что переплавок не было
@@ -77,7 +89,7 @@ private fun getSolve(mainCube: IntArray, azbuka: Array<String>):  Triple<String,
 
     solve = solve.trim { it <= ' ' }
     solve += ")"
-    return Triple(solve, isEdgeMelted, isCornerMelted)
+    return ScrambleCondition(solve, isEdgeMelted, isCornerMelted)
 }
 
 

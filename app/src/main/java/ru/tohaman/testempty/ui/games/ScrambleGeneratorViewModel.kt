@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,21 +20,20 @@ import ru.tohaman.testempty.Constants.SHOW_SOLVING
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
-import ru.tohaman.testempty.utils.ObservableViewModel
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
-class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
+class ScrambleGeneratorViewModel: ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
 
     private var _showPreloader = false
     val showPreloader = ObservableBoolean(_showPreloader)
 
-    private var _cornerBuffer = MutableLiveData(get<SharedPreferences>().getBoolean(BUFFER_CORNER, true))
-    val cornerBuffer: LiveData<Boolean> get() = _cornerBuffer
+    private var _cornerBuffer = get<SharedPreferences>().getBoolean(BUFFER_CORNER, true)
+    val cornerBuffer = ObservableBoolean(_cornerBuffer)
 
-    private var _edgeBuffer = MutableLiveData(get<SharedPreferences>().getBoolean(BUFFER_EDGE, false))
-    val edgeBuffer: LiveData<Boolean> get() = _edgeBuffer
+    private var _edgeBuffer = get<SharedPreferences>().getBoolean(BUFFER_EDGE, true)
+    val edgeBuffer = ObservableBoolean(_edgeBuffer)
 
     private var _scrambleLength = get<SharedPreferences>().getInt(SCRAMBLE_LENGTH, 14)
     var scrambleLength = ObservableField<String>(_scrambleLength.toString())
@@ -49,7 +48,7 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
     private var _showSolving = get<SharedPreferences>().getBoolean(SHOW_SOLVING, true)
     val showSolving = ObservableBoolean(_showSolving)
 
-    private var _solvingText = "Тут решение скрамбла для блайнда"
+    private var _solvingText = ""
     val solvingText = ObservableField<String>(_solvingText)
 
     private var clearCube = IntArray(54) { 0 }
@@ -65,37 +64,50 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
             val listDBAzbuka = repository.getAzbukaItems(Constants.CURRENT_AZBUKA)
             currentLetters = getLettersFromCurrentAzbuka(prepareAzbukaToShowInGridView(listDBAzbuka))
             clearCube = getCubeFromCurrentAzbuka(prepareAzbukaToShowInGridView(listDBAzbuka))
-            gridViewAzbukaList = prepareCubeToShowInGridView(clearCube)
+            currentCube = runScramble(clearCube, _currentScramble)
+            gridViewAzbukaList = prepareCubeToShowInGridView(currentCube)
             _currentAzbuka.postValue(gridViewAzbukaList)
+            showSolving()
         }
     }
 
-    fun azbukaSelect() {
-        Timber.d("$TAG AzbukaSelect Pressed")
-        showPreloader.set(false)
-    }
-
-
     fun generateScramble() {
         Timber.d("$TAG generateScramble Pressed")
-        showPreloader.set(true)
-        val eBuf = edgeBuffer.value ?: true
-        val cBuf = cornerBuffer.value ?: true
-        val scramble = generateScrambleWithParam(eBuf, cBuf, _scrambleLength, currentLetters)
-        currentScramble.set(scramble)
-        currentCube = runScramble(clearCube, scramble)
-        gridViewAzbukaList = prepareCubeToShowInGridView(currentCube)
-        _currentAzbuka.postValue(gridViewAzbukaList)
+        viewModelScope.launch {
+            showPreloader.set(true)                                         //выводим прелоадер
+            //Подбираем скрамбл
+            _currentScramble = generateScrambleWithParam(edgeBuffer.get(), cornerBuffer.get(), _scrambleLength, currentLetters)
+            //выводим текст подобранного скрамбла
+            currentScramble.set(_currentScramble)
+            //Выполняем скрамбл и отображаем его в grid
+            currentCube = runScramble(clearCube, _currentScramble)          //мешаем кубик по скрамблу
+            gridViewAzbukaList = prepareCubeToShowInGridView(currentCube)   //задаем List для gridView
+            _currentAzbuka.postValue(gridViewAzbukaList)                    //публикуем в gridView
+            //выводим решение или его длину
+            showSolving()
+            //сохраняем скрамбл
+            get<SharedPreferences>().edit().putString(CURRENT_SCRAMBLE, _currentScramble).apply()
+            showPreloader.set(false)                                        //убираем прелоадер
+        }
+    }
+
+    private fun showSolving() {
+        val solving = if (showSolving.get()) {
+            getSolve(currentCube, currentLetters).solve
+        } else {
+            getSolve(currentCube, currentLetters).solveLength
+        }
+        solvingText.set(solving)
     }
 
     fun cornerCheck(value: Boolean) {
         Timber.d("$TAG cornerCheck $value")
-        _cornerBuffer.postValue(value)
+        get<SharedPreferences>().edit().putBoolean(BUFFER_CORNER, value).apply()
     }
 
     fun edgeCheck(value: Boolean) {
         Timber.d("$TAG edgeCheck $value")
-        _edgeBuffer.postValue(value)
+        get<SharedPreferences>().edit().putBoolean(BUFFER_EDGE, value).apply()
     }
 
     fun lengthPlus() {
@@ -118,4 +130,9 @@ class ScrambleGeneratorViewModel: ObservableViewModel(), KoinComponent {
         }
     }
 
+    fun solveCheck(value: Boolean) {
+        Timber.d("$TAG solveCheck $value")
+        showSolving()
+        get<SharedPreferences>().edit().putBoolean(SHOW_SOLVING, value).apply()
+    }
 }
