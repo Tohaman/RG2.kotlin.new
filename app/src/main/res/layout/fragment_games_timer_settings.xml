@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="ru.tohaman.testempty.ui.games.GamesTimerViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/is_delayed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/big_padding"
+            android:textSize="18sp"
+            android:checked="@={viewModel.isTimerDelayed}"
+            android:onCheckedChanged="@{(switch, checked) -> viewModel.isTimerDelayedChange(checked)}"
+            android:text="@string/timer_is_delayed"
+            />
+
+        <Switch
+            android:id="@+id/is_one_hand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/big_padding"
+            android:textSize="18sp"
+            android:checked="@={viewModel.isOneHanded}"
+            android:onCheckedChanged="@{(switch, checked) -> viewModel.isOneHandedChange(checked)}"
+            android:text="@string/timer_is_one_handed"
+            />
+
+        <Switch
+            android:id="@+id/metronom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/big_padding"
+            android:textSize="18sp"
+            android:checked="@={viewModel.metronom}"
+            android:onCheckedChanged="@{(switch, checked) -> viewModel.isMetronomChange(checked)}"
+            android:text="@string/timer_metronom"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:fontFamily="sans-serif-medium"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                app:isEnabled="@{viewModel.metronom ? true : false }"
+                android:text="@string/timer_metronom_frequency"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:isEnabled="@{viewModel.metronom ? true : false }"
+                    android:onClick="@{(view) -> viewModel.minusFreq()}"
+                    android:text="@string/minus" />
+
+                <TextView
+                    android:id="@+id/metronom_freq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingRight="@dimen/big_padding"
+                    android:textSize="22sp"
+                    app:isEnabled="@{viewModel.metronom ? true : false }"
+                    app:text="@{viewModel.metronomFrequency}"
+                    tools:ignore="RtlHardcoded"
+                    tools:text="60" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:isEnabled="@{viewModel.metronom ? true : false }"
+                    android:onClick="@{(view) -> viewModel.plusFreq()}"
+                    android:text="@string/plus" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/big_padding"
+            app:isEnabled="@{viewModel.metronom ? true : false }"
+            app:onSeekListener="@{viewModel.onSeek()}"
+            android:progress="@{viewModel.metronomFrequency}"
+            android:max="240"
+            />
+
+        <Switch
+            android:id="@+id/scramble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/big_padding"
+            android:textSize="18sp"
+            android:checked="@={viewModel.needScramble}"
+            android:onCheckedChanged="@{(switch, checked) -> viewModel.needScrambleChange(checked)}"
+            android:text="@string/timer_scramble_generate"
+            />
+
+
+
+    </LinearLayout>
+</layout>

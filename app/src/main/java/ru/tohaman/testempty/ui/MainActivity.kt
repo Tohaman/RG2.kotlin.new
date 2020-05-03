@@ -1,13 +1,10 @@
 package ru.tohaman.testempty.ui
 
-import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
-import android.view.Gravity
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
@@ -15,12 +12,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.testempty.Constants.THEME
-import ru.tohaman.testempty.R
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.ActivityMainBinding
 import ru.tohaman.testempty.ui.shared.MyDefaultActivity
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
+
 
 class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 

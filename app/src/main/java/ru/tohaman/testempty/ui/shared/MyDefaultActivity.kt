@@ -1,6 +1,8 @@
 package ru.tohaman.testempty.ui.shared
 
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
@@ -30,5 +32,12 @@ abstract class MyDefaultActivity : AppCompatActivity() {
 //        }
 
         super.onCreate(savedInstanceState)
+    }
+
+    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
+        if (Build.VERSION.SDK_INT in 21..25) {
+            return
+        }
+        super.applyOverrideConfiguration(overrideConfiguration)
     }
 }

@@ -43,4 +43,11 @@
     <string name="scram_waiting">Ищем подходящий скрамбл</string>
     <string name="checkBoxSolveText">Решение: </string>
     <string name="set_scramble">Задайте скрамбл</string>
+    <string name="games_timer">Таймер</string>
+    <string name="result">Результаты:</string>
+    <string name="timer_is_delayed">Удерживать 0.5 сек для старта</string>
+    <string name="timer_is_one_handed">Управление таймером одной рукой</string>
+    <string name="timer_metronom">Метроном</string>
+    <string name="timer_metronom_frequency">Частота метронома: тактов/мин</string>
+    <string name="timer_scramble_generate">Генерировать новый скрамбл</string>
 </resources>

@@ -26,27 +26,28 @@ import timber.log.Timber
 
 class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt {
     private val repository : ItemsRepository by inject()
+    private val sp = get<SharedPreferences>()
 
     private var _showPreloader = false
     val showPreloader = ObservableBoolean(_showPreloader)
 
-    private var _cornerBuffer = get<SharedPreferences>().getBoolean(BUFFER_CORNER, true)
+    private var _cornerBuffer = sp.getBoolean(BUFFER_CORNER, true)
     val cornerBuffer = ObservableBoolean(_cornerBuffer)
 
-    private var _edgeBuffer = get<SharedPreferences>().getBoolean(BUFFER_EDGE, true)
+    private var _edgeBuffer = sp.getBoolean(BUFFER_EDGE, true)
     val edgeBuffer = ObservableBoolean(_edgeBuffer)
 
-    private var _scrambleLength = get<SharedPreferences>().getInt(SCRAMBLE_LENGTH, 14)
+    private var _scrambleLength = sp.getInt(SCRAMBLE_LENGTH, 14)
     var scrambleLength = ObservableField<String>(_scrambleLength.toString())
 
-    private var _currentScramble = get<SharedPreferences>().getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
+    private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
     var currentScramble = ObservableField<String>(_currentScramble)
 
     private var gridViewAzbukaList = listOf<AzbukaSimpleItem>()
     private var _currentAzbuka = gridViewAzbukaList.toMutableLiveData()
     val currentAzbuka: LiveData<List<AzbukaSimpleItem>> get() = _currentAzbuka
 
-    private var _showSolving = get<SharedPreferences>().getBoolean(SHOW_SOLVING, true)
+    private var _showSolving = sp.getBoolean(SHOW_SOLVING, true)
     val showSolving = ObservableBoolean(_showSolving)
 
     private var _solvingText = ""
@@ -86,7 +87,7 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt 
     fun updateScramble(scramble: String) {
         _currentScramble = scramble
         currentScramble.set(scramble)
-        get<SharedPreferences>().edit().putString(CURRENT_SCRAMBLE, scramble).apply()
+        sp.edit().putString(CURRENT_SCRAMBLE, scramble).apply()
         //Выполняем скрамбл и отображаем его в grid
         currentCube = runScramble(clearCube, _currentScramble)          //мешаем кубик по скрамблу
         gridViewAzbukaList = prepareCubeToShowInGridView(currentCube)   //задаем List для gridView
@@ -107,12 +108,12 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt 
 
     fun cornerCheck(value: Boolean) {
         Timber.d("$TAG cornerCheck $value")
-        get<SharedPreferences>().edit().putBoolean(BUFFER_CORNER, value).apply()
+        sp.edit().putBoolean(BUFFER_CORNER, value).apply()
     }
 
     fun edgeCheck(value: Boolean) {
         Timber.d("$TAG edgeCheck $value")
-        get<SharedPreferences>().edit().putBoolean(BUFFER_EDGE, value).apply()
+        sp.edit().putBoolean(BUFFER_EDGE, value).apply()
     }
 
     fun lengthPlus() {
@@ -121,7 +122,7 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt 
         if (_scrambleLength > 40) {_scrambleLength = 40}
         else {
             scrambleLength.set(_scrambleLength.toString())
-            get<SharedPreferences>().edit().putInt(SCRAMBLE_LENGTH, _scrambleLength).apply()
+            sp.edit().putInt(SCRAMBLE_LENGTH, _scrambleLength).apply()
         }
     }
 
@@ -131,14 +132,14 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt 
         if (_scrambleLength < 3) { _scrambleLength = 3}
         else {
             scrambleLength.set(_scrambleLength.toString())
-            get<SharedPreferences>().edit().putInt(SCRAMBLE_LENGTH, _scrambleLength).apply()
+            sp.edit().putInt(SCRAMBLE_LENGTH, _scrambleLength).apply()
         }
     }
 
     fun solveCheck(value: Boolean) {
         Timber.d("$TAG solveCheck $value")
         showSolving()
-        get<SharedPreferences>().edit().putBoolean(SHOW_SOLVING, value).apply()
+        sp.edit().putBoolean(SHOW_SOLVING, value).apply()
     }
 
     //Магия obsrvable меняем tmpScramble, а dialogScrambleText меняется сам

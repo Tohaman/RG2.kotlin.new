@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable
 import android.text.Html
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import ru.tohaman.testempty.DebugTag.TAG
@@ -71,3 +73,17 @@ fun textToString(textView: TextView, int: Int) {
     textView.text = int.toString()
 }
 
+@BindingAdapter("onSeekListener")
+fun bindOnSeekListener(seekBar: SeekBar, listener: SeekBar.OnSeekBarChangeListener?) {
+    seekBar.setOnSeekBarChangeListener(listener)
+}
+
+@BindingAdapter("app:isEnabled")
+fun seekEnabled(seekBar: SeekBar, enabled: Boolean) {
+    seekBar.isEnabled = enabled
+}
+
+@BindingAdapter("app:isEnabled")
+fun seekEnabled(view: View, enabled: Boolean) {
+    view.isEnabled = enabled
+}

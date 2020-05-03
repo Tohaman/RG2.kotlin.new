@@ -54,7 +54,10 @@ class GamesFragment : Fragment() {
 
         override fun clickSettings(menuItem: MainDBItem) {
             Timber.d("$TAG Games-clickSettings ${menuItem.url}")
-            findNavController().navigate(R.id.gamesAzbukaSettings)
+            when (menuItem.url) {
+                "GENERATOR" -> findNavController().navigate(R.id.gamesAzbukaSettings)
+                "TIMER" -> findNavController().navigate(R.id.gamesTimerSettings)
+            }
         }
 
         override fun clickHelp(menuItem: MainDBItem) {

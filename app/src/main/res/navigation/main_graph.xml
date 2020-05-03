@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_destGames_to_gamesScrambleGenerator"
             app:destination="@id/gamesScrambleGenerator" />
+        <action
+            android:id="@+id/action_destGames_to_gamesTimerSettings"
+            app:destination="@id/gamesTimerSettings" />
     </fragment>
 
     <fragment
@@ -104,5 +107,9 @@
         android:id="@+id/gamesScrambleGenerator"
         android:name="ru.tohaman.testempty.ui.games.GamesScrambleGenerator"
         android:label="GamesScrambleGenerator" />
+    <fragment
+        android:id="@+id/gamesTimerSettings"
+        android:name="ru.tohaman.testempty.ui.games.GamesTimerSettings"
+        android:label="GamesTimerSettings" />
 
 </navigation>

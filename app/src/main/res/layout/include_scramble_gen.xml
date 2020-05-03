@@ -6,8 +6,6 @@
     <data>
         <import type="android.view.View" />
 
-        <import type="android.widget.CompoundButton" />
-
         <variable
             name="viewModel"
             type="ru.tohaman.testempty.ui.games.ScrambleGeneratorViewModel" />
@@ -78,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.edgeBuffer}"
-                        android:onClick="@{(view) -> viewModel.edgeCheck(((CompoundButton)view).isChecked())}"
+                        android:onCheckedChanged="@{(view, checked) -> viewModel.edgeCheck(checked)}"
                         android:layout_weight="1"
                         android:text="@string/chkBoxEdgeBuffer" />
 
@@ -87,7 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.cornerBuffer}"
-                        android:onClick="@{(view) -> viewModel.cornerCheck(((CompoundButton)view).isChecked())}"
+                        android:onCheckedChanged="@{(view, checked) -> viewModel.cornerCheck(checked)}"
                         android:layout_weight="1"
                         android:text="@string/chkBoxCornerBuffer" />
                 </LinearLayout>
@@ -264,7 +262,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="@={viewModel.showSolving}"
-                        android:onClick="@{(view) -> viewModel.solveCheck(((CompoundButton)view).isChecked())}"
+                        android:onCheckedChanged="@{(view, checked) -> viewModel.solveCheck(checked)}"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:text="@string/checkBoxSolveText" />
