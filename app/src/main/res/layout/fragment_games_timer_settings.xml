@@ -125,7 +125,7 @@
                 android:id="@+id/scramble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.needScramble}"
+                android:checked="@={viewModel.needShowScramble}"
                 android:onCheckedChanged="@{(switch, checked) -> viewModel.needScrambleChange(checked)}"
                 android:padding="@dimen/big_padding"
                 android:text="@string/timer_scramble_generate"

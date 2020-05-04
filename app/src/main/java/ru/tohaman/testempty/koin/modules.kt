@@ -1,8 +1,10 @@
 package ru.tohaman.testempty.koin
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
@@ -40,7 +42,7 @@ val viewModelsModule = module {
     viewModel { GamesViewModel() }
     viewModel { SettingsViewModel() }
     viewModel { ScrambleGeneratorViewModel() }
-    viewModel { TimerViewModel() }
+    viewModel { TimerViewModel(androidApplication()) }
     viewModel { LearnViewModel(androidContext()) }
     viewModel { LearnDetailViewModel(androidContext()) }
 }

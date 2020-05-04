@@ -62,7 +62,7 @@ fun Context.getResource(name:String): Drawable {
 fun getPhasesToTypesMap(context: Context): Map<String, String> {
     val phasesArray = context.resources.getStringArray(R.array.phases)
     val typesArray = context.resources.getStringArray(R.array.types)
-    var phasesToTypes: MutableMap<String, String> = mutableMapOf()
+    val phasesToTypes: MutableMap<String, String> = mutableMapOf()
     for (i in phasesArray.indices) {
         phasesToTypes[phasesArray[i]] = typesArray[i]
     }

@@ -1,5 +1,6 @@
 package ru.tohaman.testempty.adapters
 
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.view.View
@@ -7,6 +8,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.utils.getResource
@@ -86,4 +89,13 @@ fun seekEnabled(seekBar: SeekBar, enabled: Boolean) {
 @BindingAdapter("app:isEnabled")
 fun seekEnabled(view: View, enabled: Boolean) {
     view.isEnabled = enabled
+}
+
+@BindingAdapter("app:tint")
+fun setTint(imageView: ImageView?, int: Int) {
+    if (int == 0 || int == -1) {
+        ImageViewCompat.setImageTintList(imageView ?: return, null)
+    } else {
+        ImageViewCompat.setImageTintList(imageView ?: return, ColorStateList.valueOf(int))
+    }
 }
