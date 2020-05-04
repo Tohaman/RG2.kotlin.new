@@ -49,6 +49,6 @@
     <string name="timer_is_one_handed">Управление таймером одной рукой</string>
     <string name="timer_metronom">Метроном</string>
     <string name="timer_metronom_frequency">Частота метронома: тактов/мин</string>
-    <string name="timer_scramble_generate">Генерировать новый скрамбл</string>
+    <string name="timer_scramble_generate">Отображать скрамбл</string>
     <string name="timer_need_back_button">Отображать кнопку \"Назад\"</string>
 </resources>
