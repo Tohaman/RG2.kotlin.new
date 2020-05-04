@@ -63,6 +63,7 @@ class FillDB {
             phaseInit("BLIND", R.array.blind_title, R.array.blind_icon,R.array.blind_descr,R.array.blind_url,context)
             phaseInit("INTF2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
             phaseInit("MIRROR", R.array.mirror_title, R.array.mirror_icon, R.array.mirror_descr, R.array.mirror_url, context)
+            phaseInit("OLL", R.array.oll_title, R.array.oll_icon, R.array.oll_descr, R.array.oll_url, context)
             phaseInit("ORTEGA", R.array.ortega_title, R.array.ortega_icon, R.array.ortega_descr, R.array.ortega_url, context)
             phaseInit("PATTERNS", R.array.patterns_title, R.array.patterns_icon, R.array.patterns_descr, R.array.patterns_url, context, R.array.patterns_comment)
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)

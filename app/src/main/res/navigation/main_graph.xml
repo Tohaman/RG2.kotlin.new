@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_destGames_to_gamesTimerSettings"
             app:destination="@id/gamesTimerSettings" />
+        <action
+            android:id="@+id/action_destGames_to_gamesTimer"
+            app:destination="@id/gamesTimer" />
     </fragment>
 
     <fragment
@@ -105,11 +108,20 @@
 
     <fragment
         android:id="@+id/gamesScrambleGenerator"
-        android:name="ru.tohaman.testempty.ui.games.GamesScrambleGenerator"
-        android:label="GamesScrambleGenerator" />
+        android:name="ru.tohaman.testempty.ui.games.ScrambleGenerator"
+        android:label="GamesScrambleGenerator"
+        tools:layout="@layout/fragment_games_scramble_generator"/>
+
     <fragment
         android:id="@+id/gamesTimerSettings"
         android:name="ru.tohaman.testempty.ui.games.GamesTimerSettings"
-        android:label="GamesTimerSettings" />
+        android:label="GamesTimerSettings"
+        tools:layout="@layout/fragment_games_timer_settings"/>
+
+    <fragment
+        android:id="@+id/gamesTimer"
+        android:name="ru.tohaman.testempty.ui.games.Timer"
+        android:label="GamesTimer"
+        tools:layout="@layout/fragment_games_timer"/>
 
 </navigation>

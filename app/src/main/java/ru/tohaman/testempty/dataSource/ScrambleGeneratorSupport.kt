@@ -1,5 +1,6 @@
 package ru.tohaman.testempty.dataSource
 
+import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.entitys.Pair4Melting
 import ru.tohaman.testempty.dataSource.entitys.ScrambleCondition
 import ru.tohaman.testempty.dataSource.entitys.SolveCube

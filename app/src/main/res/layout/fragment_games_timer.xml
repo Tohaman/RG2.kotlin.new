@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="boolean" />
+            type="ru.tohaman.testempty.ui.games.GamesTimerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +78,9 @@
             android:background="@color/dark_gray"
             android:gravity="center"
             android:padding="@dimen/small_margin"
-            android:text="U2 F2 L' D2 R U F' L2 B2 R L2 B2 U R"
+            tools:text="U2 F2 L' D2 R U F' L2 B2 R L2 B2 U R"
+            android:text="@{viewModel.currentScramble}"
+            android:onClick="@{(view) -> viewModel.generateNewScramble()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="parent"/>
@@ -208,6 +210,13 @@
             app:layout_constraintRight_toRightOf="@id/right_pad"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topInsideLayout"
+            />
+
+
+        <include
+            android:id="@+id/preLoader"
+            layout="@layout/include_preloader"
+            android:visibility="@{viewModel.showPreloader ? View.VISIBLE : View.GONE }"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

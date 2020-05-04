@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.get
@@ -21,20 +22,21 @@ import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
 import ru.tohaman.testempty.interfaces.ScrambleDialogInt
+import ru.tohaman.testempty.interfaces.ShowPreloaderInt
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
-class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt {
+class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt, ShowPreloaderInt {
     private val repository : ItemsRepository by inject()
     private val sp = get<SharedPreferences>()
 
     private var _showPreloader = false
-    val showPreloader = ObservableBoolean(_showPreloader)
+    override val showPreloader = ObservableBoolean(_showPreloader)
 
-    private var _cornerBuffer = sp.getBoolean(BUFFER_CORNER, true)
+    private val _cornerBuffer = sp.getBoolean(BUFFER_CORNER, true)
     val cornerBuffer = ObservableBoolean(_cornerBuffer)
 
-    private var _edgeBuffer = sp.getBoolean(BUFFER_EDGE, true)
+    private val _edgeBuffer = sp.getBoolean(BUFFER_EDGE, true)
     val edgeBuffer = ObservableBoolean(_edgeBuffer)
 
     private var _scrambleLength = sp.getInt(SCRAMBLE_LENGTH, 14)
@@ -53,8 +55,8 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt 
     private var _solvingText = ""
     val solvingText = ObservableField<String>(_solvingText)
 
-    private var clearCube = IntArray(54) { 0 }
-    private var currentCube = IntArray(54) { 0 }
+    private var clearCube = resetCube()
+    private var currentCube = resetCube()
     private var currentLetters = Array<String> (54) { "" }
 
     init {
@@ -79,6 +81,7 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt 
             showPreloader.set(true)                                         //выводим прелоадер
             //Подбираем скрамбл
             val scramble = generateScrambleWithParam(edgeBuffer.get(), cornerBuffer.get(), _scrambleLength, currentLetters)
+            //delay(2000)
             updateScramble(scramble)
             showPreloader.set(false)                                        //убираем прелоадер
         }

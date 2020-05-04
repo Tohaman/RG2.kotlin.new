@@ -20,7 +20,7 @@ import ru.tohaman.testempty.databinding.DialogGetScrambleBinding
 import ru.tohaman.testempty.databinding.FragmentGamesScrambleGeneratorBinding
 import timber.log.Timber
 
-class GamesScrambleGenerator: Fragment() {
+class ScrambleGenerator: Fragment() {
     private val scrambleGeneratorViewModel by sharedViewModel<ScrambleGeneratorViewModel>()
     private lateinit var binding: FragmentGamesScrambleGeneratorBinding
 
@@ -37,6 +37,7 @@ class GamesScrambleGenerator: Fragment() {
                     }
                 })
 
+                //Поскольку viewModel ничего е должна знать о различных View, то все переходы между разными окнами делаем в презентере, т.е. во View
                 content.scramble.setOnClickListener {
                     val scramble = scrambleGeneratorViewModel.currentScramble.get() ?: ""
                     showGetScrambleDialog(scramble, it)
