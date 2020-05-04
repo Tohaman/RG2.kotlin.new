@@ -9,9 +9,9 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.databinding.FragmentGamesTimerBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 
-class Timer: Fragment() {
+class TimerFragment: Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
-    private val timerViewModel by sharedViewModel<GamesTimerViewModel>()
+    private val timerViewModel by sharedViewModel<TimerViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         uiUtilViewModel.hideBottomNav()

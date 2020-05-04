@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
@@ -13,14 +14,17 @@ import ru.tohaman.testempty.adapters.AzbukaGridAdapter
 import ru.tohaman.testempty.databinding.DialogGetLetterBinding
 import ru.tohaman.testempty.databinding.FragmentGamesAzbukaSelectBinding
 import ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem
+import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import ru.tohaman.testempty.utils.toast
 import timber.log.Timber
 
-class GamesAzbukaSettings: Fragment() {
+class ScrambleGeneratorSettings: Fragment() {
 
     private val gamesViewModel by sharedViewModel<GamesViewModel>()
+    private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        uiUtilViewModel.hideBottomNav()
         val binding = FragmentGamesAzbukaSelectBinding.inflate(inflater, container, false)
             .apply {
                 content.includeGrid.viewModel = gamesViewModel
@@ -56,6 +60,10 @@ class GamesAzbukaSettings: Fragment() {
 
                 content.buttonSaveAzbuka.setOnClickListener {
                     gamesViewModel.saveCustomAzbuka()
+                }
+
+                bottomAppbar.back.setOnClickListener {
+                    findNavController().popBackStack()
                 }
 
             }

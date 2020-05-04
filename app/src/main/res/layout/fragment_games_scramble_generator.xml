@@ -44,6 +44,10 @@
 
         </LinearLayout>
 
+        <include
+            android:id="@+id/bottom_appbar"
+            layout="@layout/include_bottom_appbar"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

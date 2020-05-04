@@ -102,25 +102,25 @@
 
     <fragment
         android:id="@+id/gamesAzbukaSettings"
-        android:name="ru.tohaman.testempty.ui.games.GamesAzbukaSettings"
+        android:name="ru.tohaman.testempty.ui.games.ScrambleGeneratorSettings"
         android:label="GamesAzbukaSettings"
         tools:layout="@layout/fragment_games_azbuka_select"/>
 
     <fragment
         android:id="@+id/gamesScrambleGenerator"
-        android:name="ru.tohaman.testempty.ui.games.ScrambleGenerator"
+        android:name="ru.tohaman.testempty.ui.games.ScrambleGeneratorFragment"
         android:label="GamesScrambleGenerator"
         tools:layout="@layout/fragment_games_scramble_generator"/>
 
     <fragment
         android:id="@+id/gamesTimerSettings"
-        android:name="ru.tohaman.testempty.ui.games.GamesTimerSettings"
+        android:name="ru.tohaman.testempty.ui.games.TimerSettings"
         android:label="GamesTimerSettings"
         tools:layout="@layout/fragment_games_timer_settings"/>
 
     <fragment
         android:id="@+id/gamesTimer"
-        android:name="ru.tohaman.testempty.ui.games.Timer"
+        android:name="ru.tohaman.testempty.ui.games.TimerFragment"
         android:label="GamesTimer"
         tools:layout="@layout/fragment_games_timer"/>
 

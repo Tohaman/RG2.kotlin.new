@@ -9,7 +9,7 @@ import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.MainDb
-import ru.tohaman.testempty.ui.games.GamesTimerViewModel
+import ru.tohaman.testempty.ui.games.TimerViewModel
 import ru.tohaman.testempty.ui.games.GamesViewModel
 import ru.tohaman.testempty.ui.games.ScrambleGeneratorViewModel
 import ru.tohaman.testempty.ui.learn.LearnDetailViewModel
@@ -40,7 +40,7 @@ val viewModelsModule = module {
     viewModel { GamesViewModel() }
     viewModel { SettingsViewModel() }
     viewModel { ScrambleGeneratorViewModel() }
-    viewModel { GamesTimerViewModel() }
+    viewModel { TimerViewModel() }
     viewModel { LearnViewModel(androidContext()) }
     viewModel { LearnDetailViewModel(androidContext()) }
 }

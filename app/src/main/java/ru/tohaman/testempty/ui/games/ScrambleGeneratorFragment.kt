@@ -18,13 +18,16 @@ import ru.tohaman.testempty.adapters.AzbukaGridAdapter
 import ru.tohaman.testempty.databinding.DialogGetLetterBinding
 import ru.tohaman.testempty.databinding.DialogGetScrambleBinding
 import ru.tohaman.testempty.databinding.FragmentGamesScrambleGeneratorBinding
+import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
-class ScrambleGenerator: Fragment() {
+class ScrambleGeneratorFragment: Fragment() {
     private val scrambleGeneratorViewModel by sharedViewModel<ScrambleGeneratorViewModel>()
+    private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private lateinit var binding: FragmentGamesScrambleGeneratorBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        uiUtilViewModel.hideBottomNav()
         binding = FragmentGamesScrambleGeneratorBinding.inflate(inflater, container, false)
             .apply {
                 content.viewModel = scrambleGeneratorViewModel
@@ -51,6 +54,9 @@ class ScrambleGenerator: Fragment() {
                     Timber.d("$TAG Нажали кнопку Таймер")
                 }
 
+                bottomAppbar.back.setOnClickListener {
+                    findNavController().popBackStack()
+                }
             }
         return binding.root
     }

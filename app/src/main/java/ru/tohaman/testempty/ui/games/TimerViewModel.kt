@@ -29,7 +29,7 @@ import ru.tohaman.testempty.dataSource.prepareAzbukaToShowInGridView
 import ru.tohaman.testempty.interfaces.ShowPreloaderInt
 import timber.log.Timber
 
-class GamesTimerViewModel: ViewModel(), KoinComponent, ShowPreloaderInt {
+class TimerViewModel: ViewModel(), KoinComponent, ShowPreloaderInt {
     private val repository : ItemsRepository by inject()
     private val sp = get<SharedPreferences>()
 
