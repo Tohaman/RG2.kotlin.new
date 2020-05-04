@@ -131,6 +131,16 @@
                 android:text="@string/timer_scramble_generate"
                 android:textSize="18sp" />
 
+
+            <Switch
+                android:id="@+id/needBackButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.needBackButton}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.needBackButtonChange(checked)}"
+                android:padding="@dimen/big_padding"
+                android:text="@string/timer_need_back_button"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <include

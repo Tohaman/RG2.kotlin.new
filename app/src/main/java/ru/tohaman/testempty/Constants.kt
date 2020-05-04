@@ -20,6 +20,7 @@ object Constants {
     const val TIMER_ONE_HANDED = "isOneHanded"
     const val TIMER_METRONOM = "metronom"
     const val TIMER_NEED_SCRAMBLE = "needScramble"
+    const val TIMER_NEED_BACK = "needBackButton"
     const val TIMER_METRONOM_FREQ = "metronomFrequency"
 
 }

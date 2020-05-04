@@ -19,6 +19,7 @@ import ru.tohaman.testempty.Constants.CURRENT_SCRAMBLE
 import ru.tohaman.testempty.Constants.TIMER_DELAYED
 import ru.tohaman.testempty.Constants.TIMER_METRONOM
 import ru.tohaman.testempty.Constants.TIMER_METRONOM_FREQ
+import ru.tohaman.testempty.Constants.TIMER_NEED_BACK
 import ru.tohaman.testempty.Constants.TIMER_NEED_SCRAMBLE
 import ru.tohaman.testempty.Constants.TIMER_ONE_HANDED
 import ru.tohaman.testempty.DebugTag.TAG
@@ -103,6 +104,14 @@ class TimerViewModel: ViewModel(), KoinComponent, ShowPreloaderInt {
     fun needScrambleChange(value: Boolean) {
         sp.edit().putBoolean(TIMER_NEED_SCRAMBLE, value).apply()
     }
+
+    private val _needBackButton = sp.getBoolean(TIMER_NEED_BACK, true)
+    val needBackButton = ObservableBoolean(_needBackButton)
+
+    fun needBackButtonChange(value: Boolean) {
+        sp.edit().putBoolean(TIMER_NEED_BACK, value).apply()
+    }
+
 
     //---------------------------
 

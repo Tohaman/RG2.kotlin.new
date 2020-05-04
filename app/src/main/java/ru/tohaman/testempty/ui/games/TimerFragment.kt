@@ -24,6 +24,10 @@ class TimerFragment: Fragment() {
                 settings.setOnClickListener {
                     findNavController().navigate(R.id.gamesTimerSettings)
                 }
+
+                back.setOnClickListener {
+                    findNavController().popBackStack()
+                }
             }
 
         return binding.root
