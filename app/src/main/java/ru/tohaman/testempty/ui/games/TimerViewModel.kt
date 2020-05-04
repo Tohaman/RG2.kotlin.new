@@ -187,7 +187,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     fun onTouchOneHandPanel(): View.OnTouchListener? {
         return View.OnTouchListener { v, event ->
             val action = event.action
-            Timber.d("$TAG action = $action, $v")
+            //Timber.d("$TAG action = $action, $v")
             when (action) {
                 MotionEvent.ACTION_DOWN ->  onOneHandActionDown()
                 MotionEvent.ACTION_UP -> onOneHandActionUp()
@@ -199,7 +199,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     fun onTouchLeftPanel(): View.OnTouchListener? {
         return View.OnTouchListener { v, event ->
             val action = event.action
-            Timber.d("$TAG action = $action, $v")
+            //Timber.d("$TAG action = $action, $v")
             when (action) {
                 MotionEvent.ACTION_DOWN ->  onTwoHandActionDown(leftCircleColor, rightCircleColor)
                 MotionEvent.ACTION_UP -> onTwoHandActionUp(leftCircleColor)
@@ -211,7 +211,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     fun onTouchRightPanel(): View.OnTouchListener? {
         return View.OnTouchListener { v, event ->
             val action = event.action
-            Timber.d("$TAG action = $action, $v")
+            //Timber.d("$TAG action = $action, $v")
             when (action) {
                 MotionEvent.ACTION_DOWN ->  onTwoHandActionDown(rightCircleColor, leftCircleColor)
                 MotionEvent.ACTION_UP -> onTwoHandActionUp(rightCircleColor)
@@ -223,11 +223,11 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     fun onTouchTopInsidePanel(): View.OnTouchListener? {
         return View.OnTouchListener { v, event ->
             val action = event.action
-            Timber.d("$TAG action = $action, $v")
+            //Timber.d("$TAG action = $action, $v")
             if (action == MotionEvent.ACTION_DOWN) {
                 tryToPauseTimer()
-            }
-            true
+                true
+            } else false
         }
     }
 
@@ -300,9 +300,9 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         }
     }
 
-    //Отпустили "однорукую" плашку
+    //Отпустили "двурукую" плашку
     private fun onTwoHandActionUp(masterCircle: ObservableInt) {
-        Timber.d("$TAG Отпустили плашку")
+        Timber.d("$TAG Отпустили двурукую плашку")
         resetPressedTime = System.currentTimeMillis()   //сбросим resetPressedTime, чтобы корутина не перевела в READY, если еще не в нем
         when (timerState) {
             TimerStates.STOPPED -> { masterCircle.set(redColor) }

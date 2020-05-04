@@ -12,6 +12,7 @@ import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
+import ru.tohaman.testempty.dbase.entitys.TimeNoteItem
 import timber.log.Timber
 
 class FillDB {
@@ -30,6 +31,7 @@ class FillDB {
             updateTestComments()                    //добавляем тестовые комментарии
             updateTestFavourites()                  //добавляем тестовое избранное
             azbukaInit()                            //Инициализируем азбуку
+            timeNoteInit()                          //добавляем тестовые записи для таблицы результатов сборки
             Timber.d( "$TAG Основная таблица заполнена")
         }
 
@@ -182,5 +184,12 @@ class FillDB {
             repository.insertAzbuka(dbAzbuka)
         }
 
+        private suspend fun timeNoteInit() {
+            repository.deleteAllTimeNotes()
+            val t1 = TimeNoteItem(0,"0:10:03", "04/05/20 21:07", "R U R' U'", "Какой-то коммент")
+            val t2 = TimeNoteItem(0,"0:30:03", "05/05/20 22:37", "R F L B U2 L B' R F' D B R L F D R' D L", "Другой коммент")
+            repository.insertTimeNote(t1)
+            repository.insertTimeNote(t2)
+        }
     }
 }

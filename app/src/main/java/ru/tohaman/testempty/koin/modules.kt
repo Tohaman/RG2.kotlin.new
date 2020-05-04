@@ -33,7 +33,8 @@ val appModule = module{
     single { ItemsRepository(get<MainDb>().mainDao,
                             get<MainDb>().cubeTypesDao,
                             get<MainDb>().movesDao,
-                            get<MainDb>().azbukaDao)}
+                            get<MainDb>().azbukaDao,
+                            get<MainDb>().timeNoteDao)}
 
 }
 

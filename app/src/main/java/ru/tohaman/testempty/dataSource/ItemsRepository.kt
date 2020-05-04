@@ -4,11 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.paging.Config
 import androidx.paging.toLiveData
 import kotlinx.coroutines.delay
-import ru.tohaman.testempty.dbase.daos.AzbukaDao
-import ru.tohaman.testempty.dbase.daos.CubeTypesDao
+import ru.tohaman.testempty.dbase.daos.*
 
-import ru.tohaman.testempty.dbase.daos.MainDao
-import ru.tohaman.testempty.dbase.daos.MovesDao
 import ru.tohaman.testempty.dbase.entitys.*
 
 /**
@@ -22,7 +19,8 @@ import ru.tohaman.testempty.dbase.entitys.*
 class ItemsRepository (private val mainDao : MainDao,
                        private val typeDao: CubeTypesDao,
                        private val movesDao: MovesDao,
-                       private val azbukaDao: AzbukaDao) : ItemDataSource {
+                       private val azbukaDao: AzbukaDao,
+                       private val timeNoteDao: TimeNoteDao) : ItemDataSource {
 
     // Работа с основной таблицей
 
@@ -39,11 +37,6 @@ class ItemsRepository (private val mainDao : MainDao,
     fun getLivePhaseFromMain(phase: String): LiveData<List<MainDBItem>> = mainDao.getLivePhaseFromMain(phase)
 
     suspend fun getFavourites(): List<MainDBItem> = mainDao.getFavourites()
-
-    fun getLiveFavourites(): LiveData<List<MainDBItem>> = mainDao.getLiveFavourites()
-
-    fun getAllLiveDataItems() = mainDao.getAllLiveItems()
-
 
     suspend fun clearMainTable() = mainDao.deleteAllItems()
 
@@ -86,4 +79,14 @@ class ItemsRepository (private val mainDao : MainDao,
     suspend fun insertAzbuka(azbukaItem: List<AzbukaDBItem>) = azbukaDao.insert(azbukaItem)
 
     suspend fun updateAzbuka(azbukaItem: List<AzbukaDBItem>) = azbukaDao.update(azbukaItem)
+
+    // Работа с таблицей TimesTable
+
+    suspend fun getAllTimeNotes() = timeNoteDao.getAllTimeNotes()
+
+    suspend fun insertTimeNote(timeNoteItem: TimeNoteItem) = timeNoteDao.insertTimeNote(timeNoteItem)
+
+    suspend fun deleteTimeNote(timeNoteItem: TimeNoteItem) = timeNoteDao.deleteTimeNote(timeNoteItem)
+
+    suspend fun deleteAllTimeNotes() = timeNoteDao.deleteAllTimeNotes()
 }
