@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.FragmentGamesTimerBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 
@@ -18,6 +20,10 @@ class TimerFragment: Fragment() {
         val binding = FragmentGamesTimerBinding.inflate(inflater, container, false)
             .apply {
                 viewModel = timerViewModel
+
+                settings.setOnClickListener {
+                    findNavController().navigate(R.id.gamesTimerSettings)
+                }
             }
 
         return binding.root

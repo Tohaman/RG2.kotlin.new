@@ -121,8 +121,7 @@ class TimerViewModel: ViewModel(), KoinComponent, ShowPreloaderInt {
 
     }
 
-    //private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
-    private val _currentScramble = "R F L B U2 L B' R F' D B R L F D R' D L"
+    private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
     var currentScramble = ObservableField<String>(_currentScramble)
 
     fun generateNewScramble() {

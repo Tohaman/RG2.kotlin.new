@@ -51,7 +51,7 @@ class ScrambleGeneratorFragment: Fragment() {
                 }
 
                 content.timerButton.setOnClickListener {
-                    Timber.d("$TAG Нажали кнопку Таймер")
+                    findNavController().navigate(R.id.gamesTimer)
                 }
 
                 bottomAppbar.back.setOnClickListener {
