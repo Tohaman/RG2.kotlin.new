@@ -33,7 +33,7 @@
             android:visibility="@{viewModel.bottomNavVisible ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
             app:menu="@menu/bottomappbar_menu" />
 
     </LinearLayout>

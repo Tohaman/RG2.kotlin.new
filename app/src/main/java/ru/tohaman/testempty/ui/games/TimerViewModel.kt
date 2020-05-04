@@ -38,10 +38,6 @@ class TimerViewModel: ViewModel(), KoinComponent, ShowPreloaderInt {
     private var scrambleLength = 14
     private var currentLetters: Array<String>? = null
 
-    init {
-        reloadScrambleParameters()
-    }
-
     private val _showPreloader = false
     override val showPreloader = ObservableBoolean(_showPreloader)
 
@@ -110,19 +106,22 @@ class TimerViewModel: ViewModel(), KoinComponent, ShowPreloaderInt {
 
     //---------------------------
 
+    private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
+    var currentScramble = ObservableField<String>(_currentScramble)
+
     fun reloadScrambleParameters(){
         viewModelScope.launch (Dispatchers.IO) {
             cornerBuffer = sp.getBoolean(Constants.BUFFER_CORNER, true)
             edgeBuffer = sp.getBoolean(Constants.BUFFER_EDGE, true)
             scrambleLength = sp.getInt(Constants.SCRAMBLE_LENGTH, 14)
+            _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
+            Timber.d("$TAG .reloadScrambleParameters $_currentScramble")
+            currentScramble.set(_currentScramble)
             val listDBAzbuka = repository.getAzbukaItems(Constants.CURRENT_AZBUKA)
             currentLetters = getLettersFromCurrentAzbuka(prepareAzbukaToShowInGridView(listDBAzbuka))
         }
 
     }
-
-    private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
-    var currentScramble = ObservableField<String>(_currentScramble)
 
     fun generateNewScramble() {
         Timber.d("$TAG .generateNewScramble ")
