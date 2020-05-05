@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.databinding.ItemGameMenuBinding
@@ -51,7 +52,7 @@ class TimerResultAdapter: RecyclerView.Adapter<TimerResultAdapter.TimeNoteHolder
     }
 
     interface OnClickCallBack {
-        fun clickItem(item: TimeNoteItem)
+        fun clickItem(view: View, item: TimeNoteItem)
     }
 
 }

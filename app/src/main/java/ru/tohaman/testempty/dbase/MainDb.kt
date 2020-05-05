@@ -1,7 +1,10 @@
 package ru.tohaman.testempty.dbase
 
+
+import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import ru.tohaman.testempty.dbase.daos.*
 import ru.tohaman.testempty.dbase.entitys.*
 
@@ -14,7 +17,11 @@ import ru.tohaman.testempty.dbase.entitys.*
  * Room сравнивает поля в entities, и если они отличаются от текущих в базе, то нужна миграция, а соответственно повышение версии базы
  */
 
-@Database(entities = [MainDBItem::class, CubeType::class, BasicMove::class, AzbukaDBItem::class, TimeNoteItem::class], version = 9)
+@Database(
+    entities = [MainDBItem::class, CubeType::class, BasicMove::class, AzbukaDBItem::class, TimeNoteItem::class],
+    version = 12
+)
+@TypeConverters(LocalDateConverters::class)
 abstract class MainDb : RoomDatabase() {
     abstract val mainDao : MainDao
     abstract val cubeTypesDao : CubeTypesDao

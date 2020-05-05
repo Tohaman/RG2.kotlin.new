@@ -86,6 +86,8 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun insertTimeNote(timeNoteItem: TimeNoteItem) = timeNoteDao.insertTimeNote(timeNoteItem)
 
+    suspend fun updateTimeNote(timeNoteItem: TimeNoteItem) = timeNoteDao.updateTimeNote(timeNoteItem)
+
     suspend fun deleteTimeNote(timeNoteItem: TimeNoteItem) = timeNoteDao.deleteTimeNote(timeNoteItem)
 
     suspend fun deleteAllTimeNotes() = timeNoteDao.deleteAllTimeNotes()

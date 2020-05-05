@@ -108,6 +108,7 @@
             android:background="@color/dark_gray"
             android:gravity="center"
             android:padding="@dimen/small_margin"
+            android:textColor="@color/c_w"
             android:visibility="@{viewModel.needShowScramble ? View.VISIBLE : View.GONE}"
             tools:text="U2 F2 L' D2 R U F' L2 B2 R L2 B2 U R"
             android:text="@{viewModel.currentScramble}"

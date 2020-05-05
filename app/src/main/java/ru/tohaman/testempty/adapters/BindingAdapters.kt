@@ -5,16 +5,16 @@ import android.graphics.drawable.Drawable
 import android.text.Html
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
-import androidx.annotation.ColorInt
 import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.utils.getResource
 import ru.tohaman.testempty.utils.spannedString
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("android:srcId")
 fun setImageResource(imageView: ImageView, resource: Int) {
@@ -76,6 +76,22 @@ fun textToString(textView: TextView, int: Int) {
     textView.text = int.toString()
 }
 
+@BindingAdapter("app:fullDate")
+fun fulldateToString(textView: TextView, calendar: Calendar?) {
+    val sdf = SimpleDateFormat("dd MMM yy HH:mm:ss", Locale.getDefault())
+    val strDate = sdf.format(calendar?.time ?: Calendar.getInstance().time)
+    textView.text = strDate
+}
+
+@BindingAdapter("app:dateText")
+fun dateToString(textView: TextView, calendar: Calendar?) {
+    val sdf = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
+    val strDate = sdf.format(calendar?.time ?: Calendar.getInstance().time)
+    textView.text = strDate
+}
+
+
+
 @BindingAdapter("onSeekListener")
 fun bindOnSeekListener(seekBar: SeekBar, listener: SeekBar.OnSeekBarChangeListener?) {
     seekBar.setOnSeekBarChangeListener(listener)
@@ -99,3 +115,4 @@ fun setTint(imageView: ImageView?, int: Int) {
         ImageViewCompat.setImageTintList(imageView ?: return, ColorStateList.valueOf(int))
     }
 }
+

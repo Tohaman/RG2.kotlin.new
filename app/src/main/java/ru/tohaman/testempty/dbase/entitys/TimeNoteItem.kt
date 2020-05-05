@@ -2,13 +2,14 @@ package ru.tohaman.testempty.dbase.entitys
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity (tableName = "TimesTable")
 data class TimeNoteItem (
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     val uuid : Int,
     var solvingTime : String = "0:05:57",
-    val dateTime : String = "04/05/20 10:00",
+    val dateTime : Calendar? = null,
     val scramble : String = "",
     var comment : String = ""
 )

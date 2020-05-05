@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="ru.tohaman.testempty.ui.games.TimerResultViewModel" />
+
+        <variable
+            name="callBack"
+            type="ru.tohaman.testempty.interfaces.EditCommentInt" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_time_note_item"
+            android:gravity="center"
+            android:layout_margin="@dimen/middle_margin"
+            android:textSize="20sp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mid_padding"
+            >
+
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.editedItem.solvingTime}"
+                tools:text="0:05.54"
+                android:textSize="28sp"
+                android:padding="@dimen/big_padding"
+                android:typeface="sans"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fullDate="@{viewModel.editedItem.dateTime}"
+                tools:text="04 мая 2020 21:41"
+                android:padding="@dimen/big_padding"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/c_lgr"
+                app:layout_constraintTop_toBottomOf="@+id/time_text"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/img_comment"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_comment"
+                android:layout_marginTop="@dimen/mid_padding"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:text="@{viewModel.editedComment}"
+                tools:text="Какой-то комментарий"
+                android:padding="@dimen/mid_padding"
+                android:onClick="@{(view) -> callBack.editComment(view, viewModel.editedItem)}"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:layout_constraintLeft_toRightOf="@+id/img_comment"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/img_scramble"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_scramble"
+                android:layout_marginTop="@dimen/mid_padding"
+                app:layout_constraintTop_toBottomOf="@+id/text_comment"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_scramble"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:text="@{viewModel.editedItem.scramble}"
+                tools:text="@string/scramble_def_value"
+                android:padding="@dimen/mid_padding"
+                app:layout_constraintTop_toBottomOf="@+id/text_comment"
+                app:layout_constraintLeft_toRightOf="@+id/img_comment"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</layout>

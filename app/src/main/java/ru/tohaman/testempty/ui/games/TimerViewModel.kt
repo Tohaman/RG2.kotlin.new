@@ -32,8 +32,10 @@ import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dataSource.generateScrambleWithParam
 import ru.tohaman.testempty.dataSource.getLettersFromCurrentAzbuka
 import ru.tohaman.testempty.dataSource.prepareAzbukaToShowInGridView
+import ru.tohaman.testempty.dbase.entitys.TimeNoteItem
 import ru.tohaman.testempty.interfaces.ShowPreloaderInt
 import timber.log.Timber
+import java.util.*
 import kotlin.concurrent.timerTask
 
 class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, ShowPreloaderInt {
@@ -342,21 +344,26 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
             needShowScramble.set(_needShowScramble)
             showTopLayout.set(true)
             timerState = TimerStates.STOPPED
+            viewModelScope.launch (Dispatchers.IO){
+                val scramble = if (needShowScramble.get()) currentScramble.get() ?: "" else ""
+                repository.insertTimeNote(TimeNoteItem(0, showTimerTime(), Calendar.getInstance(), scramble, ""))
+            }
             true
         } else false
     }
 
     private fun startShowTime () {
-        //Используя корутины Котлина, отображаем время таймера, пока isTimerStart не станет false
+        //Используя корутины Котлина, отображаем время таймера, пока timerState = STARTED (запущен)
         viewModelScope.launch {
             do {
-                showTimerTime()
+                curTime.set(showTimerTime())
                 delay(30)
             } while (timerState == TimerStates.STARTED)
+            curTime.set(showTimerTime())
         }
     }
 
-    private fun showTimerTime() {
+    private fun showTimerTime(): String {
         val currentTime = System.currentTimeMillis() - startTime
         val millis = ((currentTime % 1000) / 10).toInt()             // сотые доли секунды
         var seconds = (currentTime / 1000).toInt()
@@ -365,9 +372,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         if (minutes > 59) {  //если получилось больше 60 минут, то добавляем к начальному времени 60 мин.(обнуляем таймер)
             startTime += 3600000; minutes = 0
         }
-        val showTime = String.format("%d:%02d.%02d", minutes, seconds, millis)
-        Timber.d("$TAG showTime $showTime")
-        curTime.set(showTime)
+        return String.format("%d:%02d.%02d", minutes, seconds, millis)
     }
 
 }

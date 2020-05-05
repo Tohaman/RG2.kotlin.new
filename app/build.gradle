@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'kotlin-kapt'
+apply plugin: "org.jetbrains.kotlin.kapt"
 
 //Плагин для доступа к аргументам фрагментов и активностей https://developer.android.com/jetpack/androidx/releases/navigation#safe_args
 apply plugin: 'androidx.navigation.safeargs.kotlin'

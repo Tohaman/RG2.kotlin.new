@@ -14,6 +14,7 @@ import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.dbase.entitys.TimeNoteItem
 import timber.log.Timber
+import java.util.*
 
 class FillDB {
     companion object {
@@ -185,11 +186,13 @@ class FillDB {
         }
 
         private suspend fun timeNoteInit() {
-            repository.deleteAllTimeNotes()
-            val t1 = TimeNoteItem(0,"0:10:03", "04/05/20 21:07", "R U R' U'", "Какой-то коммент")
-            val t2 = TimeNoteItem(0,"0:30:03", "05/05/20 22:37", "R F L B U2 L B' R F' D B R L F D R' D L", "Другой коммент")
-            repository.insertTimeNote(t1)
-            repository.insertTimeNote(t2)
+//            repository.deleteAllTimeNotes()
+//            val t1 = TimeNoteItem(0,"0:10:03", Calendar.getInstance(), "R U R' U'", "Какой-то коммент")
+//            val t2 = TimeNoteItem(0,"0:30:03", Calendar.getInstance(), "R F L B U2 L B' R F' D B R L F D R' D L", "Другой коммент")
+//            val t3 = TimeNoteItem(0,"0:20:16", Calendar.getInstance(), "R F L B U2 L B' R F' D B R L F", "Третий коммент")
+//            repository.insertTimeNote(t1)
+//            repository.insertTimeNote(t2)
+//            repository.insertTimeNote(t3)
         }
     }
 }

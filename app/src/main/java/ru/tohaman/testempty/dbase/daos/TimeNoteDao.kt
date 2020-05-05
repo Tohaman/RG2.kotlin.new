@@ -1,12 +1,14 @@
 package ru.tohaman.testempty.dbase.daos
 
+import androidx.databinding.adapters.Converters
 import androidx.room.*
+import ru.tohaman.testempty.dbase.LocalDateConverters
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.TimeNoteItem
 
 @Dao
 interface TimeNoteDao {
-    @Query("SELECT * FROM TimesTable")
+    @Query("SELECT * FROM TimesTable ORDER BY UUID desc")
     suspend fun getAllTimeNotes() : List<TimeNoteItem>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

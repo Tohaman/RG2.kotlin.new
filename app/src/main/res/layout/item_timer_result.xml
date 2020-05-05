@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="timeNote"
             type="ru.tohaman.testempty.dbase.entitys.TimeNoteItem" />
@@ -14,69 +15,67 @@
             type="ru.tohaman.testempty.adapters.TimerResultAdapter.OnClickCallBack" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:padding="@dimen/small_padding"
-            android:textSize="20sp"
-            android:typeface="monospace"
-            android:text="@{timeNote.solvingTime}"
-            tools:text="0:05:35"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
+            android:onClick="@{(view) -> clickListener.clickItem(view, timeNote)}">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            tools:text="05/05/2020"
-            android:text="@{timeNote.dateTime}"
-            android:padding="@dimen/small_padding"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
+            <TextView
+                android:id="@+id/timeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/mid_padding"
+                android:text="@{timeNote.solvingTime}"
+                android:textSize="20sp"
+                android:typeface="monospace"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="0:05:35" />
 
-        <ImageView
-            android:id="@+id/iconImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_margin_8"
-            app:srcCompat="@drawable/ic_scramble"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/mid_padding"
+                android:textSize="14sp"
+                app:dateText="@{timeNote.dateTime}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="05/05/2020" />
 
-        <TextView
-            android:id="@+id/scramble_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_margin_8"
-            android:text="@{timeNote.scramble}"
-            tools:text="R U R U R U D L D L"
-            app:layout_constraintLeft_toRightOf="@+id/iconImage"
-            app:layout_constraintTop_toBottomOf="@+id/timeText"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            <ImageView
+                android:id="@+id/iconImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_margin_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeText"
+                app:srcCompat="@drawable/ic_scramble" />
 
-        <TextView
-            android:id="@+id/commentText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_margin_8"
-            android:text="@{timeNote.comment}"
-            tools:text="Some comment"
-            app:layout_constraintTop_toBottomOf="@+id/timeText"
-            app:layout_constraintLeft_toRightOf="@+id/scramble_textView"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                android:id="@+id/scramble_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_margin_8"
+                android:text="@{timeNote.scramble}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/iconImage"
+                app:layout_constraintTop_toBottomOf="@+id/timeText"
+                tools:text="R U R U R U D L D L" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/commentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_margin_8"
+                android:text="@{timeNote.comment}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/scramble_textView"
+                app:layout_constraintTop_toBottomOf="@+id/timeText"
+                tools:text="Some comment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

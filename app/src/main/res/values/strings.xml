@@ -54,4 +54,10 @@
     <string name="azbuka_dialog_title">Азбука вращений</string>
     <string name="timer_resault_title">Список результатов</string>
     <string name="favorites_dialog_title">Избранное</string>
+    <string name="edit_time_note_item">Редактирование записи</string>
+    <string name="delete_item">Удалить запись</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Отмена</string>
+    <string name="edit_comment">Введите коментарий:</string>
+    <string name="edit_comment_hint">Например, был OLL скип</string>
 </resources>
