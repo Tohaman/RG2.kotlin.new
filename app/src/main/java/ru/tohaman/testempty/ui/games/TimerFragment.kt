@@ -40,6 +40,10 @@ class TimerFragment: Fragment() {
                 back.setOnClickListener {
                     findNavController().popBackStack()
                 }
+
+                topLayout.setOnClickListener {
+                    findNavController().navigate(R.id.timerResultDialog)
+                }
             }
 
         return binding.root

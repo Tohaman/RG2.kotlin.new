@@ -34,7 +34,7 @@ class FavouritesDialog : DialogFragment() {
             .apply {
                 Timber.d("$TAG onCreateViewFavouritesDialog")
 
-                titleText.text = "Избранное"
+                titleText.text = requireContext().getText(R.string.favorites_dialog_title)
 
                 adapter = FavouriteListAdapter()
                 adapter.attachCallBack(clickCallBack, touchHelper)

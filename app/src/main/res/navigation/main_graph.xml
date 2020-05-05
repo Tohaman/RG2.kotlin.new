@@ -122,6 +122,15 @@
         android:id="@+id/gamesTimer"
         android:name="ru.tohaman.testempty.ui.games.TimerFragment"
         android:label="GamesTimer"
-        tools:layout="@layout/fragment_games_timer"/>
+        tools:layout="@layout/fragment_games_timer">
+        <action
+            android:id="@+id/action_gamesTimer_to_timerResultDialog"
+            app:destination="@id/timerResultDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/timerResultDialog"
+        android:name="ru.tohaman.testempty.ui.games.TimerResultDialog"
+        android:label="TimerResultDialog"
+        tools:layout="@layout/dialog_recycler_view"/>
 
 </navigation>

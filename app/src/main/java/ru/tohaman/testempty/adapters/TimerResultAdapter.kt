@@ -51,7 +51,7 @@ class TimerResultAdapter: RecyclerView.Adapter<TimerResultAdapter.TimeNoteHolder
     }
 
     interface OnClickCallBack {
-        fun clickItem(menuItem: MainDBItem)
+        fun clickItem(item: TimeNoteItem)
     }
 
 }
