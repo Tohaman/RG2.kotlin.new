@@ -38,25 +38,7 @@ class TimerFragment: Fragment() {
                 viewModel = timerViewModel
 
                 saveWithCommentButton.setOnClickListener {
-                    val ctx = saveWithCommentButton.context
-                    val builder = MaterialAlertDialogBuilder(ctx)
-                    val binding = DialogEditCommentBinding.inflate(layoutInflater)
-
-                    //Инициализируем imm чтобы показать/скрыть клавиатуру
-                    val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    val eText = binding.editText
-                    eText.requestFocus()
-                    imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN,0)
-
-                    builder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
-                        imm.hideSoftInputFromWindow(eText.windowToken, 0)
-                        val comment = binding.editText.text.toString()
-                        timerViewModel.saveCurrentResultWithComment(comment)
-                    }
-                    builder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
-                        imm.hideSoftInputFromWindow(eText.windowToken, 0)
-                    }
-                    builder.setView(binding.root).create().show()
+                    showEnterCommentDialog(it)
                 }
 
                 settings.setOnClickListener {
@@ -73,6 +55,28 @@ class TimerFragment: Fragment() {
             }
 
         return binding.root
+    }
+
+    private fun showEnterCommentDialog(it: View) {
+        val ctx = it.context
+        val builder = MaterialAlertDialogBuilder(ctx)
+        val binding = DialogEditCommentBinding.inflate(layoutInflater)
+
+        //Инициализируем imm чтобы показать/скрыть клавиатуру
+        val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val eText = binding.editText
+        eText.requestFocus()
+        imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN, 0)
+
+        builder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
+            imm.hideSoftInputFromWindow(eText.windowToken, 0)
+            val comment = binding.editText.text.toString()
+            timerViewModel.saveCurrentResultWithComment(comment)
+        }
+        builder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
+            imm.hideSoftInputFromWindow(eText.windowToken, 0)
+        }
+        builder.setView(binding.root).create().show()
     }
 
     override fun onResume() {
