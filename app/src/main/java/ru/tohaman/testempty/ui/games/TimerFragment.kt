@@ -1,14 +1,18 @@
 package ru.tohaman.testempty.ui.games
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.databinding.DialogEditCommentBinding
 import ru.tohaman.testempty.databinding.FragmentGamesTimerBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 
@@ -33,6 +37,28 @@ class TimerFragment: Fragment() {
             .apply {
                 viewModel = timerViewModel
 
+                saveWithCommentButton.setOnClickListener {
+                    val ctx = saveWithCommentButton.context
+                    val builder = MaterialAlertDialogBuilder(ctx)
+                    val binding = DialogEditCommentBinding.inflate(layoutInflater)
+
+                    //Инициализируем imm чтобы показать/скрыть клавиатуру
+                    val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val eText = binding.editText
+                    eText.requestFocus()
+                    imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN,0)
+
+                    builder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
+                        val comment = binding.editText.text.toString()
+                        timerViewModel.saveCurrentResultWithComment(comment)
+                    }
+                    builder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
+                        //viewModel.setSaveResult(false)
+                        imm.hideSoftInputFromWindow(eText.windowToken, 0)
+                    }
+                    builder.setView(binding.root).create().show()
+                }
+
                 settings.setOnClickListener {
                     findNavController().navigate(R.id.gamesTimerSettings)
                 }
@@ -53,4 +79,6 @@ class TimerFragment: Fragment() {
         timerViewModel.reloadScrambleParameters()
         super.onResume()
     }
+
+
 }

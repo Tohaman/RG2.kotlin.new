@@ -8,10 +8,6 @@
             name="viewModel"
             type="ru.tohaman.testempty.ui.games.TimerResultViewModel" />
 
-        <variable
-            name="callBack"
-            type="ru.tohaman.testempty.interfaces.EditCommentInt" />
-
     </data>
 
     <LinearLayout
@@ -85,7 +81,6 @@
                 app:text="@{viewModel.editedComment}"
                 tools:text="Какой-то комментарий"
                 android:padding="@dimen/mid_padding"
-                android:onClick="@{(view) -> callBack.editComment(view, viewModel.editedItem)}"
                 app:layout_constraintTop_toBottomOf="@+id/divider"
                 app:layout_constraintLeft_toRightOf="@+id/img_comment"
                 app:layout_constraintRight_toRightOf="parent"

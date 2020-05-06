@@ -1,9 +1,11 @@
 package ru.tohaman.testempty.ui.games
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +18,6 @@ import ru.tohaman.testempty.databinding.DialogEditCommentBinding
 import ru.tohaman.testempty.databinding.DialogRecyclerViewBinding
 import ru.tohaman.testempty.databinding.DialogTimeNoteBinding
 import ru.tohaman.testempty.dbase.entitys.TimeNoteItem
-import ru.tohaman.testempty.interfaces.EditCommentInt
 import ru.tohaman.testempty.utils.toEditable
 import timber.log.Timber
 
@@ -37,8 +38,6 @@ class TimerResultDialog : DialogFragment() {
 
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)
-
-                //TODO Доделать получение данных во вьюмодел и подписаться на них + кнопка НАЗАД в хелпе по минииграм
 
                 resultViewModel.timeNotesList.observe(viewLifecycleOwner, Observer {
                     it?.let {
@@ -72,7 +71,27 @@ class TimerResultDialog : DialogFragment() {
             binding.viewModel = resultViewModel
             resultViewModel.editedItem.set(item)
             resultViewModel.editedComment.set(item.comment)
-            binding.callBack = editCommentInt(binding)
+            binding.textComment.setOnClickListener {
+                val alertBuilder = MaterialAlertDialogBuilder(ctx)
+                val alertBinding = DialogEditCommentBinding.inflate(layoutInflater)
+
+                val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val eText = alertBinding.editText
+                eText.text = item.comment.toEditable()
+                eText.requestFocus()
+                imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN,0)
+
+                alertBuilder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
+                    item.comment = eText.text.toString()
+                    resultViewModel.updateItem(item)
+                    imm.hideSoftInputFromWindow(eText.windowToken, 0)
+                }
+                alertBuilder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
+                    resultViewModel.editedItem.set(item)
+                    imm.hideSoftInputFromWindow(eText.windowToken, 0)
+                }
+                alertBuilder.setView(binding.root).create().show()
+            }
             //Добавим к диалогу кнопочки (OK и Cancel) и обработчики нажатий на эти кнопочки
             builder.setPositiveButton(ctx.getText(R.string.ok), null)
             builder.setNegativeButton(ctx.getText(R.string.delete_item)) { _, _ ->
@@ -84,25 +103,5 @@ class TimerResultDialog : DialogFragment() {
         }
     }
 
-    private fun editCommentInt(binding1: DialogTimeNoteBinding): EditCommentInt {
-        return object : EditCommentInt {
-            override fun editComment(view: View, item: TimeNoteItem) {
-                val ctx = view.context
-                val builder = MaterialAlertDialogBuilder(ctx)
-                val binding = DialogEditCommentBinding.inflate(layoutInflater)
-                binding.editText.text = item.comment.toEditable()
-
-                builder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
-                    item.comment = binding.editText.text.toString()
-                    resultViewModel.updateItem(item)
-                    //resultViewModel.editedComment.set(item.comment)
-                }
-                builder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
-                    resultViewModel.editedItem.set(item)
-                }
-                builder.setView(binding.root).create().show()
-            }
-        }
-    }
 
 }

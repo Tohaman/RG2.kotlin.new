@@ -53,35 +53,9 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-<!--        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-            app:hideOnScroll="true">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:scaleX="1.2"
-                    android:scaleY="1.2"
-                    app:srcCompat="@drawable/ic_fab_backward"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/share"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>-->
+        <include
+            android:id="@+id/bottom_appbar"
+            layout="@layout/include_bottom_appbar"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

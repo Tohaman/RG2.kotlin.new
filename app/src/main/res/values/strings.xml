@@ -60,4 +60,5 @@
     <string name="cancel">Отмена</string>
     <string name="edit_comment">Введите коментарий:</string>
     <string name="edit_comment_hint">Например, был OLL скип</string>
+    <string name="save_result">Сохранить результат?</string>
 </resources>

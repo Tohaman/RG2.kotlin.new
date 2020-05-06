@@ -121,7 +121,6 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         sp.edit().putBoolean(TIMER_NEED_BACK, value).apply()
     }
 
-
     //------------------ Управление самим Таймером -----------------------
 
     private val nullTime = "0:00.00"
@@ -146,8 +145,25 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
             currentScramble.set(_currentScramble)
             val listDBAzbuka = repository.getAzbukaItems(Constants.CURRENT_AZBUKA)
             currentLetters = getLettersFromCurrentAzbuka(prepareAzbukaToShowInGridView(listDBAzbuka))
+            //showSaveResult.set(false) //?
         }
 
+    }
+
+    val showSaveResult = ObservableBoolean(false)
+    fun setSaveResult(value: Boolean) {
+        showSaveResult.set(value)
+    }
+
+    fun saveCurrentResultWithComment(comment: String = "") {
+        viewModelScope.launch (Dispatchers.IO){
+            val scramble = if (needShowScramble.get()) currentScramble.get() ?: "" else ""
+            val time = curTime.get()
+            Timber.d("$TAG saveCurrentResultWithComment $comment $time $scramble")
+            time?.let {repository.insertTimeNote(TimeNoteItem(0, time , Calendar.getInstance(), scramble, comment))}
+            showSaveResult.set(false)
+            generateNewScramble()
+        }
     }
 
     //-------------- Генерация нового скрамбла --------------------
@@ -187,10 +203,9 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
 
 
     fun onTouchOneHandPanel(): View.OnTouchListener? {
-        return View.OnTouchListener { v, event ->
-            val action = event.action
+        return View.OnTouchListener { _, event ->
             //Timber.d("$TAG action = $action, $v")
-            when (action) {
+            when (event.action) {
                 MotionEvent.ACTION_DOWN ->  onOneHandActionDown()
                 MotionEvent.ACTION_UP -> onOneHandActionUp()
             }
@@ -199,10 +214,9 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     }
 
     fun onTouchLeftPanel(): View.OnTouchListener? {
-        return View.OnTouchListener { v, event ->
-            val action = event.action
+        return View.OnTouchListener { _, event ->
             //Timber.d("$TAG action = $action, $v")
-            when (action) {
+            when (event.action) {
                 MotionEvent.ACTION_DOWN ->  onTwoHandActionDown(leftCircleColor, rightCircleColor)
                 MotionEvent.ACTION_UP -> onTwoHandActionUp(leftCircleColor)
             }
@@ -211,10 +225,9 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     }
 
     fun onTouchRightPanel(): View.OnTouchListener? {
-        return View.OnTouchListener { v, event ->
-            val action = event.action
+        return View.OnTouchListener { _, event ->
             //Timber.d("$TAG action = $action, $v")
-            when (action) {
+            when (event.action) {
                 MotionEvent.ACTION_DOWN ->  onTwoHandActionDown(rightCircleColor, leftCircleColor)
                 MotionEvent.ACTION_UP -> onTwoHandActionUp(rightCircleColor)
             }
@@ -223,7 +236,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     }
 
     fun onTouchTopInsidePanel(): View.OnTouchListener? {
-        return View.OnTouchListener { v, event ->
+        return View.OnTouchListener { _, event ->
             val action = event.action
             //Timber.d("$TAG action = $action, $v")
             if (action == MotionEvent.ACTION_DOWN) {
@@ -259,12 +272,17 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
             if (isTimerDelayed.get()) delay(delayMills) else resetPressedTime -= delayMills
             //Проверяем не изменился ли resetPressedTime за время ожидания, и переводим в статус READY, а кружки в зеленый
             if (resetPressedTime + delayMills - 1 < System.currentTimeMillis()) {
-                timerState = TimerStates.READY
-                leftCircleColor.set(greenColor)
-                rightCircleColor.set(greenColor)
-                curTime.set(nullTime)       //Сбрасываем время на таймере
+                changeStateToReady()
             }
         }
+    }
+
+    private fun changeStateToReady() {
+        timerState = TimerStates.READY
+        leftCircleColor.set(greenColor)
+        rightCircleColor.set(greenColor)
+        curTime.set(nullTime)               //Сбрасываем время на таймере
+        showSaveResult.set(false)           //и убираем панель сохранения результата
     }
 
     //Отпустили "однорукую" плашку
@@ -344,10 +362,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
             needShowScramble.set(_needShowScramble)
             showTopLayout.set(true)
             timerState = TimerStates.STOPPED
-            viewModelScope.launch (Dispatchers.IO){
-                val scramble = if (needShowScramble.get()) currentScramble.get() ?: "" else ""
-                repository.insertTimeNote(TimeNoteItem(0, showTimerTime(), Calendar.getInstance(), scramble, ""))
-            }
+            showSaveResult.set(true)
             true
         } else false
     }
@@ -356,10 +371,9 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         //Используя корутины Котлина, отображаем время таймера, пока timerState = STARTED (запущен)
         viewModelScope.launch {
             do {
-                curTime.set(showTimerTime())
                 delay(30)
+                curTime.set(showTimerTime())
             } while (timerState == TimerStates.STARTED)
-            curTime.set(showTimerTime())
         }
     }
 
