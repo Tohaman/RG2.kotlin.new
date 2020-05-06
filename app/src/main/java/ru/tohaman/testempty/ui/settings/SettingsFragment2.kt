@@ -16,20 +16,11 @@ import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
 class SettingsFragment2  : Fragment() {
-    private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private val settingsViewModel by sharedViewModel<SettingsViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentSettingsBinding.inflate (inflater, container, false)
             .apply {
-
-                settingsViewModel.setDefaultTheme()
-                //darkTheme.isChecked = true
-
-                settingsViewModel.radioChecked.observe(viewLifecycleOwner, Observer {
-                    Timber.d("$TAG checked - $it")
-
-                })
                 viewModel = settingsViewModel
             }
 

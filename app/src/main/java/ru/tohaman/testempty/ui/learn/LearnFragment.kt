@@ -51,6 +51,7 @@ class LearnFragment : Fragment() {
 
         binding = FragmentLearnBinding.inflate(inflater, container, false)
             .apply {
+                viewModel = learnViewModel
                 learnViewPager.adapter = adapter
                 learnViewPager.offscreenPageLimit = 5
 
@@ -77,7 +78,6 @@ class LearnFragment : Fragment() {
                         learnViewPager.setCurrentItem(curType,false)
                     }
                 })
-                viewModel = learnViewModel
             }
 
         return binding.root

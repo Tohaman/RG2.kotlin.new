@@ -5,6 +5,8 @@ package ru.tohaman.testempty
  */
 object Constants {
     const val THEME = "theme"
+    const val SHOW_FAB = "showFAB"
+
     const val CURRENT_SCRAMBLE = "currentScramble"
     const val BUFFER_EDGE = "isBufferEdgeSet"
     const val BUFFER_CORNER = "isBufferCornerSet"

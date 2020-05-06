@@ -95,6 +95,13 @@
     </fragment>
 
     <fragment
+        android:id="@+id/destSettings2"
+        android:name="ru.tohaman.testempty.ui.settings.SettingsFragment2"
+        android:label="@string/main_settings2"
+        tools:layout="@layout/fragment_settings">
+    </fragment>
+
+    <fragment
         android:id="@+id/gamesHelpFragment"
         android:name="ru.tohaman.testempty.ui.games.GamesHelpFragment"
         android:label="GamesHelpFragment"

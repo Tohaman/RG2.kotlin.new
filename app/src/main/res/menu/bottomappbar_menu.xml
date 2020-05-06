@@ -19,7 +19,7 @@
         android:title="@string/action_games"/>
 
     <item
-        android:id="@+id/destSettings"
+        android:id="@+id/destSettings2"
         android:icon="@drawable/ic_menu_settings"
         android:title="@string/main_settings"/>
 

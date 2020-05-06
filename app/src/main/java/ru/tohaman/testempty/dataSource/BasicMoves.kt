@@ -96,7 +96,7 @@ fun prepareAzbukaToShowInGridView(azbuka: List<AzbukaDBItem>) : MutableList<Azbu
 // Преобразуем список из AzbukaSimpleItem в список для сохранения в базе, цвета берем из cube4Color (собранный куб, но
 // сверху может быть и не белый цвет)
 fun setAzbukaDBItemFromSimple(lettersArray: Array<String>, colorArray: IntArray, phase: String) : List<AzbukaDBItem> {
-    Timber.d ("$TAG setAzbukaDBItemFromSimple")
+    //Timber.d ("$TAG setAzbukaDBItemFromSimple")
     val list = mutableListOf<AzbukaDBItem>()
     for (i in lettersArray.indices) {
         list.add(AzbukaDBItem(phase, i, lettersArray[i], colorArray[i]))

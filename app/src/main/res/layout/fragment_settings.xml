@@ -15,7 +15,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/middle_margin"
+            android:layout_marginRight="@dimen/middle_margin"
+
             android:orientation="vertical"
             >
 
@@ -26,43 +29,71 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="@dimen/dimen_margin_8"
-                android:text="Настройки"
-                android:textSize="22sp" />
+                android:text="@string/settings"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/big_padding"
-                android:paddingRight="@dimen/big_padding"
-                android:textSize="18sp"
-                android:text="Тема приложения:"/>
+                android:text="@string/appTheme"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                />
 
-            <RadioGroup
-                android:id="@+id/app_themes"
+
+            <RadioButton
+                android:id="@+id/dark_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_margin_8"
-                android:checkedButton="@={viewModel.radioChecked}"
-                android:orientation="vertical">
+                android:layoutDirection="rtl"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:onClick="@{() -> viewModel.darkThemeSelect()}"
+                android:checked="@={viewModel.isThemeDark()}"
+                android:text="@string/dark_theme" />
 
-                <RadioButton android:id="@+id/dark_theme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Темная тема"/>
+            <RadioButton
+                android:id="@+id/light_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:onClick="@{() -> viewModel.lightThemeSelect()}"
+                android:checked="@={!viewModel.isThemeDark()}"
+                android:text="@string/light_theme" />
 
-                <RadioButton android:id="@+id/light_theme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fab_button"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/middle_margin"
+                style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
-                    android:text="Светлая тема"/>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/dimen_margin_8"
+                android:checked="@={viewModel.needShowFab}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.needShowFabChange(checked)}"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="@string/show_fab_text" />
 
-                <RadioButton android:id="@+id/auto_theme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Авто (день/ночь)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Размер шрифта в обучалках"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/middle_margin"
+                style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
-            </RadioGroup>
+            <SeekBar
+                android:id="@+id/seekBar2"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="4"
+                android:progress="3" />
+
 
         </LinearLayout>
 

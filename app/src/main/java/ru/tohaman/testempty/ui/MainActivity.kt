@@ -57,7 +57,7 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
     }
 
     override fun onSharedPreferenceChanged(sp: SharedPreferences, key: String?) {
-        Timber.d("$TAG SP Change")
+        Timber.d("$TAG .onSharedPreferenceChanged key = [${key}]")
         //Если изменилась тема в настройках, то меняем ее в программе
         when (key) {
             THEME -> {
@@ -66,36 +66,4 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
             }
         }
     }
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        val inflater = menuInflater
-//        inflater.inflate(R.menu.bottomappbar_menu, menu)
-//        return true
-//    }
-
-    //-------------------------------------------------------------------------
-
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        when (item!!.itemId) {
-//            R.id.destLearn -> toast(getString(
-//                R.string.learn_clicked
-//            ))
-//            R.id.destInfo -> toast(getString(
-//                R.string.info_clicked
-//            ))
-//            R.id.destGames -> toast(getString(
-//                R.string.main_games_clicked
-//            ))
-//            R.id.destSettings -> toast(getString(
-//                R.string.main_settings_clicked
-//            ))
-//        }
-//        return true
-//    }
-
-    // This is an extension method for easy Toast call
-//    fun Context.toast(message: CharSequence) {
-//        val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-//        toast.setGravity(Gravity.BOTTOM, 0, 200)
-//        toast.show()
-//    }
 }

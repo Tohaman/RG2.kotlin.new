@@ -61,4 +61,11 @@
     <string name="edit_comment">Введите коментарий:</string>
     <string name="edit_comment_hint">Например, был OLL скип</string>
     <string name="save_result">Сохранить результат?</string>
+    <string name="settings">Настройки</string>
+    <string name="appTheme">Тема приложения:</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="light_theme">Светлая тема</string>
+    <string name="main_settings2">НастройкиNew</string>
+    <string name="fab_button">Плавающая кнопка:</string>
+    <string name="show_fab_text">Отображать плавающую кнопку для возможности вернуться на шаг назад в основном меню (если у вас нет экранной или аппартной кнопки "назад")</string>
 </resources>

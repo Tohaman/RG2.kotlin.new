@@ -2,6 +2,7 @@ package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -9,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.testempty.Constants
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.entitys.CubeType
@@ -20,6 +22,8 @@ import java.text.ParsePosition
 
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
+    private val sp = get<SharedPreferences>()
+
     private val FAVOURITES = "FAVOURITES"
     private val CUR_CUBE_TYPE = "CUR_CUBE_TYPE"
     private val repository : ItemsRepository by inject()
@@ -41,6 +45,9 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     val liveDataCubeTypes : LiveData<List<CubeType>>
         get() = mutableCubeTypes
 
+
+    var needShowFab = ObservableBoolean()
+
     init {
         //Получаем список MainDBItem в котором в getString(description) имя вызываемой фазы, а в name - из какой фазы она вызвается
         getSubMenuList()
@@ -55,6 +62,8 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     fun initPhasesToArray() {
         Timber.d("$TAG initPhasesToArray")
         viewModelScope.launch (Dispatchers.IO) {
+            val showFab = sp.getBoolean(Constants.SHOW_FAB, true)
+            needShowFab.set(showFab)
             cubeTypes.map {
                 val list = getPhaseFromRepository(it.curPhase)
                 //Заменяем пустой MediatorLiveData() на значение из базы
