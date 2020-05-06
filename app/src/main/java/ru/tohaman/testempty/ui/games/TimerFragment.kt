@@ -49,11 +49,11 @@ class TimerFragment: Fragment() {
                     imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN,0)
 
                     builder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
+                        imm.hideSoftInputFromWindow(eText.windowToken, 0)
                         val comment = binding.editText.text.toString()
                         timerViewModel.saveCurrentResultWithComment(comment)
                     }
                     builder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
-                        //viewModel.setSaveResult(false)
                         imm.hideSoftInputFromWindow(eText.windowToken, 0)
                     }
                     builder.setView(binding.root).create().show()

@@ -90,7 +90,7 @@ class TimerResultDialog : DialogFragment() {
                     resultViewModel.editedItem.set(item)
                     imm.hideSoftInputFromWindow(eText.windowToken, 0)
                 }
-                alertBuilder.setView(binding.root).create().show()
+                alertBuilder.setView(alertBinding.root).create().show()
             }
             //Добавим к диалогу кнопочки (OK и Cancel) и обработчики нажатий на эти кнопочки
             builder.setPositiveButton(ctx.getText(R.string.ok), null)
