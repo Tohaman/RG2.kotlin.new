@@ -18,8 +18,9 @@ class AzbukaTrainerFragment: Fragment() {
         uiUtilViewModel.hideBottomNav()
         val binding = FragmentAzbukaTrainerBinding.inflate(inflater, container, false)
             .apply {
-                bottomAppbar.back.setOnClickListener { findNavController().popBackStack() }
                 appBar.title = getString(R.string.azbuka_training)
+                bottomAppbar.back.setOnClickListener { findNavController().popBackStack() }
+
             }
 
         return binding.root

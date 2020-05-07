@@ -18,8 +18,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:text="@string/games_azbuka_select"
-                android:textSize="32sp" />
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                tools:text="Выбор азбуки"
+                />
 
         </com.google.android.material.appbar.AppBarLayout>
 

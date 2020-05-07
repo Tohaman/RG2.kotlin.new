@@ -19,10 +19,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:gravity="center"
                 android:text="@string/games_scramble_generator"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-                android:textSize="26sp" />
+                />
 
         </com.google.android.material.appbar.AppBarLayout>
 

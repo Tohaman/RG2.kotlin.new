@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.FragmentAzbukaTrainerBinding
 import ru.tohaman.testempty.databinding.FragmentAzbukaTrainerSettingsBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
@@ -18,9 +19,9 @@ class AzbukaTrainerSettings: Fragment() {
         uiUtilViewModel.hideBottomNav()
         val binding = FragmentAzbukaTrainerSettingsBinding.inflate(inflater, container, false)
             .apply {
+                appBar.title = getString(R.string.azbuka_training_settings)
                 bottomAppbar.back.setOnClickListener { findNavController().popBackStack() }
             }
-
         return binding.root
     }
 
