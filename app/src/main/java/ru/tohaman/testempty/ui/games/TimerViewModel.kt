@@ -402,10 +402,8 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         if (metronom.get()) {   //Если метроном включен, то начинаем
             //Используя корутины Котлина, воспроизводим звук метронома, пока timerState = STARTED (запущен)
             val delayMills = (1000 * 60 / metronomFrequency.get()).toLong()
-            Timber.d("$TAG delay $delayMills")
             return viewModelScope.launch {
                 do {
-                    Timber.d("$TAG tik")
                     soundPool.play(soundLow, 1.0f, 1.0f, 0, 0, 1.0f)
                     delay(delayMills)
                  //Повторяем, пока таймер запущен
