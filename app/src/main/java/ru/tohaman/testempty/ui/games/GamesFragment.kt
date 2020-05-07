@@ -10,10 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import ru.tohaman.testempty.DebugTag
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
-import ru.tohaman.testempty.adapters.AzbukaGridAdapter
 import ru.tohaman.testempty.adapters.GamesAdapter
 import ru.tohaman.testempty.databinding.FragmentGamesBinding
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
@@ -50,8 +48,11 @@ class GamesFragment : Fragment() {
         override fun clickItem(menuItem: MainDBItem) {
             Timber.d("$TAG Games-clickItem ${menuItem.url}")
             when (menuItem.url) {
-                "GENERATOR" -> findNavController().navigate(R.id.action_destGames_to_gamesScrambleGenerator)
-                "TIMER" -> findNavController().navigate(R.id.gamesTimer)
+                "GENERATOR" -> findNavController().navigate(R.id.scrambleGeneratorFragment)
+                "TIMER" -> findNavController().navigate(R.id.timerFragment)
+                "PLL_TRAINING" -> {}
+                "OLL_TRAINING" -> {}
+                "AZBUKA_TRAINING" -> findNavController().navigate(R.id.azbukaTrainerFragment)
             }
         }
 
@@ -59,7 +60,10 @@ class GamesFragment : Fragment() {
             Timber.d("$TAG Games-clickSettings ${menuItem.url}")
             when (menuItem.url) {
                 "GENERATOR" -> findNavController().navigate(R.id.gamesAzbukaSettings)
-                "TIMER" -> findNavController().navigate(R.id.gamesTimerSettings)
+                "TIMER" -> findNavController().navigate(R.id.timerSettingsFragment)
+                "PLL_TRAINING" -> {}
+                "OLL_TRAINING" -> {}
+                "AZBUKA_TRAINING" -> findNavController().navigate(R.id.azbukaTrainerSettings)
             }
         }
 

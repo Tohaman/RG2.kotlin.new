@@ -6,6 +6,8 @@
     <data>
         <import type="android.view.View" />
 
+        <import type="android.widget.CompoundButton" />
+
         <variable
             name="viewModel"
             type="ru.tohaman.testempty.ui.games.ScrambleGeneratorViewModel" />
@@ -76,7 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.edgeBuffer}"
-                        android:onCheckedChanged="@{(view, checked) -> viewModel.edgeCheck(checked)}"
+                        android:onClick="@{(view) -> viewModel.edgeCheck(((CompoundButton)view).isChecked())}"
                         android:layout_weight="1"
                         android:text="@string/chkBoxEdgeBuffer" />
 
@@ -85,7 +87,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.cornerBuffer}"
-                        android:onCheckedChanged="@{(view, checked) -> viewModel.cornerCheck(checked)}"
+                        android:onClick="@{(view) -> viewModel.cornerCheck(((CompoundButton)view).isChecked())}"
                         android:layout_weight="1"
                         android:text="@string/chkBoxCornerBuffer" />
                 </LinearLayout>
@@ -115,7 +117,8 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/guideline2"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlHardcoded" />
 
                     <Button
                         android:id="@+id/button_minus"
@@ -126,7 +129,8 @@
                         android:layout_marginLeft="@dimen/dimen_margin_8"
                         android:onClick="@{() -> viewModel.lengthMinus()}"
                         app:layout_constraintLeft_toRightOf="@id/guideline2"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlHardcoded" />
 
                     <TextView
                         android:id="@+id/scrambleLength"
@@ -170,7 +174,7 @@
                         android:id="@+id/scramble"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginLeft="@dimen/dimen_margin_8"
                         android:layout_marginRight="@dimen/dimen_margin_8"
                         android:fontFamily="sans-serif-medium"
                         android:text="@{viewModel.currentScramble}"
@@ -238,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="@={viewModel.showSolving}"
-                        android:onCheckedChanged="@{(view, checked) -> viewModel.solveCheck(checked)}"
+                        android:onClick="@{(view) -> viewModel.solveCheck(((CompoundButton)view).isChecked())}"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:text="@string/checkBoxSolveText" />
@@ -262,35 +266,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-<!--                <android.support.constraint.ConstraintLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                    app:layout_constraintRight_toRightOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                    <CheckBox-->
-<!--                        android:id="@+id/checkBox_solve"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="@string/checkBoxSolveText" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/solve_text"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:text="@string/scramble_def_solve"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintLeft_toRightOf="@+id/checkBox_solve"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                </android.support.constraint.ConstraintLayout>-->
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
-<!--    </LinearLayout>-->
 </layout>

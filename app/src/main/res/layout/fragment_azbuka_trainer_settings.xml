@@ -15,11 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/appBar"
-            layout="@layout/include_app_bar"
-            app:tabbed="@{false}"
-            />
 
 
         <include

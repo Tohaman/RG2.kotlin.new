@@ -78,13 +78,19 @@
             app:destination="@id/gamesAzbukaSettings" />
         <action
             android:id="@+id/action_destGames_to_gamesScrambleGenerator"
-            app:destination="@id/gamesScrambleGenerator" />
+            app:destination="@id/scrambleGeneratorFragment" />
         <action
             android:id="@+id/action_destGames_to_gamesTimerSettings"
-            app:destination="@id/gamesTimerSettings" />
+            app:destination="@id/timerSettingsFragment" />
         <action
             android:id="@+id/action_destGames_to_gamesTimer"
-            app:destination="@id/gamesTimer" />
+            app:destination="@id/timerFragment" />
+        <action
+            android:id="@+id/action_destGames_to_azbukaTrainerFragment"
+            app:destination="@id/azbukaTrainerFragment" />
+        <action
+            android:id="@+id/action_destGames_to_azbukaTrainerSettings"
+            app:destination="@id/azbukaTrainerSettings" />
     </fragment>
 
     <fragment
@@ -114,30 +120,55 @@
         tools:layout="@layout/fragment_games_azbuka_select"/>
 
     <fragment
-        android:id="@+id/gamesScrambleGenerator"
+        android:id="@+id/scrambleGeneratorFragment"
         android:name="ru.tohaman.testempty.ui.games.ScrambleGeneratorFragment"
         android:label="GamesScrambleGenerator"
-        tools:layout="@layout/fragment_games_scramble_generator"/>
+        tools:layout="@layout/fragment_games_scramble_generator">
+        <action
+            android:id="@+id/action_scrambleGeneratorFragment_to_gamesAzbukaSettings"
+            app:destination="@id/gamesAzbukaSettings" />
+    </fragment>
 
     <fragment
-        android:id="@+id/gamesTimerSettings"
+        android:id="@+id/timerSettingsFragment"
         android:name="ru.tohaman.testempty.ui.games.TimerSettings"
         android:label="GamesTimerSettings"
         tools:layout="@layout/fragment_games_timer_settings"/>
 
     <fragment
-        android:id="@+id/gamesTimer"
+        android:id="@+id/timerFragment"
         android:name="ru.tohaman.testempty.ui.games.TimerFragment"
         android:label="GamesTimer"
         tools:layout="@layout/fragment_games_timer">
         <action
             android:id="@+id/action_gamesTimer_to_timerResultDialog"
             app:destination="@id/timerResultDialog" />
+        <action
+            android:id="@+id/action_timerFragment_to_timerSettingsFragment"
+            app:destination="@id/timerSettingsFragment" />
     </fragment>
+
     <dialog
         android:id="@+id/timerResultDialog"
         android:name="ru.tohaman.testempty.ui.games.TimerResultDialog"
         android:label="TimerResultDialog"
         tools:layout="@layout/dialog_recycler_view"/>
+
+    <fragment
+        android:id="@+id/azbukaTrainerFragment"
+        android:name="ru.tohaman.testempty.ui.games.AzbukaTrainerFragment"
+        android:label="AzbukaTrainerFragment"
+        tools:layout="@layout/fragment_azbuka_trainer">
+        <action
+            android:id="@+id/action_azbukaTrainerFragment_to_azbukaTrainerSettings"
+            app:destination="@id/azbukaTrainerSettings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/azbukaTrainerSettings"
+        android:name="ru.tohaman.testempty.ui.games.AzbukaTrainerSettings"
+        android:label="AzbukaTrainerSettings"
+        tools:layout="@layout/fragment_azbuka_trainer_settings"
+        />
 
 </navigation>

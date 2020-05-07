@@ -68,4 +68,5 @@
     <string name="main_settings2">НастройкиNew</string>
     <string name="fab_button">Плавающая кнопка:</string>
     <string name="show_fab_text">Отображать плавающую кнопку для возможности вернуться на шаг назад в основном меню (если у вас нет экранной или аппартной кнопки "назад")</string>
+    <string name="azbuka_training">Тренировка азбуки</string>
 </resources>
