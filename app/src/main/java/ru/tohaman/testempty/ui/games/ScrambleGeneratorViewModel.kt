@@ -101,10 +101,12 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt,
 
 
     private fun showSolving() {
+        val scramble = currentScramble.get() ?: ""
+        val scrambledCube = runScramble(resetCube(), scramble)
         val solving = if (showSolving.get()) {
-            getSolve(currentCube, currentLetters).solve
+            getSolve(scrambledCube, currentLetters).solve
         } else {
-            getSolve(currentCube, currentLetters).solveLength
+            getSolve(scrambledCube, currentLetters).solveLength
         }
         solvingText.set(solving)
     }
