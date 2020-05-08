@@ -27,9 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="8dp"
-
+                android:text="@string/settings"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-                tools:text="Home" />
+                />
 
         </com.google.android.material.appbar.AppBarLayout>
 
