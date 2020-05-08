@@ -45,6 +45,8 @@
     <string name="set_scramble">Задайте скрамбл</string>
     <string name="games_timer">Таймер</string>
     <string name="result">Результаты:</string>
+
+    <string name="timer_settings">Настройки таймера</string>
     <string name="timer_is_delayed">Удерживать 0.5 сек для старта</string>
     <string name="timer_is_one_handed">Управление таймером одной рукой</string>
     <string name="timer_metronom">Метроном</string>
@@ -70,4 +72,6 @@
     <string name="show_fab_text">Отображать плавающую кнопку для возможности вернуться на шаг назад в основном меню (если у вас нет экранной или аппартной кнопки "назад")</string>
     <string name="azbuka_training">Тренировка азбуки</string>
     <string name="azbuka_training_settings">Настройки</string>
+    <string name="corners">Углы</string>
+    <string name="edges">Ребра</string>
 </resources>

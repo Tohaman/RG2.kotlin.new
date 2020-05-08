@@ -18,6 +18,7 @@
         <include
             android:id="@+id/appBar"
             layout="@layout/include_app_bar"
+            app:title="@{@string/azbuka_training}"
             app:tabbed="@{false}"
             />
 

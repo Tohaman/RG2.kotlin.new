@@ -29,7 +29,7 @@
             android:visibility='@{(title!="") ? View.VISIBLE : View.GONE}'
             android:text="@{title}"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            tools:text="Home" />
+            tools:text="SomeTitle" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
