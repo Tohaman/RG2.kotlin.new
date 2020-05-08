@@ -28,9 +28,10 @@ class ScrambleGeneratorSettings: Fragment() {
         val binding = FragmentGamesAzbukaSelectBinding.inflate(inflater, container, false)
             .apply {
                 content.includeGrid.viewModel = gamesViewModel
+                content.viewModel = gamesViewModel
 
                 val adapter = AzbukaGridAdapter()
-                adapter.attachCallBack(callBack)
+                adapter.attachCallBack(selectLetterCallBack)
                 adapter.isShowBuffer = true
                 content.includeGrid.azbukaGridView.adapter = adapter
 
@@ -46,22 +47,6 @@ class ScrambleGeneratorSettings: Fragment() {
                     }
                 })
 
-                content.buttonMyAzbuka.setOnClickListener {
-                    gamesViewModel.loadAntonsAzbuka()
-                }
-
-                content.buttonMaxAzbuka.setOnClickListener {
-                    gamesViewModel.loadMaksimsAzbuka()
-                }
-
-                content.buttonLoadAzbuka.setOnClickListener {
-                    gamesViewModel.loadCustomAzbuka()
-                }
-
-                content.buttonSaveAzbuka.setOnClickListener {
-                    gamesViewModel.saveCustomAzbuka()
-                }
-
                 bottomAppbar.back.setOnClickListener {
                     findNavController().popBackStack()
                 }
@@ -72,7 +57,7 @@ class ScrambleGeneratorSettings: Fragment() {
 
 
     //Колбэк в котором обрабатываем нажатие на элемент ячейки в gridView
-    private val callBack = object: AzbukaGridAdapter.OnClickCallBack {
+    private val selectLetterCallBack = object: AzbukaGridAdapter.OnClickCallBack {
         override fun clickItem (azbuka: AzbukaSimpleItem, id: Int, view: View) {
             Timber.d("$TAG click ${azbuka.value}")
             val ctx = view.context

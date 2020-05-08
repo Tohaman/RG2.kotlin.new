@@ -74,4 +74,5 @@
     <string name="azbuka_training_settings">Настройки</string>
     <string name="corners">Углы</string>
     <string name="edges">Ребра</string>
+    <string name="training">Тренируем:</string>
 </resources>

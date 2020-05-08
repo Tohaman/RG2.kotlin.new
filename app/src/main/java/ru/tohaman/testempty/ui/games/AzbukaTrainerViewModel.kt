@@ -9,6 +9,7 @@ import org.koin.core.get
 import org.koin.core.inject
 import ru.tohaman.testempty.Constants
 import ru.tohaman.testempty.dataSource.ItemsRepository
+import ru.tohaman.testempty.interfaces.GamesAzbukaButtons
 import ru.tohaman.testempty.interfaces.SetLetterButtonsInt
 
 class AzbukaTrainerViewModel: ViewModel(), KoinComponent {
@@ -20,8 +21,5 @@ class AzbukaTrainerViewModel: ViewModel(), KoinComponent {
 
     private val _trainingEgdes = sp.getBoolean(Constants.TRAINING_EDGES, true)
     val trainingEdges = ObservableBoolean(_trainingEgdes)
-
-
-
 
 }

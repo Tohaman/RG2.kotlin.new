@@ -1,5 +1,7 @@
 package ru.tohaman.testempty.ui.games
 
+import android.content.SharedPreferences
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,11 +9,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
+import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.testempty.Constants
 import ru.tohaman.testempty.Constants.ANTONS_AZBUKA
 import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
 import ru.tohaman.testempty.Constants.CUSTOM_AZBUKA
 import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
+import ru.tohaman.testempty.Constants.TRAINING_CORNERS
+import ru.tohaman.testempty.Constants.TRAINING_EDGES
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
@@ -22,8 +28,10 @@ import ru.tohaman.testempty.interfaces.SetLetterButtonsInt
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
+//Эта viewModel используется для общих настроек миниИгр + настройки Генератора скрамблов (Азбуки) и настройки теренировки Азбуки
 class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterButtonsInt {
     private val repository : ItemsRepository by inject()
+    private val sp = get<SharedPreferences>()
 
     private var simpleGamesList = listOf<MainDBItem>()
     private var _gamesList: MutableLiveData<List<MainDBItem>> = simpleGamesList.toMutableLiveData()
@@ -38,6 +46,13 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterB
     var curLetter = MutableLiveData<String>()
     var message = MutableLiveData<String>()
 
+    private val _trainingCorners = sp.getBoolean(TRAINING_CORNERS, true)
+    val trainingCorners = ObservableBoolean(_trainingCorners)
+
+    private val _trainingEdges = sp.getBoolean(TRAINING_EDGES, true)
+    val trainingEdges = ObservableBoolean(_trainingEdges)
+
+
     init {
         viewModelScope.launch (Dispatchers.IO) {
             simpleGamesList = repository.getPhaseFromMain("GAMES")
@@ -48,6 +63,18 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterB
             gridViewAzbukaList = prepareAzbukaToShowInGridView(listDBAzbuka)
             _currentAzbuka.postValue(gridViewAzbukaList)
         }
+    }
+
+    fun trainingCornersChange(value: Boolean) {
+        if (!(value or trainingEdges.get())) trainingEdgesChange(true)
+        trainingCorners.set(value)
+        sp.edit().putBoolean(TRAINING_CORNERS, value).apply()
+    }
+
+    fun trainingEdgesChange(value: Boolean) {
+        if (!(value or trainingCorners.get())) trainingCornersChange(true)
+        trainingEdges.set(value)
+        sp.edit().putBoolean(TRAINING_EDGES, value).apply()
     }
 
     override fun leftArrowButtonPressed() {

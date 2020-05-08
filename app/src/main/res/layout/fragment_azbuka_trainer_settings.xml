@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.AzbukaTrainerViewModel" />
+            type="ru.tohaman.testempty.ui.games.GamesViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -36,7 +36,7 @@
                 android:layout_marginLeft="@dimen/middle_margin"
                 android:layout_marginRight="@dimen/middle_margin"
                 android:layout_marginBottom="@dimen/small_margin"
-                android:text="Тренируем:"/>
+                android:text="@string/training"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,6 +48,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/middle_margin"
                     android:layout_weight="1"
+                    android:checked="@={viewModel.trainingCorners}"
+                    android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingCornersChange(checked)}"
                     android:text="@string/corners"
                     style="@style/TextAppearance.MaterialComponents.Subtitle1"
                     tools:ignore="RtlHardcoded" />
@@ -58,6 +60,8 @@
                     android:layout_marginRight="@dimen/middle_margin"
                     android:layout_marginLeft="@dimen/middle_margin"
                     android:layout_weight="1"
+                    android:checked="@={viewModel.trainingEdges}"
+                    android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingEdgesChange(checked)}"
                     android:text="@string/edges"
                     style="@style/TextAppearance.MaterialComponents.Subtitle1"
                     tools:ignore="RtlHardcoded" />

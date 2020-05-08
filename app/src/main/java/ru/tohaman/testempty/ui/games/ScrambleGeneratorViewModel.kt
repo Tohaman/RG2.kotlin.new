@@ -147,7 +147,7 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt,
         sp.edit().putBoolean(SHOW_SOLVING, value).apply()
     }
 
-    //Магия obsrvable меняем tmpScramble, а dialogScrambleText меняется сам
+    //Магия obsrvable меняем tmpScramble, а dialogScrambleText меняется сам, т.к. dialogScrambleText.get()=tmpScramble
     private var tmpScramble = ObservableField<String>("")
 
     override var dialogScrambleText: ObservableField<String>
