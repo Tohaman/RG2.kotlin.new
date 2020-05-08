@@ -6,6 +6,8 @@ import org.koin.core.KoinComponent
 
 class AzbukaTrainerViewModel: ViewModel(), KoinComponent {
 
-    var title = ObservableField("Тренировка азбуки")
+    private val _settingTitle = "Тренировка азбуки"
+    var settingsTitle = ObservableField<String>(_settingTitle)
 
+    init {}
 }

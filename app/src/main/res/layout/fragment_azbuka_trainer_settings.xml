@@ -15,11 +15,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/appBar"
-            layout="@layout/include_app_bar"
-            app:tabbed="@{false}"
-            />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="8dp"
+
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                tools:text="Home" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +44,9 @@
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Тренируем:"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:layout_marginLeft="@dimen/middle_margin"
+                android:layout_marginRight="@dimen/middle_margin"
+                android:text="Тренируем:"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,14 +56,18 @@
                 <CheckBox
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/middle_margin"
                     android:layout_weight="1"
-                    android:text="Углы"/>
+                    android:text="Углы"
+                    tools:ignore="RtlHardcoded" />
 
                 <CheckBox
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/middle_margin"
                     android:layout_weight="1"
-                    android:text="Ребра"/>
+                    android:text="Ребра"
+                    tools:ignore="RtlHardcoded" />
 
             </LinearLayout>
 
