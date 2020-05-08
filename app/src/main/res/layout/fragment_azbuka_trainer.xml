@@ -11,22 +11,43 @@
             type="ru.tohaman.testempty.ui.games.AzbukaTrainerViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <include
-            android:id="@+id/appBar"
-            layout="@layout/include_app_bar"
-            app:title="@{@string/azbuka_training}"
-            app:tabbed="@{false}"
-            />
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <include
+                android:id="@+id/appBar"
+                layout="@layout/include_app_bar"
+                app:tabbed="@{false}"
+                app:title="@{@string/azbuka_training}" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_basic_move"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <include
-            android:id="@+id/bottom_appbar"
-            layout="@layout/include_bottom_appbar"/>
+            <include
+                android:id="@+id/bottom_appbar"
+                app:layout_behavior="@string/bottom_sheet_behavior"
+                layout="@layout/include_bottom_appbar" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    </LinearLayout>
 </layout>
