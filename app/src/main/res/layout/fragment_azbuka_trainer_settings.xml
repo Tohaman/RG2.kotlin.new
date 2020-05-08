@@ -64,10 +64,15 @@
 
             </LinearLayout>
 
-            <include
-                android:id="@+id/azbuka_select"
-                layout="@layout/include_azbuka_select" />
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <include
+                    android:id="@+id/azbuka_select"
+                    layout="@layout/include_azbuka_select" />
+
+            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
         <include
