@@ -387,7 +387,8 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
 
         //Используя корутины Котлина, отображаем время таймера, пока timerState = STARTED (запущен)
         viewModelScope.launch {
-            val metronomJob = startMetronom() //Если запускаем отображение времени, то пробуем запустить и метроном
+            val metronomJob =
+                startMetronom() //Если запускаем отображение времени, то пробуем запустить и метроном
             do {
                 delay(16)   //примерно 60 раз в секунду
                 curTime.set(showTimerTime())

@@ -40,7 +40,7 @@ val viewModelsModule = module {
     viewModel { UiUtilViewModel() }
     viewModel { GamesViewModel() }
     viewModel { SettingsViewModel() }
-    viewModel { AzbukaTrainerViewModel() }
+    viewModel { AzbukaTrainerViewModel(androidApplication()) }
     viewModel { ScrambleGeneratorViewModel() }
     viewModel { TimerViewModel(androidApplication()) }
     viewModel { TimerResultViewModel() }

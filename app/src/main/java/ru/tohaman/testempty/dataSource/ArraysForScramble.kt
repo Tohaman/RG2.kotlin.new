@@ -213,7 +213,7 @@ val slotLightingCoordinate = hashMapOf(
 //номера элементов кубика для соответствующего слота
 //в принципе второй элемент пары это dopCorner[] или dopEdge[] от первого элемента
 //но хранить парой понятнее
-val slotElementNumbers = hashMapOf(
+val slotElementNumbersY2Rotated = hashMapOf(
         0 to Pair(11,6),
         1 to Pair(6,18),
         2 to Pair(18,11),
@@ -221,6 +221,16 @@ val slotElementNumbers = hashMapOf(
         4 to Pair(14,21),
         5 to Pair(19,7),
         6 to Pair(7,19)
+)
+
+val slotElementNumbers = hashMapOf(
+        0 to Pair(33,47),
+        1 to Pair(47,26),
+        2 to Pair(26,33),
+        3 to Pair(23,30),
+        4 to Pair(30,23),
+        5 to Pair(25,46),
+        6 to Pair(46,25)
 )
 
 val ollScramble = hashMapOf(

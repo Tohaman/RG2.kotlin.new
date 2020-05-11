@@ -28,5 +28,6 @@ object Constants {
 
     const val TRAINING_EDGES = "trainingEdges"
     const val TRAINING_CORNERS = "trainingCorners"
-
+    const val TRAINING_TIMER = "trainingTimer"
+    const val TRAINING_TIMER_TIME = "trainingTimerTime"
 }

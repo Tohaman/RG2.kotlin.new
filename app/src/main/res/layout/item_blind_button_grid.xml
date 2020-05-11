@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="id"
+            type="Integer" />
+
+        <variable
+            name="item"
+            type="String" />
+
+        <variable
+            name="clickListener"
+            type="ru.tohaman.testempty.adapters.ButtonsGridAdapter.OnClickCallBack" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/out_out_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:gravity="center"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:text="@{item}"
+            android:onClick="@{(view) -> clickListener.clickItem(item, id, view)}"
+            tools:text="A"
+            />
+
+    </LinearLayout>
+
+</layout>

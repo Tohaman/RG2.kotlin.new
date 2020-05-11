@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -11,22 +12,30 @@
             type="ru.tohaman.testempty.ui.games.GamesViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/appBar"
-            layout="@layout/include_app_bar"
-            app:title="@{@string/settings}"
-            app:tabbed="@{false}"
-            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottom_appbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            >
+
+            <include
+                android:id="@+id/appBar"
+                layout="@layout/include_app_bar"
+                app:tabbed="@{false}"
+                app:title="@{@string/azbuka_training}" />
 
             <TextView
                 android:id="@+id/text"
@@ -36,7 +45,7 @@
                 android:layout_marginLeft="@dimen/middle_margin"
                 android:layout_marginRight="@dimen/middle_margin"
                 android:layout_marginBottom="@dimen/small_margin"
-                android:text="@string/training"/>
+                android:text="@string/training" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,6 +53,7 @@
                 android:orientation="horizontal">
 
                 <Switch
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/middle_margin"
@@ -51,38 +61,109 @@
                     android:checked="@={viewModel.trainingCorners}"
                     android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingCornersChange(checked)}"
                     android:text="@string/corners"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
                     tools:ignore="RtlHardcoded" />
 
                 <Switch
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/middle_margin"
                     android:layout_marginLeft="@dimen/middle_margin"
+                    android:layout_marginRight="@dimen/middle_margin"
                     android:layout_weight="1"
                     android:checked="@={viewModel.trainingEdges}"
                     android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingEdgesChange(checked)}"
                     android:text="@string/edges"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
                     tools:ignore="RtlHardcoded" />
 
             </LinearLayout>
 
-            <androidx.core.widget.NestedScrollView
+            <Switch
+                android:id="@+id/metronom"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.trainingTimer}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingTimerChange(checked)}"
+                android:padding="@dimen/big_padding"
+                android:text="@string/training_timer_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingRight="@dimen/big_padding"
+                    android:text="@string/training_timer_time"
+                    app:isEnabled="@{viewModel.trainingTimer ? true : false }" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingRight="@dimen/big_padding">
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="@{(view) -> viewModel.minusTimerTime()}"
+                        android:text="@string/minus"
+                        app:isEnabled="@{viewModel.trainingTimer ? true : false}" />
+
+                    <TextView
+                        android:id="@+id/metronom_freq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/big_padding"
+                        android:paddingRight="@dimen/big_padding"
+                        android:textSize="22sp"
+                        app:isEnabled="@{viewModel.trainingTimer ? true : false}"
+                        app:text="@{viewModel.trainingTimerTime}"
+                        tools:ignore="RtlHardcoded"
+                        tools:text="6" />
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="@{(view) -> viewModel.plusTimerTime()}"
+                        android:text="@string/plus"
+                        app:isEnabled="@{viewModel.trainingTimer ? true : false}" />
+
+                </LinearLayout>
+            </LinearLayout>
 
                 <include
                     android:id="@+id/azbuka_select"
                     layout="@layout/include_azbuka_select" />
 
-            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
+
+        </ScrollView>
 
         <include
             android:id="@+id/bottom_appbar"
-            layout="@layout/include_bottom_appbar"/>
+            layout="@layout/include_bottom_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

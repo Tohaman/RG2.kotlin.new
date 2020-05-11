@@ -2,11 +2,13 @@ package ru.tohaman.testempty.adapters
 
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.text.Html
 import android.view.View
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import ru.tohaman.testempty.DebugTag.TAG
@@ -116,3 +118,7 @@ fun setTint(imageView: ImageView?, int: Int) {
     }
 }
 
+@BindingAdapter("app:srcDrawable")
+fun setDrawable(imageView: AppCompatImageView, drawable: LayerDrawable) {
+    imageView.setImageDrawable(drawable)
+}

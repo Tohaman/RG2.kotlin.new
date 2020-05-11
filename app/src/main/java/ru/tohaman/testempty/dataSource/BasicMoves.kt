@@ -12,7 +12,7 @@ import timber.log.Timber
  */
 
 fun prepareCubeToShowInGridView(cube: IntArray) : MutableList<AzbukaSimpleItem> {
-    Timber.d ("$TAG prepareCubeToShowInGridView")
+    //Timber.d ("$TAG prepareCubeToShowInGridView")
     // очищаем grList = ListOf<(R.color.transparent, "")> - 108штук
     val grList = clearList4GridList()
     // Задаем для элементов куба букву равную пробелу, и цвет соответствующий элемнтам куба (массива)
@@ -53,7 +53,7 @@ fun prepareCubeToShowInGridView(cube: IntArray) : MutableList<AzbukaSimpleItem> 
 }
 
 fun prepareAzbukaToShowInGridView(azbuka: List<AzbukaDBItem>) : MutableList<AzbukaSimpleItem> {
-    Timber.d ("$TAG prepareAzbukaToShowInGridView")
+    //Timber.d ("$TAG prepareAzbukaToShowInGridView")
     // очищаем grList = ListOf<(R.color.transparent, "")> - 108штук
     val grList = clearList4GridList()
     // Задаем для элементов куба букву равную пробелу, и цвет соответствующий элемнтам куба (массива)
@@ -148,7 +148,7 @@ fun setAzbukaColors(coloredCube: IntArray, curAzbuka: List<AzbukaSimpleItem>): L
 }
 
 fun clearList4GridList(): MutableList<AzbukaSimpleItem> {
-    Timber.d ("$TAG FragmentScrambleGen clearArray4GridList")
+    //Timber.d ("$TAG FragmentScrambleGen clearArray4GridList")
     // 108 элементов GridList делаем пустыми и прозрачными
     val clearList = mutableListOf<AzbukaSimpleItem>()
     for (i in 0..107) {
@@ -803,4 +803,30 @@ fun getMyAzbuka() = arrayOf(
     "З","Ж","Ж"
 )
 
-val emptyAzbuka = Array<String>(54) {" "}
+fun covertAzbukaToSortedEdgeList(azbuka: List<AzbukaDBItem>): List<String> {
+    val list = mutableListOf<String>()
+    azbuka.forEachIndexed { index, azbukaDBItem ->
+        val letter = azbukaDBItem.value
+        //Проверяем по индексу четная ли сторона. 0 - четная, 1 - нечетная
+        val isSideOdd = (index / 9) % 2
+        //Определяем угловой элемент или реберный. Центр считаем улглом, отсеем его позже 0 - угол, 1 - ребро
+        val cornerOrEdge = (index + isSideOdd) % 2
+        if (cornerOrEdge == 1) {list.add(letter)}
+    }
+    list.sort()
+    return list
+}
+
+fun covertAzbukaToSortedCornersList(azbuka: List<AzbukaDBItem>): List<String> {
+    val list = mutableListOf<String>()
+    azbuka.forEachIndexed { index, azbukaDBItem ->
+        val letter = azbukaDBItem.value
+        //Проверяем по индексу четная ли сторона. 0 - четная, 1 - нечетная
+        val isSideOdd = (index / 9) % 2
+        //Определяем угловой элемент или реберный. Центр считаем улглом, отсеем его позже 1 - угол, 0 - ребро
+        val cornerOrEdge = (index + isSideOdd) % 2
+        if ((cornerOrEdge == 0) and (letter != "-")) {list.add(letter)}
+    }
+    list.sort()
+    return list
+}

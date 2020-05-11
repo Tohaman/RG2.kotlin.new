@@ -2,6 +2,7 @@ package ru.tohaman.testempty.ui.games
 
 import android.content.SharedPreferences
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,8 @@ import ru.tohaman.testempty.Constants.CUSTOM_AZBUKA
 import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
 import ru.tohaman.testempty.Constants.TRAINING_CORNERS
 import ru.tohaman.testempty.Constants.TRAINING_EDGES
+import ru.tohaman.testempty.Constants.TRAINING_TIMER
+import ru.tohaman.testempty.Constants.TRAINING_TIMER_TIME
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
@@ -46,11 +49,17 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterB
     var curLetter = MutableLiveData<String>()
     var message = MutableLiveData<String>()
 
-    private val _trainingCorners = sp.getBoolean(TRAINING_CORNERS, true)
+    private var _trainingCorners = sp.getBoolean(TRAINING_CORNERS, true)
     val trainingCorners = ObservableBoolean(_trainingCorners)
 
     private val _trainingEdges = sp.getBoolean(TRAINING_EDGES, true)
     val trainingEdges = ObservableBoolean(_trainingEdges)
+
+    private val _trainingTimer = sp.getBoolean(TRAINING_TIMER, true)
+    val trainingTimer = ObservableBoolean(_trainingTimer)
+
+    private var _trainingTimerTime = sp.getInt(TRAINING_TIMER_TIME, 6)
+    val trainingTimerTime = ObservableInt(_trainingTimerTime)
 
 
     init {
@@ -76,6 +85,26 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterB
         trainingEdges.set(value)
         sp.edit().putBoolean(TRAINING_EDGES, value).apply()
     }
+
+    fun trainingTimerChange(value: Boolean) {
+        trainingTimer.set(value)
+        sp.edit().putBoolean(TRAINING_TIMER, value).apply()
+    }
+
+    fun minusTimerTime() {
+        _trainingTimerTime -= 1
+        if (_trainingTimerTime < 2) _trainingTimerTime = 2
+        trainingTimerTime.set(_trainingTimerTime)
+        sp.edit().putInt(TRAINING_TIMER_TIME, _trainingTimerTime).apply()
+    }
+
+    fun plusTimerTime() {
+        _trainingTimerTime += 1
+        if (_trainingTimerTime > 15) _trainingTimerTime = 15
+        trainingTimerTime.set(_trainingTimerTime)
+        sp.edit().putInt(TRAINING_TIMER_TIME, _trainingTimerTime).apply()
+    }
+
 
     override fun leftArrowButtonPressed() {
         Timber.d("$TAG вращаем кубик влево")
