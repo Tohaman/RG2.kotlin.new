@@ -8,13 +8,13 @@ import timber.log.Timber
 import java.util.*
 
 fun generateScrambleWithParam(checkEdge: Boolean, checkCorner: Boolean, lenScramble: Int, azbuka: Array<String>): String {
-    Timber.d("TAG Ищем скрамбл подходящий по параметрам переплавок буфера и длине")
+    Timber.d("$TAG Ищем скрамбл подходящий по параметрам переплавок буфера и длине")
     var scramble = ""
     do {
         var result = true
         //сгенерируем скрамбл длинны указанной в поле ScrambleLength
         scramble = generateScramble(lenScramble)
-        //scramble = "B2 D' B2 R U' D2 F B2 U' R2 B' D2 F2 R'"
+        //scramble = "B' L U2 D F' U' L F'"   //для него решение (ТНПРКИХЦЧДО)Эк(БГФЖВЗМ)
         //разбираем кубик по скрамблу
         val genScrambleCube = runScramble(resetCube(), scramble)
         // получаем решение кубика (solve,isEdgeMelted,isCornerMelted)
@@ -22,11 +22,11 @@ fun generateScrambleWithParam(checkEdge: Boolean, checkCorner: Boolean, lenScram
         val isEdgeMelted = condition.edgeBuffer
         val isCornerMelted = condition.cornerBuffer
 
-        Timber.d("TAG Проверка Scramble $scramble, Переплавка буфера ребер - ${condition.edgeBuffer} , Переплавка буфера углов - ${condition.cornerBuffer}")
+        Timber.d("$TAG Проверка Scramble $scramble, Переплавка буфера ребер - ${condition.edgeBuffer} , Переплавка буфера углов - ${condition.cornerBuffer}")
         if (isEdgeMelted && checkEdge) { result = false }
         if (isCornerMelted && checkCorner) { result = false }
     } while (!result)
-    Timber.d("TAG Таки скрамбл $scramble подошел под наши условия")
+    Timber.d("$TAG Таки скрамбл $scramble подошел под наши условия")
 
     return scramble
 }

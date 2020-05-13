@@ -42,7 +42,7 @@ class TimerFragment: Fragment() {
                 }
 
                 settings.setOnClickListener {
-                    findNavController().navigate(R.id.gamesTimerSettings)
+                    findNavController().navigate(R.id.timerSettingsFragment)
                 }
 
                 back.setOnClickListener {

@@ -217,23 +217,21 @@
             android:id="@+id/leftHand"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:srcCompat="@drawable/vtimer_1"
+            app:layout_constraintBottom_toBottomOf="@+id/left_back"
             app:layout_constraintLeft_toLeftOf="@id/left_pad"
             app:layout_constraintRight_toRightOf="@id/left_pad"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topInsideLayout"
-            />
+            app:srcCompat="@drawable/vtimer_1" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/rightHand"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:srcCompat="@drawable/vtimer_2"
+            app:layout_constraintBottom_toBottomOf="@+id/right_back"
             app:layout_constraintLeft_toLeftOf="@id/right_pad"
             app:layout_constraintRight_toRightOf="@id/right_pad"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topInsideLayout"
-            />
+            app:srcCompat="@drawable/vtimer_2" />
 
         <LinearLayout
             android:id="@+id/save_result_layout"

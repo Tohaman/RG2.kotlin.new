@@ -2,6 +2,9 @@ package ru.tohaman.testempty.ui.games
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.media.AudioManager
+import android.media.SoundPool
+import android.os.Build
 import android.view.MotionEvent
 import android.view.View
 import android.widget.SeekBar
@@ -13,6 +16,7 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -44,7 +48,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
-    //-------- Настройки таймера (TimerSettings) ----------------
+    //-------- Управление настройками таймера (TimerSettings) ----------------
 
     private val _showPreloader = false
     override val showPreloader = ObservableBoolean(_showPreloader)
@@ -131,6 +135,16 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     private var scrambleLength = 14
     private var currentLetters: Array<String>? = null
 
+    //Задаем sound pool для метронома
+    private val maxStreams = 2
+    private val soundPool = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        SoundPool.Builder().setMaxStreams(maxStreams).build()
+    } else {
+        @Suppress("DEPRECATION")
+        SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0)
+    }
+    private val soundLow = soundPool.load(ctx, R.raw.metronom_sample,1)
+
 
     private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
     var currentScramble = ObservableField<String>(_currentScramble)
@@ -145,7 +159,6 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
             currentScramble.set(_currentScramble)
             val listDBAzbuka = repository.getAzbukaItems(Constants.CURRENT_AZBUKA)
             currentLetters = getLettersFromCurrentAzbuka(prepareAzbukaToShowInGridView(listDBAzbuka))
-            //showSaveResult.set(false) //?
         }
 
     }
@@ -266,6 +279,8 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         }
     }
 
+    //--------- функции обработки касаний и работы таймера
+
     private fun tryChangeStateToReady() {
         viewModelScope.launch(Dispatchers.Main) {
             //Если старт с задержкой, то ждем иначе уменьшаем resetPressedTime, чтобы сразу перевести в READY
@@ -323,7 +338,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     //Отпустили "двурукую" плашку
     private fun onTwoHandActionUp(masterCircle: ObservableInt) {
         Timber.d("$TAG Отпустили двурукую плашку")
-        resetPressedTime = System.currentTimeMillis()   //сбросим resetPressedTime, чтобы корутина не перевела в READY, если еще не в нем
+        resetPressedTime = System.currentTimeMillis()   //сбросим resetPressedTime, чтобы корутина не перевела статус в READY, если она в процессе перевода
         when (timerState) {
             TimerStates.STOPPED -> { masterCircle.set(redColor) }
             TimerStates.READY -> startTimer()
@@ -334,6 +349,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
             }
         }
     }
+
 
     private fun tryToPauseTimer() {
         if (timerState == TimerStates.STARTED) {
@@ -368,13 +384,34 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     }
 
     private fun startShowTime () {
+
         //Используя корутины Котлина, отображаем время таймера, пока timerState = STARTED (запущен)
         viewModelScope.launch {
+            val metronomJob =
+                startMetronom() //Если запускаем отображение времени, то пробуем запустить и метроном
             do {
-                delay(30)
+                delay(16)   //примерно 60 раз в секунду
                 curTime.set(showTimerTime())
             } while (timerState == TimerStates.STARTED)
+            //Поскольку аналогичная проверка в метрономе может выполняться редко (всего лишь 1 раз в минуту), то может
+            //получится так, что таймер остановлен и запущен снова. В итоге будут работать две корутины метронома, поэтому прерываем корутину отсюда.
+            metronomJob?.cancel()
         }
+    }
+
+    private suspend fun startMetronom(): Job? {
+        if (metronom.get()) {   //Если метроном включен, то начинаем
+            //Используя корутины Котлина, воспроизводим звук метронома, пока timerState = STARTED (запущен)
+            val delayMills = (1000 * 60 / metronomFrequency.get()).toLong()
+            return viewModelScope.launch {
+                do {
+                    soundPool.play(soundLow, 1.0f, 1.0f, 0, 0, 1.0f)
+                    delay(delayMills)
+                 //Повторяем, пока таймер запущен
+                } while (timerState == TimerStates.STARTED)
+            }
+        }
+        return null
     }
 
     private fun showTimerTime(): String {

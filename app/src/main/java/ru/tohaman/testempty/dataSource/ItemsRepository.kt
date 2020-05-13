@@ -44,9 +44,9 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun insert2Main(items: List<MainDBItem>) = mainDao.insert(items)
 
-    suspend fun updateMainItem(item: MainDBItem?) = mainDao.update(item)
+    fun updateMainItem(item: MainDBItem?) = mainDao.update(item)
 
-    suspend fun updateMainItem(items: List<MainDBItem>) = mainDao.update(items)
+    fun updateMainItem(items: List<MainDBItem>) = mainDao.update(items)
 
     // Работа с таблицей Types
 

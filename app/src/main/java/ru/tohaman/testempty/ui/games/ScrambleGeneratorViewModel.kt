@@ -101,10 +101,12 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt,
 
 
     private fun showSolving() {
+        val scramble = currentScramble.get() ?: ""
+        val scrambledCube = runScramble(resetCube(), scramble)
         val solving = if (showSolving.get()) {
-            getSolve(currentCube, currentLetters).solve
+            getSolve(scrambledCube, currentLetters).solve
         } else {
-            getSolve(currentCube, currentLetters).solveLength
+            getSolve(scrambledCube, currentLetters).solveLength
         }
         solvingText.set(solving)
     }
@@ -145,7 +147,7 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt,
         sp.edit().putBoolean(SHOW_SOLVING, value).apply()
     }
 
-    //Магия obsrvable меняем tmpScramble, а dialogScrambleText меняется сам
+    //Магия obsrvable меняем tmpScramble, а dialogScrambleText меняется сам, т.к. dialogScrambleText.get()=tmpScramble
     private var tmpScramble = ObservableField<String>("")
 
     override var dialogScrambleText: ObservableField<String>

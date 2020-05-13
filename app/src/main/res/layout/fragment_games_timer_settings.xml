@@ -16,6 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/appBar"
+            layout="@layout/include_app_bar"
+            app:title="@{@string/timer_settings}"
+            app:tabbed="@{false}"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +37,8 @@
                 android:onCheckedChanged="@{(switch, checked) -> viewModel.isTimerDelayedChange(checked)}"
                 android:padding="@dimen/big_padding"
                 android:text="@string/timer_is_delayed"
-                android:textSize="18sp" />
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                />
 
             <Switch
                 android:id="@+id/is_one_hand"
@@ -40,7 +48,8 @@
                 android:onCheckedChanged="@{(switch, checked) -> viewModel.isOneHandedChange(checked)}"
                 android:padding="@dimen/big_padding"
                 android:text="@string/timer_is_one_handed"
-                android:textSize="18sp" />
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                />
 
             <Switch
                 android:id="@+id/metronom"
@@ -50,7 +59,7 @@
                 android:onCheckedChanged="@{(switch, checked) -> viewModel.isMetronomChange(checked)}"
                 android:padding="@dimen/big_padding"
                 android:text="@string/timer_metronom"
-                android:textSize="18sp" />
+                style="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,13 +68,14 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="10"
                     android:fontFamily="sans-serif-medium"
                     android:paddingLeft="@dimen/big_padding"
                     android:paddingRight="@dimen/big_padding"
+                    android:gravity="center_vertical"
                     android:text="@string/timer_metronom_frequency"
-                    android:textSize="18sp"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
                     app:isEnabled="@{viewModel.metronom ? true : false }" />
 
                 <LinearLayout
@@ -129,7 +139,8 @@
                 android:onCheckedChanged="@{(switch, checked) -> viewModel.needScrambleChange(checked)}"
                 android:padding="@dimen/big_padding"
                 android:text="@string/timer_scramble_generate"
-                android:textSize="18sp" />
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                />
 
 
             <Switch
@@ -140,7 +151,9 @@
                 android:onCheckedChanged="@{(switch, checked) -> viewModel.needBackButtonChange(checked)}"
                 android:padding="@dimen/big_padding"
                 android:text="@string/timer_need_back_button"
-                android:textSize="18sp" />
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                />
+
         </LinearLayout>
 
         <include

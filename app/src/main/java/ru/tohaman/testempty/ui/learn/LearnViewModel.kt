@@ -143,25 +143,29 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         changePhaseTo(phase)
     }
 
+    //Добавляем или убираем из избранного в зависимости от menuItem.isFavourite
+    //
     fun onFavouriteChangeClick(menuItem: MainDBItem, position: Int = menuItem.subId) {
         Timber.d( "$TAG favouriteChange for - $menuItem")
         viewModelScope.launch (Dispatchers.IO) {
             menuItem.isFavourite = !menuItem.isFavourite
             val list = repository.getFavourites().toMutableList()
             if (menuItem.isFavourite) {             // добавляем в избранное
-                menuItem.subId = list.size
+                list.add(position, menuItem)
+                list.indices.map {i -> list[i].subId = i}
             } else {                                // убираем из избранного
                 Timber.d( "$TAG removeFAV - $position ${list.size}")
                 list.removeAt(position)
                 list.indices.map {i -> list[i].subId = i}
                 menuItem.subId = 0
+                repository.updateMainItem(menuItem)
             }
-            list.add(menuItem)
-            repository.updateMainItem(list)
+            runBlocking { repository.updateMainItem(list) }
             updateCurrentPhasesToArray()    //обновляем данные в текущих фазах (перечитываем из репозитория) для основного меню
         }
     }
 
+    //меняем местами две записи в избранном
     fun onFavouriteSwapPosition(fromPosition: Int, toPosition: Int) {
         Timber.d( "$TAG swap from $fromPosition. to $toPosition")
         viewModelScope.launch (Dispatchers.IO) {

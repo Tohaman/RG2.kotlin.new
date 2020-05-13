@@ -1,5 +1,8 @@
 package ru.tohaman.testempty.ui.games
 
+import android.content.SharedPreferences
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,11 +10,17 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
+import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.testempty.Constants
 import ru.tohaman.testempty.Constants.ANTONS_AZBUKA
 import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
 import ru.tohaman.testempty.Constants.CUSTOM_AZBUKA
 import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
+import ru.tohaman.testempty.Constants.TRAINING_CORNERS
+import ru.tohaman.testempty.Constants.TRAINING_EDGES
+import ru.tohaman.testempty.Constants.TRAINING_TIMER
+import ru.tohaman.testempty.Constants.TRAINING_TIMER_TIME
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
 import ru.tohaman.testempty.dbase.entitys.AzbukaDBItem
@@ -22,8 +31,10 @@ import ru.tohaman.testempty.interfaces.SetLetterButtonsInt
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
+//Эта viewModel используется для общих настроек миниИгр + настройки Генератора скрамблов (Азбуки) и настройки теренировки Азбуки
 class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterButtonsInt {
     private val repository : ItemsRepository by inject()
+    private val sp = get<SharedPreferences>()
 
     private var simpleGamesList = listOf<MainDBItem>()
     private var _gamesList: MutableLiveData<List<MainDBItem>> = simpleGamesList.toMutableLiveData()
@@ -38,6 +49,19 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterB
     var curLetter = MutableLiveData<String>()
     var message = MutableLiveData<String>()
 
+    private var _trainingCorners = sp.getBoolean(TRAINING_CORNERS, true)
+    val trainingCorners = ObservableBoolean(_trainingCorners)
+
+    private val _trainingEdges = sp.getBoolean(TRAINING_EDGES, true)
+    val trainingEdges = ObservableBoolean(_trainingEdges)
+
+    private val _trainingTimer = sp.getBoolean(TRAINING_TIMER, true)
+    val trainingTimer = ObservableBoolean(_trainingTimer)
+
+    private var _trainingTimerTime = sp.getInt(TRAINING_TIMER_TIME, 6)
+    val trainingTimerTime = ObservableInt(_trainingTimerTime)
+
+
     init {
         viewModelScope.launch (Dispatchers.IO) {
             simpleGamesList = repository.getPhaseFromMain("GAMES")
@@ -49,6 +73,38 @@ class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterB
             _currentAzbuka.postValue(gridViewAzbukaList)
         }
     }
+
+    fun trainingCornersChange(value: Boolean) {
+        if (!(value or trainingEdges.get())) trainingEdgesChange(true)
+        trainingCorners.set(value)
+        sp.edit().putBoolean(TRAINING_CORNERS, value).apply()
+    }
+
+    fun trainingEdgesChange(value: Boolean) {
+        if (!(value or trainingCorners.get())) trainingCornersChange(true)
+        trainingEdges.set(value)
+        sp.edit().putBoolean(TRAINING_EDGES, value).apply()
+    }
+
+    fun trainingTimerChange(value: Boolean) {
+        trainingTimer.set(value)
+        sp.edit().putBoolean(TRAINING_TIMER, value).apply()
+    }
+
+    fun minusTimerTime() {
+        _trainingTimerTime -= 1
+        if (_trainingTimerTime < 2) _trainingTimerTime = 2
+        trainingTimerTime.set(_trainingTimerTime)
+        sp.edit().putInt(TRAINING_TIMER_TIME, _trainingTimerTime).apply()
+    }
+
+    fun plusTimerTime() {
+        _trainingTimerTime += 1
+        if (_trainingTimerTime > 15) _trainingTimerTime = 15
+        trainingTimerTime.set(_trainingTimerTime)
+        sp.edit().putInt(TRAINING_TIMER_TIME, _trainingTimerTime).apply()
+    }
+
 
     override fun leftArrowButtonPressed() {
         Timber.d("$TAG вращаем кубик влево")

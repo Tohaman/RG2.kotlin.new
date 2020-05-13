@@ -6,6 +6,7 @@ package ru.tohaman.testempty
 object Constants {
     const val THEME = "theme"
     const val SHOW_FAB = "showFAB"
+    const val TEXT_SIZE = "mainTextSize"
 
     const val CURRENT_SCRAMBLE = "currentScramble"
     const val BUFFER_EDGE = "isBufferEdgeSet"
@@ -25,4 +26,8 @@ object Constants {
     const val TIMER_NEED_BACK = "needBackButton"
     const val TIMER_METRONOM_FREQ = "metronomFrequency"
 
+    const val TRAINING_EDGES = "trainingEdges"
+    const val TRAINING_CORNERS = "trainingCorners"
+    const val TRAINING_TIMER = "trainingTimer"
+    const val TRAINING_TIMER_TIME = "trainingTimerTime"
 }
