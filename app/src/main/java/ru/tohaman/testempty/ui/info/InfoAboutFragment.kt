@@ -17,7 +17,9 @@ class InfoAboutFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentInfoAboutBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
+            .apply {
+
+            }
         return binding.root
     }
 

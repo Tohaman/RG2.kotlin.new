@@ -92,7 +92,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="4"
-                android:progress="1" />
+                android:progress="@{viewModel.textSize}"
+                app:onSeekListener="@{viewModel.onTextSeek()}"
+                />
 
 
         </LinearLayout>

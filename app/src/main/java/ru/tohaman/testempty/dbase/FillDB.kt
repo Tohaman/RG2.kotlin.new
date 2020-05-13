@@ -69,6 +69,10 @@ class FillDB {
             phaseInit("OLL", R.array.oll_title, R.array.oll_icon, R.array.oll_descr, R.array.oll_url, context)
             phaseInit("ORTEGA", R.array.ortega_title, R.array.ortega_icon, R.array.ortega_descr, R.array.ortega_url, context)
             phaseInit("PATTERNS", R.array.patterns_title, R.array.patterns_icon, R.array.patterns_descr, R.array.patterns_url, context, R.array.patterns_comment)
+            phaseInit("PENROSE", R.array.penrose_title, R.array.penrose_icon, R.array.penrose_descr, R.array.penrose_url, context)
+            phaseInit("PENTACLE", R.array.pentacle_title, R.array.pentacle_icon, R.array.pentacle_descr, R.array.pentacle_url, context)
+            phaseInit("PLL", R.array.pll_title, R.array.pll_icon, R.array.pll_descr, R.array.pll_url, context)
+            phaseInit("PRISMA", R.array.prisma_title, R.array.prisma_icon, R.array.prisma_descr, R.array.prisma_url, context)
             phaseInit("ROZOV", R.array.begin_rozov_title, R.array.begin_rozov_icon, R.array.begin_rozov_descr, R.array.begin_rozov_url, context)
 
             //Подсказки по азбуке вращений

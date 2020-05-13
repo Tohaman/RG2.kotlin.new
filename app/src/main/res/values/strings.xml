@@ -85,4 +85,5 @@
     <string name="continue_game">Продолжить</string>
     <string name="stop_game">Заново</string>
     <string name="start">Начать</string>
+    <string name="app_description">RubicsGuide 2 - обучение сборке кубика Рубика</string>
 </resources>
