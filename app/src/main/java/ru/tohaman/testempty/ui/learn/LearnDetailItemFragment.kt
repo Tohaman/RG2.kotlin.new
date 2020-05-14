@@ -71,8 +71,8 @@ class LearnDetailItemFragment : Fragment() {
                         if (fragmentNum < it.size) {
                             item = it[fragmentNum]
                             mainDBItem = item
-                            description_text.setTextIsSelectable(isTextSelectable)
-                            title_text.setTextIsSelectable(isTextSelectable)
+                            content.descriptionText.setTextIsSelectable(isTextSelectable)
+                            content.titleText.setTextIsSelectable(isTextSelectable)
                             content.youtubeView.enabled = item.url != ""
                         }
                     }
