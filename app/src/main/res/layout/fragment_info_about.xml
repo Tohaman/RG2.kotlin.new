@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="String" />
+            type="ru.tohaman.testempty.ui.info.InfoViewModel" />
 
     </data>
 
@@ -55,9 +55,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:padding="@dimen/mid_padding"
+                    android:htmlText="@{viewModel.textAbout}"
                     style="@style/MainText"
-                    android:text="@string/lorem_ipsum"/>
+                    tools:text="@string/lorem_ipsum"/>
 
             </LinearLayout>
 
@@ -70,7 +71,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:textSize="10sp"
-            android:text="@{viewModel}"
             tools:text="20200515.1"
             />
 
