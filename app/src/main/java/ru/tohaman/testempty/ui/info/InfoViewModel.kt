@@ -18,4 +18,6 @@ class InfoViewModel(app: Application): AndroidViewModel(app), KoinComponent {
     private val ctx = app.baseContext
 
     val textAbout = ObservableInt(R.string.about)
+
+    val textThanks = ObservableInt(R.string.thanks)
 }
