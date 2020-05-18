@@ -109,7 +109,7 @@
                 android:scaleType="fitCenter"
                 android:layout_marginBottom="@dimen/small_margin"
                 android:layout_weight="1"
-                android:src="@drawable/cubemarket_logo_hor"
+                android:src="@drawable/cubemarket_logo_vert"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

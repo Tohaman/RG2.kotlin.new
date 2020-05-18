@@ -38,7 +38,7 @@ class InfoFragment : Fragment() {
                         super.onPageSelected(position)
                     }
                 })
-                infoViewPager.currentItem = infoViewPager.bookmark
+                infoViewPager.currentItem = infoViewModel.getBookmark()
 
                 val tabLayout = appBar.tabLayout
                 TabLayoutMediator(tabLayout, infoViewPager) { tab, position ->

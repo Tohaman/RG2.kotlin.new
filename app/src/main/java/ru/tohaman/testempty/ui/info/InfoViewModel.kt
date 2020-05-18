@@ -22,12 +22,15 @@ class InfoViewModel(app: Application): AndroidViewModel(app), KoinComponent {
     private val ctx = app.baseContext
 
     //номер закладки открываемой по-умолчанию
-    var bookmark = sp.getInt(INFO_BOOKMARK, 2)
+    private var bookmark = sp.getInt(INFO_BOOKMARK, 1)
 
     fun setBookMark(position: Int) {
         Timber.d("$TAG setBookmark $position")
+        bookmark = position
         sp.edit().putInt(INFO_BOOKMARK, position).apply()
     }
+
+    fun getBookmark(): Int = bookmark
 
     val textAbout = ObservableInt(R.string.about)
 

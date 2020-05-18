@@ -109,33 +109,4 @@ class LearnDetailFragment : Fragment() {
         }
     }
 
-    inner class DetailPagerAdapter2 (fm: FragmentManager) : FragmentStatePagerAdapter(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-        private var detailItems = listOf<MainDBItem>()
-
-        //передаем новые данные и оповещаем адаптер о необходимости обновления списка
-        fun refreshItems(items: List<MainDBItem>) {
-            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter ${items.size} шт = $items")
-
-            detailItems = items
-            notifyDataSetChanged()
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return detailItems[position].title
-        }
-
-        fun getData() : List<MainDBItem> {
-            return detailItems
-        }
-
-        override fun getItem(position: Int): Fragment {
-            return LearnDetailItemFragment.newInstance(detailItems[position])
-        }
-
-        override fun getCount(): Int {
-            return detailItems.count()
-        }
-    }
-
-
 }

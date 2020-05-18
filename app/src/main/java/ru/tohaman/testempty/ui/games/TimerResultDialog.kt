@@ -72,25 +72,7 @@ class TimerResultDialog : DialogFragment() {
             resultViewModel.editedItem.set(item)
             resultViewModel.editedComment.set(item.comment)
             binding.textComment.setOnClickListener {
-                val alertBuilder = MaterialAlertDialogBuilder(ctx)
-                val alertBinding = DialogEditCommentBinding.inflate(layoutInflater)
-
-                val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                val eText = alertBinding.editText
-                eText.text = item.comment.toEditable()
-                eText.requestFocus()
-                imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN,0)
-
-                alertBuilder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
-                    item.comment = eText.text.toString()
-                    resultViewModel.updateItem(item)
-                    imm.hideSoftInputFromWindow(eText.windowToken, 0)
-                }
-                alertBuilder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
-                    resultViewModel.editedItem.set(item)
-                    imm.hideSoftInputFromWindow(eText.windowToken, 0)
-                }
-                alertBuilder.setView(alertBinding.root).create().show()
+                showEditCommentDialog(ctx, item)
             }
             //Добавим к диалогу кнопочки (OK и Cancel) и обработчики нажатий на эти кнопочки
             builder.setPositiveButton(ctx.getText(R.string.ok), null)
@@ -101,6 +83,28 @@ class TimerResultDialog : DialogFragment() {
             builder.setView(binding.root)
             builder.create().show()
         }
+    }
+
+    private fun showEditCommentDialog(ctx: Context, item: TimeNoteItem) {
+        val alertBuilder = MaterialAlertDialogBuilder(ctx)
+        val alertBinding = DialogEditCommentBinding.inflate(layoutInflater)
+
+        val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val eText = alertBinding.editText
+        eText.text = item.comment.toEditable()
+        eText.requestFocus()
+        imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN, 0)
+
+        alertBuilder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
+            item.comment = eText.text.toString()
+            resultViewModel.updateItem(item)
+            imm.hideSoftInputFromWindow(eText.windowToken, 0)
+        }
+        alertBuilder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
+            resultViewModel.editedItem.set(item)
+            imm.hideSoftInputFromWindow(eText.windowToken, 0)
+        }
+        alertBuilder.setView(alertBinding.root).create().show()
     }
 
 
