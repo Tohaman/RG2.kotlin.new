@@ -28,7 +28,7 @@ class InfoMiniHelpFragment : Fragment() {
 //                imageSlider.setIndicatorAnimation(IndicatorAnimations.THIN_WORM)
                 val adapter = SliderAdapter()
                 adapter.refreshItems(galleryDrawables.shuffled())
-                imageSlider.setSliderAdapter(adapter)
+                imageSlider.sliderAdapter = adapter
 
 //                imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
 //                imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);

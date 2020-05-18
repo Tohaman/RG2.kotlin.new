@@ -11,6 +11,8 @@ import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
 import ru.tohaman.testempty.Constants
+import ru.tohaman.testempty.Constants.CUR_CUBE_TYPE
+import ru.tohaman.testempty.Constants.FAVOURITES
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dbase.entitys.CubeType
@@ -24,13 +26,11 @@ import java.text.ParsePosition
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val sp = get<SharedPreferences>()
 
-    private val FAVOURITES = "FAVOURITES"
-    private val CUR_CUBE_TYPE = "CUR_CUBE_TYPE"
     private val repository : ItemsRepository by inject()
     private val ctx = context
     private var typesCount = 10
     //номер закладки открываемой по-умолчанию
-    private var currentCubeType = get<SharedPreferences>().getInt(CUR_CUBE_TYPE, 2)
+    private var currentCubeType = sp.getInt(CUR_CUBE_TYPE, 2)
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
 
     //Массив из MediatorLiveData, содержащих списки записей определенной фазы
@@ -83,7 +83,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun setCurrentCubeType(id: Int) {
         currentCubeType = id
-        get<SharedPreferences>().edit().putInt(CUR_CUBE_TYPE, id).apply()
+        sp.edit().putInt(CUR_CUBE_TYPE, id).apply()
     }
 
     fun getPhaseNameById(id: Int): String {
