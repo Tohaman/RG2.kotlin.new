@@ -3,12 +3,13 @@ package ru.tohaman.testempty.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.smarteist.autoimageslider.SliderViewAdapter
+import ru.tohaman.testempty.dataSource.entitys.TipsItem
 import ru.tohaman.testempty.databinding.ItemSliderImageBinding
 
 class SliderAdapter() : SliderViewAdapter<SliderAdapter.ViewHolder>() {
-    private var items: List<Int> = ArrayList()
+    private var items: List<TipsItem> = ArrayList()
 
-    fun refreshItems(items: List<Int>) {
+    fun refreshItems(items: List<TipsItem>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -28,8 +29,9 @@ class SliderAdapter() : SliderViewAdapter<SliderAdapter.ViewHolder>() {
 
 
     class ViewHolder private constructor(private val binding: ItemSliderImageBinding): SliderViewAdapter.ViewHolder(binding.root) {
-        fun bind(item: Int){
-            binding.images.setBackgroundResource(item)
+        fun bind(item: TipsItem){
+            binding.images.setImageResource(item.imageRes)
+            binding.imageComment.text = item.imageComment
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }
