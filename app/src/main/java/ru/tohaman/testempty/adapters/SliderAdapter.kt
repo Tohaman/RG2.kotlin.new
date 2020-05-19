@@ -30,8 +30,8 @@ class SliderAdapter() : SliderViewAdapter<SliderAdapter.ViewHolder>() {
 
     class ViewHolder private constructor(private val binding: ItemSliderImageBinding): SliderViewAdapter.ViewHolder(binding.root) {
         fun bind(item: TipsItem){
-            binding.images.setImageResource(item.imageRes)
-            binding.imageComment.text = item.imageComment
+            binding.sliderImage.images.setImageResource(item.imageRes)
+            binding.sliderImage.imageComment.text = item.imageComment
             //Метод executePendingBindings используется, чтобы биндинг не откладывался, а выполнился как можно быстрее. Это критично в случае с RecyclerView.
             binding.executePendingBindings()
         }

@@ -4,7 +4,7 @@
         <item>Генератор скрамблов</item>
         <item>Таймер</item>
         <item>Тренировка PLL</item>
-        <item>Тренировка OLL</item>
+<!--        <item>Тренировка OLL</item>-->
         <item>Тренировка Азбуки</item>
     </string-array>
 
@@ -12,7 +12,7 @@
         <item>@drawable/game_scrambe</item>
         <item>@drawable/game_timer</item>
         <item>@drawable/game_pll</item>
-        <item>@drawable/game_oll</item>
+<!--        <item>@drawable/game_oll</item>-->
         <item>@drawable/game_azbuka</item>
     </integer-array>
 
@@ -20,7 +20,7 @@
         <item>@string/games_st1_descr</item>
         <item>@string/games_st2_descr</item>
         <item>@string/games_st3_descr</item>
-        <item>@string/games_st4_descr</item>
+<!--        <item>@string/games_st4_descr</item>-->
         <item>@string/games_st5_descr</item>
     </string-array>
 
@@ -28,7 +28,7 @@
         <item>GENERATOR</item>
         <item>TIMER</item>
         <item>PLL_TRAINING</item>
-        <item>OLL_TRAINING</item>
+<!--        <item>OLL_TRAINING</item>-->
         <item>AZBUKA_TRAINING</item>
     </string-array>
 
@@ -113,7 +113,10 @@
     ]]></string>
 
     <string name="games_st5_descr" formatted="false"><![CDATA[
-        Мини-игра для тренировки азбуки используемой в сборке кубика вслепую
+        <p>Мини-игра для тренировки азбуки используемой в сборке кубика вслепую. В настройках
+        игры вы можете задать следующие параметры.</p>
+
+        <p><b></b> <p>
     ]]></string>
 
 </resources>

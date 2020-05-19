@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            style="@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="4dp"
             app:hideOnScroll="true">

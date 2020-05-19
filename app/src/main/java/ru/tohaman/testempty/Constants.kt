@@ -1,5 +1,7 @@
 package ru.tohaman.testempty
 
+import ru.tohaman.testempty.dataSource.entitys.TipsItem
+
 /**
  * Константы для записи в Preferences, чтобы отловить неверные указания в тексте на уровне компилятора
  */
@@ -41,5 +43,18 @@ object Constants {
     const val MAKSIMS_AZBUKA = "MAKSIMS_AZBUKA"             //Азбука Максима
     const val CURRENT_AZBUKA = "CURRENT_AZBUKA"             //Текущая азбука
     const val CUSTOM_AZBUKA = "CUSTOM_AZBUKA"               //Сохраненная пользовательская азбука
+
+
+    val galleryDrawables = listOf(
+        TipsItem(R.drawable.frame_1, "Обязательно прочитайте этот раздел"),
+        TipsItem(R.drawable.frame_2, "Добавляйте в избранное этапы или головоломки целиком"),
+        TipsItem(R.drawable.frame_3, "Забыли азбуку? Нажмите зеленую кнопку"),
+        TipsItem(R.drawable.frame_4, "Создвайте свои комментарии к этапам"),
+        TipsItem(R.drawable.frame_5, "Щелкните по скрамблу, чтобы его поменять или задать свой"),
+        TipsItem(R.drawable.frame_6, "Щелкните тут чтобы сменить скрамбл"),
+        TipsItem(R.drawable.frame_7, "Таймер можно поставить на паузу нажав на верхнюю панель"),
+        TipsItem(R.drawable.frame_8, "При сохранении результата можно сразу задать свой комментарий"),
+        TipsItem(R.drawable.frame_9, "Эту кнопку можно отключить в настройках программы")
+    )
 
 }
