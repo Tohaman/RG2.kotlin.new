@@ -23,6 +23,7 @@ class YouTubePlayerActivity: MyDefaultActivity() {
     private var videoId = ""
     private lateinit var youTubePlayerView: YouTubePlayerView
     private var currentSecond = 0f
+    private var startTime = 0f
     private lateinit var player: YouTubePlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +32,7 @@ class YouTubePlayerActivity: MyDefaultActivity() {
         intent.data!!.getQueryParameter("time").let { timeFromArgs = it!! }
         intent.data!!.getQueryParameter("link").let { videoId = it!! }
         currentSecond = stringToTimeMillis(timeFromArgs)
+        startTime = currentSecond
 
         Timber.d ("$TAG startYouTube with - $timeFromArgs , $videoId")
 
@@ -66,12 +68,15 @@ class YouTubePlayerActivity: MyDefaultActivity() {
         })
     }
 
+    //Нажатие левой кнопки (рядом с Play)
     private val backwardClickListner = View.OnClickListener { _ ->
-        player.seekTo(currentSecond - 10)
+        //player.seekTo(currentSecond - 10)         // Перемотаем на 10 сек назад
+        player.seekTo(startTime)                    // Перемотка к месту откуда начали смотреть видео
     }
 
+    //Нажатие правой от Play кнопки
     private val forwardClickListner = View.OnClickListener { _ ->
-        player.seekTo(currentSecond + 10)
+        player.seekTo(currentSecond + 10)       //Перемотка на 10 сек вперед
     }
 
     //Преобразует строку вида 0:25 в милисекунды (25000)
@@ -82,7 +87,7 @@ class YouTubePlayerActivity: MyDefaultActivity() {
         try {
             date = format.parse(text)
         } catch (ex: ParseException) {
-            Timber.d( "$TAG Это не должно произойти. Ошибка при преобразовании даты.")
+            Timber.w( "$TAG Это не должно произойти. Ошибка при преобразовании даты.")
             //но если произошло, то считаем что видео воспроизводится с начала возвращаем 0 милисек
             return 0f
         }

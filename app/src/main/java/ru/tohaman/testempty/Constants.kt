@@ -9,6 +9,9 @@ object Constants {
     const val THEME = "theme"                               //Тема приложения (String)
     const val SHOW_FAB = "showFAB"                          //Отображать плавающую кнопку в основном меню (Boolean)
     const val TEXT_SIZE = "mainTextSize"                    //+ к изначально задуманному размеру текста в обучалках (Int)
+    //Константы для увеличения/уменьшения размера текста
+    const val startValue: Float = 0.7f //начальное значение размера шрифта
+    const val step = 0.15f //шаг увеличения коэффициента
 
     //Настройки Генератора скрмблов
     const val CURRENT_SCRAMBLE = "currentScramble"          //Последний придуманный скрамбл (текущий) (String)
@@ -44,14 +47,13 @@ object Constants {
     const val CURRENT_AZBUKA = "CURRENT_AZBUKA"             //Текущая азбука
     const val CUSTOM_AZBUKA = "CUSTOM_AZBUKA"               //Сохраненная пользовательская азбука
 
-
     val galleryDrawables = listOf(
         TipsItem(R.drawable.frame_1, "Обязательно прочитайте этот раздел"),
-        TipsItem(R.drawable.frame_2, "Добавляйте в избранное этапы или головоломки целиком"),
+        TipsItem(R.drawable.frame_2, "Добавляйте в избранное отдельные этапы или головоломки целиком"),
         TipsItem(R.drawable.frame_3, "Забыли азбуку? Нажмите зеленую кнопку"),
-        TipsItem(R.drawable.frame_4, "Создвайте свои комментарии к этапам"),
-        TipsItem(R.drawable.frame_5, "Щелкните по скрамблу, чтобы его поменять или задать свой"),
-        TipsItem(R.drawable.frame_6, "Щелкните тут чтобы сменить скрамбл"),
+        TipsItem(R.drawable.frame_4, "Создвайте свои комментарии к этапам, и вы их увидите в меню"),
+        TipsItem(R.drawable.frame_5, "Щелкните по скрамблу в генератое, чтобы задать свой скрамбл"),
+        TipsItem(R.drawable.frame_6, "Щелкните по скрамблу в таймере, чтобы его сменить"),
         TipsItem(R.drawable.frame_7, "Таймер можно поставить на паузу нажав на верхнюю панель"),
         TipsItem(R.drawable.frame_8, "При сохранении результата можно сразу задать свой комментарий"),
         TipsItem(R.drawable.frame_9, "Эту кнопку можно отключить в настройках программы")

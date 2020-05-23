@@ -74,7 +74,7 @@
     <string name="corners">Углы</string>
     <string name="edges">Ребра</string>
     <string name="training">Тренируем:</string>
-    <string name="font_size_text">Размер шрифта в обучалках</string>
+    <string name="font_size_text">Размер шрифта</string>
     <string name="training_timer_text">Игра на время</string>
     <string name="training_timer_time">Время для ответа</string>
     <string name="right_answer">Правильно</string>

@@ -124,7 +124,6 @@
             app:srcCompat="@drawable/ic_transform"
             app:borderWidth="0dp"
             android:backgroundTint="@color/colorAccent"
-            app:rippleColor="@color/white"
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             app:elevation="6dp"
             app:layout_anchor="@id/bottom_bar"/>
