@@ -50,8 +50,7 @@ class GamesFragment : Fragment() {
             when (menuItem.url) {
                 "GENERATOR" -> findNavController().navigate(R.id.scrambleGeneratorFragment)
                 "TIMER" -> findNavController().navigate(R.id.timerFragment)
-                "PLL_TRAINING" -> {}
-                "OLL_TRAINING" -> {}
+                "PLL_TRAINING" -> findNavController().navigate(R.id.pllTrainerFragment)
                 "AZBUKA_TRAINING" -> findNavController().navigate(R.id.azbukaTrainerFragment)
             }
         }
@@ -59,11 +58,10 @@ class GamesFragment : Fragment() {
         override fun clickSettings(menuItem: MainDBItem) {
             Timber.d("$TAG Games-clickSettings ${menuItem.url}")
             when (menuItem.url) {
-                "GENERATOR" -> findNavController().navigate(R.id.gamesAzbukaSettings)
-                "TIMER" -> findNavController().navigate(R.id.timerSettingsFragment)
-                "PLL_TRAINING" -> {}
-                "OLL_TRAINING" -> {}
-                "AZBUKA_TRAINING" -> findNavController().navigate(R.id.azbukaTrainerSettings)
+                "GENERATOR" -> findNavController().navigate(R.id.action_destGames_to_gamesAzbukaSettings)
+                "TIMER" -> findNavController().navigate(R.id.action_destGames_to_gamesTimerSettings)
+                "PLL_TRAINING" -> findNavController().navigate(R.id.action_destGames_to_pllTrainerSettings)
+                "AZBUKA_TRAINING" -> findNavController().navigate(R.id.action_destGames_to_azbukaTrainerSettings)
             }
         }
 

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.GamesViewModel" />
+            type="ru.tohaman.testempty.ui.games.PllTrainerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:id="@+id/appBar"
                 layout="@layout/include_app_bar"
                 app:tabbed="@{false}"
-                app:title="@{@string/azbuka_training}" />
+                app:title="@{@string/pll_training_settings}" />
 
             <TextView
                 android:id="@+id/text"
@@ -47,43 +47,35 @@
                 android:layout_marginBottom="@dimen/small_margin"
                 android:text="@string/training" />
 
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/dark_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layoutDirection="rtl"
+                android:layout_marginLeft="@dimen/big_margin"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:onClick="@{() -> viewModel.twoSideRecognitionSelect()}"
+                android:checked="@={viewModel.is2SideRecognition}"
+                android:text="@string/two_side_recognition_text" />
 
-                <Switch
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/middle_margin"
-                    android:layout_weight="1"
-                    android:checked="@={viewModel.trainingCorners}"
-                    android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingCornersChange(checked)}"
-                    android:text="@string/corners"
-                    tools:ignore="RtlHardcoded" />
-
-                <Switch
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/middle_margin"
-                    android:layout_marginRight="@dimen/middle_margin"
-                    android:layout_weight="1"
-                    android:checked="@={viewModel.trainingEdges}"
-                    android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingEdgesChange(checked)}"
-                    android:text="@string/edges"
-                    tools:ignore="RtlHardcoded" />
-
-            </LinearLayout>
+            <RadioButton
+                android:id="@+id/light_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:layout_marginLeft="@dimen/big_margin"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:onClick="@{() -> viewModel.threeSideRecognitionSelect()}"
+                android:checked="@={!viewModel.is2SideRecognition}"
+                android:text="@string/three_side_recognition_text" />
 
             <Switch
                 android:id="@+id/metronom"
                 style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.trainingTimer}"
-                android:onCheckedChanged="@{(switch, checked) -> viewModel.trainingTimerChange(checked)}"
+                android:checked="@={viewModel.pllTrainingTimer}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.pllTrainingTimerChange(checked)}"
                 android:padding="@dimen/big_padding"
                 android:text="@string/training_timer_text" />
 
@@ -102,7 +94,7 @@
                     android:paddingLeft="@dimen/big_padding"
                     android:paddingRight="@dimen/big_padding"
                     android:text="@string/training_timer_time"
-                    app:isEnabled="@{viewModel.trainingTimer ? true : false }" />
+                    app:isEnabled="@{viewModel.pllTrainingTimer ? true : false }" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -118,7 +110,7 @@
                         android:layout_weight="1"
                         android:onClick="@{(view) -> viewModel.minusTimerTime()}"
                         android:text="@string/minus"
-                        app:isEnabled="@{viewModel.trainingTimer ? true : false}" />
+                        app:isEnabled="@{viewModel.pllTrainingTimer ? true : false}" />
 
                     <TextView
                         android:id="@+id/metronom_freq"
@@ -130,8 +122,8 @@
                         android:paddingLeft="@dimen/big_padding"
                         android:paddingRight="@dimen/big_padding"
                         android:textSize="22sp"
-                        app:isEnabled="@{viewModel.trainingTimer ? true : false}"
-                        app:text="@{viewModel.trainingTimerTime}"
+                        app:isEnabled="@{viewModel.pllTrainingTimer ? true : false}"
+                        app:text="@{viewModel.pllTrainingTimerTime}"
                         tools:ignore="RtlHardcoded"
                         tools:text="6" />
 
@@ -142,14 +134,40 @@
                         android:layout_weight="1"
                         android:onClick="@{(view) -> viewModel.plusTimerTime()}"
                         android:text="@string/plus"
-                        app:isEnabled="@{viewModel.trainingTimer ? true : false}" />
+                        app:isEnabled="@{viewModel.pllTrainingTimer ? true : false}" />
 
                 </LinearLayout>
             </LinearLayout>
 
-                <include
-                    android:id="@+id/azbuka_select"
-                    layout="@layout/include_azbuka_select" />
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginLeft="@dimen/middle_margin"
+                android:layout_marginRight="@dimen/middle_margin"
+                android:text="@string/answer_variants" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:layout_marginLeft="@dimen/big_margin"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:onClick="@{() -> viewModel.allVariantsSelect()}"
+                android:checked="@={viewModel.allPllCount}"
+                android:text="@string/all_plls" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:layout_marginLeft="@dimen/big_margin"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:onClick="@{() -> viewModel.someVariantsSelect()}"
+                android:checked="@={!viewModel.allPllCount}"
+                android:text="@string/some_plls" />
+
 
         </LinearLayout>
 
