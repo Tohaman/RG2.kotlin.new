@@ -19,6 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.Constants.IS_TEXT_SELECTABLE
 import ru.tohaman.testempty.Constants.TEXT_SIZE
 import ru.tohaman.testempty.Constants.startValue
 import ru.tohaman.testempty.Constants.step
@@ -69,7 +70,7 @@ class LearnDetailItemFragment : Fragment() {
             .apply {
                 // Делаем ссылки кликабельными
                 content.descriptionText.movementMethod = LinkMovementMethod.getInstance()
-                val isTextSelectable = sp.getBoolean("is_text_selectable", false)
+                val isTextSelectable = sp.getBoolean(IS_TEXT_SELECTABLE, false)
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {

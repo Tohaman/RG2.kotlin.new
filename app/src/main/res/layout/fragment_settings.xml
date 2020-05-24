@@ -46,6 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
+                android:layout_marginLeft="@dimen/big_margin"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:onClick="@{() -> viewModel.darkThemeSelect()}"
                 android:checked="@={viewModel.isThemeDark()}"
@@ -56,27 +57,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
+                android:layout_marginLeft="@dimen/big_margin"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:onClick="@{() -> viewModel.lightThemeSelect()}"
                 android:checked="@={!viewModel.isThemeDark()}"
                 android:text="@string/light_theme" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fab_button"
-                android:layout_marginTop="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/middle_margin"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
-
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:switchPadding="@dimen/dimen_margin_8"
-                android:checked="@={viewModel.needShowFab}"
-                android:onCheckedChanged="@{(switch, checked) -> viewModel.needShowFabChange(checked)}"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="@string/show_fab_text" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,11 +76,82 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/mid_padding"
+                android:layout_marginLeft="@dimen/big_margin"
                 android:max="5"
                 android:progress="@{viewModel.textSize}"
                 app:onSeekListener="@{viewModel.onTextSeek()}"
                 />
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fab_button"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/big_margin"
+                android:checked="@={viewModel.needShowFab}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.needShowFabChange(checked)}"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="@string/show_fab_text"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/display_options"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/middle_margin"
+                android:checked="@={viewModel.isScreenAlwaysOn}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.isScreenAlwaysOnChange(checked)}"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="@string/do_not_turn_off_display"
+                tools:ignore="RtlHardcoded" />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/big_margin"
+                android:checked="@={viewModel.isYoutubeScreenAlwaysOn}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.isYoutubeScreenAlwaysOnChange(checked)}"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="@string/do_not_turn_off_youtube_display"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_selecting"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/big_margin"
+                android:checked="@={viewModel.isTextSelectable}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.isTextSelectableChange(checked)}"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="@string/is_text_selectable"
+                tools:ignore="RtlHardcoded" />
 
         </LinearLayout>
 
