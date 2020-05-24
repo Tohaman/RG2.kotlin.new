@@ -8,7 +8,7 @@ import android.widget.RelativeLayout
 /**
  * Квадратный ImageView
  */
-class SquareImageView : ImageView {      //переопределяем на свой, который будет квадратным
+class SquareImageView : androidx.appcompat.widget.AppCompatImageView {      //переопределяем на свой, который будет квадратным
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)

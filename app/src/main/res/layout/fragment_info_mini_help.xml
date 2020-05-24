@@ -3,26 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="title"
-            type="String" />
-    </data>
+    <data></data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.info.InfoMiniHelpFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/settingsText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Тут будет: Мини Хелп по программе"
-            android:textSize="22sp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/middle_margin">
 
-    </FrameLayout>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/slider_image"
+                layout="@layout/include_slider_image"
+                android:layout_marginBottom="@dimen/small_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/bottom_text"
+                />
 
+            <TextView
+                android:id="@+id/bottom_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="* Щелкните по изображению, чтобы увидеть другие полезные советы по работе с программой"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </layout>

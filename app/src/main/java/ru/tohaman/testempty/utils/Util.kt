@@ -82,7 +82,7 @@ fun getThemeFromSharedPreference(sp: SharedPreferences) : Int {
     Timber.v("$TAG SetActivityTheme - $theme")
     return when (theme)  {
         "AppThemeLight" -> R.style.AppThemeLight
-        "AppThemeDayNight" -> R.style.AppThemeDayNight
+        //"AppThemeDayNight" -> R.style.AppThemeDayNight
         else -> R.style.AppTheme
     }
 }

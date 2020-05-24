@@ -68,13 +68,13 @@
     <string name="light_theme">Светлая тема</string>
     <string name="main_settings2">НастройкиNew</string>
     <string name="fab_button">Плавающая кнопка:</string>
-    <string name="show_fab_text">Отображать плавающую кнопку для возможности вернуться на шаг назад в основном меню (если у вас нет экранной или аппартной кнопки "назад")</string>
+    <string name="show_fab_text">Отображать плавающую кнопку для возможности вернуться на шаг назад в основном меню. Пригодится, если у вас нет экранной или аппартной кнопки "назад"</string>
     <string name="azbuka_training">Тренировка азбуки</string>
     <string name="azbuka_training_settings">Настройки</string>
     <string name="corners">Углы</string>
     <string name="edges">Ребра</string>
     <string name="training">Тренируем:</string>
-    <string name="font_size_text">Размер шрифта в обучалках</string>
+    <string name="font_size_text">Размер шрифта</string>
     <string name="training_timer_text">Игра на время</string>
     <string name="training_timer_time">Время для ответа</string>
     <string name="right_answer">Правильно</string>
@@ -85,4 +85,14 @@
     <string name="continue_game">Продолжить</string>
     <string name="stop_game">Заново</string>
     <string name="start">Начать</string>
+    <string name="app_description">RubicsGuide 2 - обучение сборке кубика Рубика</string>
+    <string name="thanks">Если вы хотите поддержать проект, а заодно отключить периодический автоматический переход на эту страницу, то выберите любой из ниже перечисленных вариантов.</string>
+    <string name="reklama">А тут вы сможете приобрести понравившиеся головоломки с логотипом программы</string>
+    <string name="open_url_promo">Используйте промокод \"<b>RG2</b>\", чтобы получить наклейку с логотипом программы в подарок</string>
+    <string name="goto_market"><b>Перейти на сайт</b></string>
+    <string name="display_options">Отключение экрана</string>
+    <string name="do_not_turn_off_display">Не отключать экран когда запущено приложение (требуется перезапуск)</string>
+    <string name="do_not_turn_off_youtube_display">Не отключать экран когда в видео нажата пауза (требуется перезапуск)</string>
+    <string name="text_selecting">Выделение текста</string>
+    <string name="is_text_selectable">возможность выделить и скопировать текст из обучалки. При включении, возможны проблемы со скроллингом на некоторых устройствах, например, Meizu M3 Note</string>
 </resources>

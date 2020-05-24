@@ -2,6 +2,8 @@ package ru.tohaman.testempty.ui.learn
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.*
@@ -15,9 +17,12 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import kotlinx.android.synthetic.main.include_learn_detail_content.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.testempty.Constants.IS_TEXT_SELECTABLE
+import ru.tohaman.testempty.Constants.TEXT_SIZE
+import ru.tohaman.testempty.Constants.startValue
+import ru.tohaman.testempty.Constants.step
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.FragmentLearnDetailItemBinding
@@ -29,10 +34,11 @@ import timber.log.Timber
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
-    private val sharedPreferences: SharedPreferences by inject()
+    private val sp: SharedPreferences by inject()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
     private lateinit var item: MainDBItem
+    private var sizeCoefficient = 0
 
     //Поскольку для вызова этого фрагмента НЕ используется Navigation component,
     //т.к. это фрагмент (страница) внутри ViewPager,
@@ -53,6 +59,7 @@ class LearnDetailItemFragment : Fragment() {
             fragmentNum = detailViewModel.getNumByID(it.getInt(CUR_ITEM_ID))
             Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
         }
+
     }
 
     override fun onCreateView(
@@ -63,7 +70,7 @@ class LearnDetailItemFragment : Fragment() {
             .apply {
                 // Делаем ссылки кликабельными
                 content.descriptionText.movementMethod = LinkMovementMethod.getInstance()
-                val isTextSelectable = sharedPreferences.getBoolean("is_text_selectable", false)
+                val isTextSelectable = sp.getBoolean(IS_TEXT_SELECTABLE, false)
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
@@ -71,8 +78,8 @@ class LearnDetailItemFragment : Fragment() {
                         if (fragmentNum < it.size) {
                             item = it[fragmentNum]
                             mainDBItem = item
-                            description_text.setTextIsSelectable(isTextSelectable)
-                            title_text.setTextIsSelectable(isTextSelectable)
+                            content.descriptionText.setTextIsSelectable(isTextSelectable)
+                            content.titleText.setTextIsSelectable(isTextSelectable)
                             content.youtubeView.enabled = item.url != ""
                         }
                     }

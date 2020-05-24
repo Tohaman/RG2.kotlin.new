@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            style="@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="4dp"
             app:hideOnScroll="true">
@@ -124,7 +124,6 @@
             app:srcCompat="@drawable/ic_transform"
             app:borderWidth="0dp"
             android:backgroundTint="@color/colorAccent"
-            app:rippleColor="@color/white"
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             app:elevation="6dp"
             app:layout_anchor="@id/bottom_bar"/>

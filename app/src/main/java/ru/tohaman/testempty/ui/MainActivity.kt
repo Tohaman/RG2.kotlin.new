@@ -1,16 +1,20 @@
 package ru.tohaman.testempty.ui
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.tohaman.testempty.Constants
+import ru.tohaman.testempty.Constants.TEXT_SIZE
 import ru.tohaman.testempty.Constants.THEME
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
@@ -40,8 +44,20 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
         binding.viewModel = uiUtilViewModel
         binding.lifecycleOwner = this
 
+        val sizeCoefficient = sharedPreferences.getInt(TEXT_SIZE, 2)
+        adjustFontScale(resources.configuration, sizeCoefficient)
+
         setupBottomNavMenu()
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    private fun adjustFontScale(configuration: Configuration, sizeCoefficient: Int) {
+        configuration.fontScale = Constants.startValue + sizeCoefficient * Constants.step
+        val metrics = resources.displayMetrics
+        val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        wm.defaultDisplay.getMetrics(metrics)
+        metrics.scaledDensity = configuration.fontScale * metrics.density
+        baseContext.createConfigurationContext(configuration)
     }
 
     /**
@@ -60,8 +76,7 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
         Timber.d("$TAG .onSharedPreferenceChanged key = [${key}]")
         //Если изменилась тема в настройках, то меняем ее в программе
         when (key) {
-            THEME -> {
-                Timber.d("$TAG Theme set to - ${sp.getString(key, "AppTheme")}")
+            THEME, TEXT_SIZE -> {
                 this.recreate()
             }
         }

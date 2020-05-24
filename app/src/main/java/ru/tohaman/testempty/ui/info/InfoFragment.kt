@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag
@@ -17,6 +18,7 @@ import timber.log.Timber
 
 class InfoFragment : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
+    private val infoViewModel by sharedViewModel<InfoViewModel>()
     private lateinit var binding : FragmentInfoBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,13 +29,19 @@ class InfoFragment : Fragment() {
         binding = FragmentInfoBinding.inflate(inflater, container, false)
             .apply {
 
-                val vp = infoViewPager
-                vp.adapter = adapter
-
                 title = getString(R.string.info)
 
+                infoViewPager.adapter = adapter
+                infoViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        infoViewModel.setBookMark(position)
+                        super.onPageSelected(position)
+                    }
+                })
+                infoViewPager.currentItem = infoViewModel.getBookmark()
+
                 val tabLayout = appBar.tabLayout
-                TabLayoutMediator(tabLayout, vp) { tab, position ->
+                TabLayoutMediator(tabLayout, infoViewPager) { tab, position ->
                     var text = ""
                     when (position) {
                         0 -> text = "О программе"

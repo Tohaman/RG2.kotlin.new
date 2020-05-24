@@ -4,10 +4,12 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.android.inject
+import ru.tohaman.testempty.Constants.IS_SCREEN_ALWAYS_ON
 import ru.tohaman.testempty.utils.getThemeFromSharedPreference
 
 /**
@@ -16,20 +18,20 @@ import ru.tohaman.testempty.utils.getThemeFromSharedPreference
  */
 
 abstract class MyDefaultActivity : AppCompatActivity() {
-    private val sharedPreferences: SharedPreferences by inject()
+    private val sp: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(getThemeFromSharedPreference(sharedPreferences))
+        setTheme(getThemeFromSharedPreference(sp))
         //Включаем поддержку векторной графики на устройствах ниже Лилипопа (5.0)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        //val sp = PreferenceManager.getDefaultSharedPreferences(this)
+
         //Настраиваем отключение экрана
-//        val isScreenAlwaysOn = sp.getBoolean(IS_SCREEN_ALWAYS_ON, false)
-//        if (isScreenAlwaysOn) {
-//            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-//        } else {
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-//        }
+        val isScreenAlwaysOn = sp.getBoolean(IS_SCREEN_ALWAYS_ON, false)
+        if (isScreenAlwaysOn) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
 
         super.onCreate(savedInstanceState)
     }

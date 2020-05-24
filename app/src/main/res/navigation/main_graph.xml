@@ -9,7 +9,11 @@
         android:id="@+id/destInfo"
         android:name="ru.tohaman.testempty.ui.info.InfoFragment"
         android:label="main_info"
-        tools:layout="@layout/fragment_info"/>
+        tools:layout="@layout/fragment_info">
+        <action
+            android:id="@+id/action_destInfo_to_showTipsDialog"
+            app:destination="@id/showTipsDialog" />
+    </fragment>
 
     <fragment
         android:id="@+id/destLearn"
@@ -94,15 +98,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/destSettings"
-        android:name="ru.tohaman.testempty.ui.settings.SettingsFragment"
-        android:label="@string/main_settings"
-        tools:layout="@layout/fragment_settings">
-    </fragment>
-
-    <fragment
         android:id="@+id/destSettings2"
-        android:name="ru.tohaman.testempty.ui.settings.SettingsFragment2"
+        android:name="ru.tohaman.testempty.ui.settings.SettingsFragment"
         android:label="@string/main_settings2"
         tools:layout="@layout/fragment_settings">
     </fragment>
@@ -169,6 +166,12 @@
         android:name="ru.tohaman.testempty.ui.games.AzbukaTrainerSettings"
         android:label="AzbukaTrainerSettings"
         tools:layout="@layout/fragment_azbuka_trainer_settings"
+        />
+    <dialog
+        android:id="@+id/showTipsDialog"
+        android:name="ru.tohaman.testempty.ui.info.ShowTipsDialog"
+        android:label="ShowTipsDialog"
+        tools:layout="@layout/dialog_info_tips"
         />
 
 </navigation>
