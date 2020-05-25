@@ -31,6 +31,12 @@ object Constants {
     const val TIMER_NEED_BACK = "needBackButton"            //Отображнеи кнопки "назад" (Boolean)
     const val TIMER_METRONOM_FREQ = "metronomFrequency"     //Частота метронома (раз в минуту) (Int)
 
+    //Настройки для PLL тренировки
+    const val IS_2SIDE_RECOGNITION = "is2SideRecognition"       //Определение ситуации по 2-м сторонам если true (Boolean), иначе по 3-м
+    const val PLL_TRAINING_TIMER = "pllTrainingTimer"           //Игра на время (Boolean)
+    const val PLL_TRAINING_TIMER_TIME = "pllTrainingTimerTime"  //Время в сек. на ответ (Int)
+    const val ALL_PLL_COUNT = "allPllCount"                     //Показывать все 21 вариант PLL
+
     //Настройки игры Угадай букву блайнда
     const val TRAINING_EDGES = "trainingEdges"              //Тренируем углы? (Boolean)
     const val TRAINING_CORNERS = "trainingCorners"          //Тренируем ребра? (Boolean)

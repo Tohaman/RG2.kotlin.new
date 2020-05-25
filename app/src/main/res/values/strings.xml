@@ -73,7 +73,7 @@
     <string name="azbuka_training_settings">Настройки</string>
     <string name="corners">Углы</string>
     <string name="edges">Ребра</string>
-    <string name="training">Тренируем:</string>
+    <string name="training">Что тренируем:</string>
     <string name="font_size_text">Размер шрифта</string>
     <string name="training_timer_text">Игра на время</string>
     <string name="training_timer_time">Время для ответа</string>
@@ -95,4 +95,11 @@
     <string name="do_not_turn_off_youtube_display">Не отключать экран когда в видео нажата пауза (требуется перезапуск)</string>
     <string name="text_selecting">Выделение текста</string>
     <string name="is_text_selectable">возможность выделить и скопировать текст из обучалки. При включении, возможны проблемы со скроллингом на некоторых устройствах, например, Meizu M3 Note</string>
+    <string name="pll_training">Тренировка PLL</string>
+    <string name="pll_training_settings">Настройки</string>
+    <string name="two_side_recognition_text">Определение по 2-м сторонам</string>
+    <string name="three_side_recognition_text">Определение по 3-м стороная</string>
+    <string name="answer_variants">Варианты ответов:</string>
+    <string name="all_plls">Сразу все PLL (стандартные названия)</string>
+    <string name="some_plls">Несколько вариантов (любые названия)</string>
 </resources>

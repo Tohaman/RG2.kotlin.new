@@ -28,7 +28,6 @@ class InfoMiniHelpFragment : Fragment() {
                 sliderImage.images.setOnClickListener {
                     findNavController().navigate(R.id.action_destInfo_to_showTipsDialog)
                 }
-
             }
 
         return binding.root

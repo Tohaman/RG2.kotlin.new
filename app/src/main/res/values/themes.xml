@@ -12,8 +12,6 @@
         <item name="contrastColor">@color/c_w</item>
     </style>
 
-    <attr name="contrastColor" format="color"/>
-
     <!-- Base application theme светлая -->
     <style name="AppThemeLight" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -23,6 +21,10 @@
         <item name="colorSecondaryVariant">@color/colorAccentDark</item>
         <item name="contrastColor">@color/c_bl</item>
     </style>
+
+<!--    Задаем какой-то свой аттрибут, цвет для которого можем определить для каждой темы отдельно-->
+<!--    а в ресурсах можем его использовать, например, так android:fillColor="?attr/contrastColor"-->
+    <attr name="contrastColor" format="color"/>
 
     <!-- Кастомная AppTheme.Launcher. Устанавливает в качестве фона drawable -->
     <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">

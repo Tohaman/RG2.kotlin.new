@@ -43,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_fab_backward"
+                android:tint="@color/c_w"
                 android:padding="@dimen/dimen_margin_8"
                 android:visibility="@{viewModel.needBackButton ? View.VISIBLE : View.GONE}"
                 app:layout_constraintTop_toTopOf="parent"

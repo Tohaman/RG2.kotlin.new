@@ -95,6 +95,12 @@
         <action
             android:id="@+id/action_destGames_to_azbukaTrainerSettings"
             app:destination="@id/azbukaTrainerSettings" />
+        <action
+            android:id="@+id/action_destGames_to_pllTrainerFragment"
+            app:destination="@id/pllTrainerFragment" />
+        <action
+            android:id="@+id/action_destGames_to_pllTrainerSettings"
+            app:destination="@id/pllTrainerSettings" />
     </fragment>
 
     <fragment
@@ -172,6 +178,21 @@
         android:name="ru.tohaman.testempty.ui.info.ShowTipsDialog"
         android:label="ShowTipsDialog"
         tools:layout="@layout/dialog_info_tips"
+        />
+    <fragment
+        android:id="@+id/pllTrainerFragment"
+        android:name="ru.tohaman.testempty.ui.games.PllTrainerFragment"
+        tools:layout="@layout/fragment_pll_trainer"
+        android:label="PllTrainerFragment" >
+        <action
+            android:id="@+id/action_pllTrainerFragment_to_pllTrainerSettings"
+            app:destination="@id/pllTrainerSettings" />
+    </fragment>
+    <fragment
+        android:id="@+id/pllTrainerSettings"
+        android:name="ru.tohaman.testempty.ui.games.PllTrainerSettings"
+        android:label="PllTrainerSettings"
+        tools:layout="@layout/fragment_pll_trainer_settings"
         />
 
 </navigation>
