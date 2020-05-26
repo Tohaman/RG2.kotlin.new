@@ -1,11 +1,17 @@
 package ru.tohaman.testempty.ui.games
 
+import android.app.Application
 import android.content.SharedPreferences
 import android.database.Observable
+import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
+import android.os.Build
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
 import org.koin.core.get
@@ -14,11 +20,15 @@ import ru.tohaman.testempty.Constants.IS_2SIDE_RECOGNITION
 import ru.tohaman.testempty.Constants.PLL_TRAINING_TIMER
 import ru.tohaman.testempty.Constants.PLL_TRAINING_TIMER_TIME
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.dataSource.cubeColor
+import ru.tohaman.testempty.dataSource.resetCube
+import ru.tohaman.testempty.dataSource.runScramble
 import ru.tohaman.testempty.interfaces.WrongAnswerInt
 import timber.log.Timber
 
-class PllTrainerViewModel: ViewModel(), KoinComponent, WrongAnswerInt {
+class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt {
     private val sp = get<SharedPreferences>()
+    private val ctx = app.baseContext
 
     //Settings
 
@@ -83,23 +93,43 @@ class PllTrainerViewModel: ViewModel(), KoinComponent, WrongAnswerInt {
     var rightAnswerLetter = ObservableField<String>("A")
     var timerProgress = ObservableInt(100)
 
-    var rightAnswerCount = ObservableInt(0)
-    var wrongAnswerCount = ObservableInt(0)
+    var rightAnswerCount = ObservableField<String>("0")
+    var wrongAnswerCount = ObservableField<String>("0")
 
     var showStartButton = ObservableBoolean(false)
 
-    private var layeredImageDrawable: LayerDrawable? = null
+    private var layeredImageDrawable: LayerDrawable = getScrambledDrawable(resetCube())
     var imageDrawable = ObservableField<LayerDrawable>(layeredImageDrawable)
 
     val showRightAnswer = ObservableBoolean(false)
     val showWrongAnswer = ObservableBoolean(false)
+
+    //На входе разобранный по скрамблу куб, на выходе 28-ми слойный Drawable
+    private fun getScrambledDrawable(scrambledCube: IntArray): LayerDrawable {
+        //разворачиваем кубик т.к. с сине-оранжево-белой стороны (для моей азбуки) его проще отобразить, т.к. это первые три стороны в Array
+        val scramble = "y y"
+        val rotatedCube = runScramble(scrambledCube, scramble)
+
+        rotatedCube[27] = 6
+        return LayerDrawable( Array(28) { i ->
+            val layer = ContextCompat.getDrawable(ctx, ctx.resources.getIdentifier("z_2s_0$i", "drawable", ctx.packageName))
+            val color = ContextCompat.getColor(ctx, cubeColor[rotatedCube[27-i]])
+            layer?.let { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                DrawableCompat.setTint(layer, color)
+            } else {
+                @Suppress("DEPRECATION")
+                layer.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN)
+            }}
+            layer
+        })
+    }
 
     fun startGame() {
 
     }
 
     override val wrongAnswerText: ObservableField<String>
-        get() = TODO("Not yet implemented")
+        get() = wrongAnswerCount
 
     override fun stopGame() {
         TODO("Not yet implemented")
@@ -108,6 +138,7 @@ class PllTrainerViewModel: ViewModel(), KoinComponent, WrongAnswerInt {
     override fun continueGame() {
         TODO("Not yet implemented")
     }
+
 
 
 }

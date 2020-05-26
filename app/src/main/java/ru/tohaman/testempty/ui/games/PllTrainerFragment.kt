@@ -29,7 +29,7 @@ class PllTrainerFragment: Fragment() {
         uiUtilViewModel.hideBottomNav()
         val binding = FragmentPllTrainerBinding.inflate(inflater, container, false)
             .apply {
-
+                viewModel = pllViewModel
             }
 
         return binding.root
