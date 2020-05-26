@@ -54,7 +54,6 @@ class AzbukaTrainerFragment: Fragment() {
                     trainerViewModel.stopGame()
                 }
                 bottomAppbar.back.setOnClickListener {
-
                     if (trainerViewModel.state.value != GameStates.STOPPED) trainerViewModel.stopGame() else findNavController().popBackStack()
                 }
 

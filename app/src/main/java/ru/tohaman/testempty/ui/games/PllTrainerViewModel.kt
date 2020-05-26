@@ -12,6 +12,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
 import org.koin.core.get
@@ -24,6 +25,7 @@ import ru.tohaman.testempty.dataSource.cubeColor
 import ru.tohaman.testempty.dataSource.resetCube
 import ru.tohaman.testempty.dataSource.runScramble
 import ru.tohaman.testempty.interfaces.WrongAnswerInt
+import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 
 class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt {
@@ -104,6 +106,10 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     val showRightAnswer = ObservableBoolean(false)
     val showWrongAnswer = ObservableBoolean(false)
 
+    private var curState = GameStates.STOPPED
+    private var _state = curState.toMutableLiveData()
+    val state: LiveData<GameStates> get() = _state
+
     //На входе разобранный по скрамблу куб, на выходе 28-ми слойный Drawable
     private fun getScrambledDrawable(scrambledCube: IntArray): LayerDrawable {
         //разворачиваем кубик т.к. с сине-оранжево-белой стороны (для моей азбуки) его проще отобразить, т.к. это первые три стороны в Array
@@ -124,14 +130,23 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         })
     }
 
+    private var btnList = listOf<String>("Ua","Ub","Ra","Rb")
+    private var _buttonsList = btnList.toMutableLiveData()
+    val buttonsList: LiveData<List<String>> get() = _buttonsList
+
     fun startGame() {
 
+    }
+
+    fun selectAnswer(letter: String) {
+        Timber.d("$TAG .selectAnswer letter = [${letter}]")
     }
 
     override val wrongAnswerText: ObservableField<String>
         get() = wrongAnswerCount
 
     override fun stopGame() {
+        Timber.d("$TAG .stopGame ")
         TODO("Not yet implemented")
     }
 
