@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Small"
+            android:textAllCaps="false"
             android:text="@{item}"
             android:onClick="@{(view) -> clickListener.clickItem(item, id, view)}"
             tools:text="A"

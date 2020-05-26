@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.ObservableBoolean
@@ -163,7 +164,8 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
 
         rotatedCube[27] = 6
         return LayerDrawable( Array(28) { i ->
-            val layer = ContextCompat.getDrawable(ctx, ctx.resources.getIdentifier("z_2s_0$i", "drawable", ctx.packageName))
+            val resID = ctx.resources.getIdentifier("z_2s_0$i", "drawable", ctx.packageName)
+            val layer = AppCompatResources.getDrawable(ctx, resID)
             val color = ContextCompat.getColor(ctx,cubeColor[rotatedCube[27-i]])
             layer?.let { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 DrawableCompat.setTint(layer, color)

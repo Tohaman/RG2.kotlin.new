@@ -25,10 +25,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_list"
+                app:drawableStartCompat="@drawable/ic_list"
                 android:gravity="center"
                 android:padding="@dimen/dimen_margin_8"
                 android:text="@string/result"

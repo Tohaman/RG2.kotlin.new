@@ -71,6 +71,6 @@ object Constants {
         TipsItem(R.drawable.frame_12, "Возможность копировать текст можно включить в настройках")
     )
 
-    val PLLS_NAME = listOf<String>("Aa","Ab","Ra","Rb")
+    val PLLS_NAME = listOf<String>("Ga","","Y","F","H","","Gb","Na","Ra","Ja","Ua","Aa","Gc","Nb","Rb","Jb","Ub","Ab","Gd","","V","T","Z","E")
 
 }

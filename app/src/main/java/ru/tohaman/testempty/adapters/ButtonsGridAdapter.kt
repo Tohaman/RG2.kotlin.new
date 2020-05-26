@@ -40,6 +40,7 @@ class ButtonsGridAdapter : BaseAdapter() {
             item = items[position]
             clickListener = onClickCallBack
             id = position
+            if (items[position].isEmpty()) outOutLayout.visibility = View.GONE
             executePendingBindings()
         }
         return binding.root

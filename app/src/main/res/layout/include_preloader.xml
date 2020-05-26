@@ -7,32 +7,53 @@
 
     </data>
 
-    <LinearLayout
-        android:id="@+id/preLoader"
+
+    <!-- Надо попробовать установить векторный background вот так https://stackoverflow.com/questions/34513971/xmlpullparserexception-invalid-drawable-tag-vector-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/big_padding"
-        android:background="@drawable/ic_rounded_rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_rounded_rectangle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/progressText"
+        <LinearLayout
+            android:id="@+id/preLoader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/c_lgr"
-            android:padding="@dimen/small_padding"
-            android:text="@string/please_waiting"
-            />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:padding="@dimen/big_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_padding"
+                android:text="@string/please_waiting"
+                android:textColor="@color/c_lgr" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

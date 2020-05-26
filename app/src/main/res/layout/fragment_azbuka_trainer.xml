@@ -147,10 +147,15 @@
                 tools:listitem="@layout/item_blind_button_grid"
                 />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_rectangle"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/ic_rectangle"
                 android:padding="@dimen/big_padding"
                 android:gravity="center"
                 android:visibility="@{viewModel.showStartButton ? View.VISIBLE : View.GONE }"

@@ -6,6 +6,7 @@ import android.database.Observable
 import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.ObservableBoolean
@@ -18,9 +19,11 @@ import org.koin.core.KoinComponent
 import org.koin.core.get
 import ru.tohaman.testempty.Constants.ALL_PLL_COUNT
 import ru.tohaman.testempty.Constants.IS_2SIDE_RECOGNITION
+import ru.tohaman.testempty.Constants.PLLS_NAME
 import ru.tohaman.testempty.Constants.PLL_TRAINING_TIMER
 import ru.tohaman.testempty.Constants.PLL_TRAINING_TIMER_TIME
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.cubeColor
 import ru.tohaman.testempty.dataSource.resetCube
 import ru.tohaman.testempty.dataSource.runScramble
@@ -118,7 +121,8 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
         rotatedCube[27] = 6
         return LayerDrawable( Array(28) { i ->
-            val layer = ContextCompat.getDrawable(ctx, ctx.resources.getIdentifier("z_2s_0$i", "drawable", ctx.packageName))
+            val resID = ctx.resources.getIdentifier("z_2s_0$i", "drawable", ctx.packageName)
+            val layer = AppCompatResources.getDrawable(ctx, resID)
             val color = ContextCompat.getColor(ctx, cubeColor[rotatedCube[27-i]])
             layer?.let { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 DrawableCompat.setTint(layer, color)
@@ -130,7 +134,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         })
     }
 
-    private var btnList = listOf<String>("Ua","Ub","Ra","Rb")
+    private var btnList = PLLS_NAME
     private var _buttonsList = btnList.toMutableLiveData()
     val buttonsList: LiveData<List<String>> get() = _buttonsList
 

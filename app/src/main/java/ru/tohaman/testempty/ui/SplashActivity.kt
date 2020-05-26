@@ -13,9 +13,10 @@ import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dbase.FillDB
 import timber.log.Timber
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.ui.shared.MyDefaultActivity
 
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : MyDefaultActivity() {
     private val sharedPreferences: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
