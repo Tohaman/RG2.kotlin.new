@@ -30,12 +30,13 @@ import ru.tohaman.testempty.dataSource.runScramble
 import ru.tohaman.testempty.interfaces.WrongAnswerInt
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
+import java.util.*
 
 class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt {
     private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
-    //Settings
+    //----------------------- Settings -------------------------------
 
     private var _is2SideRecognition = sp.getBoolean(IS_2SIDE_RECOGNITION, true)
     var is2SideRecognition = ObservableBoolean(_is2SideRecognition)
@@ -54,13 +55,14 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         sp.edit().putBoolean(IS_2SIDE_RECOGNITION, _is2SideRecognition).apply()
     }
 
-    private val _pllTrainingTimer = sp.getBoolean(PLL_TRAINING_TIMER, true)
+    private var _pllTrainingTimer = sp.getBoolean(PLL_TRAINING_TIMER, true)
     val pllTrainingTimer = ObservableBoolean(_pllTrainingTimer)
 
     private var _pllTrainingTimerTime = sp.getInt(PLL_TRAINING_TIMER_TIME, 6)
     val pllTrainingTimerTime = ObservableInt(_pllTrainingTimerTime)
 
     fun pllTrainingTimerChange(value: Boolean) {
+        _pllTrainingTimer = value
         pllTrainingTimer.set(value)
         sp.edit().putBoolean(PLL_TRAINING_TIMER, value).apply()
     }
@@ -94,11 +96,16 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         sp.edit().putBoolean(ALL_PLL_COUNT, _allPllCount).apply()
     }
 
-    // Game
+
+    // -------------------- Game ------------------------------
+
+    private var correctAnswer = Random().nextInt(21)
     var rightAnswerLetter = ObservableField<String>("A")
     var timerProgress = ObservableInt(100)
 
+    private var _rightAnswerCount = 0
     var rightAnswerCount = ObservableField<String>("0")
+    private var _wrongAnswerCount = 0
     var wrongAnswerCount = ObservableField<String>("0")
 
     var showStartButton = ObservableBoolean(false)
@@ -113,7 +120,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     private var _state = curState.toMutableLiveData()
     val state: LiveData<GameStates> get() = _state
 
-    //На входе разобранный по скрамблу куб, на выходе 28-ми слойный Drawable
+    //На входе разобранный по скрамблу куб (IntArray), на выходе 28-ми слойный Drawable
     private fun getScrambledDrawable(scrambledCube: IntArray): LayerDrawable {
         //разворачиваем кубик т.к. с сине-оранжево-белой стороны (для моей азбуки) его проще отобразить, т.к. это первые три стороны в Array
         val scramble = "y y"
@@ -139,11 +146,14 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     val buttonsList: LiveData<List<String>> get() = _buttonsList
 
     fun startGame() {
+        //Выводим кнопку "Начать"
+        showStartButton.set(false)
 
     }
 
     fun selectAnswer(letter: String) {
         Timber.d("$TAG .selectAnswer letter = [${letter}]")
+        nextPll()
     }
 
     override val wrongAnswerText: ObservableField<String>
@@ -151,13 +161,35 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
     override fun stopGame() {
         Timber.d("$TAG .stopGame ")
-        TODO("Not yet implemented")
+        //Меняем статус игры на STOPPED
+        _state.postValue(GameStates.STOPPED)
+        //Сбрасываем счетчики
+        _wrongAnswerCount = 0
+        wrongAnswerCount.set(_wrongAnswerCount.toString())
+        _rightAnswerCount = 0
+        rightAnswerCount.set(_rightAnswerCount.toString())
+        //Убираем сообщения об ответе
+        showWrongAnswer.set(false)
+        showRightAnswer.set(false)
+        //Выводим кнопку "Начать"
+        showStartButton.set(true)
+        //Выводим полный прогрессбар
+        timerProgress.set(100)
     }
 
     override fun continueGame() {
         TODO("Not yet implemented")
     }
 
+    fun nextPll() {
+        val scramble = getRandomPll()
+    }
 
+    private fun getRandomPll() : String {
+        // выбираем случайный алгоритм
+        correctAnswer = Random().nextInt(21)
+
+        return ""
+    }
 
 }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pll_maxim_name">
+        <item>Смежные окошки</item>
+        <item>Противоположные окошки</item>
+        <item>Рельсы</item>
+        <item>Шахматы</item>
+        <item>Запад</item>
+        <item>Юг</item>
+        <item>Светофор</item>
+        <item>Австралия</item>
+        <item>Смежный треугольник</item>
+        <item>Противоположный треугольник</item>
+        <item>Черепаха</item>
+        <item>Угол</item>
+        <item>Правые кирпичи</item>
+        <item>Левые кирпичи</item>
+        <item>Убийца</item>
+        <item>Экватор</item>
+        <item>Встречная машинка</item>
+        <item>Попутная машинка</item>
+        <item>Ближняя улитка</item>
+        <item>Дальняя улитка</item>
+        <item>Север</item>
+    </string-array>
+
+    <integer-array name="pll_image">
+        <item>@drawable/vpll_test_1</item>
+        <item>@drawable/vpll_test_2</item>
+        <item>@drawable/vpll_test_3</item>
+        <item>@drawable/vpll_test_4</item>
+        <item>@drawable/vpll_test_5</item>
+        <item>@drawable/vpll_test_6</item>
+        <item>@drawable/vpll_test_7</item>
+        <item>@drawable/vpll_test_8</item>
+        <item>@drawable/vpll_test_9</item>
+        <item>@drawable/vpll_test_10</item>
+        <item>@drawable/vpll_test_11</item>
+        <item>@drawable/vpll_test_12</item>
+        <item>@drawable/vpll_test_13</item>
+        <item>@drawable/vpll_test_14</item>
+        <item>@drawable/vpll_test_15</item>
+        <item>@drawable/vpll_test_16</item>
+        <item>@drawable/vpll_test_17</item>
+        <item>@drawable/vpll_test_18</item>
+        <item>@drawable/vpll_test_19</item>
+        <item>@drawable/vpll_test_20</item>
+        <item>@drawable/vpll_test_21</item>
+    </integer-array>
+
+    <string-array name="pll_scramble">
+        <item>U2 M2\' U M U2 M\' U M2\'</item>
+        <item>U2 M2\' U\' M U2 M\' U\' M2\'</item>
+        <item>M2 U M2 U M\' U2 M2 U2 M\' U2</item>
+        <item>M2\' U\' M2\' U2 M2\' U\' M2\'</item>
+        <item>U R U R\' U\' R\' F R2 U\' R\' U\' R U R\' F\'</item>
+        <item>U R U2 R\' U\' R U2 L\' U R\' U\' L</item>
+        <item>U (R\' U\' F\') (R U R\' U\') R\' F R2 U\' R\' U\' (R U R\' U R)</item>
+        <item>F R U\' R\' U\' R U R\' F\' R U R\' U\' R\' F R F\'</item>
+        <item>(R U R\' F\') (Rw U R\' U\' Rw\' F R2 U\' R\')</item>
+        <item>Rw U\' Rw F2 Rw\' U Rw F2 Rw2</item>
+        <item>F\' (Rw U R\' U\') (Rw\' F R U2) (Rw U R\' U\') (Rw\' F R F\')</item>
+        <item>U (R U2 R\' D) (R U\' R U\' R U R2\' D) (R\' U\' R D2)</item>
+        <item>(R U\' L U2 R\' U L\') (R U\' L U2  R\' U L\')</item>
+        <item>(L\' U R\') U2 (L U\' R) (L\' U R\') U2 (L U\' R)</item>
+        <item>U (R\' U2 R U2) R\' F (R U R\' U\') R\' F\' R2 U\'</item>
+        <item>U (R U R\' F\') (R U2 R\' U2) R\' F (R U R) U2 R\' U\'</item>
+        <item>U R2 U R\' U R\' U\' R U\' R2 (D U\') R\' U R D\'</item>
+        <item>R2\' F2 (R U2) (R U2) R\' F (R U R\' U\') R\' F R2</item>
+        <item>(R U R\' U\' D) (R2 U\' R U\') (R\' U R\' U) R2 U D\'</item>
+        <item>U (F\' U\' F) (R2 Uw R\' U) (R U\' R Uw\') R2\'</item>
+        <item>U F2 (L\' U\' L) F2 (R\' D R\' D\') R2</item>
+    </string-array>
+
+    <string-array name="pll_international_name">
+        <item>Ua</item>
+        <item>Ub</item>
+        <item>Z</item>
+        <item>H</item>
+        <item>T</item>
+        <item>Jb</item>
+        <item>F</item>
+        <item>Y</item>
+        <item>Aa</item>
+        <item>Ab</item>
+        <item>E</item>
+        <item>V</item>
+        <item>Nb</item>
+        <item>Na</item>
+        <item>Rb</item>
+        <item>Ra</item>
+        <item>Ga</item>
+        <item>Gc</item>
+        <item>Gd</item>
+        <item>Gb</item>
+        <item>Ja</item>
+    </string-array>
+
+</resources>

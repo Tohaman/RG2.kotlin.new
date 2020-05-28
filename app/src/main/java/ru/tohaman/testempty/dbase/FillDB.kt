@@ -13,6 +13,7 @@ import ru.tohaman.testempty.dbase.entitys.BasicMove
 import ru.tohaman.testempty.dbase.entitys.CubeType
 import ru.tohaman.testempty.dbase.entitys.MainDBItem
 import ru.tohaman.testempty.dbase.entitys.TimeNoteItem
+import ru.tohaman.testempty.utils.getResource
 import timber.log.Timber
 import java.util.*
 
@@ -33,6 +34,7 @@ class FillDB {
             updateTestFavourites()                  //добавляем тестовое избранное
             azbukaInit()                            //Инициализируем азбуку
             timeNoteInit()                          //добавляем тестовые записи для таблицы результатов сборки
+            pllGameItemsInit(context)                      //добавляем записи для угадай PLL
             Timber.d( "$TAG Основная таблица заполнена")
         }
 
@@ -159,6 +161,7 @@ class FillDB {
                 BasicMove(i, type, moves[i], iconId, toasts[i])
             }
             repository.insert2Moves(movesList)
+            icons.recycle()
         }
 
         private suspend fun cubeTypesInit(context: Context) {
@@ -198,6 +201,10 @@ class FillDB {
 //            repository.insertTimeNote(t1)
 //            repository.insertTimeNote(t2)
 //            repository.insertTimeNote(t3)
+        }
+
+        private suspend fun pllGameItemsInit(context: Context) {
+            val intNames = context.resources.getStringArray(R.array.pll_international_name)
         }
     }
 }

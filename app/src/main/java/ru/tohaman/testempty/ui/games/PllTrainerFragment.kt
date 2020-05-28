@@ -41,6 +41,10 @@ class PllTrainerFragment: Fragment() {
         val binding = FragmentPllTrainerBinding.inflate(inflater, container, false)
             .apply {
                 viewModel = pllViewModel
+                //Если не игра еще не запускалась (null) или остановлена, то выводим кнопку "Начать игру"
+                if ((pllViewModel.state.value == null) or (pllViewModel.state.value==GameStates.STOPPED)) {
+                    pllViewModel.stopGame()
+                }
                 bottomAppbar.back.setOnClickListener {
                     if (pllViewModel.state.value != GameStates.STOPPED) pllViewModel.stopGame() else findNavController().popBackStack()
                 }
