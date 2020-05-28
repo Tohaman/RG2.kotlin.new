@@ -5,6 +5,11 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.databinding.ItemBasicMoveBinding
 import ru.tohaman.testempty.dbase.entitys.BasicMove
 
+
+//TODO можно переделать на использование универсального адаптера
+// https://medium.com/@fraggjkee/recyclerview-2020-a-modern-way-of-dealing-with-lists-in-android-using-databinding-part-2-df69f0a741f8
+// https://medium.com/@fraggjkee/recyclerview-2020-a-modern-way-of-dealing-with-lists-in-android-using-databinding-d97abf5fb55f
+
 class MovesAdapter() : RecyclerView.Adapter<MovesAdapter.MovesHolder>() {
     //тут храним список, который надо отобразить
     private var items: List<BasicMove> = ArrayList()
