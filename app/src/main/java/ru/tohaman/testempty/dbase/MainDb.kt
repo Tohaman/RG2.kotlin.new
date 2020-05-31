@@ -18,8 +18,11 @@ import ru.tohaman.testempty.dbase.entitys.*
  */
 
 @Database(
-    entities = [MainDBItem::class, CubeType::class, BasicMove::class, AzbukaDBItem::class, TimeNoteItem::class],
-    version = 12
+    entities = [MainDBItem::class,
+        CubeType::class, BasicMove::class,
+        AzbukaDBItem::class, TimeNoteItem::class,
+        PllGameItem::class],
+    version = 13
 )
 @TypeConverters(LocalDateConverters::class)
 abstract class MainDb : RoomDatabase() {
@@ -28,4 +31,5 @@ abstract class MainDb : RoomDatabase() {
     abstract val movesDao : MovesDao
     abstract val azbukaDao: AzbukaDao
     abstract val timeNoteDao: TimeNoteDao
+    abstract val pllGameDao: PllGameDao
 }

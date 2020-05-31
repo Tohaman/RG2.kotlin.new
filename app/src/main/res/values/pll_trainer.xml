@@ -49,27 +49,48 @@
     </integer-array>
 
     <string-array name="pll_scramble">
-        <item>U2 M2\' U M U2 M\' U M2\'</item>
-        <item>U2 M2\' U\' M U2 M\' U\' M2\'</item>
+<!--        Ua      -->
+        <item>R\' U R\' U\' R\' U\' R\' U R U R2</item>
+<!--        Ub      -->
+        <item>R2 U\' R\' U\' R U R U R U\' R</item>
+<!--        Z       -->
         <item>M2 U M2 U M\' U2 M2 U2 M\' U2</item>
+<!--        H       -->
         <item>M2\' U\' M2\' U2 M2\' U\' M2\'</item>
-        <item>U R U R\' U\' R\' F R2 U\' R\' U\' R U R\' F\'</item>
-        <item>U R U2 R\' U\' R U2 L\' U R\' U\' L</item>
-        <item>U (R\' U\' F\') (R U R\' U\') R\' F R2 U\' R\' U\' (R U R\' U R)</item>
+<!--        T       -->
+        <item>U R U R\' U\' R\' F R2 U\' R\' U\' R U R\' F\' U\'</item>
+<!--        Jb      -->
+        <item>U R U2 R\' U\' R U2 L\' U R\' U\' L U\'</item>
+<!--        F       -->
+        <item>U (R\' U\' F\') (R U R\' U\') R\' F R2 U\' R\' U\' (R U R\' U R) U\'</item>
+<!--        Y       -->
         <item>F R U\' R\' U\' R U R\' F\' R U R\' U\' R\' F R F\'</item>
-        <item>(R U R\' F\') (Rw U R\' U\' Rw\' F R2 U\' R\')</item>
+<!--        Aa      -->
         <item>Rw U\' Rw F2 Rw\' U Rw F2 Rw2</item>
-        <item>F\' (Rw U R\' U\') (Rw\' F R U2) (Rw U R\' U\') (Rw\' F R F\')</item>
-        <item>U (R U2 R\' D) (R U\' R U\' R U R2\' D) (R\' U\' R D2)</item>
-        <item>(R U\' L U2 R\' U L\') (R U\' L U2  R\' U L\')</item>
-        <item>(L\' U R\') U2 (L U\' R) (L\' U R\') U2 (L U\' R)</item>
-        <item>U (R\' U2 R U2) R\' F (R U R\' U\') R\' F\' R2 U\'</item>
-        <item>U (R U R\' F\') (R U2 R\' U2) R\' F (R U R) U2 R\' U\'</item>
+<!--        Ab      -->
+        <item>(R U R\' F\') (Rw U R\' U\' Rw\' F R2 U\' R\')</item>
+<!--        E       -->
+        <item>F\' (Rw U R\' U\') (Rw\' F R U2) (Rw U R\' U\') (Rw\' F R F\') U2</item>
+<!--        V       -->
+        <item>U R U2 R\' D R U\' R U\' R U R2 D R\' U\' R D2 U\'</item>
+<!--        Na      -->
+        <item>(R U\' L U2 R\' U L\') (R U\' L U2  R\' U L\') U</item>
+<!--        Nb      -->
+        <item>(L\' U R\') U2 (L U\' R) (L\' U R\') U2 (L U\' R) U\'</item>
+<!--        Rb      -->
+        <item>U (R\' U2 R U2) R\' F (R U R\' U\') R\' F\' R2 U\' U\'</item>
+<!--        Ra      -->
+        <item>U (R U R\' F\') (R U2 R\' U2) R\' F (R U R) U2 R\' U2</item>
+<!--        Ga      -->
+        <item>U (R\' U\' R U D\') (R2 U R\' U) (R U\' R U\') R2\' U\' D</item>
+<!--        Gc      -->
+        <item>R2 F\' R (U R U\' R\') F\' (R U2 R\' U2) R\' F2 R2</item>
+<!--        Gd      -->
+        <item>U R2\' F2 (R U2) (R U2) R\' F (R U R\' U\') R\' F R2 U\'</item>
+<!--        Gb      -->
         <item>U R2 U R\' U R\' U\' R U\' R2 (D U\') R\' U R D\'</item>
-        <item>R2\' F2 (R U2) (R U2) R\' F (R U R\' U\') R\' F R2</item>
-        <item>(R U R\' U\' D) (R2 U\' R U\') (R\' U R\' U) R2 U D\'</item>
-        <item>U (F\' U\' F) (R2 Uw R\' U) (R U\' R Uw\') R2\'</item>
-        <item>U F2 (L\' U\' L) F2 (R\' D R\' D\') R2</item>
+<!--        Ja      -->
+        <item>U F2 (L\' U\' L) F2 (R\' D R\' D\') R2 U\'</item>
     </string-array>
 
     <string-array name="pll_international_name">
@@ -85,8 +106,8 @@
         <item>Ab</item>
         <item>E</item>
         <item>V</item>
-        <item>Nb</item>
         <item>Na</item>
+        <item>Nb</item>
         <item>Rb</item>
         <item>Ra</item>
         <item>Ga</item>

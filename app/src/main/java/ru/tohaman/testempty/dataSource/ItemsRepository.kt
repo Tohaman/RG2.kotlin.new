@@ -20,7 +20,8 @@ class ItemsRepository (private val mainDao : MainDao,
                        private val typeDao: CubeTypesDao,
                        private val movesDao: MovesDao,
                        private val azbukaDao: AzbukaDao,
-                       private val timeNoteDao: TimeNoteDao) : ItemDataSource {
+                       private val timeNoteDao: TimeNoteDao,
+                       private val pllGameDao: PllGameDao) : ItemDataSource {
 
     // Работа с основной таблицей
 
@@ -80,6 +81,7 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun updateAzbuka(azbukaItem: List<AzbukaDBItem>) = azbukaDao.update(azbukaItem)
 
+
     // Работа с таблицей TimesTable
 
     suspend fun getAllTimeNotes() = timeNoteDao.getAllTimeNotes()
@@ -91,4 +93,15 @@ class ItemsRepository (private val mainDao : MainDao,
     suspend fun deleteTimeNote(timeNoteItem: TimeNoteItem) = timeNoteDao.deleteTimeNote(timeNoteItem)
 
     suspend fun deleteAllTimeNotes() = timeNoteDao.deleteAllTimeNotes()
+
+
+    // Работа с таблицей PLL_GAME
+
+    suspend fun getAllPllGameItems() = pllGameDao.getAllItems()
+
+    suspend fun insertPllGameItem(pllGameItem: PllGameItem) = pllGameDao.insert(pllGameItem)
+
+    suspend fun insertPllGameItem(pllGameItem: List<PllGameItem>) = pllGameDao.insert(pllGameItem)
+
+    suspend fun deletePllGameItems() = pllGameDao.deleteAllItems()
 }

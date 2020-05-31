@@ -1,6 +1,7 @@
 package ru.tohaman.testempty.dbase
 
 import android.content.Context
+import android.util.Range
 import org.koin.java.KoinJavaComponent.inject
 import ru.tohaman.testempty.Constants.ANTONS_AZBUKA
 import ru.tohaman.testempty.Constants.CURRENT_AZBUKA
@@ -9,10 +10,7 @@ import ru.tohaman.testempty.Constants.MAKSIMS_AZBUKA
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.dataSource.*
-import ru.tohaman.testempty.dbase.entitys.BasicMove
-import ru.tohaman.testempty.dbase.entitys.CubeType
-import ru.tohaman.testempty.dbase.entitys.MainDBItem
-import ru.tohaman.testempty.dbase.entitys.TimeNoteItem
+import ru.tohaman.testempty.dbase.entitys.*
 import ru.tohaman.testempty.utils.getResource
 import timber.log.Timber
 import java.util.*
@@ -204,7 +202,19 @@ class FillDB {
         }
 
         private suspend fun pllGameItemsInit(context: Context) {
+            repository.deletePllGameItems()
             val intNames = context.resources.getStringArray(R.array.pll_international_name)
+            val maximNames = context.resources.getStringArray(R.array.pll_maxim_name)
+            val scrambles = context.resources.getStringArray(R.array.pll_scramble)
+            val pllImages = context.resources.obtainTypedArray(R.array.pll_image)
+            val items = mutableListOf<PllGameItem>()
+            intNames.indices.map {
+                val iconId = pllImages.getResourceId(it, R.drawable.ic_alert)
+                val item = PllGameItem(it, intNames[it], maximNames[it], maximNames[it], maximNames[it], scrambles[it], iconId)
+                items.add(item)
+            }
+            repository.insertPllGameItem(items)
+            pllImages.recycle()
         }
     }
 }

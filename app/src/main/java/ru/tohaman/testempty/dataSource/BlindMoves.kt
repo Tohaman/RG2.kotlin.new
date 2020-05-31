@@ -63,6 +63,7 @@ fun runScramble(originalCube: IntArray, scramble: String): IntArray {
     scrambleString = scrambleString.replace("b", "Bw")
     scrambleString = scrambleString.replace("(", "")
     scrambleString = scrambleString.replace(")", "")
+    scrambleString = scrambleString.replace("21", "2")
     //Преобразовываем строку в массив, разделитель пробел
     val arrayOfScramble = scrambleString.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
     arrayOfScramble.indices

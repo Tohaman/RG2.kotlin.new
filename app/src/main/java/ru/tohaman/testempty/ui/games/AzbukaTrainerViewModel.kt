@@ -233,11 +233,11 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
         if (_state.value == GameStates.WAITING_4_ANSWER) {
             _state.postValue(GameStates.SHOW_ANSWER)
             viewModelScope.launch {
-                if (letter == rightAnswerLetter.get()){
+                if (letter == rightAnswerLetter.get()) {
                     showRightAnswerAlert()
-                }
-                else {
-                    val wrongText = ctx.getText(R.string.wrong_answer_text) as String + " ${rightAnswerLetter.get()}"
+                } else {
+                    val wrongText =
+                        ctx.getText(R.string.wrong_answer_text) as String + " ${rightAnswerLetter.get()}"
                     showWrongAnswerAlert(wrongText)
                 }
             }

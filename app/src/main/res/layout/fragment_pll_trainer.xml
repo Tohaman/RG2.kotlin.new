@@ -37,9 +37,10 @@
             >
 
             <TextView
+                android:id="@+id/hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.rightAnswerLetter}"
+                android:text="@{viewModel.rightAnswer}"
                 tools:text="A"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
                 app:layout_constraintRight_toRightOf="@id/progress_bar"/>

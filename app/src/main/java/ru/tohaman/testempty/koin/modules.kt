@@ -33,7 +33,8 @@ val appModule = module{
                             get<MainDb>().cubeTypesDao,
                             get<MainDb>().movesDao,
                             get<MainDb>().azbukaDao,
-                            get<MainDb>().timeNoteDao)}
+                            get<MainDb>().timeNoteDao,
+                            get<MainDb>().pllGameDao)}
 
 }
 

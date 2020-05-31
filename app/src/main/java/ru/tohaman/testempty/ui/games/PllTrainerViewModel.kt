@@ -2,7 +2,6 @@ package ru.tohaman.testempty.ui.games
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.database.Observable
 import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
@@ -14,9 +13,13 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.get
+import org.koin.core.inject
 import ru.tohaman.testempty.Constants.ALL_PLL_COUNT
 import ru.tohaman.testempty.Constants.IS_2SIDE_RECOGNITION
 import ru.tohaman.testempty.Constants.PLLS_NAME
@@ -24,15 +27,18 @@ import ru.tohaman.testempty.Constants.PLL_TRAINING_TIMER
 import ru.tohaman.testempty.Constants.PLL_TRAINING_TIMER_TIME
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
+import ru.tohaman.testempty.dataSource.ItemsRepository
 import ru.tohaman.testempty.dataSource.cubeColor
 import ru.tohaman.testempty.dataSource.resetCube
 import ru.tohaman.testempty.dataSource.runScramble
+import ru.tohaman.testempty.dbase.entitys.PllGameItem
 import ru.tohaman.testempty.interfaces.WrongAnswerInt
 import ru.tohaman.testempty.utils.toMutableLiveData
 import timber.log.Timber
 import java.util.*
 
 class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt {
+    private val repository : ItemsRepository by inject()
     private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
@@ -99,8 +105,8 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
     // -------------------- Game ------------------------------
 
-    private var correctAnswer = Random().nextInt(21)
-    var rightAnswerLetter = ObservableField<String>("A")
+    private var correctAnswer = 0 //Random().nextInt(21)
+    var rightAnswer = ObservableField<String>("A")
     var timerProgress = ObservableInt(100)
 
     private var _rightAnswerCount = 0
@@ -119,6 +125,14 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     private var curState = GameStates.STOPPED
     private var _state = curState.toMutableLiveData()
     val state: LiveData<GameStates> get() = _state
+
+    var pllGameItems = listOf<PllGameItem>()
+    init {
+        viewModelScope.launch (Dispatchers.IO){
+            pllGameItems = repository.getAllPllGameItems()
+        }
+    }
+
 
     //На входе разобранный по скрамблу куб (IntArray), на выходе 28-ми слойный Drawable
     private fun getScrambledDrawable(scrambledCube: IntArray): LayerDrawable {
@@ -146,18 +160,50 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     val buttonsList: LiveData<List<String>> get() = _buttonsList
 
     fun startGame() {
+        _state.postValue(GameStates.WAITING_4_ANSWER)
         //Выводим кнопку "Начать"
         showStartButton.set(false)
 
+        nextPll()
     }
 
     fun selectAnswer(letter: String) {
         Timber.d("$TAG .selectAnswer letter = [${letter}]")
-        nextPll()
+        if (_state.value == GameStates.WAITING_4_ANSWER) {
+            _state.postValue(GameStates.SHOW_ANSWER)
+            viewModelScope.launch {
+                if (letter == rightAnswer.get()) {
+                    showRightAnswerAlert()
+                } else {
+                    val wrongText =
+                        ctx.getText(R.string.wrong_answer_text) as String + " ${rightAnswer.get()}"
+                    showWrongAnswerAlert(wrongText)
+                }
+            }
+        }
     }
 
+    private suspend fun showRightAnswerAlert() {
+        _rightAnswerCount += 1
+        rightAnswerCount.set(_rightAnswerCount.toString())
+        showRightAnswer.set(true)
+        delay(1500)
+        showRightAnswer.set(false)
+        nextPll()
+        _state.postValue(GameStates.WAITING_4_ANSWER)
+        startTimer()
+    }
+
+    private fun showWrongAnswerAlert(alert: String) {
+        _wrongAnswerCount += 1
+        wrongAnswerCount.set(_wrongAnswerCount.toString())
+        showWrongAnswer.set(true)
+        wrongAnswerText.set(alert)
+    }
+
+    private var _wrongAnswerText = ObservableField("Неверно")
     override val wrongAnswerText: ObservableField<String>
-        get() = wrongAnswerCount
+        get() = _wrongAnswerText
 
     override fun stopGame() {
         Timber.d("$TAG .stopGame ")
@@ -178,18 +224,47 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     }
 
     override fun continueGame() {
-        TODO("Not yet implemented")
+        showWrongAnswer.set(false)
+        nextPll()
+        _state.postValue(GameStates.WAITING_4_ANSWER)
+        startTimer()
     }
 
-    fun nextPll() {
-        val scramble = getRandomPll()
+    private fun nextPll() {
+        val scramble = "x x ${getRandomPll()}"
+        rightAnswer.set(pllGameItems[correctAnswer].InternationalName)
+        val cube = runScramble(resetCube(), scramble)
+        layeredImageDrawable = getScrambledDrawable(cube)
+        imageDrawable.set(layeredImageDrawable)
     }
 
     private fun getRandomPll() : String {
         // выбираем случайный алгоритм
-        correctAnswer = Random().nextInt(21)
+        var rnd = Random().nextInt(21)
+        while (rnd == correctAnswer) { rnd = Random().nextInt(21) }
+        correctAnswer = rnd
+        return  pllGameItems[correctAnswer].scramble
+    }
 
-        return ""
+    private fun startTimer() {
+        timerProgress.set(100)
+        if (_pllTrainingTimer) { //Запускаем таймер, только если он включен в настройках
+            val maxTime = System.currentTimeMillis() + _pllTrainingTimerTime * 1000
+            viewModelScope.launch(Dispatchers.Main) {
+                do {
+                    delay(16)   //примерно 1/60 секунды
+                    val ostTime = (maxTime - System.currentTimeMillis()) / (_pllTrainingTimerTime * 10)
+                    timerProgress.set(ostTime.toInt())
+                } while ((_state.value == GameStates.WAITING_4_ANSWER) and (ostTime > 0))
+
+                //если цикл прекратился из-за того, что кончилось время
+                if (_state.value == GameStates.WAITING_4_ANSWER) {
+                    _state.postValue(GameStates.TIME_IS_OVER)
+                    val wrongText = ctx.getText(R.string.time_is_over) as String + " ${rightAnswer.get()}"
+                    showWrongAnswerAlert(wrongText)
+                }
+            }
+        }
     }
 
 }
