@@ -163,7 +163,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         _state.postValue(GameStates.WAITING_4_ANSWER)
         //Выводим кнопку "Начать"
         showStartButton.set(false)
-
+        startTimer()
         nextPll()
     }
 
