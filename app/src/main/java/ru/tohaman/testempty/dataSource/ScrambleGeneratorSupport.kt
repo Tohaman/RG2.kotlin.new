@@ -9,7 +9,7 @@ import java.util.*
 
 fun generateScrambleWithParam(checkEdge: Boolean, checkCorner: Boolean, lenScramble: Int, azbuka: Array<String>): String {
     Timber.d("$TAG Ищем скрамбл подходящий по параметрам переплавок буфера и длине")
-    var scramble = ""
+    var scramble : String
     do {
         var result = true
         //сгенерируем скрамбл длинны указанной в поле ScrambleLength

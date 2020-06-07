@@ -113,7 +113,7 @@
                         app:isEnabled="@{viewModel.pllTrainingTimer ? true : false}" />
 
                     <TextView
-                        android:id="@+id/metronom_freq"
+                        android:id="@+id/answer_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -167,6 +167,67 @@
                 android:onClick="@{() -> viewModel.someVariantsSelect()}"
                 android:checked="@={!viewModel.allPllCount}"
                 android:text="@string/some_plls" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/middle_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingRight="@dimen/big_padding"
+                    android:text="@string/pll_answer_count_text"
+                    app:isEnabled="@{viewModel.allPllCount ? false : true }" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingRight="@dimen/big_padding">
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="@{(view) -> viewModel.minusAnswerVariants()}"
+                        android:text="@string/minus"
+                        app:isEnabled="@{viewModel.allPllCount ? false : true}" />
+
+                    <TextView
+                        android:id="@+id/metronom_freq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/big_padding"
+                        android:paddingRight="@dimen/big_padding"
+                        android:textSize="22sp"
+                        app:isEnabled="@{viewModel.allPllCount ? false : true}"
+                        app:text="@{viewModel.pllAnswerVariants}"
+                        tools:ignore="RtlHardcoded"
+                        tools:text="6" />
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="@{(view) -> viewModel.plusAnswerVariants()}"
+                        android:text="@string/plus"
+                        app:isEnabled="@{viewModel.allPllCount ? false : true}" />
+
+                </LinearLayout>
+            </LinearLayout>
 
 
         </LinearLayout>

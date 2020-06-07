@@ -36,6 +36,7 @@ object Constants {
     const val PLL_TRAINING_TIMER = "pllTrainingTimer"           //Игра на время (Boolean)
     const val PLL_TRAINING_TIMER_TIME = "pllTrainingTimerTime"  //Время в сек. на ответ (Int)
     const val ALL_PLL_COUNT = "allPllCount"                     //Показывать все 21 вариант PLL
+    const val PLL_ANSWER_VARIANTS = "pllAnswerVariants"         //Сколько вариантов для выбора
 
     //Настройки игры Угадай букву блайнда
     const val TRAINING_EDGES = "trainingEdges"              //Тренируем углы? (Boolean)

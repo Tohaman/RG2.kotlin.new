@@ -2,11 +2,8 @@ package ru.tohaman.testempty.ui
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -18,7 +15,6 @@ import ru.tohaman.testempty.Constants.IS_VIDEO_SCREEN_ON
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.databinding.ActivityYoutubeBinding
-import ru.tohaman.testempty.generated.callback.OnClickListener
 import ru.tohaman.testempty.ui.shared.MyDefaultActivity
 import timber.log.Timber
 import java.text.ParseException

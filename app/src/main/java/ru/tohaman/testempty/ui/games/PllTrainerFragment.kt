@@ -45,13 +45,19 @@ class PllTrainerFragment: Fragment() {
                 if ((pllViewModel.state.value == null) or (pllViewModel.state.value==GameStates.STOPPED)) {
                     pllViewModel.stopGame()
                 }
+
+                bottomAppbar.showSettings = true
                 bottomAppbar.back.setOnClickListener {
                     if (pllViewModel.state.value != GameStates.STOPPED) pllViewModel.stopGame() else findNavController().popBackStack()
+                }
+                bottomAppbar.settings.setOnClickListener {
+                    if (pllViewModel.state.value != GameStates.STOPPED) pllViewModel.stopGame()
+                    findNavController().navigate(R.id.pllTrainerSettings)
                 }
 
                 val adapter = ButtonsGridAdapter()
                 adapter.attachCallBack(selectLetterCallBack)
-                buttonPanel.adapter = adapter
+                fullButtonPanel.adapter = adapter
                 pllViewModel.buttonsList.observe(viewLifecycleOwner, Observer {
                     Timber.d("$TAG обновляем кнопки $it")
                     it?.let {

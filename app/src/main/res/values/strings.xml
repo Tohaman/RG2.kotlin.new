@@ -80,7 +80,7 @@
     <string name="right_answer">Правильно</string>
     <string name="wrong_answer">Нет - это Р</string>
     <string name="wrong_answer_text">Нет - это</string>
-    <string name="time_is_over">Время вышло. Это была -</string>
+    <string name="time_is_over">Время вышло. Это -</string>
     <string name="please_waiting">Подождите, пожалуйста</string>
     <string name="continue_game">Продолжить</string>
     <string name="stop_game">Заново</string>
@@ -102,4 +102,5 @@
     <string name="answer_variants">Варианты ответов:</string>
     <string name="all_plls">Сразу все PLL (стандартные названия)</string>
     <string name="some_plls">Несколько вариантов (любые названия)</string>
+    <string name="pll_answer_count_text">Количество вариантов</string>
 </resources>

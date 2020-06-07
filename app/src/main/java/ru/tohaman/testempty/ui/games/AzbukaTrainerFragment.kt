@@ -1,28 +1,18 @@
 package ru.tohaman.testempty.ui.games
 
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.include_scramble_gen.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.ButtonsGridAdapter
-import ru.tohaman.testempty.dataSource.cubeColor
-import ru.tohaman.testempty.dataSource.resetCube
-import ru.tohaman.testempty.dataSource.runScramble
-import ru.tohaman.testempty.dataSource.slotLightingCoordinate
 import ru.tohaman.testempty.databinding.FragmentAzbukaTrainerBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
 import timber.log.Timber
@@ -53,13 +43,18 @@ class AzbukaTrainerFragment: Fragment() {
                     trainerViewModel.loadNextBlind()
                     trainerViewModel.stopGame()
                 }
+                bottomAppbar.showSettings = true
                 bottomAppbar.back.setOnClickListener {
                     if (trainerViewModel.state.value != GameStates.STOPPED) trainerViewModel.stopGame() else findNavController().popBackStack()
+                }
+                bottomAppbar.settings.setOnClickListener {
+                    if (trainerViewModel.state.value != GameStates.STOPPED) trainerViewModel.stopGame()
+                    findNavController().navigate(R.id.azbukaTrainerSettings)
                 }
 
                 val adapter = ButtonsGridAdapter()
                 adapter.attachCallBack(selectLetterCallBack)
-                buttonPanel.adapter = adapter
+                fullButtonPanel.adapter = adapter
                 trainerViewModel.buttonsList.observe(viewLifecycleOwner, Observer {
                     Timber.d("$TAG обновляем кнопки $it")
                     it?.let {
@@ -94,7 +89,7 @@ class AzbukaTrainerFragment: Fragment() {
     //Колбэк в котором обрабатываем нажатие на элемент ячейки в gridView
     private val selectLetterCallBack = object: ButtonsGridAdapter.OnClickCallBack {
         override fun clickItem(letter: String, id: Int, view: View) {
-            //Timber.d("$TAG .clickItem letter = [${letter}], id = [${id}], view = [${view}]")
+            Timber.d("$TAG .clickItem letter = [${letter}], id = [${id}], view = [${view}]")
             trainerViewModel.selectAnswer(letter)
         }
     }

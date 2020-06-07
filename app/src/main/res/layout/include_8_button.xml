@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.widget.TextView" />
+
+        <variable
+            name="namesList"
+            type="java.util.List&lt;String&gt;"/>
+
+        <variable
+            name="viewModel"
+            type="ru.tohaman.testempty.interfaces.SelectAnswerInt" />
+    </data>
+
+
+    <!-- Надо попробовать установить векторный background вот так https://stackoverflow.com/questions/34513971/xmlpullparserexception-invalid-drawable-tag-vector-->
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/row1LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button1"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:lines="2"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[0]}"
+                tools:text="New Button"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button2"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:lines="2"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[1]}"
+                tools:text="New Button"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/row2LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isNeedToShow(2) ? View.VISIBLE : View.GONE}"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button3"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:lines="2"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[2]}"
+                tools:text="New Button"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button4"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:lines="2"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[3]}"
+                tools:text="New Button"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/row3LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isNeedToShow(3) ? View.VISIBLE : View.GONE}"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button5"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:lines="2"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[4]}"
+                tools:text="New Button"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button6"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:lines="2"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[5]}"
+                tools:text="New Button"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/row4LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isNeedToShow(4) ? View.VISIBLE : View.GONE}"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button7"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:lines="2"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[6]}"
+                tools:text="New Button"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button8"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/plltest_button_textsize"
+                android:lines="2"
+                android:onClick='@{(view) -> viewModel.selectAnswer(((TextView)view).text.toString())}'
+                android:text="@{namesList[7]}"
+                tools:text="New Button"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
