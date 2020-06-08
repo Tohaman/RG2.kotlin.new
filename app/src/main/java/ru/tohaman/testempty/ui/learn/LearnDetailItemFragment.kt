@@ -147,7 +147,7 @@ class LearnDetailItemFragment : Fragment() {
                 val constraintLayout = getEditTextLayout(it)
                 builder.setView(constraintLayout)
 
-                val textInputLayout = constraintLayout.findViewWithTag<TextInputLayout>("textInputLayoutTag")
+                //val textInputLayout = constraintLayout.findViewWithTag<TextInputLayout>("textInputLayoutTag")
                 val textInputEditText = constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
 
                 textInputEditText.text = comment.toEditable()

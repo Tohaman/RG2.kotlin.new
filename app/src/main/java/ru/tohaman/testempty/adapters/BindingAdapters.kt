@@ -11,7 +11,9 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.testempty.DebugTag.TAG
+import ru.tohaman.testempty.dataSource.entitys.RecyclerItem
 import ru.tohaman.testempty.utils.getResource
 import ru.tohaman.testempty.utils.spannedString
 import timber.log.Timber
@@ -121,4 +123,15 @@ fun setTint(imageView: ImageView?, int: Int) {
 @BindingAdapter("app:srcDrawable")
 fun setDrawable(imageView: AppCompatImageView, drawable: LayerDrawable) {
     imageView.setImageDrawable(drawable)
+}
+
+@BindingAdapter("items")
+fun setRecyclerViewItems(recyclerView: RecyclerView, items: List<RecyclerItem>?) {
+    var adapter = (recyclerView.adapter as? RecyclerViewAdapter)
+    if (adapter == null) {
+        adapter = RecyclerViewAdapter()
+        recyclerView.adapter = adapter
+    }
+
+    adapter.updateData(items.orEmpty())
 }

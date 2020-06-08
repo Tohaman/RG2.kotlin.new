@@ -6,7 +6,7 @@
 
     <data>
         <variable
-            name="viewMenuItem"
+            name="pllGameItem"
             type="ru.tohaman.testempty.dbase.entitys.PllGameItem" />
 
         <variable
@@ -20,14 +20,14 @@
         android:layout_marginRight="@dimen/dimen_margin_8"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
-        android:onClick="@{() -> clickListener.clickItem(viewMenuItem)}">
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_menu_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:padding="4dp"
-            android:srcId="@{viewMenuItem.imageRes}"
+            android:srcId="@{pllGameItem.imageRes}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/small_padding"
-                    android:text="@{viewMenuItem.internationalName}"
+                    android:text="@{pllGameItem.internationalName}"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/small_padding"
-                    android:text="@{viewMenuItem.maximName}"
+                    android:text="@{pllGameItem.maximName}"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/small_padding"
-                android:text="@{viewMenuItem.currentName}"
+                android:text="@{pllGameItem.currentName}"
                 android:textSize="14sp"
                 tools:text="Противоположный треугольник (Ab)"
                 android:textColor="@color/colorAccent"

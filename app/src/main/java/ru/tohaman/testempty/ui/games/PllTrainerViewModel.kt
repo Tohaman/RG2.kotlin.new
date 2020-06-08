@@ -14,6 +14,7 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.testempty.BR
 import ru.tohaman.testempty.Constants.ALL_PLL_COUNT
 import ru.tohaman.testempty.Constants.IS_2SIDE_RECOGNITION
 import ru.tohaman.testempty.Constants.PLLS_NAME
@@ -30,6 +32,7 @@ import ru.tohaman.testempty.Constants.PLL_TRAINING_TIMER_TIME
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.dataSource.*
+import ru.tohaman.testempty.dataSource.entitys.RecyclerItem
 import ru.tohaman.testempty.dbase.entitys.PllGameItem
 import ru.tohaman.testempty.interfaces.SelectAnswerInt
 import ru.tohaman.testempty.interfaces.WrongAnswerInt
@@ -120,6 +123,8 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
     }
 
+    val algorithmsList = MutableLiveData<List<RecyclerItem>>()
+
     // -------------------- Game ------------------------------
 
     private var correctAnswer = 0 //Random().nextInt(21)
@@ -150,8 +155,16 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     init {
         viewModelScope.launch (Dispatchers.IO){
             pllGameItems = repository.getAllPllGameItems()
+            val list = pllGameItems.map { it.toRecyclerItem() }
+            algorithmsList.postValue(list)
         }
     }
+
+    private fun PllGameItem.toRecyclerItem() = RecyclerItem(
+        data = this,
+        layoutId = R.layout.item_algorithms_properties,
+        variableId = BR.pllGameItem
+    )
 
     var rightButtonNumber = 0
 
