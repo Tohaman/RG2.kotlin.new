@@ -243,6 +243,11 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         startTimer()
     }
 
+//    fun algorithmProperties() {
+//        Timber.d("$TAG .algorithmProperties ")
+//
+//    }
+
     private fun nextPll() {
         val scramble = "x x ${getRandomPll()}"
         rightAnswer.set(pllGameItems[correctAnswer].InternationalName)

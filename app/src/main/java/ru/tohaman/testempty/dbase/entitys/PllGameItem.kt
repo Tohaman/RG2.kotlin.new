@@ -12,5 +12,6 @@ data class PllGameItem (
   var userName: String,
   var currentName: String,
   var scramble: String,
-  var imageRes: Int
+  var imageRes: Int,
+  var isChecked: Boolean
 )

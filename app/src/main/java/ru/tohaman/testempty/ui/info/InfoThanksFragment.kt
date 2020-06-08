@@ -46,7 +46,7 @@ class InfoThanksFragment : Fragment() {
         alertBuilder.setPositiveButton(ctx.getText(R.string.goto_market)) { _, _ ->
             browse("https://cubemarket.ru")
         }
-        alertBuilder.setNegativeButton(ctx.getText(R.string.cancel), null)      //По отмене ничего не делаем, просто закрываем диалог
+        alertBuilder.setNegativeButton(ctx.getText(R.string.backText), null)      //По отмене ничего не делаем, просто закрываем диалог
 
         alertBuilder.setView(alertBinding.root).create().show()
     }

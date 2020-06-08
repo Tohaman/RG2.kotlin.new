@@ -11,14 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_pll_trainer_settings.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
 import ru.tohaman.testempty.adapters.ButtonsGridAdapter
 import ru.tohaman.testempty.databinding.DialogEditCommentBinding
-import ru.tohaman.testempty.databinding.FragmentGamesTimerBinding
 import ru.tohaman.testempty.databinding.FragmentPllTrainerBinding
 import ru.tohaman.testempty.ui.shared.UiUtilViewModel
+import ru.tohaman.testempty.utils.toEditable
 import timber.log.Timber
 
 class PllTrainerFragment: Fragment() {
@@ -59,30 +60,19 @@ class PllTrainerFragment: Fragment() {
                 adapter.attachCallBack(selectLetterCallBack)
                 fullButtonPanel.adapter = adapter
                 pllViewModel.buttonsList.observe(viewLifecycleOwner, Observer {
-                    Timber.d("$TAG обновляем кнопки $it")
+                    Timber.d("$TAG PllTrainerFragment.onCreateView.observer обновляем кнопки $it")
                     it?.let {
                         adapter.refreshItems(it)
                     }
                 })
 
+                algorithmsPropertiesButton.setOnClickListener {
+                    showAlgorithmPropertiesDialog(it)
+                }
+
+                //TODO удалить обзервер, за ненадобностью. Пока нужен для отладки.
                 pllViewModel.state.observe(viewLifecycleOwner, Observer {
                     Timber.d("$TAG state = $it")
-                    it?.let {
-                        when (it) {
-                            GameStates.WAITING_4_ANSWER -> {
-
-                            }
-                            GameStates.SHOW_ANSWER -> {
-
-                            }
-                            GameStates.STOPPED -> {
-
-                            }
-                            GameStates.TIME_IS_OVER -> {
-
-                            }
-                        }
-                    }
                 })
             }
 
@@ -91,10 +81,22 @@ class PllTrainerFragment: Fragment() {
 
     //Колбэк в котором обрабатываем нажатие на элемент ячейки в gridView
     private val selectLetterCallBack = object: ButtonsGridAdapter.OnClickCallBack {
-        override fun clickItem(letter: String, id: Int, view: View) {
-            Timber.d("$TAG .clickItem letter = [${letter}], id = [${id}], view = [${view}]")
-            pllViewModel.selectAnswer(letter)
+        override fun clickItem(buttonText: String, id: Int, view: View) {
+            pllViewModel.selectAnswer(buttonText)
         }
+    }
+
+    private fun showAlgorithmPropertiesDialog (view: View) {
+        val ctx = view.context
+        val alertBuilder = MaterialAlertDialogBuilder(ctx)
+        val alertBinding = DialogEditCommentBinding.inflate(layoutInflater)
+
+        alertBuilder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
+        }
+        alertBuilder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
+
+        }
+        alertBuilder.setView(alertBinding.root).create().show()
     }
 
 }

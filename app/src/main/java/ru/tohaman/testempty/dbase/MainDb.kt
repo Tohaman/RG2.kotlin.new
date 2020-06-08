@@ -22,7 +22,7 @@ import ru.tohaman.testempty.dbase.entitys.*
         CubeType::class, BasicMove::class,
         AzbukaDBItem::class, TimeNoteItem::class,
         PllGameItem::class],
-    version = 13
+    version = 14
 )
 @TypeConverters(LocalDateConverters::class)
 abstract class MainDb : RoomDatabase() {

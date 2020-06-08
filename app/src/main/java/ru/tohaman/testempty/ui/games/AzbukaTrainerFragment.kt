@@ -8,7 +8,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.include_scramble_gen.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.testempty.DebugTag.TAG
 import ru.tohaman.testempty.R
@@ -88,9 +87,9 @@ class AzbukaTrainerFragment: Fragment() {
 
     //Колбэк в котором обрабатываем нажатие на элемент ячейки в gridView
     private val selectLetterCallBack = object: ButtonsGridAdapter.OnClickCallBack {
-        override fun clickItem(letter: String, id: Int, view: View) {
-            Timber.d("$TAG .clickItem letter = [${letter}], id = [${id}], view = [${view}]")
-            trainerViewModel.selectAnswer(letter)
+        override fun clickItem(buttonText: String, id: Int, view: View) {
+            //Timber.d("$TAG .clickItem letter = [${buttonText}], id = [${id}], view = [${view}]")
+            trainerViewModel.selectAnswer(buttonText)
         }
     }
 

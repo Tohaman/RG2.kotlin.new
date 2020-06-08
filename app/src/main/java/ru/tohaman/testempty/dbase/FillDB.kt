@@ -210,7 +210,7 @@ class FillDB {
             val items = mutableListOf<PllGameItem>()
             intNames.indices.map {
                 val iconId = pllImages.getResourceId(it, R.drawable.ic_alert)
-                val item = PllGameItem(it, intNames[it], maximNames[it], maximNames[it], maximNames[it], scrambles[it], iconId)
+                val item = PllGameItem(it, intNames[it], maximNames[it], maximNames[it], maximNames[it], scrambles[it], iconId, true)
                 items.add(item)
             }
             repository.insertPllGameItem(items)

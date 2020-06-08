@@ -59,7 +59,7 @@ class ButtonsGridAdapter : BaseAdapter() {
     }
 
     interface OnClickCallBack {
-        fun clickItem(letter: String, id: Int, view: View)
+        fun clickItem(buttonText: String, id: Int, view: View)
     }
 
 

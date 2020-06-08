@@ -103,4 +103,6 @@
     <string name="all_plls">Сразу все PLL (стандартные названия)</string>
     <string name="some_plls">Несколько вариантов (любые названия)</string>
     <string name="pll_answer_count_text">Количество вариантов</string>
+    <string name="select_pll_alg">Выбрать/Перименовать алгоритмы</string>
+    <string name="pll_showing_name">Название для кнопок:</string>
 </resources>
