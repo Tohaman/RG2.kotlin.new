@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.shared.UiUtilViewModel" />
+            type="ru.tohaman.rg2.ui.shared.UiUtilViewModel" />
 
     </data>
 

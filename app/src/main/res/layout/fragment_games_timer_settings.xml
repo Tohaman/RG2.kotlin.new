@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.TimerViewModel" />
+            type="ru.tohaman.rg2.ui.games.TimerViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

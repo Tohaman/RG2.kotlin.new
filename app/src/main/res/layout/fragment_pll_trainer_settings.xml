@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.PllTrainerViewModel" />
+            type="ru.tohaman.rg2.ui.games.PllTrainerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

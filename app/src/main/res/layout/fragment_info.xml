@@ -12,7 +12,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.learn.LearnDetailViewModel"/>
+            type="ru.tohaman.rg2.ui.learn.LearnDetailViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

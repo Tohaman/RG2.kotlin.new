@@ -7,11 +7,11 @@
     <data>
         <variable
             name="viewMenuItem"
-            type="ru.tohaman.testempty.dbase.entitys.MainDBItem" />
+            type="ru.tohaman.rg2.dbase.entitys.MainDBItem" />
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.GamesAdapter.OnClickCallBack" />
+            type="ru.tohaman.rg2.adapters.GamesAdapter.OnClickCallBack" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -15,7 +15,7 @@
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.ButtonsGridAdapter.OnClickCallBack" />
+            type="ru.tohaman.rg2.adapters.ButtonsGridAdapter.OnClickCallBack" />
     </data>
 
     <LinearLayout

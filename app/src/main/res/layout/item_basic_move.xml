@@ -7,11 +7,11 @@
     <data>
         <variable
             name="basicMoveItem"
-            type="ru.tohaman.testempty.dbase.entitys.BasicMove" />
+            type="ru.tohaman.rg2.dbase.entitys.BasicMove" />
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.MovesAdapter.OnClickCallBack" />
+            type="ru.tohaman.rg2.adapters.MovesAdapter.OnClickCallBack" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.learn.LearnViewModel" />
+            type="ru.tohaman.rg2.ui.learn.LearnViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

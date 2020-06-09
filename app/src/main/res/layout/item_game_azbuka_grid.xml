@@ -11,11 +11,11 @@
 
         <variable
             name="item"
-            type="ru.tohaman.testempty.dataSource.entitys.AzbukaSimpleItem" />
+            type="ru.tohaman.rg2.dataSource.entitys.AzbukaSimpleItem" />
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.AzbukaGridAdapter.OnClickCallBack" />
+            type="ru.tohaman.rg2.adapters.AzbukaGridAdapter.OnClickCallBack" />
     </data>
 
     <LinearLayout

@@ -8,11 +8,11 @@
 
         <variable
             name="timeNote"
-            type="ru.tohaman.testempty.dbase.entitys.TimeNoteItem" />
+            type="ru.tohaman.rg2.dbase.entitys.TimeNoteItem" />
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.TimerResultAdapter.OnClickCallBack" />
+            type="ru.tohaman.rg2.adapters.TimerResultAdapter.OnClickCallBack" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout

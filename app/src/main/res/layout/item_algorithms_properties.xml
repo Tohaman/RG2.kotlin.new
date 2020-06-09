@@ -5,22 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="pllGameItem"
-            type="ru.tohaman.testempty.dbase.entitys.PllGameItem" />
 
         <variable
-            name="clickListener"
-            type="ru.tohaman.testempty.adapters.GamesAdapter.OnClickCallBack" />
+            name="pllGameItem"
+            type="ru.tohaman.rg2.dbase.entitys.PllGameItem" />
+
+        <variable
+            name="pllGameItemCallBack"
+            type="ru.tohaman.rg2.interfaces.OnPllCurrentItemClickCallBack" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dimen_margin_8"
+        android:onClick="@{() -> pllGameItemCallBack.clickItem(pllGameItem.currentName, pllGameItem.id)}"
         android:layout_marginLeft="@dimen/dimen_margin_8"
         android:layout_marginTop="@dimen/dimen_margin_8"
-        >
+        android:layout_marginRight="@dimen/dimen_margin_8">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_menu_image"
@@ -28,71 +29,78 @@
             android:layout_height="80dp"
             android:padding="4dp"
             android:srcId="@{pllGameItem.imageRes}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:srcCompat="@drawable/pll_1"/>
-
+            tools:srcCompat="@drawable/pll_1" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/top_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="top"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintLeft_toRightOf="@+id/main_menu_image"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/small_padding"
-                    android:text="@{pllGameItem.internationalName}"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="Ab" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/small_padding"
-                    android:text="@{pllGameItem.maximName}"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="Противоположный треугольник" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/checkbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_padding"
-                android:text="@string/pll_showing_name"
-                />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/small_padding"
-                android:text="@{pllGameItem.currentName}"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:text="@{pllGameItem.internationalName}"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                tools:text="Противоположный треугольник (Ab)"
-                android:textColor="@color/colorAccent"
-                />
+                android:textStyle="bold"
+                tools:text="Ab" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:text="@{pllGameItem.maximName}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Противоположный треугольник" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/middle_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding"
+            android:text="@string/pll_showing_name"
+            app:layout_constraintLeft_toRightOf="@+id/main_menu_image"
+            app:layout_constraintTop_toBottomOf="@+id/top_message"
+            android:textSize="14sp" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/small_padding"
+            android:paddingRight="@dimen/small_padding"
+            android:text="@{pllGameItem.currentName}"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintLeft_toRightOf="@+id/main_menu_image"
+            app:layout_constraintTop_toBottomOf="@+id/middle_message"
+            android:textSize="14sp"
+            tools:text="Противоположный треугольник (Ab)" />
+
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:checked="@{pllGameItem.checked}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

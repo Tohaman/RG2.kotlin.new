@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.AzbukaTrainerViewModel" />
+            type="ru.tohaman.rg2.ui.games.AzbukaTrainerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.interfaces.GamesAzbukaButtons" />
+            type="ru.tohaman.rg2.interfaces.GamesAzbukaButtons" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

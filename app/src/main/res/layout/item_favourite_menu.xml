@@ -8,11 +8,11 @@
 
         <variable
             name="viewMenuItem"
-            type="ru.tohaman.testempty.dbase.entitys.MainDBItem" />
+            type="ru.tohaman.rg2.dbase.entitys.MainDBItem" />
 
         <variable
             name="clickListener"
-            type="ru.tohaman.testempty.adapters.FavouriteListAdapter.OnClickCallBack" />
+            type="ru.tohaman.rg2.adapters.FavouriteListAdapter.OnClickCallBack" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

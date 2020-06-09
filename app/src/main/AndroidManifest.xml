@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ru.tohaman.testempty">
+    package="ru.tohaman.rg2">
 
     <application
         android:allowBackup="true"
@@ -10,11 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning"
-        android:name=".MainApplication"
+        android:name="ru.tohaman.rg2.MainApplication"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.SplashActivity"
+            android:name="ru.tohaman.rg2.ui.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +24,12 @@
 
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name="ru.tohaman.rg2.ui.MainActivity"
             android:theme="@style/AppTheme">
         </activity>
 
         <activity
-            android:name=".ui.YouTubePlayerActivity"
+            android:name="ru.tohaman.rg2.ui.YouTubePlayerActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <data

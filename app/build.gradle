@@ -13,12 +13,12 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "ru.tohaman.testempty"
+        applicationId 'ru.tohaman.rg2'
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 200
+        versionName '2.20200630.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

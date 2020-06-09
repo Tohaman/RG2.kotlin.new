@@ -13,7 +13,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.interfaces.SelectAnswerInt" />
+            type="ru.tohaman.rg2.interfaces.SelectAnswerInt" />
     </data>
 
 

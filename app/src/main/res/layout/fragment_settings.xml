@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.settings.SettingsViewModel" />
+            type="ru.tohaman.rg2.ui.settings.SettingsViewModel" />
     </data>
 
     <ScrollView

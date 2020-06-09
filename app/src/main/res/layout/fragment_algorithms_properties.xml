@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.PllTrainerViewModel" />
+            type="ru.tohaman.rg2.ui.games.PllTrainerViewModel" />
 
     </data>
 
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
                 android:text="Сохранить текущие"
-                app:layout_constraintBottom_toTopOf="@+id/close_text"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_appbar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/load_button"
                 />
@@ -90,21 +90,19 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
                 android:text="Загрузить сохраненные"
-                app:layout_constraintBottom_toTopOf="@+id/close_text"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_appbar"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/save_button"
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/close_text"
-                android:layout_width="wrap_content"
+            <include
+                android:id="@+id/bottom_appbar"
+                layout="@layout/include_bottom_appbar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                android:text="@string/backText"
-                android:layout_marginRight="@dimen/middle_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

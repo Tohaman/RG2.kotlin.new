@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="ru.tohaman.testempty.dbase.entitys.MainDBItem" />
+            type="ru.tohaman.rg2.dbase.entitys.MainDBItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

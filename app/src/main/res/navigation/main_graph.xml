@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/destInfo"
-        android:name="ru.tohaman.testempty.ui.info.InfoFragment"
+        android:name="ru.tohaman.rg2.ui.info.InfoFragment"
         android:label="main_info"
         tools:layout="@layout/fragment_info">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/destLearn"
-        android:name="ru.tohaman.testempty.ui.learn.LearnFragment"
+        android:name="ru.tohaman.rg2.ui.learn.LearnFragment"
         android:label="main_learn"
         tools:layout="@layout/fragment_learn">
         <action
@@ -32,7 +32,7 @@
 
     <dialog
         android:id="@+id/dialog_moves_helper"
-        android:name="ru.tohaman.testempty.ui.learn.MovesHelperDialog"
+        android:name="ru.tohaman.rg2.ui.learn.MovesHelperDialog"
         android:label="RCV_Dialog"
         tools:layout="@layout/dialog_recycler_view">
         <argument
@@ -43,14 +43,14 @@
 
     <dialog
         android:id="@+id/dialog_favourites"
-        android:name="ru.tohaman.testempty.ui.learn.FavouritesDialog"
+        android:name="ru.tohaman.rg2.ui.learn.FavouritesDialog"
         android:label="Favourites_Dialog"
         tools:layout="@layout/dialog_recycler_view"/>
 
 
     <fragment
         android:id="@+id/destLearnDetails"
-        android:name="ru.tohaman.testempty.ui.learn.LearnDetailFragment"
+        android:name="ru.tohaman.rg2.ui.learn.LearnDetailFragment"
         android:label="learn_detail_menu"
         tools:layout="@layout/fragment_learn_detail">
         <argument
@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/destGames"
-        android:name="ru.tohaman.testempty.ui.games.GamesFragment"
+        android:name="ru.tohaman.rg2.ui.games.GamesFragment"
         android:label="@string/main_games_clicked"
         tools:layout="@layout/fragment_games">
         <action
@@ -105,26 +105,26 @@
 
     <fragment
         android:id="@+id/destSettings2"
-        android:name="ru.tohaman.testempty.ui.settings.SettingsFragment"
+        android:name="ru.tohaman.rg2.ui.settings.SettingsFragment"
         android:label="@string/main_settings2"
         tools:layout="@layout/fragment_settings">
     </fragment>
 
     <fragment
         android:id="@+id/gamesHelpFragment"
-        android:name="ru.tohaman.testempty.ui.games.GamesHelpFragment"
+        android:name="ru.tohaman.rg2.ui.games.GamesHelpFragment"
         android:label="GamesHelpFragment"
         tools:layout="@layout/fragment_games_help"/>
 
     <fragment
         android:id="@+id/gamesAzbukaSettings"
-        android:name="ru.tohaman.testempty.ui.games.ScrambleGeneratorSettings"
+        android:name="ru.tohaman.rg2.ui.games.ScrambleGeneratorSettings"
         android:label="GamesAzbukaSettings"
         tools:layout="@layout/fragment_games_azbuka_select"/>
 
     <fragment
         android:id="@+id/scrambleGeneratorFragment"
-        android:name="ru.tohaman.testempty.ui.games.ScrambleGeneratorFragment"
+        android:name="ru.tohaman.rg2.ui.games.ScrambleGeneratorFragment"
         android:label="GamesScrambleGenerator"
         tools:layout="@layout/fragment_games_scramble_generator">
         <action
@@ -134,13 +134,13 @@
 
     <fragment
         android:id="@+id/timerSettingsFragment"
-        android:name="ru.tohaman.testempty.ui.games.TimerSettings"
+        android:name="ru.tohaman.rg2.ui.games.TimerSettings"
         android:label="GamesTimerSettings"
         tools:layout="@layout/fragment_games_timer_settings"/>
 
     <fragment
         android:id="@+id/timerFragment"
-        android:name="ru.tohaman.testempty.ui.games.TimerFragment"
+        android:name="ru.tohaman.rg2.ui.games.TimerFragment"
         android:label="GamesTimer"
         tools:layout="@layout/fragment_games_timer">
         <action
@@ -153,13 +153,13 @@
 
     <dialog
         android:id="@+id/timerResultDialog"
-        android:name="ru.tohaman.testempty.ui.games.TimerResultDialog"
+        android:name="ru.tohaman.rg2.ui.games.TimerResultDialog"
         android:label="TimerResultDialog"
         tools:layout="@layout/dialog_recycler_view"/>
 
     <fragment
         android:id="@+id/azbukaTrainerFragment"
-        android:name="ru.tohaman.testempty.ui.games.AzbukaTrainerFragment"
+        android:name="ru.tohaman.rg2.ui.games.AzbukaTrainerFragment"
         android:label="AzbukaTrainerFragment"
         tools:layout="@layout/fragment_azbuka_trainer">
         <action
@@ -169,19 +169,19 @@
 
     <fragment
         android:id="@+id/azbukaTrainerSettings"
-        android:name="ru.tohaman.testempty.ui.games.AzbukaTrainerSettings"
+        android:name="ru.tohaman.rg2.ui.games.AzbukaTrainerSettings"
         android:label="AzbukaTrainerSettings"
         tools:layout="@layout/fragment_azbuka_trainer_settings"
         />
     <dialog
         android:id="@+id/showTipsDialog"
-        android:name="ru.tohaman.testempty.ui.info.ShowTipsDialog"
+        android:name="ru.tohaman.rg2.ui.info.ShowTipsDialog"
         android:label="ShowTipsDialog"
         tools:layout="@layout/dialog_info_tips"
         />
     <fragment
         android:id="@+id/pllTrainerFragment"
-        android:name="ru.tohaman.testempty.ui.games.PllTrainerFragment"
+        android:name="ru.tohaman.rg2.ui.games.PllTrainerFragment"
         tools:layout="@layout/fragment_pll_trainer"
         android:label="PllTrainerFragment" >
         <action
@@ -190,9 +190,19 @@
     </fragment>
     <fragment
         android:id="@+id/pllTrainerSettings"
-        android:name="ru.tohaman.testempty.ui.games.PllTrainerSettings"
+        android:name="ru.tohaman.rg2.ui.games.PllTrainerSettings"
         android:label="PllTrainerSettings"
         tools:layout="@layout/fragment_pll_trainer_settings"
+        >
+        <action
+            android:id="@+id/action_pllTrainerSettings_to_pllTrainerAlgSettings"
+            app:destination="@id/pllTrainerAlgSettings" />
+    </fragment>
+    <fragment
+        android:id="@+id/pllTrainerAlgSettings"
+        android:name="ru.tohaman.rg2.ui.games.PllTrainerAlgSettings"
+        android:label="PllTrainerAlgSettings"
+        tools:layout="@layout/fragment_algorithms_properties"
         />
 
 </navigation>

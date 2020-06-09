@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.ScrambleGeneratorViewModel" />
+            type="ru.tohaman.rg2.ui.games.ScrambleGeneratorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

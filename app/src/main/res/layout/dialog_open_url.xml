@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="ru.tohaman.testempty.ui.games.TimerResultViewModel" />
+            type="ru.tohaman.rg2.ui.games.TimerResultViewModel" />
 
     </data>
 
