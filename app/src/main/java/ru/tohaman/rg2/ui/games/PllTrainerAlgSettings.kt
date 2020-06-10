@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.rg2.databinding.FragmentAlgorithmsPropertiesBinding
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
@@ -20,6 +21,7 @@ class PllTrainerAlgSettings: Fragment() {
             .apply {
                 viewModel = pllViewModel
 
+                bottomAppbar.back.setOnClickListener { findNavController().popBackStack() }
             }
 
         return binding.root

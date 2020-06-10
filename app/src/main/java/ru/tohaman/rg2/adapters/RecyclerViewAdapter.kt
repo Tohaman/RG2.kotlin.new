@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
+import timber.log.Timber
 
 class RecyclerViewAdapter : RecyclerView.Adapter<BindingViewHolder>() {
 
@@ -33,6 +35,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<BindingViewHolder>() {
     fun updateData(newItems: List<RecyclerItem>) {
         this.items.clear()
         this.items.addAll(newItems)
+        Timber.d("$TAG .updateData newItems = [${newItems}]")
         notifyDataSetChanged()
     }
 
