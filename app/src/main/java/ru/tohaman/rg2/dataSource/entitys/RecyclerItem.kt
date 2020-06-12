@@ -6,12 +6,9 @@ import androidx.databinding.ViewDataBinding
 data class RecyclerItem(
     val data: Any,
     @LayoutRes val layoutId: Int,
-    val variableId: Int,
-    val callback: Any,
-    val callBackId: Int = 0
+    val variableId: Int
 ) {
     fun bind(binding: ViewDataBinding) {
         binding.setVariable(variableId, data)
-        binding.setVariable(callBackId, callback)
     }
 }

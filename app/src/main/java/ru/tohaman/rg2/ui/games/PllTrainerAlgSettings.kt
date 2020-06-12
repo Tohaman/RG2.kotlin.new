@@ -20,10 +20,10 @@ class PllTrainerAlgSettings: Fragment() {
         val binding = FragmentAlgorithmsPropertiesBinding.inflate(inflater, container, false)
             .apply {
                 viewModel = pllViewModel
+                lifecycleOwner = viewLifecycleOwner
 
                 bottomAppbar.back.setOnClickListener { findNavController().popBackStack() }
             }
-
         return binding.root
     }
 

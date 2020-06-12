@@ -56,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
                 android:text="Стандартные названия"
-                app:layout_constraintBottom_toTopOf="@+id/save_button"
+                android:onClick="@{() -> viewModel.loadStdNames()}"
+                app:layout_constraintBottom_toTopOf="@+id/load_button"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/load_button"
                 />
@@ -67,7 +68,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
                 android:text="Максимкины названия"
-                app:layout_constraintBottom_toTopOf="@+id/save_button"
+                android:onClick="@{() -> viewModel.loadMaximNames()}"
+                app:layout_constraintBottom_toTopOf="@+id/load_button"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/save_button"
                 />

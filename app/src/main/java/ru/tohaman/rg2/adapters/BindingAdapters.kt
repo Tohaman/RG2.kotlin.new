@@ -13,6 +13,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.rg2.DebugTag.TAG
+import ru.tohaman.rg2.adapters.universal.DataBindingRecyclerAdapter
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
 import ru.tohaman.rg2.utils.getResource
 import ru.tohaman.rg2.utils.spannedString
@@ -127,11 +128,13 @@ fun setDrawable(imageView: AppCompatImageView, drawable: LayerDrawable) {
 
 @BindingAdapter("items")
 fun setRecyclerViewItems(recyclerView: RecyclerView, items: List<RecyclerItem>?) {
-    var adapter = (recyclerView.adapter as? RecyclerViewAdapter)
+    var adapter = (recyclerView.adapter as? DataBindingRecyclerAdapter)
     if (adapter == null) {
-        adapter = RecyclerViewAdapter()
+        adapter = DataBindingRecyclerAdapter()
         recyclerView.adapter = adapter
     }
 
-    adapter.updateData(items.orEmpty())
+    adapter.submitList(
+        items.orEmpty()
+    )
 }
