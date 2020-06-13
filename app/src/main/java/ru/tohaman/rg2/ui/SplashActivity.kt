@@ -8,6 +8,8 @@ import android.os.Bundle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
+import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.START_COUNT
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dbase.FillDB
 import timber.log.Timber
@@ -24,7 +26,7 @@ class SplashActivity : MyDefaultActivity() {
             setTheme(R.style.AppTheme)
         }
         super.onCreate(savedInstanceState)
-        dbInit(this)
+        checkEnteringCount()
         routeToAppropriatePage()
         finish()
     }
@@ -33,14 +35,23 @@ class SplashActivity : MyDefaultActivity() {
         Timber.d( "$TAG Запускаем основную Activity")
         val intent = Intent(this, MainActivity::class.java)
         //Тут можно сделать запуск какой-то Activity в зависимости от какого-то параметра
-        val savedPhase = sharedPreferences.getString("savedPhase", "3X3")
-        Timber.d( "$TAG Сохраненная фаза $savedPhase")
+//        val savedPhase = sharedPreferences.getString("savedPhase", "3X3")
+//        Timber.d( "$TAG Сохраненная фаза $savedPhase")
 //        when (){
 //            user == null -> intent = Intent(this, FirstActivity::class.java)
 //            user.hasPhoneNumber() -> intent = Intent(this, EditProfileActivity::class.java)
 //            user.hasSubscriptionExpired() -> intent = Intent(this, PaymentPlansActivity::class.java)
 //        }
         startActivity(intent)
+    }
+
+    private fun checkEnteringCount() {
+        var startCount = sharedPreferences.getInt(START_COUNT, 0)
+        if (startCount == 0) { dbInit(this) } else { dbUpdate(this)}
+        // Увеличиваем число запусков программы на 1 и сохраняем результат.
+        startCount++
+        startCount = 0
+        sharedPreferences.edit().putInt(START_COUNT,startCount).apply()
     }
 
     private fun dbInit(context: Context) {
@@ -51,6 +62,12 @@ class SplashActivity : MyDefaultActivity() {
             //Пересоздаем базу при каждом запуске
             //TODO поменять логику, пересоздаавать базу только при первом входе или обновлении программы
             FillDB.reCreateDB(context)
+        }
+    }
+
+    private fun dbUpdate(context: Context) {
+        runBlocking (Dispatchers.IO){
+            FillDB.updateDB(context)
         }
     }
 }

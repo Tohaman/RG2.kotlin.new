@@ -23,14 +23,19 @@ class FillDB {
             repository.clearMovesTable()
             Timber.d( "$TAG Основная таблица очищена")
 
+            updateDB(context)
+
             insertWrongItem()                       //добавляем "заглушку" неверную запись
-            insertPhasesToMainTable(context)        //добавляем
-            updateTestComments()                    //добавляем тестовые комментарии
-            updateTestFavourites()                  //добавляем тестовое избранное
+            setInitialComments()                    //добавляем тестовые комментарии
+            setInitialFavourites()                  //добавляем тестовое избранное
             azbukaInit()                            //Инициализируем азбуку
-            timeNoteInit()                          //добавляем тестовые записи для таблицы результатов сборки
-            pllGameItemsInit(context)                      //добавляем записи для угадай PLL
+            //testTimeNote()                          //добавляем тестовые записи для таблицы результатов сборки
+            pllGameItemsInit(context)               //добавляем записи для угадай PLL
             Timber.d( "$TAG Основная таблица заполнена")
+        }
+
+        suspend fun updateDB(context: Context) {
+            insertPhasesToMainTable(context)        //добавляем оснновные записи в таблицу
         }
 
         private suspend fun insertWrongItem() {
@@ -117,7 +122,7 @@ class FillDB {
             phaseInit("GAMES", R.array.games_title, R.array.games_icon, R.array.games_help, R.array.games_url, context)
         }
 
-        private suspend fun updateTestComments() {
+        private suspend fun setInitialComments() {
             val item1 = repository.getItem("MAIN3X3", 0)
             val item2 = repository.getItem("ROZOV", 0)
             val item3 = repository.getItem("ROZOV", 1)
@@ -129,7 +134,7 @@ class FillDB {
             repository.updateMainItem(item3)
         }
 
-        private suspend fun updateTestFavourites() {
+        private suspend fun setInitialFavourites() {
             val item1 = repository.getItem("PATTERNS", 1)
             val item2 = repository.getItem("AXIS", 0)
             val item3 = repository.getItem("BEGIN", 4)
@@ -162,6 +167,9 @@ class FillDB {
                 val defaultIcon = R.drawable.ic_alert
                 val iconID = icons.getResourceId(i, defaultIcon)
                 val descriptionID = descriptions.getResourceId(i, 0)
+
+                val oldItem = repository.getItem(phase, i)
+                val item = if (oldItem.phase == "")
                 MainDBItem(
                     phase,
                     i,
@@ -170,7 +178,14 @@ class FillDB {
                     descriptionID,
                     urls[i],
                     comments[i]
-                )
+                ) else {
+                    oldItem.title = titles[i]
+                    oldItem.icon = iconID
+                    oldItem.description = descriptionID
+                    oldItem.url = urls[i]
+                    oldItem
+                }
+                item
             }.apply {  icons.recycle(); descriptions.recycle() }
             repository.insert2Main(list)
         }
@@ -216,7 +231,7 @@ class FillDB {
             repository.insertAzbuka(dbAzbuka)
         }
 
-        private suspend fun timeNoteInit() {
+        private suspend fun testTimeNote() {
 //            repository.deleteAllTimeNotes()
 //            val t1 = TimeNoteItem(0,"0:10:03", Calendar.getInstance(), "R U R' U'", "Какой-то коммент")
 //            val t2 = TimeNoteItem(0,"0:30:03", Calendar.getInstance(), "R F L B U2 L B' R F' D B R L F D R' D L", "Другой коммент")

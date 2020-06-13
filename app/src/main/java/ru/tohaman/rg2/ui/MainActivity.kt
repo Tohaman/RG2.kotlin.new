@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.START_COUNT
 import ru.tohaman.rg2.Constants.TEXT_SIZE
 import ru.tohaman.rg2.Constants.THEME
 import ru.tohaman.rg2.DebugTag.TAG
@@ -40,8 +41,10 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
         }
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = uiUtilViewModel
-        binding.lifecycleOwner = this
+        binding.apply {
+            viewModel = uiUtilViewModel
+            lifecycleOwner = this@MainActivity
+        }
 
         val sizeCoefficient = sharedPreferences.getInt(TEXT_SIZE, 2)
         adjustFontScale(resources.configuration, sizeCoefficient)
@@ -73,7 +76,7 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
 
     override fun onSharedPreferenceChanged(sp: SharedPreferences, key: String?) {
         Timber.d("$TAG .onSharedPreferenceChanged key = [${key}]")
-        //Если изменилась тема в настройках, то меняем ее в программе
+        //Если изменилась тема в настройках, то сразу меняем ее в программе
         when (key) {
             THEME, TEXT_SIZE -> {
                 this.recreate()

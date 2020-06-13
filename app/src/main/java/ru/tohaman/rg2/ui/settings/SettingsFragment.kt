@@ -23,7 +23,7 @@ class SettingsFragment  : Fragment() {
 
         runBlocking (Dispatchers.IO){
             //Пересоздаем базу при каждом запуске этого фрагмента, чтобы не пересоздавать при каждом входе
-            context?.let { FillDB.reCreateDB(it) }
+            context?.let { FillDB.updateDB(it) }
         }
         return binding.root
     }

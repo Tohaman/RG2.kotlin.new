@@ -33,7 +33,7 @@ interface MainDao {
     suspend fun getDetailsItems(phase : String) : List<MainDBItem>
 
     @Query("SELECT *  FROM $table WHERE phase = :phase and id = :id")
-    suspend fun getItem(phase : String, id: Int) : MainDBItem
+    suspend fun getItem(phase : String, id: Int) : MainDBItem?
 
     @Query("SELECT *  FROM $table WHERE isFavourite = 1 ORDER BY SubID")
     fun getFavourites() : List<MainDBItem>

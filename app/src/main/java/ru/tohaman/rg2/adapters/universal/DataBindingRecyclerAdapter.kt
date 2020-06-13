@@ -7,9 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
 
-class DataBindingRecyclerAdapter : ListAdapter<RecyclerItem, BindingViewHolder>(
-    DiffCallback()
-) {
+class DataBindingRecyclerAdapter : ListAdapter<RecyclerItem, BindingViewHolder>(DiffCallback()) {
+
     override fun getItemViewType(position: Int): Int {
         return getItem(position).layoutId
     }
@@ -40,18 +39,13 @@ private fun RecyclerItem.bind(binding: ViewDataBinding) {
     val isVariableFound = binding.setVariable(variableId, data)
     if (isVariableFound.not()) {
         throw IllegalStateException(
-            buildErrorMessage(
-                variableId,
-                binding
-            )
+            buildErrorMessage(variableId, binding)
         )
     }
 }
 
-private fun buildErrorMessage(
-    variableId: Int,
-    binding: ViewDataBinding
-): String {
+private fun buildErrorMessage(variableId: Int, binding: ViewDataBinding): String {
+
     val variableName = DataBindingUtil.convertBrIdToString(variableId)
     val className = binding::class.simpleName
     return "Failed to find variable='$variableName' in the following databinding layout: $className"

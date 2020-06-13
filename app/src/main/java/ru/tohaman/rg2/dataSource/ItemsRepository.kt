@@ -30,7 +30,7 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun getDetailsItems(phase: String): List<MainDBItem> = mainDao.getDetailsItems(phase)
 
-    suspend fun getItem(phase: String, id: Int): MainDBItem = mainDao.getItem(phase, id)
+    suspend fun getItem(phase: String, id: Int): MainDBItem = mainDao.getItem(phase, id) ?: MainDBItem("", 0)
 
     fun getLivePhaseFromMain(phase: String): LiveData<List<MainDBItem>> = mainDao.getLivePhaseFromMain(phase)
 

@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
-import ru.tohaman.rg2.BR
 import ru.tohaman.rg2.Constants.ALL_PLL_COUNT
 import ru.tohaman.rg2.Constants.IS_2SIDE_RECOGNITION
 import ru.tohaman.rg2.Constants.PLLS_NAME
@@ -144,7 +143,8 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
     }
 
-    val algorithmsList = MutableLiveData<List<RecyclerItem>>()
+    private val _algorithmsList = MutableLiveData<List<RecyclerItem>>()
+    val algorithmsList : LiveData<List<RecyclerItem>> get() = _algorithmsList
 
 
     fun changeAlgorithmStatus(value: Boolean, id: Int) {
@@ -152,7 +152,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
             (pllGameItems[id].data as PllGameItem).isChecked = value
             (pllGameItems[id].data as PllGameItem).currentName = "sjhdgkf"
             pllGameItems.removeAt(id)
-            algorithmsList.postValue(pllGameItems)
+            _algorithmsList.postValue(pllGameItems)
         }
         catch (e: Exception) {
             Timber.w("$TAG ${e.message}")
@@ -162,21 +162,31 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     //-------------------Окно выбора и настройки PLL алгоритмов ------------------------
 
     fun loadStdNames() {
-        val pllGameItems =
-            firstTmpList
+
+        var pllGameItems = getPllTrainerItemsList()
+        pllGameItems = pllGameItems.map { it.currentName = it.internationalName
+            it
+        }
+        val recyclerItems = pllGameItems
                 .map { PllTrainerItemViewModel(it)}
                 .map { it.toRecyclerItem() }
-        algorithmsList.postValue(pllGameItems)
+        _algorithmsList.postValue(recyclerItems)
     }
 
     fun loadMaximNames() {
-        val pllGameItems =
-            secondTmpList
-                .map { PllTrainerItemViewModel(it)}
-                .map { it.toRecyclerItem() }
-        algorithmsList.postValue(pllGameItems)
-
+        val pllGameItems = secondTmpList
+        val recyclerItems = pllGameItems
+            .map { PllTrainerItemViewModel(it)}
+            .map { it.toRecyclerItem() }
+        _algorithmsList.postValue(recyclerItems)
     }
+
+    private fun getPllTrainerItemsList() = algorithmsList.value.orEmpty()
+        .map { it.data }
+        .filterIsInstance<PllTrainerItemViewModel>()
+        .map { it.pllGameItem.copy() }
+
+
 
     // -------------------- Game ------------------------------
 
@@ -212,15 +222,9 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
             val pllGameItems =
                 tmpList.map { PllTrainerItemViewModel(it)}
                         .map { it.toRecyclerItem() }
-            algorithmsList.postValue(pllGameItems)
+            _algorithmsList.postValue(pllGameItems)
         }
     }
-
-    private fun PllTrainerItemViewModel.toRecyclerItem() = RecyclerItem(
-        data = this,
-        layoutId = R.layout.item_algorithms_properties,
-        variableId = BR.pllTrainerItemViewModel
-    )
 
     private var rightButtonNumber = 0
 
@@ -318,7 +322,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
     private fun nextPll() {
         val scramble = "x x ${getRandomPll()}"
-        rightAnswer.set((pllGameItems[correctAnswer].data as PllGameItem).InternationalName)
+        rightAnswer.set((pllGameItems[correctAnswer].data as PllGameItem).internationalName)
         val cube = runScramble(resetCube(), scramble)
         layeredImageDrawable = getScrambledDrawable(cube)
         imageDrawable.set(layeredImageDrawable)

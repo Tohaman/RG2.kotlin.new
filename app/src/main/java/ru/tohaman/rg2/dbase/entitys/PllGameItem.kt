@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class PllGameItem (
   @PrimaryKey
   val id: Int,
-  var InternationalName: String,
+  var internationalName: String,
   var maximName: String,
   var userName: String,
   var currentName: String,

@@ -9,6 +9,8 @@ object Constants {
     const val THEME = "theme"                               //Тема приложения (String)
     const val SHOW_FAB = "showFAB"                          //Отображать плавающую кнопку в основном меню (Boolean)
     const val TEXT_SIZE = "mainTextSize"                    //+ к изначально задуманному размеру текста в обучалках (Int)
+    const val START_COUNT = "startcount"                    //количество запусков
+    const val LAST_VERSION = "version"                      //последняя сохраненная версия программы
     //Константы для увеличения/уменьшения размера текста
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта
     const val step = 0.15f                                  //шаг увеличения коэффициента
