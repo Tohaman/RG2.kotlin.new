@@ -8,10 +8,10 @@ import java.util.*
 data class TimeNoteItem (
     @PrimaryKey (autoGenerate = true)
     val uuid : Int,
-    var solvingTime : String = "0:05:57",
+    val solvingTime : String = "0:05:57",
     val dateTime : Calendar? = null,
     val scramble : String = "",
-    var comment : String = ""
+    val comment : String = ""
 )
 
 /**

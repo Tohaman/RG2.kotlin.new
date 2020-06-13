@@ -21,7 +21,7 @@ import ru.tohaman.rg2.dbase.entitys.*
         CubeType::class, BasicMove::class,
         AzbukaDBItem::class, TimeNoteItem::class,
         PllGameItem::class],
-    version = 16
+    version = 17
 )
 @TypeConverters(LocalDateConverters::class)
 abstract class MainDb : RoomDatabase() {

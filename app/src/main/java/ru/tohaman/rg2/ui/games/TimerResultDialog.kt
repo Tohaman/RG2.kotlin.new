@@ -96,8 +96,8 @@ class TimerResultDialog : DialogFragment() {
         imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN, 0)
 
         alertBuilder.setPositiveButton(ctx.getText(R.string.ok)) { _, _ ->
-            item.comment = eText.text.toString()
-            resultViewModel.updateItem(item)
+            val itemWithNewComment = TimeNoteItem (item.uuid, item.solvingTime, item.dateTime, item.scramble, eText.text.toString())
+            resultViewModel.updateItem(itemWithNewComment)
             imm.hideSoftInputFromWindow(eText.windowToken, 0)
         }
         alertBuilder.setNegativeButton(ctx.getText(R.string.cancel)) { _, _ ->
