@@ -120,6 +120,7 @@ fun runScramble(originalCube: IntArray, scramble: String): IntArray {
                     "z1" -> moveZb(cube)
                     "x" -> moveX(cube)
                     "x1" -> moveXb(cube)
+                    "x2" -> moveX2(cube)
                     "y" -> moveY(cube)
                     "y1" -> moveYb(cube)
                 }

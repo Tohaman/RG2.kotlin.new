@@ -47,12 +47,23 @@
                 android:layout_marginBottom="@dimen/small_margin"
                 android:text="@string/training" />
 
+            <Switch
+                android:id="@+id/random_side"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.pllRandomSide}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.pllRandomSideChange(checked)}"
+                android:padding="@dimen/big_padding"
+                android:text="@string/pll_random_side" />
+
             <RadioButton
                 android:id="@+id/dark_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginLeft="@dimen/big_margin"
+                android:layout_marginRight="@dimen/middle_margin"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:onClick="@{() -> viewModel.twoSideRecognitionSelect()}"
                 android:checked="@={viewModel.is2SideRecognition}"
@@ -64,14 +75,15 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginLeft="@dimen/big_margin"
+                android:layout_marginRight="@dimen/middle_margin"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:onClick="@{() -> viewModel.threeSideRecognitionSelect()}"
                 android:checked="@={!viewModel.is2SideRecognition}"
                 android:text="@string/three_side_recognition_text" />
 
             <Switch
-                android:id="@+id/metronom"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:id="@+id/timer_time"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.pllTrainingTimer}"
@@ -153,6 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginLeft="@dimen/big_margin"
+                android:layout_marginRight="@dimen/middle_margin"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:onClick="@{() -> viewModel.allVariantsSelect()}"
                 android:checked="@={viewModel.allPllCount}"
@@ -163,6 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginLeft="@dimen/big_margin"
+                android:layout_marginRight="@dimen/middle_margin"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:onClick="@{() -> viewModel.someVariantsSelect()}"
                 android:checked="@={!viewModel.allPllCount}"

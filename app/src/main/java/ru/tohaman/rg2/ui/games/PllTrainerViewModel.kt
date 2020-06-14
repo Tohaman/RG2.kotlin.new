@@ -25,6 +25,7 @@ import ru.tohaman.rg2.Constants.ALL_PLL_COUNT
 import ru.tohaman.rg2.Constants.IS_2SIDE_RECOGNITION
 import ru.tohaman.rg2.Constants.PLLS_NAME
 import ru.tohaman.rg2.Constants.PLL_ANSWER_VARIANTS
+import ru.tohaman.rg2.Constants.PLL_RANDOM_SIDE
 import ru.tohaman.rg2.Constants.PLL_TRAINING_TIMER
 import ru.tohaman.rg2.Constants.PLL_TRAINING_TIMER_TIME
 import ru.tohaman.rg2.DebugTag.TAG
@@ -61,6 +62,15 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         _is2SideRecognition = false
         is2SideRecognition.set(_is2SideRecognition)
         sp.edit().putBoolean(IS_2SIDE_RECOGNITION, _is2SideRecognition).apply()
+    }
+
+    private var _pllRandomSide = sp.getBoolean(PLL_RANDOM_SIDE, false)
+    val pllRandomSide = ObservableBoolean(_pllRandomSide)
+
+    fun pllRandomSideChange(value: Boolean) {
+        _pllRandomSide = value
+        pllRandomSide.set(value)
+        sp.edit().putBoolean(PLL_RANDOM_SIDE, value).apply()
     }
 
     private var _pllTrainingTimer = sp.getBoolean(PLL_TRAINING_TIMER, true)
@@ -341,9 +351,13 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         startTimer()
     }
 
-
     private fun nextPll() {
-        val scramble = "x x ${getRandomPll()}"
+        var scramble = "x2 ${getRandomPll()}"
+        val uMovesCount = if (_pllRandomSide) Random().nextInt(4) else 0
+        repeat(uMovesCount) {
+            scramble += " U"
+        }
+        Timber.d("$TAG .nextPll count=$uMovesCount scramble=$scramble")
         rightAnswer.set(getPllTrainerItemsList()[correctAnswer].internationalName)
         val cube = runScramble(resetCube(), scramble)
         layeredImageDrawable = getScrambledDrawable(cube)

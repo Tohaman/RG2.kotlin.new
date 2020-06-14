@@ -749,6 +749,13 @@ fun moveXb(cube: IntArray): IntArray {   //Uw2 - верхние два слоя
     return tmpCube
 }
 
+fun moveX2(cube: IntArray): IntArray {   //x2
+    var tmpCube = cube
+    tmpCube = moveX(tmpCube)
+    tmpCube = moveX(tmpCube)
+    return tmpCube
+}
+
 fun getMaximAzbuka(): Array<String> =  arrayOf(
     "М","Л","Л",
     "М","-","К",

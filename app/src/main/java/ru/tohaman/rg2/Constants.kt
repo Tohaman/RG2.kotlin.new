@@ -35,6 +35,7 @@ object Constants {
 
     //Настройки для PLL тренировки
     const val IS_2SIDE_RECOGNITION = "is2SideRecognition"       //Определение ситуации по 2-м сторонам если true (Boolean), иначе по 3-м
+    const val PLL_RANDOM_SIDE = "pllRandomSide"                 //Случайная сторона для определения (Boolean)
     const val PLL_TRAINING_TIMER = "pllTrainingTimer"           //Игра на время (Boolean)
     const val PLL_TRAINING_TIMER_TIME = "pllTrainingTimerTime"  //Время в сек. на ответ (Int)
     const val ALL_PLL_COUNT = "allPllCount"                     //Показывать все 21 вариант PLL
