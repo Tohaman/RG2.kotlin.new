@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 data class PllGameItem (
   @PrimaryKey
   val id: Int,
-  var internationalName: String,
-  var maximName: String,
+  val internationalName: String,
+  val maximName: String,
   var userName: String,
   var currentName: String,
-  var scramble: String,
-  var imageRes: Int,
+  val scramble: String,
+  val imageRes: Int,
   var isChecked: Boolean
 )

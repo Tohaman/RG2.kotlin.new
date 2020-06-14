@@ -23,7 +23,7 @@
         android:layout_marginRight="@dimen/dimen_margin_8">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/main_menu_image"
+            android:id="@+id/pll_test_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:padding="4dp"
@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintLeft_toRightOf="@+id/main_menu_image"
+            app:layout_constraintLeft_toRightOf="@+id/pll_test_image"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/small_padding"
             android:text="@string/pll_showing_name"
-            app:layout_constraintLeft_toRightOf="@+id/main_menu_image"
+            app:layout_constraintLeft_toRightOf="@+id/pll_test_image"
             app:layout_constraintTop_toBottomOf="@+id/top_message"
             android:textSize="14sp" />
 
@@ -85,7 +85,7 @@
             android:paddingRight="@dimen/small_padding"
             android:text="@{pllTrainerItemViewModel.pllGameItem.currentName}"
             android:textColor="@color/colorAccent"
-            app:layout_constraintLeft_toRightOf="@+id/main_menu_image"
+            app:layout_constraintLeft_toRightOf="@+id/pll_test_image"
             app:layout_constraintTop_toBottomOf="@+id/middle_message"
             android:textSize="14sp"
             tools:text="Противоположный треугольник (Ab)" />
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layoutDirection="rtl"
-            android:checked="@{pllTrainerItemViewModel.pllGameItem.checked}"
+            android:checked="@={pllTrainerItemViewModel.isChecked}"
             android:onClick="@{(view) -> pllTrainerItemViewModel.onCheckChange(((CompoundButton)view).isChecked())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"

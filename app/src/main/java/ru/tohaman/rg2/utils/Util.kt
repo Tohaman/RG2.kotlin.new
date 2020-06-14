@@ -7,6 +7,7 @@ import android.os.Build
 import android.text.Editable
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.core.app.ActivityCompat
@@ -15,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import timber.log.Timber
+import java.lang.Exception
 
 /**
  * Created by Test on 22.12.2017. Различные утилиты
@@ -51,9 +53,15 @@ fun spannedString(desc:String, imgGetter: Html.ImageGetter, tagHandler: Html.Tag
 }
 
 fun Context.getResource(name:String): Drawable {
-    val resID = this.resources.getIdentifier(name , "drawable", this.packageName)
-    val defDrawable = ActivityCompat.getDrawable(this, R.drawable.ic_warning)!!
-    return ActivityCompat.getDrawable(this,resID) ?: defDrawable
+    return try {
+        val resID = this.resources.getIdentifier(name , "drawable", this.packageName)
+        val defDrawable = ActivityCompat.getDrawable(this, R.drawable.ic_warning)!!
+        ActivityCompat.getDrawable(this,resID) ?: defDrawable
+    }
+    catch (e: Exception) {
+        Timber.e ("$TAG, name - $name, $e")
+        ActivityCompat.getDrawable(this, R.drawable.ic_warning)!!
+    }
 }
 
 //Возвращает Map для определения типа головоломки (трешка, мод, большой куб и т.д.) по фазе головоломки

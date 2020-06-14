@@ -42,13 +42,13 @@
             android:textStyle="bold"
             android:layout_marginRight="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/main_menu_image"
+            app:layout_constraintRight_toLeftOf="@id/pll_test_image"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded" />
 
 
         <ImageView
-            android:id="@+id/main_menu_image"
+            android:id="@+id/pll_test_image"
             android:layout_width="180dp"
             android:layout_height="80dp"
             android:padding="8dp"

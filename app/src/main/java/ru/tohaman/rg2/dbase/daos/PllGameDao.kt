@@ -14,6 +14,12 @@ interface PllGameDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(pllGameItem: List<PllGameItem>)
 
+    @Update
+    suspend fun update(pllGameItem: List<PllGameItem>)
+
+    @Update
+    suspend fun update(pllGameItem: PllGameItem)
+
     @Query("SELECT * FROM PLL_GAME WHERE id = :id")
     suspend fun getPllItem(id: Int) : PllGameItem
 

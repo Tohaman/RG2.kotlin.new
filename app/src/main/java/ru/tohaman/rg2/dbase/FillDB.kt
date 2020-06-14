@@ -25,17 +25,18 @@ class FillDB {
 
             updateDB(context)
 
-            insertWrongItem()                       //добавляем "заглушку" неверную запись
             setInitialComments()                    //добавляем тестовые комментарии
             setInitialFavourites()                  //добавляем тестовое избранное
             azbukaInit()                            //Инициализируем азбуку
             //testTimeNote()                          //добавляем тестовые записи для таблицы результатов сборки
-            pllGameItemsInit(context)               //добавляем записи для угадай PLL
+
             Timber.d( "$TAG Основная таблица заполнена")
         }
 
         suspend fun updateDB(context: Context) {
-            insertPhasesToMainTable(context)        //добавляем оснновные записи в таблицу
+            insertWrongItem()                       //добавляем "заглушку" неверную запись
+            insertPhasesToMainTable(context)        //обновляем оснновные записи в таблице
+            pllGameItemsInit(context)               //добавляем записи для угадай PLL
         }
 
         private suspend fun insertWrongItem() {
@@ -242,6 +243,7 @@ class FillDB {
         }
 
         private suspend fun pllGameItemsInit(context: Context) {
+            Timber.d("$TAG .pllGameItemsInit пересоздаем PLLItemsNames")
             repository.deletePllGameItems()
             val intNames = context.resources.getStringArray(R.array.pll_international_name)
             val maximNames = context.resources.getStringArray(R.array.pll_maxim_name)

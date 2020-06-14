@@ -100,5 +100,7 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun insertPllGameItem(pllGameItem: List<PllGameItem>) = pllGameDao.insert(pllGameItem)
 
+    suspend fun updatePllGameItem(pllGameItem: List<PllGameItem>) = pllGameDao.update(pllGameItem)
+
     suspend fun deletePllGameItems() = pllGameDao.deleteAllItems()
 }

@@ -16,19 +16,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="1000dp"
-        >
+        android:minHeight="1000dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:text="@string/PllNamesSettings"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -36,43 +35,48 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Настройки PLL алгоритмов" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/dimen_margin_8"
                 app:layout_constraintBottom_toTopOf="@+id/load_std_button"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_text"
-                app:items="@{viewModel.algorithmsList}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_algorithms_properties" />
+                app:layout_constraintTop_toBottomOf="@+id/title_text">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:items="@{viewModel.algorithmsList}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_algorithms_properties" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/load_std_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
-                android:text="Стандартные названия"
+                android:lines="2"
                 android:onClick="@{() -> viewModel.loadStdNames()}"
+                android:text="@string/LoadStdPllNames"
                 app:layout_constraintBottom_toTopOf="@+id/load_button"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/load_button"
-                />
+                app:layout_constraintRight_toLeftOf="@+id/load_maxim_button" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/load_maxim_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
-                android:text="Максимкины названия"
+                android:lines="2"
                 android:onClick="@{() -> viewModel.loadMaximNames()}"
+                android:text="@string/LoadMaximPllNames"
                 app:layout_constraintBottom_toTopOf="@+id/load_button"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/save_button"
-                />
+                app:layout_constraintLeft_toRightOf="@+id/load_std_button"
+                app:layout_constraintRight_toRightOf="parent" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -80,22 +84,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
-                android:text="Сохранить текущие"
+                android:lines="2"
+                android:text="@string/saveCurrentPllNames"
+                android:onClick="@{() -> viewModel.saveCurrentNames()}"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_appbar"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/load_button"
-                />
+                app:layout_constraintRight_toLeftOf="@+id/load_button" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/load_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_padding"
-                android:text="Загрузить сохраненные"
+                android:lines="2"
+                android:text="@string/loadUserNames"
+                android:onClick="@{() -> viewModel.loadUserNames()}"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_appbar"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/save_button"
-                />
+                app:layout_constraintRight_toRightOf="parent" />
 
             <include
                 android:id="@+id/bottom_appbar"

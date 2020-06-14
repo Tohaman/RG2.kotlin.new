@@ -44,27 +44,6 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
-    //-----------------------TMP data ------------------------------
-
-    val firstTmpList = mutableListOf<PllGameItem>(
-        PllGameItem(0,"IntName0","MaxName0","UserName0","CurrName0","Scramble0", R.drawable.vpll_test_10, true),
-        PllGameItem(1,"IntName1","MaxName1","UserName1","CurrName1","Scramble1", R.drawable.vpll_test_1, true),
-        PllGameItem(2,"IntName2","MaxName2","UserName2","CurrName2","Scramble2", R.drawable.vpll_test_2, true),
-        PllGameItem(3,"IntName3","MaxName3","UserName3","CurrName3","Scramble3", R.drawable.vpll_test_3, false),
-        PllGameItem(4,"IntName4","MaxName4","UserName4","CurrName4","Scramble4", R.drawable.vpll_test_4, true),
-        PllGameItem(5,"IntName5","MaxName5","UserName5","CurrName5","Scramble5", R.drawable.vpll_test_5, true)
-    )
-
-    val secondTmpList = mutableListOf<PllGameItem>(
-        PllGameItem(0,"IntName0","MaxName0","UserName0","CurrName0","Scramble0", R.drawable.vpll_test, true),
-        PllGameItem(1,"IntName1","MaxName1","UserName1","CurrName1","Scramble1", R.drawable.vpll_test_1, true),
-        PllGameItem(2,"IntName2New","MaxName2New","UserName2New","CurrName2New","Scramble2New", R.drawable.vpll_test_2, false),
-        PllGameItem(3,"IntName3","MaxName3","UserName3","CurrName3","Scramble3", R.drawable.vpll_test_3, false),
-        PllGameItem(4,"IntName4New","MaxName4New","UserName4New","CurrName4New","Scramble4New", R.drawable.vpll_test_4, true),
-        PllGameItem(5,"IntName5","MaxName5","UserName5","CurrName5","Scramble5", R.drawable.vpll_test_5, true)
-    )
-
-
     //----------------------- Settings -------------------------------
 
     private var _is2SideRecognition = sp.getBoolean(IS_2SIDE_RECOGNITION, true)
@@ -143,43 +122,87 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
     }
 
+    //-------------------Окно выбора и настройки PLL алгоритмов ------------------------
+
     private val _algorithmsList = MutableLiveData<List<RecyclerItem>>()
     val algorithmsList : LiveData<List<RecyclerItem>> get() = _algorithmsList
 
+    private fun onClickByPllTrainerItem(): OnClickByPllTrainerItem {
+        return object : OnClickByPllTrainerItem {
+            override fun onItemClick(pllGameItem: PllGameItem) {
+                Timber.d("$TAG .onItemClick pllGameItem = [${pllGameItem}]")
+            }
 
-    fun changeAlgorithmStatus(value: Boolean, id: Int) {
-        try {
-            (pllGameItems[id].data as PllGameItem).isChecked = value
-            (pllGameItems[id].data as PllGameItem).currentName = "sjhdgkf"
-            pllGameItems.removeAt(id)
-            _algorithmsList.postValue(pllGameItems)
-        }
-        catch (e: Exception) {
-            Timber.w("$TAG ${e.message}")
+            override fun onCheckedChange(value: Boolean, id: Int): Boolean {
+                Timber.d("$TAG .onCheckedChange value = [${value}], id = [${id}]")
+
+                return changeAlgorithmStatus(value, id)
+            }
         }
     }
 
-    //-------------------Окно выбора и настройки PLL алгоритмов ------------------------
+    fun changeAlgorithmStatus(value: Boolean, id: Int) : Boolean {
+        return try {
+            val items = getPllTrainerItemsList()
+            var checked = value
+            var i = 0
+            items.forEach { if (it.isChecked) i++ }
+            if (i <= 3) checked = true
+            items[id].isChecked = checked
+            updateAdapter(items)
+            checked
+        } catch (e: Exception) {
+            Timber.e("$TAG value = $value id = $id e = ${e.message}")
+            true
+        }
+    }
+
+    private fun updateAdapter (items: List<PllGameItem>) {
+        pllGameRecyclerItems = items
+            .map { PllTrainerItemViewModel(it)}
+            .onEach { it.clickHandler = onClickByPllTrainerItem() }
+            .map { it.toRecyclerItem() }
+            .toMutableList()
+        _algorithmsList.postValue(pllGameRecyclerItems)
+        savePllGameItems2Base(items)
+    }
 
     fun loadStdNames() {
-
-        var pllGameItems = getPllTrainerItemsList()
-        pllGameItems = pllGameItems.map { it.currentName = it.internationalName
+        var items = getPllTrainerItemsList()
+        items = items.map {
+            it.currentName = it.internationalName
             it
         }
-        val recyclerItems = pllGameItems
-                .map { PllTrainerItemViewModel(it)}
-                .map { it.toRecyclerItem() }
-        _algorithmsList.postValue(recyclerItems)
+        updateAdapter(items)
     }
 
     fun loadMaximNames() {
-        val pllGameItems = secondTmpList
-        val recyclerItems = pllGameItems
-            .map { PllTrainerItemViewModel(it)}
-            .map { it.toRecyclerItem() }
-        _algorithmsList.postValue(recyclerItems)
+        var items = getPllTrainerItemsList()
+        items = items.map {
+            it.currentName = it.maximName
+            it
+        }
+        updateAdapter(items)
     }
+
+    fun saveCurrentNames() {
+        var items = getPllTrainerItemsList()
+        items = items.map {
+            it.userName = it.currentName
+            it
+        }
+        updateAdapter(items)
+    }
+
+    fun loadUserNames() {
+        var items = getPllTrainerItemsList()
+        items = items.map {
+            it.currentName = it.userName
+            it
+        }
+        updateAdapter(items)
+    }
+
 
     private fun getPllTrainerItemsList() = algorithmsList.value.orEmpty()
         .map { it.data }
@@ -187,6 +210,12 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         .map { it.pllGameItem.copy() }
 
 
+    private fun savePllGameItems2Base(items: List<PllGameItem>) {
+        viewModelScope.launch (Dispatchers.IO){
+            Timber.d("$TAG Save PllItems from base")
+            repository.updatePllGameItem(items)
+        }
+    }
 
     // -------------------- Game ------------------------------
 
@@ -214,15 +243,12 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     private var _eightButton = mutableListOf<String>()
     val eightButton = ObservableField(_eightButton)
 
-    private val pllGameItems = mutableListOf<RecyclerItem>()
+    private var pllGameRecyclerItems = mutableListOf<RecyclerItem>()
     init {
         viewModelScope.launch (Dispatchers.IO){
             Timber.d("$TAG Load PllItems from base")
-            val tmpList = repository.getAllPllGameItems()
-            val pllGameItems =
-                tmpList.map { PllTrainerItemViewModel(it)}
-                        .map { it.toRecyclerItem() }
-            _algorithmsList.postValue(pllGameItems)
+            val items = repository.getAllPllGameItems()
+            updateAdapter(items)
         }
     }
 
@@ -272,7 +298,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         _rightAnswerCount += 1
         rightAnswerCount.set(_rightAnswerCount.toString())
         showRightAnswer.set(true)
-        delay(1500)
+        delay(1500)         //отображаем 1.5 секунды
         showRightAnswer.set(false)
         nextPll()
         _state.postValue(GameStates.WAITING_4_ANSWER)
@@ -315,14 +341,10 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         startTimer()
     }
 
-//    fun algorithmProperties() {
-//        Timber.d("$TAG .algorithmProperties ")
-//
-//    }
 
     private fun nextPll() {
         val scramble = "x x ${getRandomPll()}"
-        rightAnswer.set((pllGameItems[correctAnswer].data as PllGameItem).internationalName)
+        rightAnswer.set(getPllTrainerItemsList()[correctAnswer].internationalName)
         val cube = runScramble(resetCube(), scramble)
         layeredImageDrawable = getScrambledDrawable(cube)
         imageDrawable.set(layeredImageDrawable)
@@ -330,11 +352,13 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     }
 
     private fun getRandomPll() : String {
+        val items = getPllTrainerItemsList()
         // выбираем случайный алгоритм
         var rnd = Random().nextInt(21)
-        while (rnd == correctAnswer) { rnd = Random().nextInt(21) }
+        //если алгоритм был загадан в прошлый раз или не отмечен галочкой как доступный, то выбираем другой случайный
+        while ((rnd == correctAnswer) or (!items[rnd].isChecked)) { rnd = Random().nextInt(21) }
         correctAnswer = rnd
-        return  (pllGameItems[correctAnswer].data as PllGameItem).scramble
+        return  items[rnd].scramble
     }
 
     private fun startTimer() {
@@ -416,13 +440,15 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
     private fun setEightButton(){
         //извлекаем из списка только текущие названия
-        val currentNamesList = pllGameItems.map { (it.data as PllGameItem).currentName }.toMutableList()
+        val currentNamesList = getPllTrainerItemsList()
+            .map { it.currentName }
+            .toMutableList()
         val correctCurrentName = currentNamesList[correctAnswer]    //Название загаданного алгоритма
         //перемешиваем названия
         currentNamesList.shuffled()
         //находим номер загаданного в списке после перемешивания
         val correctNumInShuffled = currentNamesList.indexOf(correctCurrentName)
-        //и помещаем этот элемент в конец списка (добавляем удаленный в конец)
+        //и помещаем этот элемент в конец списка (удаляем его и добавляем удаленный последним)
         currentNamesList.add(currentNamesList.removeAt(correctNumInShuffled))
         //выбираем кнопку(номер), куда поместить правильный ответ
         rightButtonNumber = Random().nextInt(0.._pllAnswerVariants)

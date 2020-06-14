@@ -25,27 +25,27 @@
     </string-array>
 
     <integer-array name="pll_image">
-        <item>@drawable/vpll_test_1</item>
-        <item>@drawable/vpll_test_2</item>
-        <item>@drawable/vpll_test_3</item>
-        <item>@drawable/vpll_test_4</item>
-        <item>@drawable/vpll_test_5</item>
-        <item>@drawable/vpll_test_6</item>
-        <item>@drawable/vpll_test_7</item>
-        <item>@drawable/vpll_test_8</item>
-        <item>@drawable/vpll_test_9</item>
-        <item>@drawable/vpll_test_10</item>
-        <item>@drawable/vpll_test_11</item>
-        <item>@drawable/vpll_test_12</item>
-        <item>@drawable/vpll_test_13</item>
-        <item>@drawable/vpll_test_14</item>
-        <item>@drawable/vpll_test_15</item>
-        <item>@drawable/vpll_test_16</item>
-        <item>@drawable/vpll_test_17</item>
-        <item>@drawable/vpll_test_18</item>
-        <item>@drawable/vpll_test_19</item>
-        <item>@drawable/vpll_test_20</item>
-        <item>@drawable/vpll_test_21</item>
+        <item>@drawable/pll_test_1</item>
+        <item>@drawable/pll_test_2</item>
+        <item>@drawable/pll_test_3</item>
+        <item>@drawable/pll_test_4</item>
+        <item>@drawable/pll_test_5</item>
+        <item>@drawable/pll_test_6</item>
+        <item>@drawable/pll_test_7</item>
+        <item>@drawable/pll_test_8</item>
+        <item>@drawable/pll_test_9</item>
+        <item>@drawable/pll_test_10</item>
+        <item>@drawable/pll_test_11</item>
+        <item>@drawable/pll_test_12</item>
+        <item>@drawable/pll_test_13</item>
+        <item>@drawable/pll_test_14</item>
+        <item>@drawable/pll_test_15</item>
+        <item>@drawable/pll_test_16</item>
+        <item>@drawable/pll_test_17</item>
+        <item>@drawable/pll_test_18</item>
+        <item>@drawable/pll_test_19</item>
+        <item>@drawable/pll_test_20</item>
+        <item>@drawable/pll_test_21</item>
     </integer-array>
 
     <string-array name="pll_scramble">

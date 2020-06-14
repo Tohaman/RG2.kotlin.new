@@ -50,7 +50,7 @@ class SplashActivity : MyDefaultActivity() {
         if (startCount == 0) { dbInit(this) } else { dbUpdate(this)}
         // Увеличиваем число запусков программы на 1 и сохраняем результат.
         startCount++
-        startCount = 0
+        //startCount = 0
         sharedPreferences.edit().putInt(START_COUNT,startCount).apply()
     }
 
