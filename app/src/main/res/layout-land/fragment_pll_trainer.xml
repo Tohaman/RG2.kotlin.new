@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="ru.tohaman.rg2.ui.games.PllTrainerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottom_appbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/guideline1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.rightAnswer}"
+                tools:text="A"
+                android:padding="@dimen/middle_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/game_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/big_padding"
+                android:visibility="@{viewModel.showStartButton ? View.INVISIBLE : View.VISIBLE }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:srcDrawable="@{viewModel.imageDrawable}"
+                tools:srcCompat="@drawable/pll_test_6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottom_appbar"
+            app:layout_constraintLeft_toRightOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="false"
+                android:progress="@{viewModel.timerProgress}"
+                android:max="100"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <LinearLayout
+                android:id="@+id/wrong_result_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/right_result_panel"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/mid_padding"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_wrong"/>
+
+
+                <TextView
+                    android:id="@+id/wrongAnswerCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.wrongAnswerCount}"
+                    android:textSize="40dp"
+                    tools:text="2"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/right_result_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                app:layout_constraintLeft_toRightOf="@id/wrong_result_panel"
+                app:layout_constraintRight_toRightOf="parent"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="@dimen/mid_padding"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_right"
+                    tools:ignore="RtlHardcoded" />
+
+
+                <TextView
+                    android:id="@+id/rightAnswerCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.rightAnswerCount}"
+                    android:textSize="40dp"
+                    tools:text="3"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+            <GridView
+                android:id="@+id/full_button_panel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                tools:layout_height="200dp"
+                android:horizontalSpacing="2dp"
+                android:numColumns="6"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="2dp"
+                android:visibility="@{viewModel.allPllCount ? View.VISIBLE : View.INVISIBLE }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="@dimen/middle_margin"
+                android:layout_marginTop="@dimen/middle_margin"
+                tools:listitem="@layout/item_blind_button_grid"
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@+id/full_button_panel"
+                app:layout_constraintBottom_toBottomOf="@+id/full_button_panel"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <include
+                    android:id="@+id/eight_button_panel"
+                    app:namesList = "@{viewModel.eightButton}"
+                    app:viewModel="@{viewModel}"
+                    layout="@layout/include_8_button"
+                    android:visibility="@{viewModel.allPllCount ? View.INVISIBLE : View.VISIBLE }"
+                />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            app:srcCompat="@drawable/ic_rectangle"
+            android:scaleType="fitXY"
+            android:visibility="@{viewModel.showStartButton ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/big_padding"
+            android:gravity="center"
+            android:visibility="@{viewModel.showStartButton ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorAccent"
+                android:onClick="@{() -> viewModel.startGame()}"
+                android:padding="@dimen/big_padding"
+                android:text="@string/start" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <include
+            android:id="@+id/rightAnswer"
+            layout="@layout/include_right_answer"
+            android:visibility="@{viewModel.showRightAnswer ? View.VISIBLE : View.GONE }"
+            />
+
+        <include
+            android:id="@+id/wrongAnswer"
+            layout="@layout/include_wrong_answer"
+            app:viewModel="@{viewModel}"
+            android:visibility="@{viewModel.showWrongAnswer ? View.VISIBLE : View.GONE }"
+            />
+
+
+        <include
+            android:id="@+id/bottom_appbar"
+            layout="@layout/include_bottom_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
