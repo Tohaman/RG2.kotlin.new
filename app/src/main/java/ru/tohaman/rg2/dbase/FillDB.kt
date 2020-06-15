@@ -18,7 +18,7 @@ class FillDB {
 
         suspend fun reCreateDB(context: Context) {
             //очищаем все таблицы
-            repository.clearMainTable()
+            //repository.clearMainTable()
             repository.clearTypesTable()
             repository.clearMovesTable()
             Timber.d( "$TAG Основная таблица очищена")
@@ -171,14 +171,7 @@ class FillDB {
 
                 val oldItem = repository.getItem(phase, i)
                 val item = if (oldItem.phase == "")
-                MainDBItem(
-                    phase,
-                    i,
-                    titles[i],
-                    iconID,
-                    descriptionID,
-                    urls[i],
-                    comments[i]
+                    MainDBItem(phase, i, titles[i], iconID, descriptionID, urls[i], comments[i]
                 ) else {
                     oldItem.title = titles[i]
                     oldItem.icon = iconID
