@@ -244,16 +244,24 @@ class FillDB {
 
         private suspend fun pllGameItemsInit(context: Context) {
             Timber.d("$TAG .pllGameItemsInit пересоздаем PLLItemsNames")
-            repository.deletePllGameItems()
+            //repository.deletePllGameItems()
             val intNames = context.resources.getStringArray(R.array.pll_international_name)
             val maximNames = context.resources.getStringArray(R.array.pll_maxim_name)
             val scrambles = context.resources.getStringArray(R.array.pll_scramble)
             val pllImages = context.resources.obtainTypedArray(R.array.pll_image)
             val items = mutableListOf<PllGameItem>()
             intNames.indices.map {
+                val oldItem = repository.getPllGameItem(it)
                 val iconId = pllImages.getResourceId(it, R.drawable.ic_alert)
-                val item = PllGameItem(it, intNames[it], maximNames[it], "${maximNames[it]} (${intNames[it]})", "${maximNames[it]} (${intNames[it]})", scrambles[it], iconId, true)
-                items.add(item)
+                if (oldItem == null) {
+                    val item = PllGameItem(
+                        it, intNames[it], maximNames[it], "${maximNames[it]} (${intNames[it]})", "${maximNames[it]} (${intNames[it]})", scrambles[it], iconId, true)
+                    items.add(item)
+                } else {
+                    val item = PllGameItem(
+                        it, intNames[it], maximNames[it], oldItem.userName, oldItem.currentName, scrambles[it], iconId, oldItem.isChecked)
+                    items.add(item)
+                }
             }
             repository.insertPllGameItem(items)
             pllImages.recycle()

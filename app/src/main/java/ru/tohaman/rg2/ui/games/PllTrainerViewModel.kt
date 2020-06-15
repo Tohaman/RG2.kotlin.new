@@ -137,15 +137,17 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     private val _algorithmsList = MutableLiveData<List<RecyclerItem>>()
     val algorithmsList : LiveData<List<RecyclerItem>> get() = _algorithmsList
 
+    private val _editPllName = MutableLiveData<PllGameItem>()
+    val editPllName : LiveData<PllGameItem> get() = _editPllName
+
     private fun onClickByPllTrainerItem(): OnClickByPllTrainerItem {
         return object : OnClickByPllTrainerItem {
             override fun onItemClick(pllGameItem: PllGameItem) {
                 Timber.d("$TAG .onItemClick pllGameItem = [${pllGameItem}]")
+                _editPllName.postValue(pllGameItem)
             }
 
             override fun onCheckedChange(value: Boolean, id: Int): Boolean {
-                Timber.d("$TAG .onCheckedChange value = [${value}], id = [${id}]")
-
                 return changeAlgorithmStatus(value, id)
             }
         }
@@ -224,6 +226,13 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         viewModelScope.launch (Dispatchers.IO){
             Timber.d("$TAG Save PllItems from base")
             repository.updatePllGameItem(items)
+        }
+    }
+
+    fun savePllGameItem2Base(newItem: PllGameItem) {
+        _editPllName.postValue(null)
+        viewModelScope.launch (Dispatchers.IO){
+            repository.updatePllGameItem(newItem)
         }
     }
 

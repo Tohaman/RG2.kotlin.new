@@ -96,11 +96,15 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun getAllPllGameItems() = pllGameDao.getAllItems()
 
+    suspend fun getPllGameItem(id: Int) = pllGameDao.getPllItem(id)
+
     suspend fun insertPllGameItem(pllGameItem: PllGameItem) = pllGameDao.insert(pllGameItem)
 
     suspend fun insertPllGameItem(pllGameItem: List<PllGameItem>) = pllGameDao.insert(pllGameItem)
 
     suspend fun updatePllGameItem(pllGameItem: List<PllGameItem>) = pllGameDao.update(pllGameItem)
+
+    suspend fun updatePllGameItem(pllGameItem: PllGameItem) = pllGameDao.update(pllGameItem)
 
     suspend fun deletePllGameItems() = pllGameDao.deleteAllItems()
 }

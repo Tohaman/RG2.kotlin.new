@@ -86,7 +86,7 @@ fun getPhasesToTypesMap(context: Context): Map<String, String> {
 //
 fun getThemeFromSharedPreference(sp: SharedPreferences) : Int {
     val theme = sp.getString("theme", "AppTheme")
-    Timber.v("$TAG SetActivityTheme - $theme")
+    Timber.d("$TAG SetActivityTheme - $theme")
     return when (theme)  {
         "AppThemeLight" -> R.style.AppThemeLight
         //"AppThemeDayNight" -> R.style.AppThemeDayNight

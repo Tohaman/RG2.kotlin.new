@@ -8,10 +8,10 @@ interface PllGameDao {
     @Query("SELECT * FROM PLL_GAME")
     suspend fun getAllItems() : List<PllGameItem>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(pllGameItem: PllGameItem)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(pllGameItem: List<PllGameItem>)
 
     @Update
@@ -21,7 +21,7 @@ interface PllGameDao {
     suspend fun update(pllGameItem: PllGameItem)
 
     @Query("SELECT * FROM PLL_GAME WHERE id = :id")
-    suspend fun getPllItem(id: Int) : PllGameItem
+    suspend fun getPllItem(id: Int) : PllGameItem?
 
     @Query("DELETE FROM PLL_GAME")
     suspend fun deleteAllItems()
