@@ -3,11 +3,6 @@
 
     <string name="wrong">Что-то пошло не так. Попробуйте повторить операцию</string>
 
-    <string name="someimage">SomeImage</string>
-    <string name="tmpOne">Back2One</string>
-    <string name="tmpTwo">Two</string>
-    <string name="next">Next</string>
-
     <string name="action_info">Инфо</string>
     <string name="action_learn">Обучалки</string>
     <string name="action_games">Мини игры</string>
