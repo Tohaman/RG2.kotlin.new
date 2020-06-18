@@ -20,7 +20,6 @@ import ru.tohaman.rg2.R
 import ru.tohaman.rg2.adapters.FavouriteListAdapter
 import ru.tohaman.rg2.databinding.DialogRecyclerViewBinding
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.testempty.ui.learn.LearnFragmentDirections
 import timber.log.Timber
 
 

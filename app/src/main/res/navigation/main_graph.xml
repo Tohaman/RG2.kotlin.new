@@ -28,7 +28,22 @@
             app:launchSingleTop="false"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_destLearn_to_miniHelpDialog"
+            app:destination="@id/miniHelpDialog"/>
+
     </fragment>
+
+    <dialog
+        android:id="@+id/miniHelpDialog"
+        android:name="ru.tohaman.rg2.ui.learn.MiniHelpDialog"
+        android:label="MiniHelpDialog"
+        tools:layout="@layout/dialog_help">
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </dialog>
 
     <dialog
         android:id="@+id/dialog_moves_helper"
@@ -38,7 +53,7 @@
         <argument
             android:name="type"
             app:argType="string"
-            android:defaultValue="BEGIN3X3" />
+            android:defaultValue="BEGIN3X3"/>
     </dialog>
 
     <dialog
@@ -198,11 +213,14 @@
             android:id="@+id/action_pllTrainerSettings_to_pllTrainerAlgSettings"
             app:destination="@id/pllTrainerAlgSettings" />
     </fragment>
+
     <fragment
         android:id="@+id/pllTrainerAlgSettings"
         android:name="ru.tohaman.rg2.ui.games.PllTrainerAlgSettings"
         android:label="PllTrainerAlgSettings"
         tools:layout="@layout/fragment_algorithms_properties"
         />
+
+
 
 </navigation>

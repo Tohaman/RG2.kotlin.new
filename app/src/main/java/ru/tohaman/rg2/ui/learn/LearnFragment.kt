@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.rg2.DebugTag.TAG
+import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.FragmentLearnBinding
 import ru.tohaman.rg2.dbase.entitys.CubeType
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
@@ -23,6 +25,7 @@ import timber.log.Timber
 class LearnFragment : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private val learnViewModel by sharedViewModel<LearnViewModel>()
+    private val miniHelpViewModel by sharedViewModel<MiniHelpViewModel>()
 
     private var exit: Boolean = false
     private lateinit var binding : FragmentLearnBinding
@@ -74,10 +77,25 @@ class LearnFragment : Fragment() {
                         val curType = learnViewModel.getCurrentType()
                         Timber.d("$TAG curType = $curType mutableCubeTypes = $it")
                         adapter.refreshItems(it)
-                        //задаем именно smooyjScroll=false, чтобы сразу открывалась нужная страница, без анимации пролистывания
+                        //задаем именно smoothScroll=false, чтобы сразу открывалась нужная страница, без анимации пролистывания
                         learnViewPager.setCurrentItem(curType,false)
                     }
                 })
+
+                miniHelpViewModel.notShowMore.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        if (!it) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
+                    }
+                })
+
+//                val notShowMiniHelp = miniHelpViewModel.notShowMore.value ?: false
+//                if (!notShowMiniHelp) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
+
+//                val number = miniHelpViewModel.showingMiniHelpNumber()
+//                number?.let {
+//                    val action = LearnFragmentDirections.actionDestLearnToMiniHelpDialog(it)
+//                    findNavController().navigate(action)
+//                }
             }
 
         return binding.root
@@ -86,6 +104,7 @@ class LearnFragment : Fragment() {
     override fun onResume() {
         learnViewModel.initPhasesToArray()
         Timber.d("$TAG bottomNavShow")
+        miniHelpViewModel.checkMiniHelp()
         uiUtilViewModel.showBottomNav()
         super.onResume()
     }

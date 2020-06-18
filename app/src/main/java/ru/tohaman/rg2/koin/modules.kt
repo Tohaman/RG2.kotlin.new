@@ -14,6 +14,7 @@ import ru.tohaman.rg2.ui.games.*
 import ru.tohaman.rg2.ui.info.InfoViewModel
 import ru.tohaman.rg2.ui.learn.LearnDetailViewModel
 import ru.tohaman.rg2.ui.learn.LearnViewModel
+import ru.tohaman.rg2.ui.learn.MiniHelpViewModel
 import ru.tohaman.rg2.ui.settings.SettingsViewModel
 
 private const val DATABASE_NAME = "base.db"
@@ -41,6 +42,7 @@ val viewModelsModule = module {
     viewModel { UiUtilViewModel() }
     viewModel { GamesViewModel() }
     viewModel { SettingsViewModel() }
+    viewModel { MiniHelpViewModel() }
     viewModel { PllTrainerViewModel(androidApplication()) }
     viewModel { InfoViewModel(androidApplication()) }
     viewModel { AzbukaTrainerViewModel(androidApplication()) }

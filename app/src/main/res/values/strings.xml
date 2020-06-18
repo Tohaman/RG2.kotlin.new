@@ -106,4 +106,6 @@
     <string name="LoadStdPllNames">Стандартные названия</string>
     <string name="PllNamesSettings">Настройки PLL алгоритмов</string>
     <string name="pll_random_side">Случайная сторона</string>
+    <string name="main_games_clicked">МиниИгры</string>
+    <string name="day_tips">Совет дня:</string>
 </resources>

@@ -11,6 +11,10 @@ object Constants {
     const val TEXT_SIZE = "mainTextSize"                    //+ к изначально задуманному размеру текста в обучалках (Int)
     const val START_COUNT = "startcount"                    //количество запусков
     const val LAST_VERSION = "version"                      //последняя сохраненная версия программы
+    const val IS_HELP_ENABLED = "isHelpEnabled"             //Отображать хелп при старте программы или нет, можно отключить после 3 показов
+    const val HELP_COUNT = "helpCount"                      //Сколько раз был показан миниХелп по программе при старте
+    const val NOT_SHOW_MORE = "notShowMore"                 //true, если Больге не показывать окно миниХелпа при запуске
+
     //Константы для увеличения/уменьшения размера текста
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта
     const val step = 0.15f                                  //шаг увеличения коэффициента
@@ -52,7 +56,7 @@ object Constants {
     const val CUR_CUBE_TYPE = "currentCubeType"             //Текущая головоломка (пункт меню)
 
     //Меню Информации
-    const val INFO_BOOKMARK = "infoBookmark"                //Текущая выбранная закладка
+    const val INFO_BOOKMARK = "infoBookmark"                //Текущая выбранная закладка на странице Info
 
     //Используются в таблице AzbukaItems для azbukaName
     const val ANTONS_AZBUKA = "ANTONS_AZBUKA"               //Имя моей азбуки
@@ -70,8 +74,8 @@ object Constants {
         TipsItem(R.drawable.frame_7, "Таймер можно поставить на паузу, нажав на верхнюю панель"),
         TipsItem(R.drawable.frame_8, "При сохранении результата можно сразу задать свой комментарий"),
         TipsItem(R.drawable.frame_9, "Эту кнопку можно отключить в настройках программы"),
-        TipsItem(R.drawable.frame_10, "Повторяйте видео с того момента, с которого начали смотреть"),
         TipsItem(R.drawable.frame_11, "Смотрите в видео, как правильно выполнять алгоритм"),
+        TipsItem(R.drawable.frame_10, "Повторяйте видео с того момента, с которого начали смотреть"),
         TipsItem(R.drawable.frame_12, "Возможность копировать текст можно включить в настройках")
     )
 

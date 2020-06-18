@@ -17,6 +17,7 @@ import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.entitys.CubeType
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
+import ru.tohaman.rg2.utils.NonNullMutableLiveData
 import timber.log.Timber
 
 
@@ -42,7 +43,6 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     //для этого преобразуем MutableLiveData в LiveData
     val liveDataCubeTypes : LiveData<List<CubeType>>
         get() = mutableCubeTypes
-
 
     var needShowFab = ObservableBoolean()
 

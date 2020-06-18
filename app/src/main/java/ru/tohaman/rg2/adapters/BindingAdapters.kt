@@ -13,6 +13,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.tohaman.rg2.DebugTag.TAG
+import ru.tohaman.rg2.R
 import ru.tohaman.rg2.adapters.universal.DataBindingRecyclerAdapter
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
 import ru.tohaman.rg2.utils.getResource
@@ -23,7 +24,8 @@ import java.util.*
 
 @BindingAdapter("android:srcId")
 fun setImageResource(imageView: ImageView, resource: Int) {
-    imageView.setImageResource(resource)
+    if (resource != 0) imageView.setImageResource(resource)
+    else imageView.setImageResource(R.drawable.ic_wrong)
 }
 
 @BindingAdapter("android:htmlText")
@@ -82,7 +84,7 @@ fun textToString(textView: TextView, int: Int) {
 }
 
 @BindingAdapter("app:fullDate")
-fun fulldateToString(textView: TextView, calendar: Calendar?) {
+fun fullDateToString(textView: TextView, calendar: Calendar?) {
     val sdf = SimpleDateFormat("dd MMM yy HH:mm:ss", Locale.getDefault())
     val strDate = sdf.format(calendar?.time ?: Calendar.getInstance().time)
     textView.text = strDate
