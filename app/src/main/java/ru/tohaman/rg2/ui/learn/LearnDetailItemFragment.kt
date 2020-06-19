@@ -24,6 +24,7 @@ import ru.tohaman.rg2.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
 import ru.tohaman.rg2.utils.dp
 import ru.tohaman.rg2.utils.toEditable
+import ru.tohaman.rg2.utils.toast
 import timber.log.Timber
 
 
@@ -130,6 +131,11 @@ class LearnDetailItemFragment : Fragment() {
 
         binding.favourites.setOnClickListener {
             changeCurrentFavouriteStatus()
+        }
+
+        binding.share.setOnClickListener {
+            //TODO Реализовать кнопку "поделиться"
+            toast("Будет реализовано в следующих версиях программы", it)
         }
 
         //вызываем созданный в коде AlertDialog https://android--code.blogspot.com/2020/03/android-kotlin-alertdialog-edittext.html
