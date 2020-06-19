@@ -43,9 +43,9 @@ class InfoFragment : Fragment() {
                 TabLayoutMediator(tabLayout, infoViewPager) { tab, position ->
                     var text = ""
                     when (position) {
-                        0 -> text = "О программе"
-                        1 -> text = "Спасибо"
-                        2 -> text = "Помощь"
+                        0 -> text = getString(R.string.about_programm)
+                        1 -> text = getString(R.string.thanks_programm)
+                        2 -> text = getString(R.string.tips_programm)
                     }
                     tab.text = text
                 }.attach()

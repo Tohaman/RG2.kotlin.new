@@ -108,4 +108,7 @@
     <string name="pll_random_side">Случайная сторона</string>
     <string name="main_games_clicked">МиниИгры</string>
     <string name="day_tips">Совет дня:</string>
+    <string name="about_programm">О программе</string>
+    <string name="thanks_programm">Спасибо</string>
+    <string name="tips_programm">Советы</string>
 </resources>
