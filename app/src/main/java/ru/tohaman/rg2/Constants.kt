@@ -13,7 +13,7 @@ object Constants {
     const val LAST_VERSION = "version"                      //последняя сохраненная версия программы
     const val IS_HELP_ENABLED = "isHelpEnabled"             //Отображать хелп при старте программы или нет, можно отключить после 3 показов
     const val HELP_COUNT = "helpCount"                      //Сколько раз был показан миниХелп по программе при старте
-    const val NOT_SHOW_MORE = "notShowMore"                 //true, если Больге не показывать окно миниХелпа при запуске
+    const val ON_START_MINI_HELP = "onStartHelpEnabled"     //true, если надо показывать окно миниХелпа при запуске
 
     //Константы для увеличения/уменьшения размера текста
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта
@@ -68,15 +68,15 @@ object Constants {
         TipsItem(R.drawable.frame_1, "Обязательно прочитайте этот раздел"),
         TipsItem(R.drawable.frame_2, "Добавляйте в избранное отдельные этапы или головоломки целиком"),
         TipsItem(R.drawable.frame_3, "Забыли азбуку? Нажмите зеленую кнопку"),
+        TipsItem(R.drawable.frame_10, "Смотрите в видео, как правильно выполнять алгоритм"),
+        TipsItem(R.drawable.frame_11, "Эта кнопка позволяет повторить видео с того момента, с которого Вы начали его смотреть"),
         TipsItem(R.drawable.frame_4, "Создавайте свои комментарии к этапам, и вы их увидите в меню"),
-        TipsItem(R.drawable.frame_5, "Щелкните по скрамблу в генераторе, чтобы задать свой"),
+        TipsItem(R.drawable.frame_5, "Щелкните по скрамблу в генераторе, чтобы задать свой скрамбл"),
         TipsItem(R.drawable.frame_6, "Щелкните по скрамблу в таймере, чтобы его сменить"),
         TipsItem(R.drawable.frame_7, "Таймер можно поставить на паузу, нажав на верхнюю панель"),
-        TipsItem(R.drawable.frame_8, "При сохранении результата можно сразу задать свой комментарий"),
-        TipsItem(R.drawable.frame_9, "Эту кнопку можно отключить в настройках программы"),
-        TipsItem(R.drawable.frame_11, "Смотрите в видео, как правильно выполнять алгоритм"),
-        TipsItem(R.drawable.frame_10, "Повторяйте видео с того момента, с которого начали смотреть"),
-        TipsItem(R.drawable.frame_12, "Возможность копировать текст можно включить в настройках")
+        TipsItem(R.drawable.frame_8, "При сохранении результата в таймере можно сразу задать свой комментарий"),
+        TipsItem(R.drawable.frame_12, "Возможность копировать текст можно включить в настройках"),
+        TipsItem(R.drawable.frame_9, "Эту кнопку можно отключить в настройках программы")
     )
 
     val PLLS_NAME = listOf<String>("Ga","","Y","F","H","","Gb","Na","Ra","Ja","Ua","Aa","Gc","Nb","Rb","Jb","Ub","Ab","Gd","","V","T","Z","E")

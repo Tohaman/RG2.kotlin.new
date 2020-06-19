@@ -5,11 +5,35 @@
 
     <string-array name="phases">
         <item>BEGIN4X4</item>
+        <item>BEGIN5X5</item>
+        <item>BIG_CUBES</item>
+        <item>CLOVER</item>
+        <item>CONTAINER</item>
+        <item>IVY</item>
+        <item>KEYHOLE</item>
+        <item>PYRAMINX</item>
+        <item>REDI</item>
+        <item>SKEWB</item>
+        <item>SQUARE</item>
+        <item>SQ_STAR</item>
+        <item>TW_CUBE</item>
         <item>YAU4X4</item>
     </string-array>
 
     <string-array name="types">
         <item>BASIC4X4</item>
+        <item>BASIC5X5</item>
+        <item>BASIC5X5</item>
+        <item>BASIC_CLOVER</item>
+        <item>BASIC_CONTAINER</item>
+        <item>BASIC_IVY</item>
+        <item>BASIC_PYRAMINX</item>
+        <item>BASIC_PYRAMINX</item>
+        <item>BASIC_REDI</item>
+        <item>BASIC_SKEWB</item>
+        <item>BASIC_SQUARE</item>
+        <item>BASIC_SQUARE</item>
+        <item>BASIC_SKEWB</item>
         <item>BASIC4X4</item>
     </string-array>
 

@@ -8,10 +8,10 @@ interface MovesDao {
     @Query("SELECT * FROM BasicMove")
     suspend fun getAllItems() : List<BasicMove>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(basicMove: BasicMove)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(basicMoves: List<BasicMove>)
 
     @Query("SELECT * FROM BasicMove WHERE type = :type ORDER BY ID")

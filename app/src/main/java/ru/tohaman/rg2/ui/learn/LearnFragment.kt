@@ -82,11 +82,12 @@ class LearnFragment : Fragment() {
                     }
                 })
 
-                miniHelpViewModel.notShowMore.observe(viewLifecycleOwner, Observer {
+                miniHelpViewModel.onStartMiniHelpEnabled.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        if (!it) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
+                        if (it) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
                     }
                 })
+
 
 //                val notShowMiniHelp = miniHelpViewModel.notShowMore.value ?: false
 //                if (!notShowMiniHelp) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
@@ -104,7 +105,6 @@ class LearnFragment : Fragment() {
     override fun onResume() {
         learnViewModel.initPhasesToArray()
         Timber.d("$TAG bottomNavShow")
-        miniHelpViewModel.checkMiniHelp()
         uiUtilViewModel.showBottomNav()
         super.onResume()
     }

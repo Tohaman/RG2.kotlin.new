@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="g2f_title">
-        <item>F.A.Q. (ЧаВо)</item>
+        <item>Как собирать кубик быстро</item>
         <item>Ускорения для методики Максима</item>
         <item>Cross (Ускоряем крест)</item>
         <item>F2L (Первые два слоя вместе)</item>
@@ -23,7 +23,7 @@
     </integer-array>
 
     <string-array name="g2f_descr">
-        <item>@string/g2f_st1_descr</item>
+        <item>@string/recomendation0_descr</item>
         <item>@string/g2f_st2_descr</item>
         <item>@string/g2f_st3_descr</item>
         <item>@string/g2f_st4_descr</item>
@@ -34,7 +34,7 @@
     </string-array>
 
     <string-array name="g2f_url">
-        <item>submenu</item>
+        <item>@string/recomendation0_url</item>
         <item>submenu</item>
         <item>submenu</item>
         <item>submenu</item>

@@ -153,6 +153,29 @@
                 android:text="@string/is_text_selectable"
                 tools:ignore="RtlHardcoded" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Подсказки по программе"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/dimen_margin_8"
+                android:layout_marginLeft="@dimen/big_margin"
+                android:checked="@={viewModel.onStartMiniHelp}"
+                android:onCheckedChanged="@{(switch, checked) -> viewModel.isOnStartMiniHelpEnabled(checked)}"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:text="Отображение подсказок по интерфейсу при загрузке программы"
+                tools:ignore="RtlHardcoded" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
         </LinearLayout>
 
     </ScrollView>

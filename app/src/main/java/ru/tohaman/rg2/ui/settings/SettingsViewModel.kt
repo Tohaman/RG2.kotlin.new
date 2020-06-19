@@ -10,6 +10,7 @@ import org.koin.core.get
 import ru.tohaman.rg2.Constants.IS_SCREEN_ALWAYS_ON
 import ru.tohaman.rg2.Constants.IS_TEXT_SELECTABLE
 import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
+import ru.tohaman.rg2.Constants.ON_START_MINI_HELP
 import ru.tohaman.rg2.Constants.SHOW_FAB
 import ru.tohaman.rg2.Constants.TEXT_SIZE
 import ru.tohaman.rg2.Constants.THEME
@@ -84,5 +85,15 @@ class SettingsViewModel: ViewModel(), KoinComponent {
     fun isTextSelectableChange(value: Boolean) {
         sp.edit().putBoolean(IS_TEXT_SELECTABLE, value).apply()
     }
+
+    //МиниХелп при старте программы
+    private val _onStartMiniHelp = sp.getBoolean(ON_START_MINI_HELP, true)
+    var onStartMiniHelp = ObservableBoolean(_onStartMiniHelp)
+
+    fun isOnStartMiniHelpEnabled(value: Boolean) {
+        sp.edit().putBoolean(ON_START_MINI_HELP, value).apply()
+    }
+
+
 
 }

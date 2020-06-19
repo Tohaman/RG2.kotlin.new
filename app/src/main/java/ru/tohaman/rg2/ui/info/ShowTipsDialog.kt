@@ -22,7 +22,7 @@ class ShowTipsDialog : DialogFragment() {
             .apply {
                 Timber.d("$TAG OpenUrlDialog onCreateView")
                 val adapter = SliderAdapter()
-                adapter.refreshItems(galleryDrawables.shuffled())
+                adapter.refreshItems(galleryDrawables)
                 imageSlider.sliderAdapter = adapter
                 closeButton.setOnClickListener {
                     findNavController().popBackStack()

@@ -110,7 +110,7 @@ class LearnDetailItemFragment : Fragment() {
                 true
             }
             R.id.change_favourite -> {
-                Timber.d("$TAG Сменить статус вызвано из контекстного меню")
+                Timber.d("$TAG Сменить статус, вызвано из контекстного меню")
                 changeCurrentFavouriteStatus()
                 true
             }

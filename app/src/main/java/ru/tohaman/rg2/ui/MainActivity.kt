@@ -13,12 +13,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.Constants.START_COUNT
 import ru.tohaman.rg2.Constants.TEXT_SIZE
 import ru.tohaman.rg2.Constants.THEME
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.ActivityMainBinding
+import ru.tohaman.rg2.ui.learn.MiniHelpViewModel
 import ru.tohaman.rg2.ui.shared.MyDefaultActivity
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
 import timber.log.Timber
@@ -27,6 +27,7 @@ import timber.log.Timber
 class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val uiUtilViewModel by viewModel<UiUtilViewModel>()
+    private val miniHelpViewModel by viewModel<MiniHelpViewModel>()
     private lateinit var binding: ActivityMainBinding
     private val sharedPreferences: SharedPreferences by inject()
 
@@ -48,6 +49,8 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
 
         val sizeCoefficient = sharedPreferences.getInt(TEXT_SIZE, 2)
         adjustFontScale(resources.configuration, sizeCoefficient)
+
+        miniHelpViewModel.checkMiniHelpShow()
 
         setupBottomNavMenu()
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
