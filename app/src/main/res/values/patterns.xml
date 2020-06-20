@@ -292,12 +292,16 @@
     <string name="patterns_st7_descr" formatted="false"><![CDATA[
     <p>Еще одна серия узоров - <a href="rg2://ytplay?time=9:50&link=l6V7517N_lQ">Уголки.</a><br/>
         Первый уголок:</p>
+
     <p style="text-align:center"><img src="pattern_7.xml" width="20%%"></p>
+
     <p><b><a href="rg2://ytplay?time=10:05&link=l6V7517N_lQ">Алгоритм:</a> F2 R2 D R2 D U F2 D\' R\' D\' F L2 F\' D R U\'</b></p>
 
     <p><a href="rg2://ytplay?time=10:36&link=l6V7517N_lQ">Второй уголок:</a></p>
+
     <p style="text-align:center"><img src="pattern_7_1.xml" width="20%%"></p>
-    <p><b><a href="rg2://ytplay?time=10:52&link=l6V7517N_lQ">Алгоритм:</a> U L2 D F D\' B\' U L\' B2 U2 F U\' F\' U2 B\' U</b></p>
+
+    <p><b><a href="rg2://ytplay?time=10:52&link=l6V7517N_lQ">Алгоритм:</a> U L2 D F D\' B\' U L\' B2 U2 F U\' F\' U2 B\' U\'</b></p>
 
     <p>А если кроме ребер и угла, еще поменять и центры, то можно получить вот такой
     <a href="rg2://ytplay?time=11:24&link=l6V7517N_lQ">Пропеллер.</a></p>
