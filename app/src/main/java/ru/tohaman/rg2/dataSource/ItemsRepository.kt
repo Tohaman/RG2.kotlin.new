@@ -22,8 +22,6 @@ class ItemsRepository (private val mainDao : MainDao,
 
     // Работа с основной таблицей
 
-    suspend fun getPhase(phase: String) : List<PhaseItem> = mainDao.getPhase(phase)
-
     suspend fun getSubMenuList() : List<MainDBItem> = mainDao.getSubMenuList()
 
     suspend fun getPhaseFromMain(phase: String): List<MainDBItem> = mainDao.getPhaseFromMain(phase)

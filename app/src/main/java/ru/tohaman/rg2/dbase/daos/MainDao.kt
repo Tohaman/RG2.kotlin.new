@@ -3,7 +3,6 @@ package ru.tohaman.rg2.dbase.daos
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.rg2.dbase.entitys.PhaseItem
 
 
 /**
@@ -20,7 +19,7 @@ import ru.tohaman.rg2.dbase.entitys.PhaseItem
 interface MainDao {
 
     companion object {
-        const val table: String = "mainTable"
+        const val table: String = "main"
     }
 
     @Query("SELECT * FROM $table WHERE phase = 'BEGIN'")
@@ -46,9 +45,6 @@ interface MainDao {
 
     @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
     fun observePhase(phase : String) : LiveData<List<MainDBItem>>
-
-    @Query("SELECT phase, id, title, icon, description, url, comment  FROM $table WHERE phase = :phase ORDER BY ID")
-    suspend fun getPhase(phase : String): List<PhaseItem>
 
     @Query("SELECT distinct * FROM $table WHERE url = 'submenu' ORDER BY ID")
     suspend fun getSubMenuList(): List<MainDBItem>

@@ -5,7 +5,7 @@ import ru.tohaman.rg2.dbase.entitys.AzbukaDBItem
 
 @Dao
 interface AzbukaDao {
-    @Query("SELECT * FROM Azbuka")
+    @Query("SELECT * FROM azbuka")
     suspend fun getAllItems() : List<AzbukaDBItem>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -23,6 +23,6 @@ interface AzbukaDao {
     @Update
     suspend fun update(azbukaItem: List<AzbukaDBItem>)
 
-    @Query("DELETE FROM Azbuka")
+    @Query("DELETE FROM azbuka")
     suspend fun deleteAllItems()
 }

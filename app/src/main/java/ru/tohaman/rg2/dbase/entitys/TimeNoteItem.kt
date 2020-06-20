@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity (tableName = "TimesTable")
+@Entity (tableName = "times")
 data class TimeNoteItem (
     @PrimaryKey (autoGenerate = true)
     val uuid : Int,

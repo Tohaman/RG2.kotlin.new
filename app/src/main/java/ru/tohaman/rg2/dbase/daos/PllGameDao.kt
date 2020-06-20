@@ -5,7 +5,7 @@ import ru.tohaman.rg2.dbase.entitys.PllGameItem
 
 @Dao
 interface PllGameDao {
-    @Query("SELECT * FROM PLL_GAME")
+    @Query("SELECT * FROM pll_game")
     suspend fun getAllItems() : List<PllGameItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -23,6 +23,6 @@ interface PllGameDao {
     @Query("SELECT * FROM PLL_GAME WHERE id = :id")
     suspend fun getPllItem(id: Int) : PllGameItem?
 
-    @Query("DELETE FROM PLL_GAME")
+    @Query("DELETE FROM pll_game")
     suspend fun deleteAllItems()
 }

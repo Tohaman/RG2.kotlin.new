@@ -5,7 +5,7 @@ import ru.tohaman.rg2.dbase.entitys.CubeType
 
 @Dao
 interface CubeTypesDao {
-    @Query("SELECT * FROM CubeType")
+    @Query("SELECT * FROM cube_types")
     suspend fun getAllItems() : List<CubeType>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -20,6 +20,6 @@ interface CubeTypesDao {
     @Update
     suspend fun update(cubeType: List<CubeType>)
 
-    @Query("DELETE FROM CubeType")
+    @Query("DELETE FROM cube_types")
     suspend fun deleteAllItems()
 }

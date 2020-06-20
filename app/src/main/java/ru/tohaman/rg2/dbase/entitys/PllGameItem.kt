@@ -3,7 +3,7 @@ package ru.tohaman.rg2.dbase.entitys
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "PLL_GAME")
+@Entity(tableName = "pll_game")
 data class PllGameItem (
   @PrimaryKey
   val id: Int,

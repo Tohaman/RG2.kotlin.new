@@ -12,7 +12,7 @@ import androidx.room.Entity
  * Комбинированный ключ - primaryKeys = ["phase", "id"])
  */
 
-@Entity (tableName = "mainTable", primaryKeys = ["phase", "id"])
+@Entity (tableName = "main", primaryKeys = ["phase", "id"])
 data class MainDBItem (
     //@ColumnInfo(name = "phase")
     val phase: String,

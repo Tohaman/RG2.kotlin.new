@@ -5,7 +5,7 @@ import ru.tohaman.rg2.dbase.entitys.TimeNoteItem
 
 @Dao
 interface TimeNoteDao {
-    @Query("SELECT * FROM TimesTable ORDER BY UUID desc")
+    @Query("SELECT * FROM times ORDER BY UUID desc")
     suspend fun getAllTimeNotes() : List<TimeNoteItem>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -23,6 +23,6 @@ interface TimeNoteDao {
     @Delete
     suspend fun deleteTimeNote(timeNoteItem: TimeNoteItem)
 
-    @Query("DELETE FROM TimesTable")
+    @Query("DELETE FROM times")
     suspend fun deleteAllTimeNotes()
 }
