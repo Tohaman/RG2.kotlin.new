@@ -9,11 +9,11 @@ object Constants {
     const val THEME = "theme"                               //Тема приложения (String)
     const val SHOW_FAB = "showFAB"                          //Отображать плавающую кнопку в основном меню (Boolean)
     const val TEXT_SIZE = "mainTextSize"                    //+ к изначально задуманному размеру текста в обучалках (Int)
-    const val START_COUNT = "startcount"                    //количество запусков
+    const val START_COUNT = "startCount"                    //количество запусков
     const val LAST_VERSION = "version"                      //последняя сохраненная версия программы
-    const val IS_HELP_ENABLED = "isHelpEnabled"             //Отображать хелп при старте программы или нет, можно отключить после 3 показов
     const val HELP_COUNT = "helpCount"                      //Сколько раз был показан миниХелп по программе при старте
     const val ON_START_MINI_HELP = "onStartHelpEnabled"     //true, если надо показывать окно миниХелпа при запуске
+    const val FAVORITES = "favorites"                       //для извлечения Избранного из предыдущей версии программы, там хранилось в SP
 
     //Константы для увеличения/уменьшения размера текста
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта

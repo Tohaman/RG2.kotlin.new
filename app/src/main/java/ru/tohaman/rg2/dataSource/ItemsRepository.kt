@@ -18,7 +18,9 @@ class ItemsRepository (private val mainDao : MainDao,
                        private val movesDao: MovesDao,
                        private val azbukaDao: AzbukaDao,
                        private val timeNoteDao: TimeNoteDao,
-                       private val pllGameDao: PllGameDao) : ItemDataSource {
+                       private val pllGameDao: PllGameDao,
+                       private val oldTimeDao: OldTimeDao,
+                       private val oldBaseDao: OldBaseDao) : ItemDataSource {
 
     // Работа с основной таблицей
 
@@ -105,4 +107,10 @@ class ItemsRepository (private val mainDao : MainDao,
     suspend fun updatePllGameItem(pllGameItem: PllGameItem) = pllGameDao.update(pllGameItem)
 
     suspend fun deletePllGameItems() = pllGameDao.deleteAllItems()
+
+    // Работа со старой базой SQLite
+
+    suspend fun getAllOldItems() = oldBaseDao.getAllOldItems()
+
+    suspend fun getAllOldTimes() = oldTimeDao.getAllOldTimeItems()
 }

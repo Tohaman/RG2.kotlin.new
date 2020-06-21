@@ -9,7 +9,8 @@ import org.koin.dsl.module
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import ru.tohaman.rg2.dataSource.ItemsRepository
-import ru.tohaman.rg2.dbase.MainDb
+import ru.tohaman.rg2.dbase.*
+import ru.tohaman.rg2.ui.MigrationsViewModel
 import ru.tohaman.rg2.ui.games.*
 import ru.tohaman.rg2.ui.info.InfoViewModel
 import ru.tohaman.rg2.ui.learn.LearnDetailViewModel
@@ -17,7 +18,8 @@ import ru.tohaman.rg2.ui.learn.LearnViewModel
 import ru.tohaman.rg2.ui.learn.MiniHelpViewModel
 import ru.tohaman.rg2.ui.settings.SettingsViewModel
 
-private const val DATABASE_NAME = "base.db"
+private const val DATABASE_NAME = "room_base.db"
+private const val OLD_DATABASE_NAME = "base.db"
 
 val appModule = module{
     single<SharedPreferences> {
@@ -25,7 +27,13 @@ val appModule = module{
     single {
         Room.databaseBuilder(androidContext(), MainDb::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration() //На время разработки программы, каждый раз пересоздаем базу, вместо миграции
-            //.addMigrations(MIGRATION_1_2)
+            //.addMigrations(MIGRATION_5_6)
+            .build()
+    }
+    single {
+        Room.databaseBuilder(androidContext(), OldDb::class.java, OLD_DATABASE_NAME)
+            //.fallbackToDestructiveMigration() //На время разработки программы, каждый раз пересоздаем базу, вместо миграции
+            .addMigrations(MIGRATION_1_4, MIGRATION_2_3, MIGRATION_3_4)
             .build()
     }
     //В ItemRepository нужно передать сылку на dao, берем его предыдущего пункта, т.е. get<MainDb>
@@ -34,7 +42,9 @@ val appModule = module{
                             get<MainDb>().movesDao,
                             get<MainDb>().azbukaDao,
                             get<MainDb>().timeNoteDao,
-                            get<MainDb>().pllGameDao)}
+                            get<MainDb>().pllGameDao,
+                            get<OldDb>().oldTimeDao,
+                            get<OldDb>().oldBaseDao)}
 
 }
 
@@ -43,6 +53,7 @@ val viewModelsModule = module {
     viewModel { GamesViewModel() }
     viewModel { SettingsViewModel() }
     viewModel { MiniHelpViewModel() }
+    viewModel { MigrationsViewModel(androidApplication()) }
     viewModel { PllTrainerViewModel(androidApplication()) }
     viewModel { InfoViewModel(androidApplication()) }
     viewModel { AzbukaTrainerViewModel(androidApplication()) }

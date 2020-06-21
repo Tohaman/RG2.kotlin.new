@@ -38,6 +38,7 @@ class MiniHelpViewModel: ViewModel(), KoinComponent {
 
     //Проверяем нужно ли отображать миниХелп
     fun checkMiniHelpShow() {
+
         _onStartMiniHelpEnabled.postValue(sp.getBoolean(ON_START_MINI_HELP, true))
         _tipsItem = galleryDrawables[showingMiniHelpNumber()]
         tipsItem.set(_tipsItem)
