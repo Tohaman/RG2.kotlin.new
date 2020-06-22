@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="ru.tohaman.rg2.ui.info.InfoViewModel" />
+
+        <variable
+            name="dntViewModel"
+            type="ru.tohaman.rg2.ui.info.DonateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +54,7 @@
                         android:layout_marginLeft="@dimen/middle_margin"
                         android:layout_marginRight="@dimen/middle_margin"
                         android:layout_weight="1"
+                        android:onClick="@{() -> dntViewModel.startItemPurchaseByNumber(1)}"
                         app:srcCompat="@drawable/ic_gift_1"/>
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -57,6 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/middle_margin"
                         android:layout_marginRight="@dimen/middle_margin"
+                        android:onClick="@{() -> dntViewModel.startItemPurchaseByNumber(2)}"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_gift_2"/>
 

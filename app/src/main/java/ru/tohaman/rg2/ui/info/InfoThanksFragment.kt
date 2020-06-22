@@ -22,14 +22,18 @@ import ru.tohaman.rg2.databinding.FragmentInfoThanksBinding
  */
 class InfoThanksFragment : Fragment() {
     private val infoViewModel by sharedViewModel<InfoViewModel>()
+    private val donateViewModel by sharedViewModel<DonateViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentInfoThanksBinding.inflate(inflater, container, false)
             .apply {
                 viewModel = infoViewModel
+                lifecycleOwner = viewLifecycleOwner
+                dntViewModel = donateViewModel
                 reklamLogo.setOnClickListener {
                     showOpenUrlDialog(it)
                 }
+                donateViewModel.activity = requireActivity()
             }
         return binding.root    }
 

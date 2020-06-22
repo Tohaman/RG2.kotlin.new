@@ -10,13 +10,19 @@ import android.text.Spanned
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.MainThread
+import androidx.annotation.Nullable
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import timber.log.Timber
 import java.lang.Exception
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Created by Test on 22.12.2017. Различные утилиты
@@ -100,4 +106,59 @@ fun toast(message: String, view: View) {
         .setAction("OK") { }
         .setActionTextColor(ContextCompat.getColor(view.context, R.color.colorAccent))
         .show()
+}
+
+//------------------- классы для внутриигровых покупок ------------------------
+
+/**
+ * A generic class that holds a value with its loading status.
+ * @param <T>
+</T> */
+data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
+    companion object {
+        fun <T> success(data: T?): Resource<T> {
+            return Resource(Status.SUCCESS, data, null)
+        }
+
+        fun <T> error(msg: String?, data: T?): Resource<T> {
+            return Resource(Status.ERROR, data, msg)
+        }
+
+        fun <T> loading(data: T?): Resource<T> {
+            return Resource(Status.LOADING, data, null)
+        }
+    }
+}
+
+enum class Status {
+    SUCCESS,
+    ERROR,
+    LOADING
+}
+
+class SingleLiveEvent<T> : MutableLiveData<T>() {
+    private val mPending: AtomicBoolean = AtomicBoolean(false)
+
+    @MainThread
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
+        super.observe(owner, Observer {
+            if (mPending.compareAndSet(true, false)) {
+                observer.onChanged(it)
+            }
+        })
+    }
+
+    @MainThread
+    override fun setValue(@Nullable t: T?) {
+        mPending.set(true)
+        super.setValue(t)
+    }
+
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @MainThread
+    fun call() {
+        value = null
+    }
 }

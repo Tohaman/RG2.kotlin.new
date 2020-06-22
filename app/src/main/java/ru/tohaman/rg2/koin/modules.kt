@@ -12,6 +12,7 @@ import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.*
 import ru.tohaman.rg2.ui.MigrationsViewModel
 import ru.tohaman.rg2.ui.games.*
+import ru.tohaman.rg2.ui.info.DonateViewModel
 import ru.tohaman.rg2.ui.info.InfoViewModel
 import ru.tohaman.rg2.ui.learn.LearnDetailViewModel
 import ru.tohaman.rg2.ui.learn.LearnViewModel
@@ -54,6 +55,7 @@ val viewModelsModule = module {
     viewModel { SettingsViewModel() }
     viewModel { MiniHelpViewModel() }
     viewModel { MigrationsViewModel(androidApplication()) }
+    viewModel { DonateViewModel(androidApplication()) }
     viewModel { PllTrainerViewModel(androidApplication()) }
     viewModel { InfoViewModel(androidApplication()) }
     viewModel { AzbukaTrainerViewModel(androidApplication()) }
