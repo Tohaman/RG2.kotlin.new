@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 import ru.tohaman.rg2.R
@@ -36,6 +38,15 @@ class InfoThanksFragment : Fragment() {
                 donateViewModel.activity = requireActivity()
             }
         return binding.root    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        donateViewModel.purchaseSuccessful.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(view, R.string.donation_successful, Snackbar.LENGTH_LONG).show()
+        })
+        donateViewModel.purchaseFailed.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(view, R.string.donation_failed, Snackbar.LENGTH_LONG).show()
+        })
+    }
 
 
     //Создаем простенькое диалоговое окно со статичным текстом и двумя кнопками
@@ -67,4 +78,6 @@ class InfoThanksFragment : Fragment() {
             false
         }
     }
+
+
 }

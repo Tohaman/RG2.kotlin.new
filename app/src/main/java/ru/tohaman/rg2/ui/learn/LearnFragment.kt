@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.FragmentLearnBinding
@@ -85,9 +86,13 @@ class LearnFragment : Fragment() {
                 miniHelpViewModel.onStartMiniHelpEnabled.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         if (it) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
+                        else miniHelpViewModel.checkDonationShow()
                     }
                 })
 
+                miniHelpViewModel.onStartOpenDonate.observe(viewLifecycleOwner, Observer{
+                    findNavController().navigate(R.id.destInfo)
+                })
 
 //                val notShowMiniHelp = miniHelpViewModel.notShowMore.value ?: false
 //                if (!notShowMiniHelp) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)

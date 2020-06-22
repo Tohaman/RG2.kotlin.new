@@ -18,7 +18,8 @@ import ru.tohaman.rg2.dbase.entitys.*
 
 @Database(
     entities = [OldDbItem::class, OldTimeItem::class],
-    version = 4
+    version = 4,
+    exportSchema = false
 )
 @TypeConverters(LocalDateConverters::class)
 abstract class OldDb : RoomDatabase() {

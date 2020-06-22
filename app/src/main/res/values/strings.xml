@@ -111,4 +111,7 @@
     <string name="about_programm">О программе</string>
     <string name="thanks_programm">Спасибо</string>
     <string name="tips_programm">Советы</string>
+
+    <string name="donation_successful">Спасибо за поддержку! ❤️</string>
+    <string name="donation_failed">Что-то пошло не так. 😕</string>
 </resources>

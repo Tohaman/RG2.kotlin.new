@@ -2,16 +2,20 @@ package ru.tohaman.rg2.ui.info
 
 import android.app.Activity
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
+import org.koin.core.get
 import ru.tohaman.rg2.BuildConfig
+import ru.tohaman.rg2.Constants.PAYED_COINS
 import ru.tohaman.rg2.utils.Resource
 import ru.tohaman.rg2.utils.SingleLiveEvent
 import ru.tohaman.rg2.utils.Status
+import kotlin.let as let1
 
 /**
  * ViewModel для установки соединения с биллингом и совершения покупок
@@ -20,6 +24,7 @@ import ru.tohaman.rg2.utils.Status
 
 class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
     PurchasesUpdatedListener {
+    private val sp = get<SharedPreferences>()
 
     //Создаем экземпляр Billing-клиента
     private var billingClient = BillingClient.newBuilder(app)
@@ -67,23 +72,26 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
             .build()
         //Запуск потока покупок, получаем статус (result) и список (details)
         billingClient.querySkuDetailsAsync(params) { result, details ->
-            if (result.responseCode == BillingClient.BillingResponseCode.OK && details != null) {
+            products = if (result.responseCode == BillingClient.BillingResponseCode.OK && details != null) {
                 //Если список загрузился успешно, то записываем его в products и ставим статус Success
-                products.value = Resource.success(details
-                    .sortedBy { it.priceAmountMicros }
-                    //.map { DonationItem(it) }
-                )
+                details.sortedBy { it.priceAmountMicros }
             } else {
                 //иначе значеие null и статус Error
-                products.value = Resource.error(result.debugMessage, null)
+                listOf()
             }
         }
     }
 
+    //Если была какая-то покупка
     private fun consumePurchase(purchaseToken: String, showSuccess: Boolean = true) {
         val params = ConsumeParams.newBuilder()
             .setPurchaseToken(purchaseToken)
             .build()
+        //Запишем в SP, что пользователь что-то заплатил (условные 50 тугриков), если там не 0,
+        // то не будем его периодически перекидывать на страничку с рекламой
+        sp.edit().putInt(PAYED_COINS, 50).apply()
+
+        //Если true, то отображаем snackBar - Спасибо за поддержку!
         billingClient.consumeAsync(params) { _, _ ->
             if (showSuccess) purchaseSuccessful.call()
         }
@@ -93,11 +101,7 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
     val purchaseFailed = SingleLiveEvent<Nothing>()
 
     //Список продуктов
-    val products: MutableLiveData<Resource<List<SkuDetails>>> by lazy {
-        MutableLiveData<Resource<List<SkuDetails>>>().apply {
-            value = Resource.loading(null)
-        }
-    }
+    private var products = listOf<SkuDetails>()
 
     //В метод onPurchasesUpdated() мы попадаем когда покупка осуществлена
     override fun onPurchasesUpdated(result: BillingResult, purchases: MutableList<Purchase>?) {
@@ -109,6 +113,7 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
         } else if (result.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
             // Handle an error caused by a user cancelling the purchase flow.
         } else {
+            //Если не ОК и не Cancel, значит "что-то пошло нет так"
             purchaseFailed.call()
         }
     }
@@ -117,10 +122,9 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
 
     //вызываем при нажатии на элемент в интерфейсе
     fun startItemPurchaseByNumber(number: Int) {
-        activity?.let {
-            val activity = it
-            products.value?.data?.get(number)?.let { skuDetails ->
-                startPurchase(skuDetails, activity)
+        activity?.let1 {
+            if (products.size > number) {
+                startPurchase(products[number], it)
             }
         }
     }
@@ -141,5 +145,3 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
     }
 
 }
-
-//data class DonationItem(val sku: SkuDetails) : Equatable

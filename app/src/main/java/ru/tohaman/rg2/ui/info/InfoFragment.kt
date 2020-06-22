@@ -21,7 +21,6 @@ class InfoFragment : Fragment() {
     private lateinit var binding : FragmentInfoBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Timber.d("$TAG bottomNavShow")
         uiUtilViewModel.showBottomNav()
         val adapter = InfoPagerAdapter(this)
 

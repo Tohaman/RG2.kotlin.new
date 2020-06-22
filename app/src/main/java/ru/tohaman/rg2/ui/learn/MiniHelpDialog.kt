@@ -29,7 +29,7 @@ class MiniHelpDialog : DialogFragment() {
             .apply {
                 viewModel = miniHelpViewModel
                 okButton.setOnClickListener {
-                    miniHelpViewModel.closeAndDoNotShowInSession()
+                    miniHelpViewModel.closeHelpAndDoNotShowInSession()
                     findNavController().popBackStack()
                 }
             }

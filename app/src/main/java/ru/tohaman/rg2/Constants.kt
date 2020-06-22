@@ -14,6 +14,7 @@ object Constants {
     const val HELP_COUNT = "helpCount"                      //Сколько раз был показан миниХелп по программе при старте
     const val ON_START_MINI_HELP = "onStartHelpEnabled"     //true, если надо показывать окно миниХелпа при запуске
     const val FAVORITES = "favorites"                       //для извлечения Избранного из предыдущей версии программы, там хранилось в SP
+    const val PAYED_COINS = "payCoins"                      //если 0, значит пользователь не донатил.
 
     //Константы для увеличения/уменьшения размера текста
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта
