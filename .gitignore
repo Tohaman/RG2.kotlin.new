@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 /.idea/.name
+/app/debug/
+/app/release/
