@@ -220,6 +220,22 @@
         android:label="PllTrainerAlgSettings"
         tools:layout="@layout/fragment_algorithms_properties"
         />
+    <fragment
+        android:id="@+id/youTubeFragment"
+        android:name="ru.tohaman.rg2.ui.learn.YouTubeFragment"
+        android:label="YouTubeFragment">
+        <deepLink
+            android:id="@+id/deepLink3"
+            app:uri="rg2://ytplay?time={time}&amp;link={link}" />
+        <argument
+            android:name="time"
+            app:argType="string"
+            android:defaultValue="0:00" />
+        <argument
+            android:name="link"
+            app:argType="string"
+            android:defaultValue="Rg57L2-k8z4" />
+    </fragment>
 
 
 </navigation>
