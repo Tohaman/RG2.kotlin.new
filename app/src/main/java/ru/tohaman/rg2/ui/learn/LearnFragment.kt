@@ -19,6 +19,7 @@ import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.FragmentLearnBinding
 import ru.tohaman.rg2.dbase.entitys.CubeType
+import ru.tohaman.rg2.ui.info.DonateViewModel
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
@@ -27,6 +28,7 @@ class LearnFragment : Fragment() {
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private val learnViewModel by sharedViewModel<LearnViewModel>()
     private val miniHelpViewModel by sharedViewModel<MiniHelpViewModel>()
+    private val donateViewModel by sharedViewModel<DonateViewModel>()
 
     private var exit: Boolean = false
     private lateinit var binding : FragmentLearnBinding
@@ -86,11 +88,11 @@ class LearnFragment : Fragment() {
                 miniHelpViewModel.onStartMiniHelpEnabled.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         if (it) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
-                        else miniHelpViewModel.checkDonationShow()
+                        else donateViewModel.checkDonationShow()
                     }
                 })
 
-                miniHelpViewModel.onStartOpenDonate.observe(viewLifecycleOwner, Observer{
+                donateViewModel.onStartOpenDonate.observe(viewLifecycleOwner, Observer{
                     findNavController().navigate(R.id.destInfo)
                 })
 

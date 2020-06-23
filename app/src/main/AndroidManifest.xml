@@ -21,11 +21,12 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+            <nav-graph android:value="@navigation/main_graph" />
         </activity>
         <activity
             android:name="ru.tohaman.rg2.ui.MainActivity"
             android:theme="@style/AppTheme">
+            <nav-graph android:value="@navigation/main_graph" />
         </activity>
 
         <activity

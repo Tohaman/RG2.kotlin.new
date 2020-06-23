@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import org.koin.android.ext.android.inject
 import org.koin.core.KoinComponent
-import org.koin.core.get
 import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
@@ -22,21 +22,25 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class YouTubePlayerActivity: MyDefaultActivity(), KoinComponent {
-    private var videoId = ""
+    private var videoId = "Rg57L2-k8z4"
     private lateinit var youTubePlayerView: YouTubePlayerView
     private var currentSecond = 0f
     private var startTime = 0f
     private lateinit var player: YouTubePlayer
-    private val sp = get<SharedPreferences>()
+    private val sp: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setDisplayOnProperties()
 
-        var timeFromArgs: String
-        intent.data!!.getQueryParameter("time").let { timeFromArgs = it!! }
-        intent.data!!.getQueryParameter("link").let { videoId = it!! }
+        var timeFromArgs: String = "0:00"
+
+//        timeFromArgs = getArguments().getString("time")
+
+
+        intent.data?.getQueryParameter("time")?.let { timeFromArgs = it }
+        intent.data?.getQueryParameter("link")?.let { videoId = it }
         currentSecond = stringToTimeMillis(timeFromArgs)
         startTime = currentSecond
 
@@ -56,8 +60,8 @@ class YouTubePlayerActivity: MyDefaultActivity(), KoinComponent {
         val uiController = youTubePlayerView.getPlayerUiController()
         val backward10secDrawable = ContextCompat.getDrawable(this, R.drawable.ic_backward)!!
         val forward10secDrawable = ContextCompat.getDrawable(this, R.drawable.ic_forward)!!
-        uiController.setCustomAction1(backward10secDrawable, backwardClickListner)
-        uiController.setCustomAction2(forward10secDrawable, forwardClickListner)
+        uiController.setCustomAction1(backward10secDrawable, backwardClickListener)
+        uiController.setCustomAction2(forward10secDrawable, forwardClickListener)
         uiController.showCustomAction1(true)
         uiController.showCustomAction2(true)
 
@@ -88,25 +92,25 @@ class YouTubePlayerActivity: MyDefaultActivity(), KoinComponent {
     }
 
     //Нажатие левой кнопки (рядом с Play)
-    private val backwardClickListner = View.OnClickListener { _ ->
+    private val backwardClickListener = View.OnClickListener { _ ->
         //player.seekTo(currentSecond - 10)         // Перемотаем на 10 сек назад
         player.seekTo(startTime)                    // Перемотка к месту откуда начали смотреть видео
     }
 
     //Нажатие правой от Play кнопки
-    private val forwardClickListner = View.OnClickListener { _ ->
+    private val forwardClickListener = View.OnClickListener { _ ->
         player.seekTo(currentSecond + 10)       //Перемотка на 10 сек вперед
     }
 
     //Преобразует строку вида 0:25 в милисекунды (25000)
     private fun stringToTimeMillis(text: String): Float {
-        var date: Date
+        val date: Date
         val calendar = Calendar.getInstance()
         val format = SimpleDateFormat("m:s", Locale.ENGLISH)
         try {
             date = format.parse(text)!!
         } catch (e: ParseException) {
-            Timber.w( "$TAG Это не должно произойти. Ошибка при преобразовании даты. $e")
+            Timber.e( "$TAG Это не должно произойти. Ошибка при преобразовании даты. $e")
             //но если произошло, то считаем что видео воспроизводится с начала возвращаем 0 милисек
             return 0f
         }

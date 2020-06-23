@@ -47,25 +47,6 @@ class MiniHelpViewModel: ViewModel(), KoinComponent {
         tipsItem.set(_tipsItem)
     }
 
-    //СинглЛайвЭвент сработает во фрагменте только один раз при вызове .call() во viewModel
-    val onStartOpenDonate  = SingleLiveEvent<Nothing>()
-
-    //Проверяем нужно ли перейти на страничку доната
-    fun checkDonationShow() {
-        val isUserDonate = sp.getInt(PAYED_COINS, 0)
-        val startCount = sp.getInt(START_COUNT, 1)
-        Timber.d("$TAG .checkDonationShow $startCount $isUserDonate")
-        //Если пользователь не платил, то каждый 15 вход переводим на окно Доната
-        if ((isUserDonate == 0) and (startCount % 3 == 0)) {
-            //Поставим закладку на страничку с донатом
-            sp.edit().putInt(Constants.INFO_BOOKMARK, 1).apply()
-            onStartOpenDonate.call()
-            //Увеличим счетчик входов, чтобы повторно не вызвалось
-            sp.edit().putInt(START_COUNT, startCount + 1 ).apply()
-        }
-    }
-
-
     fun closeHelpAndDoNotShowInSession() {
         _helpCount += 1
         Timber.d("$TAG .closeAndDoNotShowInSession $_helpCount")
