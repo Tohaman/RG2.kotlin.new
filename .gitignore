@@ -16,6 +16,7 @@ bin/
 gen/
 out/
 app/release
+app/debug
 
 # Gradle files
 .gradle/
@@ -76,6 +77,4 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
-/AndroidSqlEditorDatabases/
-/app/debug/
-/app/release/
+AndroidSqlEditorDatabases/
