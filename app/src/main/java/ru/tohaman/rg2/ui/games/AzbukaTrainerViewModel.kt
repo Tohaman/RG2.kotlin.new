@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.CURRENT_AZBUKA
 import ru.tohaman.rg2.Constants.TRAINING_TIMER
@@ -46,6 +47,7 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
     private var edgesArray = listOf<String>()
     private var cornersArray = listOf<String>()
 
+    val showHint = ObservableBoolean(BuildConfig.DEBUG)
     val rightAnswerLetter = ObservableField<String>("")
     val timerProgress = ObservableInt(100)
 

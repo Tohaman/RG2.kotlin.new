@@ -26,7 +26,7 @@ class SettingsViewModel: ViewModel(), KoinComponent {
     private val showFab = sp.getBoolean(SHOW_FAB, true)
     var needShowFab = ObservableBoolean(showFab)
 
-    private val _textSize = sp.getInt(TEXT_SIZE, 18)
+    private val _textSize = sp.getInt(TEXT_SIZE, 2)
     var textSize = ObservableInt(_textSize)
 
     init {

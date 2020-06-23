@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId 'ru.tohaman.rg2'
         vectorDrawables.useSupportLibrary = true
-        minSdkVersion 19
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode 300
         versionName '2.20200630.1'

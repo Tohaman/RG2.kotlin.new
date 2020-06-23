@@ -14,6 +14,8 @@ import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.LAST_VERSION
 import ru.tohaman.rg2.Constants.START_COUNT
+import ru.tohaman.rg2.Constants.TEXT_SIZE
+import ru.tohaman.rg2.Constants.THEME
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dbase.FillDB
 import timber.log.Timber
@@ -69,6 +71,8 @@ class SplashActivity : AppCompatActivity() {
         //Чтобы дождаться завершения выполнения инициализации, запустим в runBlocking,
         //а поскольку нельзя к БД Room обращаться в основном потоке, то запустим корутину в IO потоке
         runBlocking(Dispatchers.IO) {
+            sharedPreferences.edit().putInt(TEXT_SIZE, 2).apply()
+            sharedPreferences.edit().putString(THEME, "AppTheme").apply()
             FillDB.reCreateDB(context)
             migrationsViewModel.migrateFavourite()
         }

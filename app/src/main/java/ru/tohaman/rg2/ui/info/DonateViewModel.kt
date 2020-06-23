@@ -14,6 +14,7 @@ import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.PAYED_COINS
 import ru.tohaman.rg2.DebugTag
+import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.utils.Resource
 import ru.tohaman.rg2.utils.SingleLiveEvent
 import ru.tohaman.rg2.utils.Status
@@ -66,7 +67,7 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
     fun checkDonationShow() {
         val isUserDonate = sp.getInt(PAYED_COINS, 0)
         val startCount = sp.getInt(Constants.START_COUNT, 1)
-        Timber.d("${DebugTag.TAG} .checkDonationShow $startCount $isUserDonate")
+        Timber.d("$TAG .checkDonationShow $startCount $isUserDonate")
         //Если пользователь не платил, то каждый 15 вход переводим на окно Доната
         if ((isUserDonate == 0) and (startCount % 15 == 0)) {
             //Поставим закладку на страничку с донатом

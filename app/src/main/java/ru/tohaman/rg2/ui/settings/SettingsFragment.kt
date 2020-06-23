@@ -18,13 +18,8 @@ class SettingsFragment  : Fragment() {
         val binding = FragmentSettingsBinding.inflate (inflater, container, false)
             .apply {
                 viewModel = settingsViewModel
+                lifecycleOwner = viewLifecycleOwner
             }
-
-
-        runBlocking (Dispatchers.IO){
-            //Пересоздаем базу при каждом запуске этого фрагмента, чтобы не пересоздавать при каждом входе
-            context?.let { FillDB.updateDB(it) }
-        }
         return binding.root
     }
 }
