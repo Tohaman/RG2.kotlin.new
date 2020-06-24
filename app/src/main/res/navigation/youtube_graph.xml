@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/youtube_graph"
+    app:startDestination="@id/youTubeFragment">
+
+    <activity
+        android:id="@+id/youTubeActivity"
+        android:name="ru.tohaman.rg2.ui.youtube.YouTubePlayerActivity"
+        android:label="YouTubeActivity">
+        <argument
+            android:name="timeAct"
+            android:defaultValue="def_time"
+            app:argType="string" />
+        <argument
+            android:name="linkAct"
+            android:defaultValue="def_link"
+            app:argType="string" />
+        <deepLink
+            android:id="@+id/deepLink1"
+            app:uri="rg2://ytplay/time={timeAct}/link={linkAct}" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="rg2://player/time={timeAct}/link={linkAct}" />
+
+    </activity>
+
+    <fragment
+        android:id="@+id/youTubeFragment"
+        android:name="ru.tohaman.rg2.ui.youtube.YouTubeFragment"
+        android:label="fragment_you_tube"
+        tools:layout="@layout/fragment_you_tube" />
+
+
+</navigation>
