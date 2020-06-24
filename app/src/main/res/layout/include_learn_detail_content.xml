@@ -10,6 +10,9 @@
             name="item"
             type="ru.tohaman.rg2.dbase.entitys.MainDBItem"/>
 
+        <variable
+            name="urlClick"
+            type="ru.tohaman.rg2.utils.ClickableText" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,7 +115,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginLeft="@dimen/dimen_margin_8"
             android:layout_marginRight="@dimen/dimen_margin_8"
-            android:htmlText="@{item.description}"
+            app:urlClick="@{urlClick}"
+            app:clickedHtmlText="@{item.description}"
             style="@style/MainText"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

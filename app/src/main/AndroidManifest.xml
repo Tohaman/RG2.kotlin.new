@@ -19,26 +19,20 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name="ru.tohaman.rg2.ui.MainActivity"
             android:theme="@style/AppTheme">
+            <nav-graph android:value="@navigation/main_graph"/>
         </activity>
 
         <activity
-            android:name="ru.tohaman.rg2.ui.YouTubePlayerActivity"
+            android:name="ru.tohaman.rg2.ui.youtube.YouTubePlayerActivity"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <data
-                    android:host="ytplay"
-                    android:scheme="rg2" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <nav-graph android:value="@navigation/youtube_graph"/>
         </activity>
 
     </application>
