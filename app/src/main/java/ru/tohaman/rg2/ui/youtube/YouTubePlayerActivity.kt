@@ -1,6 +1,8 @@
-package ru.tohaman.rg2.ui
+package ru.tohaman.rg2.ui.youtube
 
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -22,7 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class YouTubePlayerActivity: MyDefaultActivity(), KoinComponent {
-    private var videoId = "Rg57L2-k8z4"
+    private var videoId = "Kul7jGhYiPQ"
     private lateinit var youTubePlayerView: YouTubePlayerView
     private var currentSecond = 0f
     private var startTime = 0f
@@ -35,20 +37,18 @@ class YouTubePlayerActivity: MyDefaultActivity(), KoinComponent {
         setDisplayOnProperties()
 
         var timeFromArgs: String = "0:00"
-
-//        timeFromArgs = getArguments().getString("time")
-
-
         intent.data?.getQueryParameter("time")?.let { timeFromArgs = it }
         intent.data?.getQueryParameter("link")?.let { videoId = it }
         currentSecond = stringToTimeMillis(timeFromArgs)
         startTime = currentSecond
 
-        Timber.d ("$TAG startYouTube with - $timeFromArgs , $videoId")
+        val data = intent.data
+        Timber.d ("$TAG startYouTube with - $data")
 
         val binding = DataBindingUtil.setContentView<ActivityYoutubeBinding>(this, R.layout.activity_youtube)
         setYouTubePlayerButtons(binding)
     }
+
 
     private fun setYouTubePlayerButtons(binding: ActivityYoutubeBinding) {
         //Используем плагин https://github.com/PierfrancescoSoffritti/android-youtube-player#api-documentation

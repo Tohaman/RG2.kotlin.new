@@ -20,6 +20,25 @@
         android:name="ru.tohaman.rg2.ui.learn.LearnFragment"
         android:label="main_learn"
         tools:layout="@layout/fragment_learn">
+        <argument
+            android:name="cubeType"
+            android:defaultValue="MAIN3X3"
+            app:argType="string" />
+        <argument
+            android:name="phase"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="id"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink1"
+            app:uri="rg2://pager/{phase}/{id}" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="rg2://pager/{cubeType}/{phase}/{id}" />
+
         <action
             android:id="@+id/actionToLearnDetails"
             app:destination="@id/destLearnDetails"
@@ -31,6 +50,9 @@
         <action
             android:id="@+id/action_destLearn_to_miniHelpDialog"
             app:destination="@id/miniHelpDialog"/>
+        <action
+            android:id="@+id/action_destLearn_to_youTubeActivity"
+            app:destination="@id/youTubeActivity" />
 
     </fragment>
 
@@ -220,22 +242,23 @@
         android:label="PllTrainerAlgSettings"
         tools:layout="@layout/fragment_algorithms_properties"
         />
-    <fragment
-        android:id="@+id/youTubeFragment"
-        android:name="ru.tohaman.rg2.ui.learn.YouTubeFragment"
-        android:label="YouTubeFragment">
-        <deepLink
-            android:id="@+id/deepLink3"
-            app:uri="rg2://ytplay?time={time}&amp;link={link}" />
+
+
+    <activity
+        android:id="@+id/youTubeActivity"
+        android:name="ru.tohaman.rg2.ui.youtube.YouTubePlayerActivity"
+        android:label="YouTubeActivity">
         <argument
-            android:name="time"
-            app:argType="string"
-            android:defaultValue="0:00" />
+            android:name="timeAct"
+            android:defaultValue="def_time"
+            app:argType="string" />
         <argument
-            android:name="link"
-            app:argType="string"
-            android:defaultValue="Rg57L2-k8z4" />
-    </fragment>
+            android:name="linkAct"
+            android:defaultValue="def_link"
+            app:argType="string" />
+
+
+    </activity>
 
 
 </navigation>

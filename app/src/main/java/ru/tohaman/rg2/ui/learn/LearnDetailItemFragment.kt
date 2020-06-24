@@ -22,6 +22,9 @@ import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
+import ru.tohaman.rg2.dbase.entitys.PllGameItem
+import ru.tohaman.rg2.ui.games.OnClickByPllTrainerItem
+import ru.tohaman.rg2.utils.ClickableText
 import ru.tohaman.rg2.utils.dp
 import ru.tohaman.rg2.utils.toEditable
 import ru.tohaman.rg2.utils.toast
@@ -75,6 +78,8 @@ class LearnDetailItemFragment : Fragment() {
                             item = it[fragmentNum]
                             mainDBItem = item
                             content.descriptionText.setTextIsSelectable(isTextSelectable)
+                            content.urlClick = clickableText()
+
                             content.titleText.setTextIsSelectable(isTextSelectable)
                             content.youtubeView.enabled = item.url != ""
                         }
@@ -96,6 +101,19 @@ class LearnDetailItemFragment : Fragment() {
                 setClickListeners(this)
             }
         return binding.root
+    }
+
+
+    private fun clickableText(): ClickableText {
+        return object : ClickableText {
+            override fun clickCallBack(url: String): Boolean {
+                Timber.d("$TAG Типа обработали клик по $url")
+                //TODO Сделать обработку ссылок, если ссылка типа RG2://ytplay.. открываем плеер
+                //если ссылка типа rg2://pager?phase=ROZOV&item=5 переход к головоломке
+                //иначе возвращаем false
+                return true
+            }
+        }
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {

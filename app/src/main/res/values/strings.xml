@@ -114,4 +114,6 @@
 
     <string name="donation_successful">Спасибо за поддержку! ❤️</string>
     <string name="donation_failed">Что-то пошло не так. 😕</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

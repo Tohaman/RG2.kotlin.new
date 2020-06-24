@@ -16,6 +16,8 @@ import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.adapters.universal.DataBindingRecyclerAdapter
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
+import ru.tohaman.rg2.utils.ClickableText
+import ru.tohaman.rg2.utils.MakeLinksClickable
 import ru.tohaman.rg2.utils.getResource
 import ru.tohaman.rg2.utils.spannedString
 import timber.log.Timber
@@ -46,7 +48,33 @@ fun setHtmlResource(textView: TextView, htmlId: Int) {
         drawable
     }
 
-    textView.text = spannedString(textString, imgGetter, tagHandler)
+    val spannedString = spannedString(textString, imgGetter, tagHandler)
+
+    textView.text = spannedString
+}
+
+
+@BindingAdapter("app:clickedHtmlText", "app:urlClick")
+fun setClickedHtmlResource(textView: TextView, htmlId: Int, urlClickCallBack: ClickableText?) {
+    var textString = "<html><body style=\"text-align:justify\"> %s </body></html>"
+    var st = ""
+    if (htmlId != 0) {
+        st = textView.context.getString(htmlId)
+    }
+    textString = String.format(textString, st)
+
+    val imgGetter = Html.ImageGetter { source ->
+        var sourceString = source
+        sourceString = sourceString.replace(".png", "")
+        sourceString = sourceString.replace(".xml", "")
+        val drawable = textView.context.getResource(sourceString)
+        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        drawable
+    }
+
+    val spannedString = MakeLinksClickable.reformatText(spannedString(textString, imgGetter, tagHandler), urlClickCallBack)
+
+    textView.text = spannedString
 }
 
 private val tagHandler = Html.TagHandler { opening, tag, output, xmlReader ->
