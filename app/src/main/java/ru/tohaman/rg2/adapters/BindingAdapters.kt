@@ -48,7 +48,7 @@ fun setHtmlResource(textView: TextView, htmlId: Int) {
         drawable
     }
 
-    val spannedString = spannedString(textString, imgGetter, tagHandler)
+    val spannedString = MakeLinksClickable.reformatText(spannedString(textString, imgGetter, tagHandler), null)
 
     textView.text = spannedString
 }

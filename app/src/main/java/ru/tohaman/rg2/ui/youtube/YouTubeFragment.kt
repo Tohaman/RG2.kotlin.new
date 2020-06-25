@@ -1,30 +1,27 @@
 package ru.tohaman.rg2.ui.youtube
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.DebugTag
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
-import ru.tohaman.rg2.databinding.ActivityYoutubeBinding
-import ru.tohaman.rg2.databinding.FragmentLearnDetailBinding
 import ru.tohaman.rg2.databinding.FragmentYoutubeBinding
-import ru.tohaman.rg2.ui.learn.LearnDetailFragmentArgs
+import ru.tohaman.rg2.ui.shared.UiUtilViewModel
 import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class YouTubeFragment : Fragment() {
+    private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private val args by navArgs<YouTubeFragmentArgs>()
     private val timeArg by lazy { args.time }
     private val linkArg by lazy { args.link }
@@ -36,7 +33,7 @@ class YouTubeFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+        uiUtilViewModel.hideBottomNav()
         binding = FragmentYoutubeBinding.inflate(inflater, container, false)
             .apply {
                 currentSecond = stringToTimeMillis(timeArg)
