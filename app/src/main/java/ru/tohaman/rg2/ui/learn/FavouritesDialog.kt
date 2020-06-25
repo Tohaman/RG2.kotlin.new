@@ -62,7 +62,7 @@ class FavouritesDialog : DialogFragment() {
 
     private fun clickAndClose(menuItem: MainDBItem) {
         Timber.d("$TAG onFavItemClick - $menuItem")
-        while (findNavController().currentDestination!!.id != R.id.destLearn) {
+        while (findNavController().currentDestination?.id != R.id.destLearn) {
             Timber.d("$TAG popBackStack")
             findNavController().popBackStack()
         }

@@ -49,10 +49,7 @@
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_destLearn_to_miniHelpDialog"
-            app:destination="@id/miniHelpDialog"/>
-        <action
-            android:id="@+id/action_destLearn_to_youTubeActivity"
-            app:destination="@id/youTubeActivity" />
+            app:destination="@id/miniHelpDialog" />
 
     </fragment>
 
@@ -63,8 +60,8 @@
         tools:layout="@layout/dialog_help">
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="0"/>
+            android:defaultValue="0"
+            app:argType="integer" />
     </dialog>
 
     <dialog
@@ -74,15 +71,15 @@
         tools:layout="@layout/dialog_recycler_view">
         <argument
             android:name="type"
-            app:argType="string"
-            android:defaultValue="BEGIN3X3"/>
+            android:defaultValue="BEGIN3X3"
+            app:argType="string" />
     </dialog>
 
     <dialog
         android:id="@+id/dialog_favourites"
         android:name="ru.tohaman.rg2.ui.learn.FavouritesDialog"
         android:label="Favourites_Dialog"
-        tools:layout="@layout/dialog_recycler_view"/>
+        tools:layout="@layout/dialog_recycler_view" />
 
 
     <fragment
@@ -92,18 +89,27 @@
         tools:layout="@layout/fragment_learn_detail">
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <argument
             android:name="phase"
-            app:argType="string"
-            android:defaultValue="WRONG" />
+            android:defaultValue="WRONG"
+            app:argType="string" />
         <action
             android:id="@+id/action_destLearnDetails_to_recycler_view_dialog"
             app:destination="@id/dialog_moves_helper" />
         <action
             android:id="@+id/action_destLearnDetails_to_dialog_favourites"
             app:destination="@id/dialog_favourites" />
+        <action
+            android:id="@+id/action_destLearnDetails_to_youTubeFragment2"
+            app:destination="@id/youTubeFragment">
+            <argument
+                android:name="time" />
+            <argument
+                android:name="link" />
+        </action>
+
     </fragment>
 
     <fragment
@@ -144,20 +150,19 @@
         android:id="@+id/destSettings2"
         android:name="ru.tohaman.rg2.ui.settings.SettingsFragment"
         android:label="@string/main_settings2"
-        tools:layout="@layout/fragment_settings">
-    </fragment>
+        tools:layout="@layout/fragment_settings"></fragment>
 
     <fragment
         android:id="@+id/gamesHelpFragment"
         android:name="ru.tohaman.rg2.ui.games.GamesHelpFragment"
         android:label="GamesHelpFragment"
-        tools:layout="@layout/fragment_games_help"/>
+        tools:layout="@layout/fragment_games_help" />
 
     <fragment
         android:id="@+id/gamesAzbukaSettings"
         android:name="ru.tohaman.rg2.ui.games.ScrambleGeneratorSettings"
         android:label="GamesAzbukaSettings"
-        tools:layout="@layout/fragment_games_azbuka_select"/>
+        tools:layout="@layout/fragment_games_azbuka_select" />
 
     <fragment
         android:id="@+id/scrambleGeneratorFragment"
@@ -167,13 +172,17 @@
         <action
             android:id="@+id/action_scrambleGeneratorFragment_to_gamesAzbukaSettings"
             app:destination="@id/gamesAzbukaSettings" />
+        <argument
+            android:name="scramble"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 
     <fragment
         android:id="@+id/timerSettingsFragment"
         android:name="ru.tohaman.rg2.ui.games.TimerSettings"
         android:label="GamesTimerSettings"
-        tools:layout="@layout/fragment_games_timer_settings"/>
+        tools:layout="@layout/fragment_games_timer_settings" />
 
     <fragment
         android:id="@+id/timerFragment"
@@ -192,7 +201,7 @@
         android:id="@+id/timerResultDialog"
         android:name="ru.tohaman.rg2.ui.games.TimerResultDialog"
         android:label="TimerResultDialog"
-        tools:layout="@layout/dialog_recycler_view"/>
+        tools:layout="@layout/dialog_recycler_view" />
 
     <fragment
         android:id="@+id/azbukaTrainerFragment"
@@ -208,19 +217,17 @@
         android:id="@+id/azbukaTrainerSettings"
         android:name="ru.tohaman.rg2.ui.games.AzbukaTrainerSettings"
         android:label="AzbukaTrainerSettings"
-        tools:layout="@layout/fragment_azbuka_trainer_settings"
-        />
+        tools:layout="@layout/fragment_azbuka_trainer_settings" />
     <dialog
         android:id="@+id/showTipsDialog"
         android:name="ru.tohaman.rg2.ui.info.ShowTipsDialog"
         android:label="ShowTipsDialog"
-        tools:layout="@layout/dialog_info_tips"
-        />
+        tools:layout="@layout/dialog_info_tips" />
     <fragment
         android:id="@+id/pllTrainerFragment"
         android:name="ru.tohaman.rg2.ui.games.PllTrainerFragment"
-        tools:layout="@layout/fragment_pll_trainer"
-        android:label="PllTrainerFragment" >
+        android:label="PllTrainerFragment"
+        tools:layout="@layout/fragment_pll_trainer">
         <action
             android:id="@+id/action_pllTrainerFragment_to_pllTrainerSettings"
             app:destination="@id/pllTrainerSettings" />
@@ -229,8 +236,7 @@
         android:id="@+id/pllTrainerSettings"
         android:name="ru.tohaman.rg2.ui.games.PllTrainerSettings"
         android:label="PllTrainerSettings"
-        tools:layout="@layout/fragment_pll_trainer_settings"
-        >
+        tools:layout="@layout/fragment_pll_trainer_settings">
         <action
             android:id="@+id/action_pllTrainerSettings_to_pllTrainerAlgSettings"
             app:destination="@id/pllTrainerAlgSettings" />
@@ -240,25 +246,29 @@
         android:id="@+id/pllTrainerAlgSettings"
         android:name="ru.tohaman.rg2.ui.games.PllTrainerAlgSettings"
         android:label="PllTrainerAlgSettings"
-        tools:layout="@layout/fragment_algorithms_properties"
-        />
+        tools:layout="@layout/fragment_algorithms_properties" />
 
 
-    <activity
-        android:id="@+id/youTubeActivity"
-        android:name="ru.tohaman.rg2.ui.youtube.YouTubePlayerActivity"
-        android:label="YouTubeActivity">
+    <fragment
+        android:id="@+id/youTubeFragment"
+        android:name="ru.tohaman.rg2.ui.youtube.YouTubeFragment"
+        android:label="YouTubeFragment">
         <argument
-            android:name="timeAct"
+            android:name="time"
             android:defaultValue="def_time"
             app:argType="string" />
         <argument
-            android:name="linkAct"
+            android:name="link"
             android:defaultValue="def_link"
             app:argType="string" />
+    </fragment>
 
+    <action
+        android:id="@+id/action_global_youTubeFragment"
+        app:destination="@id/youTubeFragment" />
 
-    </activity>
-
+    <action
+        android:id="@+id/action_global_scrambleGeneratorFragment"
+        app:destination="@id/scrambleGeneratorFragment" />
 
 </navigation>

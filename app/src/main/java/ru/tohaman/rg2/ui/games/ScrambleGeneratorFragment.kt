@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.rg2.DebugTag.TAG
@@ -16,18 +17,24 @@ import ru.tohaman.rg2.databinding.DialogGetLetterBinding
 import ru.tohaman.rg2.databinding.DialogGetScrambleBinding
 import ru.tohaman.rg2.databinding.FragmentGamesScrambleGeneratorBinding
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
+import ru.tohaman.rg2.ui.youtube.YouTubeFragmentArgs
 import timber.log.Timber
 
 class ScrambleGeneratorFragment: Fragment() {
+    private val args by navArgs<ScrambleGeneratorFragmentArgs>()
+    private val scrambleArg by lazy { args.scramble }
     private val scrambleGeneratorViewModel by sharedViewModel<ScrambleGeneratorViewModel>()
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
     private lateinit var binding: FragmentGamesScrambleGeneratorBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         uiUtilViewModel.hideBottomNav()
+        Timber.d("$TAG .onCreateScrambleGenerator with $scrambleArg scramble")
         binding = FragmentGamesScrambleGeneratorBinding.inflate(inflater, container, false)
             .apply {
                 content.viewModel = scrambleGeneratorViewModel
+                scrambleGeneratorViewModel.setCurrentScramble(scrambleArg)
+
                 val adapter = AzbukaGridAdapter()
                 content.scramGridView.adapter = adapter
 

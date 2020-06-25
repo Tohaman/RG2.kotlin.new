@@ -16,7 +16,7 @@ import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.adapters.universal.DataBindingRecyclerAdapter
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
-import ru.tohaman.rg2.utils.ClickableText
+import ru.tohaman.rg2.utils.ClickTextHolder
 import ru.tohaman.rg2.utils.MakeLinksClickable
 import ru.tohaman.rg2.utils.getResource
 import ru.tohaman.rg2.utils.spannedString
@@ -55,7 +55,7 @@ fun setHtmlResource(textView: TextView, htmlId: Int) {
 
 
 @BindingAdapter("app:clickedHtmlText", "app:urlClick")
-fun setClickedHtmlResource(textView: TextView, htmlId: Int, urlClickCallBack: ClickableText?) {
+fun setClickedHtmlResource(textView: TextView, htmlId: Int, urlClickCallBack: ClickTextHolder?) {
     var textString = "<html><body style=\"text-align:justify\"> %s </body></html>"
     var st = ""
     if (htmlId != 0) {
