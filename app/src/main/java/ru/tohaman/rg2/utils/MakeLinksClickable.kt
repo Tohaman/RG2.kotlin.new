@@ -12,7 +12,7 @@ import android.view.View
 import androidx.navigation.findNavController
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.ui.games.ScrambleGeneratorFragmentDirections
-import ru.tohaman.rg2.ui.learn.LearnFragmentDirections
+import ru.tohaman.rg2.ui.youtube.YouTubeActivity
 import timber.log.Timber
 
 
@@ -36,7 +36,7 @@ object MakeLinksClickable {
     class CustomerTextClick(var url: String, var clickTextHolder: ClickTextHolder?) : ClickableSpan() {
         override fun onClick(widget: View) {
             //Пробуем обработать строку во внешнем обработчике,
-            var internalCall = false //clickTextHolder?.onUrlClick(url) ?: false
+            var internalCall = clickTextHolder?.onUrlClick(url) ?: false
             //если он не смог, то проверяем стандартные для программы
             if (!internalCall) {
                 when {
@@ -47,9 +47,14 @@ object MakeLinksClickable {
                         internalCall = true
                     }
                     url.startsWith("rg2://ytplay", true) or url.startsWith("rg2://player", true) -> {
-                        widget.findNavController().navigate(
-                            LearnFragmentDirections.actionGlobalYouTubeFragment(getTimeFromUrl(url), getLinkFromUrl(url))
-                        )
+//                        widget.findNavController().navigate(
+//                            LearnDetailFragmentDirections.actionDestLearnDetailsToYouTubeActivity(getTimeFromUrl(url), getLinkFromUrl(url))
+//                        )
+                        val intent = Intent(widget.context, YouTubeActivity::class.java)
+                        intent.putExtra("time", getTimeFromUrl(url) )
+                        intent.putExtra("link", getLinkFromUrl(url) )
+                        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        widget.context.startActivity(intent)
                         internalCall = true
                     }
                 }
@@ -104,7 +109,7 @@ fun getTimeFromUrl(url: String): String {
 }
 
 fun getLinkFromUrl(url: String): String {
-    val url = url.substringAfter("link=")
+    val phase = url.substringAfter("link=")
     Timber.d("$TAG .getTimeFromUrl $url from url = [${url}]")
-    return url
+    return phase
 }

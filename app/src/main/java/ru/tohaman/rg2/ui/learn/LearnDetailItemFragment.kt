@@ -27,6 +27,7 @@ import ru.tohaman.rg2.utils.dp
 import ru.tohaman.rg2.utils.toEditable
 import ru.tohaman.rg2.utils.toast
 import timber.log.Timber
+import java.lang.Exception
 
 
 class LearnDetailItemFragment : Fragment() {
@@ -108,11 +109,36 @@ class LearnDetailItemFragment : Fragment() {
                 //TODO Сделать обработку ссылок, если ссылка типа RG2://ytplay.. открываем плеер
                 //если ссылка типа rg2://pager?phase=ROZOV&item=5 переход к головоломке
                 //иначе возвращаем false
-
-                return true
+                if (url.startsWith("rg2://pager", true)) {
+                    findNavController().popBackStack()
+                    findNavController().navigate(
+                        LearnFragmentDirections.actionToLearnDetails(getIdFromUrl(url), getPhaseFromUrl(url))
+                    )
+                    Timber.d("$TAG goTO - ${getIdFromUrl(url)}, ${getPhaseFromUrl(url)}")
+                    return true
+                } else {
+                    return false
+                }
             }
         }
     }
+
+    //парсим ссылку типа "rg2://pager?phase=BEGIN&item=1"
+    fun getIdFromUrl(url: String): Int {
+        return try {
+            url.substringAfter("item=").toInt()
+        } catch (e: Exception) {
+            Timber.e("$TAG Ошибка преобразования id в $url. Ошибка: $e")
+            return 0
+        }
+    }
+
+    fun getPhaseFromUrl(url: String): String {
+        return url.substringAfter("phase=")
+            .substringBefore("&")
+            .substringBefore("/")
+    }
+
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         activity?.menuInflater?.inflate(R.menu.favourite_context_menu, menu)
