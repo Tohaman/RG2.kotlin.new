@@ -62,6 +62,12 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt,
         reloadAzbuka()
     }
 
+    fun setCurrentScramble(scramble: String) {
+        if (scramble != "") {
+            updateScramble(scramble)
+        }
+    }
+
     fun reloadAzbuka(){
         viewModelScope.launch (Dispatchers.IO) {
             val listDBAzbuka = repository.getAzbukaItems(Constants.CURRENT_AZBUKA)

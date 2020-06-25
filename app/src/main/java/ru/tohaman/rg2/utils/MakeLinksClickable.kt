@@ -1,7 +1,6 @@
 package ru.tohaman.rg2.utils
 
 import android.content.ActivityNotFoundException
-import android.content.ComponentCallbacks
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,13 +9,15 @@ import android.text.SpannableStringBuilder
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
 import android.view.View
-import androidx.databinding.ObservableField
+import androidx.navigation.findNavController
 import ru.tohaman.rg2.DebugTag.TAG
+import ru.tohaman.rg2.ui.games.ScrambleGeneratorFragmentDirections
+import ru.tohaman.rg2.ui.learn.LearnFragmentDirections
 import timber.log.Timber
 
 
 object MakeLinksClickable {
-    fun reformatText(text: CharSequence, callbacks: ClickableText?): SpannableStringBuilder {
+    fun reformatText(text: CharSequence, callbacks: ClickTextHolder?): SpannableStringBuilder {
         val end = text.length
         val sp = text as Spannable
         val urls = sp.getSpans(0, end, URLSpan::class.java)
@@ -32,23 +33,39 @@ object MakeLinksClickable {
         return style
     }
 
-    class CustomerTextClick(var url: String, var callBack: ClickableText?) : ClickableSpan() {
+    class CustomerTextClick(var url: String, var clickTextHolder: ClickTextHolder?) : ClickableSpan() {
         override fun onClick(widget: View) {
-            //Тут можно как-то обработать нажатие на ссылку
-            //Сейчас же мы просто открываем браузер с ней (
-
-            val internalCall = callBack?.clickCallBack(url) ?: false
-            //Если ссылка не подходит внутреннему обработчику, то пробуем открыть как обычную ссылку
+            //Пробуем обработать строку во внешнем обработчике,
+            var internalCall = false //clickTextHolder?.onUrlClick(url) ?: false
+            //если он не смог, то проверяем стандартные для программы
+            if (!internalCall) {
+                when {
+                    url.startsWith("rg2://scrmbl", true) or url.startsWith("rg2://scramble",true) -> {
+                        widget.findNavController().navigate(
+                            ScrambleGeneratorFragmentDirections.actionGlobalScrambleGeneratorFragment(getScrambleFromUrl(url))
+                        )
+                        internalCall = true
+                    }
+                    url.startsWith("rg2://ytplay", true) or url.startsWith("rg2://player", true) -> {
+                        widget.findNavController().navigate(
+                            LearnFragmentDirections.actionGlobalYouTubeFragment(getTimeFromUrl(url), getLinkFromUrl(url))
+                        )
+                        internalCall = true
+                    }
+                }
+            }
+            //Если ссылка не подходит и внутреннему обработчику, то пробуем открыть как обычную ссылку
             val canOpen = if (internalCall) true
-            else widget.context.browse(url, false)
+                else widget.context.browse(url, false)
 
+            //Выводим результат в лог
             Timber.d("$TAG url clicked: $url with $canOpen result")
         }
     }
 }
 
-interface ClickableText {
-    fun clickCallBack(url: String): Boolean
+interface ClickTextHolder {
+    fun onUrlClick(url: String): Boolean
 }
 
 fun Context.browse(url: String, newTask: Boolean = false): Boolean {
@@ -64,4 +81,30 @@ fun Context.browse(url: String, newTask: Boolean = false): Boolean {
         e.printStackTrace()
         false
     }
+}
+
+//получаем нормальный скрамбл из строки вида rg2://scrmbl?scram=D2_F\'_R_L_U_R\'_D\'_B2_R\'_F2_R2_U2_R2_U\'
+fun getScrambleFromUrl(url: String): String {
+    //берем только часть строки после scram=
+    var scramble = url.substringAfter("scram=")
+    //Заменяем все символы которые не могут быть в скрамбле на пробелы
+    scramble = Regex("[^RLDUFB 2'wMSE]").replace(scramble, " ")
+    Timber.d("$TAG .getScrambleFromUrl $scramble from url = [${url}]")
+    return scramble
+}
+
+//получаем время из строки вида "rg2://player/time=0:41/link=QJ8-8l9dQ_U" или "rg2://ytplay?time=0:41&link=QJ8-8l9dQ_U"
+fun getTimeFromUrl(url: String): String {
+    val time =      //берем все что после time= и до & или /
+        url.substringAfter("time=")
+            .substringBefore("&")
+            .substringBefore("/")
+    Timber.d("$TAG .getTimeFromUrl $time from url = [${url}]")
+    return time
+}
+
+fun getLinkFromUrl(url: String): String {
+    val url = url.substringAfter("link=")
+    Timber.d("$TAG .getTimeFromUrl $url from url = [${url}]")
+    return url
 }
