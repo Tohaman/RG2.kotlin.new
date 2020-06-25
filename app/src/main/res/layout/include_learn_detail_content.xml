@@ -12,7 +12,7 @@
 
         <variable
             name="urlClick"
-            type="ru.tohaman.rg2.utils.ClickableText" />
+            type="ru.tohaman.rg2.utils.ClickTextHolder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

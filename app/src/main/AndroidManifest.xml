@@ -29,12 +29,6 @@
             <nav-graph android:value="@navigation/main_graph"/>
         </activity>
 
-        <activity
-            android:name="ru.tohaman.rg2.ui.youtube.YouTubePlayerActivity"
-            android:theme="@style/AppTheme">
-            <nav-graph android:value="@navigation/youtube_graph"/>
-        </activity>
-
     </application>
 
 </manifest>
