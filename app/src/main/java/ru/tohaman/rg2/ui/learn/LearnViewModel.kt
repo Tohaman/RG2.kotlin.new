@@ -24,10 +24,11 @@ import timber.log.Timber
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val sp = get<SharedPreferences>()
-
     private val repository : ItemsRepository by inject()
     private val ctx = context
+
     private var typesCount = 10
+
     //номер закладки открываемой по-умолчанию
     private var currentCubeType = sp.getInt(CUR_CUBE_TYPE, 2)
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
@@ -44,6 +45,10 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     val liveDataCubeTypes : LiveData<List<CubeType>>
         get() = mutableCubeTypes
 
+    //При лонгклике храним элемент по которому кликнули
+    var selectedItem: MainDBItem = MainDBItem("WRONG", 0)
+
+    //Нужно ли отображать зеленую кнопку FAB
     var needShowFab = ObservableBoolean()
 
     init {
