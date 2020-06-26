@@ -114,4 +114,9 @@
 
     <string name="donation_successful">Спасибо за поддержку! ❤️</string>
     <string name="donation_failed">Что-то пошло не так. 😕</string>
+    <string name="textToShare1">Лучшее приложение по обучению сборки кубика Рубика и других головоломок:</string>
+    <string name="textToShare2">Канал в YouTube: https://www.youtube.com/channel/UCpSUF7w376aCRRvzkoNoAfQ</string>
+    <string name="shareTitle">Поделиться ссылками на программу</string>
+    <string name="editCommentHint">или алгоритм</string>
+    <string name="editCommentTitle">Напишите свой комментарий:</string>
 </resources>

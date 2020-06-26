@@ -98,23 +98,19 @@ class LearnDetailItemFragment : Fragment() {
         return binding.root
     }
 
-
+    //Обработчик сликов по ссылкам в тексте, который передаем в TextView
     private fun clickableText(): ClickTextHolder {
         return object : ClickTextHolder {
             override fun onUrlClick(url: String): Boolean {
-                Timber.d("$TAG Типа обработали клик по $url")
-                //TODO Сделать обработку ссылок, если ссылка типа RG2://ytplay.. открываем плеер
-                //если ссылка типа rg2://pager?phase=ROZOV&item=5 переход к головоломке
-                //иначе возвращаем false
-                if (url.startsWith("rg2://pager", true)) {
+                return if (url.startsWith("rg2://pager", true)) {
                     findNavController().popBackStack()
                     findNavController().navigate(
                         LearnFragmentDirections.actionToLearnDetails(getIdFromUrl(url), getPhaseFromUrl(url))
                     )
-                    Timber.d("$TAG goTO - ${getIdFromUrl(url)}, ${getPhaseFromUrl(url)}")
-                    return true
+                    Timber.d("$TAG ссылка на другой этап, переходим к ${getIdFromUrl(url)}, ${getPhaseFromUrl(url)}")
+                    true
                 } else {
-                    return false
+                    false
                 }
             }
         }
@@ -174,9 +170,8 @@ class LearnDetailItemFragment : Fragment() {
 
         binding.share.setOnClickListener {
             val link = "https://play.google.com/store/apps/details?id=ru.tohaman.rg2"
-            val textToShare = "Лучшее приложение по обучению сборки кубика Рубика и других головоломок: $link \n " +
-                    "Канал в YouTube: https://www.youtube.com/channel/UCpSUF7w376aCRRvzkoNoAfQ"
-            val shareTitle = "Поделиться ссылками на программу"
+            val textToShare = getString(R.string.textToShare1) + link + "\n " + getString(R.string.textToShare2)
+            val shareTitle = getString(R.string.shareTitle)
             context?.shareText(shareTitle, textToShare)
         }
 
@@ -194,14 +189,14 @@ class LearnDetailItemFragment : Fragment() {
                 val textInputEditText = constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
 
                 textInputEditText.text = comment.toEditable()
-                textInputEditText.hint = "или алгоритм"
-                builder.setTitle("Напишите свой комментарий:")
+                textInputEditText.hint = getString(R.string.editCommentHint)
+                builder.setTitle(getString(R.string.editCommentTitle))
                     .setPositiveButton("OK") { _, _ ->
                         item.comment = textInputEditText.text.toString()
                         binding.mainDBItem = item
                         detailViewModel.updateComment(item)
                     }
-                    .setNegativeButton("Отмена", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                 val dialog = builder.create()
                 dialog.show()
 
