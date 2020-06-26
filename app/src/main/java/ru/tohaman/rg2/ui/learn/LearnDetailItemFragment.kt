@@ -22,10 +22,7 @@ import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.rg2.utils.ClickTextHolder
-import ru.tohaman.rg2.utils.dp
-import ru.tohaman.rg2.utils.toEditable
-import ru.tohaman.rg2.utils.toast
+import ru.tohaman.rg2.utils.*
 import timber.log.Timber
 import java.lang.Exception
 
@@ -176,8 +173,11 @@ class LearnDetailItemFragment : Fragment() {
         }
 
         binding.share.setOnClickListener {
-            //TODO Реализовать кнопку "поделиться"
-            toast("Будет реализовано в следующих версиях программы", it)
+            val link = "https://play.google.com/store/apps/details?id=ru.tohaman.rg2"
+            val textToShare = "Лучшее приложение по обучению сборки кубика Рубика и других головоломок: $link \n " +
+                    "Канал в YouTube: https://www.youtube.com/channel/UCpSUF7w376aCRRvzkoNoAfQ"
+            val shareTitle = "Поделиться ссылками на программу"
+            context?.shareText(shareTitle, textToShare)
         }
 
         //вызываем созданный в коде AlertDialog https://android--code.blogspot.com/2020/03/android-kotlin-alertdialog-edittext.html
