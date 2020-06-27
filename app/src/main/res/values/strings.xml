@@ -119,4 +119,5 @@
     <string name="shareTitle">Поделиться ссылками на программу</string>
     <string name="editCommentHint">или алгоритм</string>
     <string name="editCommentTitle">Напишите свой комментарий:</string>
+    <string name="favourite_hint">Открывайте, удаляйте или меняйте местами выбранные обучалки</string>
 </resources>

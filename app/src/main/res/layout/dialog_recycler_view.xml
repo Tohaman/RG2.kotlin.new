@@ -45,14 +45,27 @@
 
             <Button
                 android:id="@+id/close_text"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:text="@string/backText"
-                android:layout_marginRight="@dimen/middle_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/small_margin"
+                android:lines="3"
+                android:gravity="bottom"
+                android:text="@string/favourite_hint"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/close_text"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
