@@ -18,6 +18,7 @@ import ru.tohaman.rg2.ui.learn.LearnDetailViewModel
 import ru.tohaman.rg2.ui.learn.LearnViewModel
 import ru.tohaman.rg2.ui.learn.MiniHelpViewModel
 import ru.tohaman.rg2.ui.settings.SettingsViewModel
+import ru.tohaman.rg2.ui.youtube.YouTubeViewModel
 
 private const val DATABASE_NAME = "room_base.db"
 private const val OLD_DATABASE_NAME = "base.db"
@@ -54,6 +55,7 @@ val viewModelsModule = module {
     viewModel { GamesViewModel() }
     viewModel { SettingsViewModel() }
     viewModel { MiniHelpViewModel() }
+    viewModel { YouTubeViewModel() }
     viewModel { MigrationsViewModel(androidApplication()) }
     viewModel { DonateViewModel(androidApplication()) }
     viewModel { PllTrainerViewModel(androidApplication()) }
