@@ -49,10 +49,13 @@ class YouTubeActivity: MyDefaultActivity() {
                 viewModel = youTubeViewModel
                 val youTubePlayerView = youtubeView.youtubePlayerView
                 youTubePlayerView.addYouTubePlayerListener(youTubeViewModel.youTubePlayerListener)
+                lifecycle.addObserver(youTubePlayerView)
+
                 closeButton.setOnClickListener {
                     finish()
                 }
             }
+
     }
 
 
