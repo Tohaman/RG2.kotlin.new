@@ -4,179 +4,176 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="ru.tohaman.rg2.ui.settings.SettingsViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
-        <LinearLayout
+        <include
+            android:id="@+id/appBar"
+            layout="@layout/include_app_bar"
+            app:tabbed="@{false}"
+            app:title="@{@string/main_settings}" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/middle_margin"
-            android:layout_marginRight="@dimen/middle_margin"
-
-            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
 
-            <TextView
-                android:id="@+id/settingsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="@dimen/dimen_margin_8"
-                android:text="@string/settings"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/appTheme"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                />
-
-
-            <RadioButton
-                android:id="@+id/dark_theme"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:layout_marginLeft="@dimen/big_margin"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:onClick="@{() -> viewModel.darkThemeSelect()}"
-                android:checked="@={viewModel.isThemeDark()}"
-                android:text="@string/dark_theme" />
+                android:layout_marginLeft="@dimen/middle_margin"
+                android:layout_marginRight="@dimen/middle_margin"
+                android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/light_theme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:layout_marginLeft="@dimen/big_margin"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:onClick="@{() -> viewModel.lightThemeSelect()}"
-                android:checked="@={!viewModel.isThemeDark()}"
-                android:text="@string/light_theme" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/font_size_text"
-                android:layout_marginTop="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/middle_margin"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
-
-            <SeekBar
-                android:id="@+id/seekBar2"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/mid_padding"
-                android:layout_marginLeft="@dimen/big_margin"
-                android:max="5"
-                android:progress="@{viewModel.textSize}"
-                app:onSeekListener="@{viewModel.onTextSeek()}"
-                />
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appTheme" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fab_button"
-                android:layout_marginTop="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                <RadioButton
+                    android:id="@+id/dark_theme"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:checked="@={viewModel.isThemeDark()}"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{() -> viewModel.darkThemeSelect()}"
+                    android:text="@string/dark_theme" />
 
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:switchPadding="@dimen/dimen_margin_8"
-                android:layout_marginLeft="@dimen/big_margin"
-                android:checked="@={viewModel.needShowFab}"
-                android:onCheckedChanged="@{(switch, checked) -> viewModel.needShowFabChange(checked)}"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="@string/show_fab_text"
-                tools:ignore="RtlHardcoded" />
+                <RadioButton
+                    android:id="@+id/light_theme"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:checked="@={!viewModel.isThemeDark()}"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{() -> viewModel.lightThemeSelect()}"
+                    android:text="@string/light_theme" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/display_options"
-                android:layout_marginTop="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/big_margin"
+                    android:layout_marginBottom="@dimen/middle_margin"
+                    android:text="@string/font_size_text" />
 
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:switchPadding="@dimen/dimen_margin_8"
-                android:layout_marginLeft="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/middle_margin"
-                android:checked="@={viewModel.isScreenAlwaysOn}"
-                android:onCheckedChanged="@{(switch, checked) -> viewModel.isScreenAlwaysOnChange(checked)}"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="@string/do_not_turn_off_display"
-                tools:ignore="RtlHardcoded" />
+                <SeekBar
+                    android:id="@+id/seekBar2"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:max="5"
+                    android:padding="@dimen/mid_padding"
+                    android:progress="@{viewModel.textSize}"
+                    app:onSeekListener="@{viewModel.onTextSeek()}" />
 
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:switchPadding="@dimen/dimen_margin_8"
-                android:layout_marginLeft="@dimen/big_margin"
-                android:checked="@={viewModel.isYoutubeScreenAlwaysOn}"
-                android:onCheckedChanged="@{(switch, checked) -> viewModel.isYoutubeScreenAlwaysOnChange(checked)}"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="@string/do_not_turn_off_youtube_display"
-                tools:ignore="RtlHardcoded" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_selecting"
-                android:layout_marginTop="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/big_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:text="@string/fab_button" />
 
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:switchPadding="@dimen/dimen_margin_8"
-                android:layout_marginLeft="@dimen/big_margin"
-                android:checked="@={viewModel.isTextSelectable}"
-                android:onCheckedChanged="@{(switch, checked) -> viewModel.isTextSelectableChange(checked)}"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="@string/is_text_selectable"
-                tools:ignore="RtlHardcoded" />
+                <Switch
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:checked="@={viewModel.needShowFab}"
+                    android:onCheckedChanged="@{(switch, checked) -> viewModel.needShowFabChange(checked)}"
+                    android:switchPadding="@dimen/dimen_margin_8"
+                    android:text="@string/show_fab_text"
+                    tools:ignore="RtlHardcoded" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Подсказки по программе"
-                android:layout_marginTop="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/big_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:text="@string/display_options" />
 
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:switchPadding="@dimen/dimen_margin_8"
-                android:layout_marginLeft="@dimen/big_margin"
-                android:checked="@={viewModel.onStartMiniHelp}"
-                android:onCheckedChanged="@{(switch, checked) -> viewModel.isOnStartMiniHelpEnabled(checked)}"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="Отображение подсказок по интерфейсу при загрузке программы"
-                tools:ignore="RtlHardcoded" />
+                <Switch
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:layout_marginBottom="@dimen/middle_margin"
+                    android:checked="@={viewModel.isScreenAlwaysOn}"
+                    android:onCheckedChanged="@{(switch, checked) -> viewModel.isScreenAlwaysOnChange(checked)}"
+                    android:switchPadding="@dimen/dimen_margin_8"
+                    android:text="@string/do_not_turn_off_display"
+                    tools:ignore="RtlHardcoded" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="50dp"/>
+                <Switch
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:checked="@={viewModel.isYoutubeScreenAlwaysOn}"
+                    android:onCheckedChanged="@{(switch, checked) -> viewModel.isYoutubeScreenAlwaysOnChange(checked)}"
+                    android:switchPadding="@dimen/dimen_margin_8"
+                    android:text="@string/do_not_turn_off_youtube_display"
+                    tools:ignore="RtlHardcoded" />
 
-        </LinearLayout>
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/big_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:text="@string/text_selecting" />
 
-    </ScrollView>
+                <Switch
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:checked="@={viewModel.isTextSelectable}"
+                    android:onCheckedChanged="@{(switch, checked) -> viewModel.isTextSelectableChange(checked)}"
+                    android:switchPadding="@dimen/dimen_margin_8"
+                    android:text="@string/is_text_selectable"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/big_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:text="Подсказки по программе" />
+
+                <Switch
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/big_margin"
+                    android:checked="@={viewModel.onStartMiniHelp}"
+                    android:onCheckedChanged="@{(switch, checked) -> viewModel.isOnStartMiniHelpEnabled(checked)}"
+                    android:switchPadding="@dimen/dimen_margin_8"
+                    android:text="Отображение подсказок по интерфейсу при загрузке программы"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

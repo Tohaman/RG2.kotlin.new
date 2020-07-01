@@ -30,6 +30,7 @@ class MovesHelperDialog : DialogFragment() {
                     }
                 })
                 titleText.text = requireContext().getText(R.string.azbuka_dialog_title)
+                hint.text = "Щелкните, чтобы увидеть название"
 
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)

@@ -21,9 +21,9 @@ class InfoMiniHelpFragment : Fragment() {
         val binding = FragmentInfoMiniHelpBinding.inflate(inflater, container, false)
             .apply {
                 val randomItem = galleryDrawables.shuffled()[0]
-                sliderImage.images.setImageResource(randomItem.imageRes)
-                sliderImage.imageComment.text = randomItem.imageComment
-                sliderImage.images.setOnClickListener {
+                images.setImageResource(randomItem.imageRes)
+                imageComment.text = randomItem.imageComment
+                images.setOnClickListener {
                     findNavController().navigate(R.id.action_destInfo_to_showTipsDialog)
                 }
             }

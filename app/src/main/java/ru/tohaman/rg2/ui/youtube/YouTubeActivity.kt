@@ -1,18 +1,16 @@
 package ru.tohaman.rg2.ui.youtube
 
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.koin.android.ext.android.inject
-import org.koin.core.KoinComponent
 import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
@@ -29,6 +27,7 @@ class YouTubeActivity: MyDefaultActivity() {
     private var currentSecond = 0f
     private var startTime = 0f
     private lateinit var player: YouTubePlayer
+    private var currentState: PlayerConstants.PlayerState = PlayerConstants.PlayerState.UNKNOWN
     private val sp: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,16 +56,24 @@ class YouTubeActivity: MyDefaultActivity() {
         binding.youtubeView.enabled = true
         youTubePlayerView = binding.youtubeView.youtubePlayerView
         lifecycle.addObserver(youTubePlayerView)
-        youTubePlayerView.enterFullScreen()
+        //youTubePlayerView.enterFullScreen()
 
-        val uiController = youTubePlayerView.getPlayerUiController()
-        val backward10secDrawable = ContextCompat.getDrawable(this, R.drawable.ic_backward)!!
-        val forward10secDrawable = ContextCompat.getDrawable(this, R.drawable.ic_forward)!!
-        uiController.setCustomAction1(backward10secDrawable, backwardClickListener)
-        uiController.setCustomAction2(forward10secDrawable, forwardClickListener)
-        uiController.showCustomAction1(true)
-        uiController.showCustomAction2(true)
+//        val uiController = youTubePlayerView.getPlayerUiController()
+//        val backwardDrawable = ContextCompat.getDrawable(this, R.drawable.ic_backward)!!
+//        val forward10secDrawable = ContextCompat.getDrawable(this, R.drawable.ic_forward)!!
+//        uiController.setCustomAction1(backwardDrawable, backwardClickListener)
+//        uiController.setCustomAction2(forward10secDrawable, forwardClickListener)
+//        uiController.showCustomAction1(true)
+//        uiController.showCustomAction2(true)
 
+        binding.toMarkButton.setOnClickListener(toMarkClickListener)
+        binding.backButton.setOnClickListener(backwardClickListener)
+        binding.forwardButton.setOnClickListener(forwardClickListener)
+        binding.playPauseButton.setOnClickListener(playClickListener)
+
+
+        val playDrawable = ContextCompat.getDrawable(this, R.drawable.player_play)!!
+        val pauseDrawable = ContextCompat.getDrawable(this, R.drawable.player_pause)!!
 
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -80,26 +87,33 @@ class YouTubeActivity: MyDefaultActivity() {
                 currentSecond = second
                 super.onCurrentSecond(youTubePlayer, second)
             }
+
+            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+                currentState = state
+                if (state == PlayerConstants.PlayerState.PLAYING)
+                    binding.playPauseButton.background = pauseDrawable
+                else
+                    binding.playPauseButton.background = playDrawable
+                super.onStateChange(youTubePlayer, state)
+            }
         })
     }
 
-    private fun setDisplayOnProperties() {
-        // Проверяем значения из настроек, выключать экран или нет при прсмотре видео
-        val sleepOnYouTube = sp.getBoolean(IS_VIDEO_SCREEN_ON, false)
-        if (sleepOnYouTube) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        }
+    private val playClickListener = View.OnClickListener { _ ->
+        if (currentState == PlayerConstants.PlayerState.PLAYING)
+            player.pause()
+        else
+            player.play()
     }
 
-    //Нажатие левой кнопки (рядом с Play)
+    private val toMarkClickListener = View.OnClickListener { _ ->
+        player.seekTo(startTime)                        // Перемотка к месту откуда начали смотреть видео
+    }
+
     private val backwardClickListener = View.OnClickListener { _ ->
-        //player.seekTo(currentSecond - 10)         // Перемотаем на 10 сек назад
-        player.seekTo(startTime)                    // Перемотка к месту откуда начали смотреть видео
+        player.seekTo(currentSecond - 10)         // Перемотаем на 10 сек назад
     }
 
-    //Нажатие правой от Play кнопки
     private val forwardClickListener = View.OnClickListener { _ ->
         player.seekTo(currentSecond + 10)       //Перемотка на 10 сек вперед
     }
@@ -121,5 +135,15 @@ class YouTubeActivity: MyDefaultActivity() {
         val second = calendar.get(Calendar.SECOND)
         val minute = calendar.get(Calendar.MINUTE)
         return (minute * 60 + second).toFloat()
+    }
+
+    private fun setDisplayOnProperties() {
+        // Проверяем значения из настроек, выключать экран или нет при прсмотре видео
+        val sleepOnYouTube = sp.getBoolean(IS_VIDEO_SCREEN_ON, false)
+        if (sleepOnYouTube) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
     }
 }

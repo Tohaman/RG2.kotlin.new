@@ -54,4 +54,24 @@
     <color name="primary_dark_material_light_1">#e51313</color>
     <color name="dark_red">#b71c1c</color>
     <color name="textColorTertiaryLight">#AA000000</color>
+
+    <color name="colorGold">#FFC107</color>
+
+    <color name="colorPurple">#B33771</color>
+    <color name="colorPurpleDark">#6D214F</color>
+
+    <color name="colorRed">#FF6B81</color>
+    <color name="colorRedDark">#FF4757</color>
+
+    <color name="colorIndigo">#3B3B98</color>
+    <color name="colorIndigoDark">#182C61</color>
+
+    <color name="colorGreen">#05c46B</color>
+    <color name="colorGreenDark">#028146</color>
+
+    <color name="colorOrange">#FFC107</color>
+    <color name="colorOrangeDark">#FF5722</color>
+    <color name="colorOrangeDark2">#B71C1C</color>
+
+
 </resources>

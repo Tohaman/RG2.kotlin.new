@@ -8,19 +8,72 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/youtube_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_margin="@dimen/dimen_margin_8"
             layout="@layout/include_youtube_player"
             android:layout_gravity="center"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_panel"
             />
 
-    </LinearLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/button_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/to_mark_button"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/player_mark"
+                android:layout_margin="@dimen/middle_margin"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/back_button"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/player_back"
+                android:layout_margin="@dimen/middle_margin"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/play_pause_button"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/player_play"
+                android:layout_margin="@dimen/middle_margin"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/forward_button"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/player_forward"
+                android:layout_margin="@dimen/middle_margin"
+                />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

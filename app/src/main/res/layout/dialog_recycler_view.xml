@@ -57,6 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
             <TextView
+                android:id="@+id/hint"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/small_margin"
