@@ -17,7 +17,6 @@ import ru.tohaman.rg2.databinding.DialogGetLetterBinding
 import ru.tohaman.rg2.databinding.DialogGetScrambleBinding
 import ru.tohaman.rg2.databinding.FragmentGamesScrambleGeneratorBinding
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
-import ru.tohaman.rg2.ui.youtube.YouTubeFragmentArgs
 import timber.log.Timber
 
 class ScrambleGeneratorFragment: Fragment() {
