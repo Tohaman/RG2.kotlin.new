@@ -3,9 +3,13 @@ package ru.tohaman.rg2.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
@@ -86,4 +90,5 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
             }
         }
     }
+
 }
