@@ -120,4 +120,6 @@
     <string name="editCommentHint">или алгоритм</string>
     <string name="editCommentTitle">Напишите свой комментарий:</string>
     <string name="favourite_hint">Открывайте, удаляйте или меняйте местами выбранные обучалки</string>
+    <string name="mini_help_settings_text">Подсказки по программе</string>
+    <string name="mini_help_settings_switch_text">Отображение подсказок по интерфейсу при загрузке программы</string>
 </resources>

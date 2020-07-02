@@ -19,9 +19,14 @@ object Constants {
     //Константы для увеличения/уменьшения размера текста
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта
     const val step = 0.15f                                  //шаг увеличения коэффициента
+    //Другие настройки программы
     const val IS_SCREEN_ALWAYS_ON = "isScreenAlwaysON"      //Не выключаьб экран, если приложение запущено
     const val IS_VIDEO_SCREEN_ON = "isYouTubeDisplayAlwaysOn"   //Не выключать экран при просмотре YouTube в отдельном окне
     const val IS_TEXT_SELECTABLE = "isTextSelectable"       //Возможность выделить/скопировать текст из обучалки
+    //Использование интернета
+    const val ALL_INTERNET = "useAllInternet"               //Используем любой доступный интернет (Boolean)
+    const val ONLY_WIFI = "useOnlyWiFi"                     //Используем интернет только при наличии Wi-Fi (Boolean)
+    const val NOT_USE_INTERNET = "doNotUseInternet"         //Не использовать интернет
 
     //Настройки Генератора скрмблов
     const val CURRENT_SCRAMBLE = "currentScramble"          //Последний придуманный скрамбл (текущий) (String)
