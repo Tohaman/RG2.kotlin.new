@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="android.view.View" />
-
         <variable
             name="title"
             type="String" />
-
-        <variable
-            name="viewModel"
-            type="ru.tohaman.rg2.ui.learn.LearnDetailViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

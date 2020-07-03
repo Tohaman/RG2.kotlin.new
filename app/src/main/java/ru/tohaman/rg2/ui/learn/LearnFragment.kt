@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
@@ -60,6 +61,12 @@ class LearnFragment : Fragment() {
                 viewModel = learnViewModel
                 learnViewPager.adapter = adapter
                 learnViewPager.offscreenPageLimit = 5
+
+                learnViewModel.currentCubeType.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        learnViewPager.setCurrentItem(it,false)
+                    }
+                })
 
                 learnViewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {

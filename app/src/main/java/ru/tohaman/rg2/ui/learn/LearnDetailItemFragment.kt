@@ -13,10 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import org.jetbrains.annotations.NotNull
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.rg2.Constants.CUR_ITEM_ID
 import ru.tohaman.rg2.Constants.IS_TEXT_SELECTABLE
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
@@ -29,7 +29,6 @@ import java.lang.Exception
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
-    private val sp: SharedPreferences by inject()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
     private lateinit var item: MainDBItem
@@ -38,11 +37,9 @@ class LearnDetailItemFragment : Fragment() {
     //т.к. это фрагмент (страница) внутри ViewPager,
     //то передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
-        private const val CUR_ITEM_ID = "itemId"
-
-        fun newInstance(mainDBItem: MainDBItem) = LearnDetailItemFragment().apply {
+        fun newInstance(fragmentId: Int) = LearnDetailItemFragment().apply {
             arguments = Bundle().apply {
-                putInt(CUR_ITEM_ID, mainDBItem.id)
+                putInt(CUR_ITEM_ID, fragmentId)
             }
         }
     }
@@ -50,8 +47,8 @@ class LearnDetailItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            fragmentNum = detailViewModel.getNumByID(it.getInt(CUR_ITEM_ID))
-            Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
+            fragmentNum = it.getInt(CUR_ITEM_ID)
+           // Timber.d("$TAG Фрагмент получаем номер фрагмента из Bundle = $fragmentNum")
         }
 
     }
@@ -64,30 +61,11 @@ class LearnDetailItemFragment : Fragment() {
             .apply {
                 // Делаем ссылки кликабельными
                 content.descriptionText.movementMethod = LinkMovementMethod.getInstance()
-                val isTextSelectable = sp.getBoolean(IS_TEXT_SELECTABLE, false)
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         //Timber.d("$TAG Фрагмент = $fragmentNum, $it.size")
-                        if (fragmentNum < it.size) {
-                            item = it[fragmentNum]
-                            mainDBItem = item
-                            content.descriptionText.setTextIsSelectable(isTextSelectable)
-                            content.urlClick = clickableText()
-
-                            content.titleText.setTextIsSelectable(isTextSelectable)
-                            content.youtubeView.enabled = item.url != ""
-                        }
-                    }
-                })
-
-                val youTubePlayerView = content.youtubeView.youtubePlayerView
-                lifecycle.addObserver(youTubePlayerView)
-
-                youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                    override fun onReady(youTubePlayer: YouTubePlayer) {
-                        val videoId = item.url
-                        youTubePlayer.cueVideo(videoId, 0f)
+                        setViewElementsProperties(it)
                     }
                 })
 
@@ -98,7 +76,30 @@ class LearnDetailItemFragment : Fragment() {
         return binding.root
     }
 
-    //Обработчик сликов по ссылкам в тексте, который передаем в TextView
+    private fun @NotNull FragmentLearnDetailItemBinding.setViewElementsProperties(itemsList: List<MainDBItem>) {
+        if (fragmentNum < itemsList.size) {            //На всякий случай проверяем, что номер фрагмента не больше, чем размер List, иначе не сможем получить данные из List'a
+            item = itemsList[fragmentNum]
+            mainDBItem = item
+            content.urlClick = clickableText()
+            content.descriptionText.setTextIsSelectable(detailViewModel.isTextSelectable)
+            content.titleText.setTextIsSelectable(detailViewModel.isTextSelectable)
+
+            //Если надо отображать плеер, то инициализируем его
+            if (detailViewModel.isYouTubePlayerEnabled(fragmentNum)) {
+                content.youtubeView.enabled = true
+                val youTubePlayerView = content.youtubeView.youtubePlayerView
+                lifecycle.addObserver(youTubePlayerView)
+                youTubePlayerView.addYouTubePlayerListener(
+                    detailViewModel.youTubePlayerListener(fragmentNum)
+                )
+            } else {
+                content.youtubeView.enabled = false
+            }
+        }
+    }
+
+    //Обработчик сликов по ссылкам в тексте, который передаем в TextView, тут обрабатываем только клики по переходам к другому этапу
+    //генератор скрамблов и видео открываем стандартным обработчиком в MakeLinksClickable.kt
     private fun clickableText(): ClickTextHolder {
         return object : ClickTextHolder {
             override fun onUrlClick(url: String): Boolean {

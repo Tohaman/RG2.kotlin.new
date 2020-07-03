@@ -114,7 +114,7 @@ fun toast(message: String, view: View) {
 
 @Suppress("DEPRECATION")
 fun getConnectionType(context: Context): Int {
-    var result = 0 // Returns connection type. 0: none; 1: mobile data; 2: wifi
+    var result = 0 // Returns connection type. 0: none; 1: mobile data; 2: wifi; 3: vpn
     val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         cm?.run {
@@ -137,6 +137,7 @@ fun getConnectionType(context: Context): Int {
             }
         }
     }
+    //Timber.d("$TAG .getConnectionType result = [${result}]")
     return result
 }
 
@@ -168,6 +169,7 @@ enum class Status {
     LOADING
 }
 
+//Класс для одноразового вызова из viewModel вызовом call()
 class SingleLiveEvent<T> : MutableLiveData<T>() {
     private val mPending: AtomicBoolean = AtomicBoolean(false)
 

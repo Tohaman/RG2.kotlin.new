@@ -66,6 +66,8 @@ class FavouritesDialog : DialogFragment() {
             Timber.d("$TAG popBackStack")
             findNavController().popBackStack()
         }
+        //меняем тип головоломки (переходим на закладку с головоломкой)
+        learnViewModel.changeTypeAndPhase(menuItem.phase)
         if (menuItem.url == "submenu") {
             learnViewModel.onMainMenuItemClick(menuItem)
         } else {

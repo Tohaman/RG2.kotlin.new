@@ -177,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/big_margin"
                     android:layout_marginBottom="@dimen/small_margin"
-                    android:text="Использование интернета" />
+                    android:text="@string/using_internet" />
 
                 <TextView
                     style="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -185,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/big_margin"
                     android:layout_marginBottom="@dimen/small_margin"
-                    android:text="Все используемые в программе видео занимают очень много места (не один Тб) и сохранять их все в памяти телефона не имеет смысла, поэтому используется онлайн просмотр видео и для их просмотра требуется интернет. Вы можете ограничить использование интернета программой." />
+                    android:text="@string/youtube_video_warning" />
 
                 <RadioButton
                     style="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -195,7 +195,7 @@
                     android:checked="@={viewModel.allInternet}"
                     android:layoutDirection="rtl"
                     android:onClick="@{() -> viewModel.allInternetSelect()}"
-                    android:text="Любой доступный интернет (3G/4G/Wi-Fi)" />
+                    android:text="@string/use_all_internet" />
 
                 <RadioButton
                     style="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -205,7 +205,7 @@
                     android:checked="@={viewModel.onlyWiFi}"
                     android:layoutDirection="rtl"
                     android:onClick="@{() -> viewModel.onlyWiFiSelect()}"
-                    android:text="Только Wi-Fi" />
+                    android:text="@string/use_wifi" />
 
                 <RadioButton
                     style="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -215,7 +215,7 @@
                     android:checked="@={viewModel.doNotUseInternet}"
                     android:layoutDirection="rtl"
                     android:onClick="@{() -> viewModel.doNotUseInternetSelect()}"
-                    android:text="Не использовать интернет (без просмотра видео)"/>
+                    android:text="@string/do_not_use_internet"/>
 
             </LinearLayout>
 

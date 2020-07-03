@@ -122,4 +122,10 @@
     <string name="favourite_hint">Открывайте, удаляйте или меняйте местами выбранные обучалки</string>
     <string name="mini_help_settings_text">Подсказки по программе</string>
     <string name="mini_help_settings_switch_text">Отображение подсказок по интерфейсу при загрузке программы</string>
+    <string name="check_internet_access">Проверьте доступность интернета</string>
+    <string name="youtube_video_warning">Используемые в программе видео занимают очень много места и сохранить их все в памяти телефона НЕВОЗМОЖНО, поэтому для просмотра видео требуется интернет. Вы можете ограничить использование интернета программой.</string>
+    <string name="use_all_internet">Использоввать любой доступный интернет (3G/4G/Wi-Fi)</string>
+    <string name="use_wifi">Использовать только Wi-Fi</string>
+    <string name="do_not_use_internet">Не использовать интернет (без просмотра видео)</string>
+    <string name="using_internet">Использование интернета</string>
 </resources>

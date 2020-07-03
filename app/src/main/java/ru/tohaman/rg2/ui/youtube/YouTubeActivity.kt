@@ -13,6 +13,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
+import ru.tohaman.rg2.Constants.LINK
+import ru.tohaman.rg2.Constants.TIME
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.ActivityYoutubeBinding
@@ -36,8 +38,8 @@ class YouTubeActivity: MyDefaultActivity() {
 //        var timeFromArgs: String = "0:00"
 //        data?.getQueryParameter("time")?.let { timeFromArgs = it }
 //        data?.getQueryParameter("link")?.let { videoId = it }
-        val timeFromArgs = intent.getStringExtra("time") ?: "0:00"
-        val videoId = intent.getStringExtra("link") ?: "Kul7jGhYiPQ"
+        val timeFromArgs = intent.getStringExtra(TIME) ?: "0:00"
+        val videoId = intent.getStringExtra(LINK) ?: "Kul7jGhYiPQ"
         Timber.d ("$TAG startYouTube with - $data, $timeFromArgs, $videoId")
 
         youTubeViewModel.setStartTime(timeFromArgs)

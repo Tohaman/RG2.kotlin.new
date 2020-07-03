@@ -4,13 +4,21 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.preference.PreferenceManager
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
+import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.LINK
+import ru.tohaman.rg2.Constants.TIME
 import ru.tohaman.rg2.DebugTag.TAG
+import ru.tohaman.rg2.R
 import ru.tohaman.rg2.ui.games.ScrambleGeneratorFragmentDirections
 import ru.tohaman.rg2.ui.youtube.YouTubeActivity
 import timber.log.Timber
@@ -35,9 +43,10 @@ object MakeLinksClickable {
 
     class CustomerTextClick(var url: String, var clickTextHolder: ClickTextHolder?) : ClickableSpan() {
         override fun onClick(widget: View) {
+            val ctx = widget.context
             //Пробуем обработать строку во внешнем обработчике,
             var internalCall = clickTextHolder?.onUrlClick(url) ?: false
-            //если он не смог, то проверяем стандартные для программы
+            //если он не смог, то проверяем на внутренние обработчики
             if (!internalCall) {
                 when {
                     url.startsWith("rg2://scrmbl", true) or url.startsWith("rg2://scramble",true) -> {
@@ -47,19 +56,24 @@ object MakeLinksClickable {
                         internalCall = true
                     }
                     url.startsWith("rg2://ytplay", true) or url.startsWith("rg2://player", true) -> {
-//                        widget.findNavController().navigate(
-//                            LearnDetailFragmentDirections.actionDestLearnDetailsToYouTubeActivity(getTimeFromUrl(url), getLinkFromUrl(url))
-//                        )
-                        val intent = Intent(widget.context, YouTubeActivity::class.java)
-                        intent.putExtra("time", getTimeFromUrl(url) )
-                        intent.putExtra("link", getLinkFromUrl(url) )
-                        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-                        widget.context.startActivity(intent)
-                        internalCall = true
+                        if ((getConnectionType(ctx) > getInternetLimits(ctx))) {
+                            val intent = Intent(ctx, YouTubeActivity::class.java)
+                            intent.putExtra(TIME, getTimeFromUrl(url))
+                            intent.putExtra(LINK, getLinkFromUrl(url))
+                            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                            ctx.startActivity(intent)
+                            internalCall = true
+                        } else {
+                            Snackbar.make(widget, ctx.getString(R.string.check_internet_access), Snackbar.LENGTH_SHORT)
+                                .setAction(ctx.getString(R.string.ok)) { }
+                                .setActionTextColor(ContextCompat.getColor(ctx, R.color.colorAccent))
+                                .show()
+                        }
                     }
                 }
             }
-            //Если ссылка не подходит и внутреннему обработчику, то пробуем открыть как обычную ссылку
+            //Если ссылка не подходит и внутреннему обработчику, то пробуем открыть как обычную ссылку браузером
+            //canOpen = смогли ли обработать ссылку хоть каким-то обработчиком или браузером
             val canOpen = if (internalCall) true
                 else widget.context.browse(url, false)
 
@@ -85,6 +99,21 @@ fun Context.browse(url: String, newTask: Boolean = false): Boolean {
     } catch (e: ActivityNotFoundException) {
         e.printStackTrace()
         false
+    }
+}
+
+
+//Получаем текущий лимит на использование интернета установленный в настройках, 0 - любой, 1 - WiFi, интернет недоступен - 4
+//потом будем сравнивать с текущим доступным в системе 0 - недоступен, 1 - 3G/4G, 2 - WiFi, 3 - VPN
+private fun getInternetLimits(context: Context): Int {
+    //val sp = context.getSharedPreferences("${context.applicationInfo.packageName}_preferences", Context.MODE_PRIVATE)
+    val sp = PreferenceManager.getDefaultSharedPreferences(context)
+    val allInternet = sp.getBoolean(Constants.ALL_INTERNET, true)
+    val wiFi = sp.getBoolean(Constants.ONLY_WIFI, false)
+    return when {
+        allInternet -> 0
+        wiFi -> 1
+        else -> 4
     }
 }
 

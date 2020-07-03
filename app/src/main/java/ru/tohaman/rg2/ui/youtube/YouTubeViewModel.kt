@@ -43,11 +43,14 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
     }
 
     fun onForwardClick() {
-        player.seekTo(currentSecond + 10)
+        currentSecond += 10
+        player.seekTo(currentSecond)
     }
 
     fun onBackwardClick() {
-        player.seekTo(currentSecond - 10)
+        currentSecond -= 10
+        if (currentSecond < 0) currentSecond = 0f
+        player.seekTo(currentSecond)
     }
 
     fun onPlayPauseClick() {

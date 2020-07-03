@@ -109,14 +109,15 @@ class LearnMenuFragment : Fragment() {
 
     private fun onMenuItemClick(item: MainDBItem) {
         Timber.d("$TAG onItemClick - ${item.id}, ${item.phase}")
-    if (item.url == "submenu") {
-        learnViewModel.onMainMenuItemClick(item)
-    } else {
-        findNavController().navigate(
+        //learnViewModel.changeTypeAndPhase(item.phase)         //Разблокировать если нужно перейти на закладку головоломки (сменить тип)
+        if (item.url == "submenu") {
+            learnViewModel.onMainMenuItemClick(item)
+        } else {
             //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
             //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
-            LearnFragmentDirections.actionToLearnDetails(item.id, item.phase)
-        )
+            findNavController().navigate(
+                LearnFragmentDirections.actionToLearnDetails(item.id, item.phase)
+            )
+        }
     }
-}
 }

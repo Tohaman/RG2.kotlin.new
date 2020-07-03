@@ -70,6 +70,13 @@ object Constants {
     const val CURRENT_AZBUKA = "CURRENT_AZBUKA"             //Текущая азбука
     const val CUSTOM_AZBUKA = "CUSTOM_AZBUKA"               //Сохраненная пользовательская азбука
 
+    //Для передачи номера фрагмента во фрагмент
+    const val CUR_ITEM_ID = "itemId"                //id в фазе для выбранного фрагмента
+
+    //Для приема/передачи параметров видео
+    const val TIME = "time"
+    const val LINK = "link"
+
     val galleryDrawables = listOf(
         TipsItem(R.drawable.frame_1, "Обязательно прочитайте этот раздел"),
         TipsItem(R.drawable.frame_10, "Смотрите в видео, как правильно выполнять алгоритмы"),
