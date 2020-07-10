@@ -128,4 +128,5 @@
     <string name="use_wifi">Использовать только Wi-Fi</string>
     <string name="do_not_use_internet">Не использовать интернет (без просмотра видео)</string>
     <string name="using_internet">Использование интернета</string>
+    <string name="tap_to_see_hint">Нажмите, чтобы увидеть название</string>
 </resources>

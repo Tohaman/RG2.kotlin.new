@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.ALG
 import ru.tohaman.rg2.Constants.LINK
 import ru.tohaman.rg2.Constants.TIME
 import ru.tohaman.rg2.DebugTag.TAG
@@ -60,6 +61,7 @@ object MakeLinksClickable {
                             val intent = Intent(ctx, YouTubeActivity::class.java)
                             intent.putExtra(TIME, getTimeFromUrl(url))
                             intent.putExtra(LINK, getLinkFromUrl(url))
+                            intent.putExtra(ALG, getAlgFromUrl(url))
                             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
                             ctx.startActivity(intent)
                             internalCall = true
@@ -127,7 +129,7 @@ fun getScrambleFromUrl(url: String): String {
     return scramble
 }
 
-//получаем время из строки вида "rg2://player/time=0:41/link=QJ8-8l9dQ_U" или "rg2://ytplay?time=0:41&link=QJ8-8l9dQ_U"
+//получаем время из строки вида "rg2://player/time=0:41/link=QJ8-8l9dQ_U" или "rg2://ytplay?time=17:33&link=Oh7HESee4wY&alg=F (R U R’ U’)(R U R’ U’) F’"
 fun getTimeFromUrl(url: String): String {
     val time =      //берем все что после time= и до & или /
         url.substringAfter("time=")
@@ -138,7 +140,17 @@ fun getTimeFromUrl(url: String): String {
 }
 
 fun getLinkFromUrl(url: String): String {
-    val phase = url.substringAfter("link=")
-    Timber.d("$TAG .getTimeFromUrl $url from url = [${url}]")
-    return phase
+    val link =
+        url.substringAfter("link=")
+            .substringBefore("&")
+    Timber.d("$TAG .getLinkFromUrl $link from url = [${url}]")
+    return link
+}
+
+fun getAlgFromUrl(url: String): String {
+    val alg =
+        url.substringAfter("link=")
+            .substringBefore("&")
+    Timber.d("$TAG .getAlgFromUrl $alg from url = [${url}]")
+    return alg
 }

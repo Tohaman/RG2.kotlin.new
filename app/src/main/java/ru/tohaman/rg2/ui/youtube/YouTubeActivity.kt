@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.tohaman.rg2.Constants.ALG
 import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
 import ru.tohaman.rg2.Constants.LINK
 import ru.tohaman.rg2.Constants.TIME
@@ -40,10 +41,12 @@ class YouTubeActivity: MyDefaultActivity() {
 //        data?.getQueryParameter("link")?.let { videoId = it }
         val timeFromArgs = intent.getStringExtra(TIME) ?: "0:00"
         val videoId = intent.getStringExtra(LINK) ?: "Kul7jGhYiPQ"
-        Timber.d ("$TAG startYouTube with - $data, $timeFromArgs, $videoId")
+        val algorithm = intent.getStringExtra(ALG) ?: ""
+        Timber.d ("$TAG startYouTube with - $data, $timeFromArgs, $videoId, $algorithm")
 
         youTubeViewModel.setStartTime(timeFromArgs)
         youTubeViewModel.videoId = videoId
+        youTubeViewModel.algorithm = algorithm
 
         DataBindingUtil.setContentView<ActivityYoutubeBinding>(this, R.layout.activity_youtube)
             .apply {

@@ -70,11 +70,20 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             val showFab = sp.getBoolean(Constants.SHOW_FAB, true)
             needShowFab.set(showFab)
             cubeTypes.map {
-                val list = getPhaseFromRepository(it.curPhase)
+                var list = getPhaseFromRepository(it.curPhase)
+                if (it.curPhase != it.initPhase) {
+                    list = addBackItem(list)
+                }
                 //Заменяем пустой MediatorLiveData() на значение из базы
                 mainDBItemsMediatorArray[it.id].postValue(list)
             }
         }
+    }
+
+    private fun addBackItem(list: List<MainDBItem>): List<MainDBItem> {
+
+
+        return list
     }
 
     fun getCurrentType(): Int {

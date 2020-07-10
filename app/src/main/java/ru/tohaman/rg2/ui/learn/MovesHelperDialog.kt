@@ -29,8 +29,8 @@ class MovesHelperDialog : DialogFragment() {
                         toast(menuItem.toast, root)
                     }
                 })
-                titleText.text = requireContext().getText(R.string.azbuka_dialog_title)
-                hint.text = "Щелкните, чтобы увидеть название"
+                titleText.text = getString(R.string.azbuka_dialog_title)
+                hint.text = getString(R.string.tap_to_see_hint)
 
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)

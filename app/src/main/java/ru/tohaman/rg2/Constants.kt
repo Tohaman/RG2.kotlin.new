@@ -76,6 +76,7 @@ object Constants {
     //Для приема/передачи параметров видео
     const val TIME = "time"
     const val LINK = "link"
+    const val ALG = "alg"
 
     val galleryDrawables = listOf(
         TipsItem(R.drawable.frame_1, "Обязательно прочитайте этот раздел"),

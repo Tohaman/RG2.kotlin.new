@@ -19,6 +19,7 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
     private var startTime = 0f
     private var currentSecond = 0f
     var videoId = ""
+    var algorithm = ""
 
     var youTubePlayerListener = object : AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
