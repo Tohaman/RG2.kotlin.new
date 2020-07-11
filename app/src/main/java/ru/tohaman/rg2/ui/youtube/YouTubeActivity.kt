@@ -46,7 +46,7 @@ class YouTubeActivity: MyDefaultActivity() {
 
         youTubeViewModel.setStartTime(timeFromArgs)
         youTubeViewModel.videoId = videoId
-        youTubeViewModel.algorithm = algorithm
+        youTubeViewModel.algorithm.set(algorithm)
 
         DataBindingUtil.setContentView<ActivityYoutubeBinding>(this, R.layout.activity_youtube)
             .apply {

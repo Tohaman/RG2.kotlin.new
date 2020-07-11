@@ -42,7 +42,7 @@ object MakeLinksClickable {
         return style
     }
 
-    class CustomerTextClick(var url: String, var clickTextHolder: ClickTextHolder?) : ClickableSpan() {
+    class CustomerTextClick(var url: String, private var clickTextHolder: ClickTextHolder?) : ClickableSpan() {
         override fun onClick(widget: View) {
             val ctx = widget.context
             //Пробуем обработать строку во внешнем обработчике,
@@ -148,9 +148,12 @@ fun getLinkFromUrl(url: String): String {
 }
 
 fun getAlgFromUrl(url: String): String {
-    val alg =
-        url.substringAfter("link=")
-            .substringBefore("&")
-    Timber.d("$TAG .getAlgFromUrl $alg from url = [${url}]")
-    return alg
+    return if (url.contains("alg=")) {
+        val alg =
+            url.substringAfter("alg=")
+                .substringBefore("&")
+                .replace("_"," ")
+        Timber.d("$TAG .getAlgFromUrl $alg from url = [${url}]")
+        alg
+    } else ""
 }

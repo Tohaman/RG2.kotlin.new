@@ -16,6 +16,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/youtube_view"
+            tools:text="R U R' U'"
+            android:text="@{viewModel.algorithm}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/mid_padding"
+            />
+
         <include
             android:id="@+id/youtube_view"
             android:layout_width="0dp"

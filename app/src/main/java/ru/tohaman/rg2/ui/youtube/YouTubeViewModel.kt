@@ -1,12 +1,15 @@
 package ru.tohaman.rg2.ui.youtube
 
+import androidx.annotation.NonNull
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import org.koin.core.KoinComponent
 import ru.tohaman.rg2.DebugTag
+import ru.tohaman.rg2.DebugTag.TAG
 import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -19,7 +22,7 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
     private var startTime = 0f
     private var currentSecond = 0f
     var videoId = ""
-    var algorithm = ""
+    var algorithm = ObservableField<String>("")
 
     var youTubePlayerListener = object : AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -27,6 +30,12 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
             //loadVideo - с автостартом
             youTubePlayer.loadVideo(videoId, currentSecond)
             player = youTubePlayer
+
+        }
+
+        override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) {
+            super.onPlaybackRateChange(youTubePlayer, playbackRate)
+            Timber.d("$TAG .onPlaybackRateChange playbackRate = [${playbackRate}]")
         }
 
         override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
@@ -38,6 +47,7 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
             currentState.set(state)
         }
     }
+
 
     fun onMarkClick() {
         player.seekTo(startTime)
