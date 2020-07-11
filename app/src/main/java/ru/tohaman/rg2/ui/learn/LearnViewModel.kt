@@ -2,6 +2,7 @@ package ru.tohaman.rg2.ui.learn
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +15,11 @@ import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.CUR_CUBE_TYPE
 import ru.tohaman.rg2.Constants.FAVOURITES
 import ru.tohaman.rg2.DebugTag.TAG
+import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.entitys.CubeType
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
+import ru.tohaman.rg2.utils.Resource
 import timber.log.Timber
 
 
@@ -72,7 +75,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             cubeTypes.map {
                 var list = getPhaseFromRepository(it.curPhase)
                 if (it.curPhase != it.initPhase) {
-                    list = addBackItem(list)
+                    list = addBackItem(list, it.initPhase)
                 }
                 //Заменяем пустой MediatorLiveData() на значение из базы
                 mainDBItemsMediatorArray[it.id].postValue(list)
@@ -80,10 +83,14 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    private fun addBackItem(list: List<MainDBItem>): List<MainDBItem> {
-
-
-        return list
+    private fun addBackItem(list: List<MainDBItem>, initPhase: String): List<MainDBItem> {
+        Timber.d("$TAG .addBackItem list = [${list}], initPhase = [${initPhase}]")
+        val res = R.drawable.ic_arrow_up
+        val backPhase = if (initPhase == FAVOURITES) initPhase else backFrom[list[0].phase] ?: initPhase
+        val backItem = MainDBItem(backPhase,0, "...", res, 0, "submenu")
+        val newList = list.toMutableList()
+        newList.add(0, backItem)
+        return newList
     }
 
     fun getCurrentType(): Int {
@@ -158,8 +165,11 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         Timber.d("$TAG updateCurrentPhasesToArray curTypes = ${cubeTypes[_currentCubeType]}")
         viewModelScope.launch (Dispatchers.IO){
             cubeTypes.map {
-                val listItem = getPhaseFromRepository(it.curPhase)
-                mainDBItemsMediatorArray[it.id].postValue(listItem)
+                var list = getPhaseFromRepository(it.curPhase)
+                if (it.curPhase != it.initPhase) {
+                    list = addBackItem(list, it.initPhase)
+                }
+                mainDBItemsMediatorArray[it.id].postValue(list)
             }
         }
     }
@@ -175,7 +185,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     fun onMainMenuItemClick(menuItem: MainDBItem) {
-        val phase = ctx.getString(menuItem.description)
+        val phase = if (menuItem.description != 0) ctx.getString(menuItem.description) else menuItem.phase
         Timber.d( "$TAG Selected_Page $_currentCubeType - setToPhase - $phase")
         changePhaseTo(phase)
     }
