@@ -80,7 +80,7 @@ class FillDB {
             phaseInit("FISHER", R.array.fisher_title, R.array.fisher_icon,R.array.fisher_descr,R.array.fisher_url,context)
             phaseInit("GEAR", R.array.gear_title, R.array.gear_icon,R.array.gear_descr,R.array.gear_url,context)
             phaseInit("GHOST", R.array.ghost_title, R.array.ghost_icon,R.array.ghost_descr,R.array.ghost_url,context)
-            phaseInit("INTF2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
+            phaseInit("INT_F2L", R.array.int_f2l_title, R.array.int_f2l_icon, R.array.int_f2l_descr, R.array.int_f2l_url, context)
             phaseInit("IVY", R.array.ivy_title, R.array.ivy_icon,R.array.ivy_descr,R.array.ivy_url,context)
             phaseInit("KEYHOLE", R.array.keyhole_title, R.array.keyhole_icon,R.array.keyhole_descr,R.array.keyhole_url,context)
             phaseInit("MEGAMINX", R.array.megaminx_title, R.array.megaminx_icon,R.array.megaminx_descr,R.array.megaminx_url,context)

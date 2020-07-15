@@ -4,15 +4,24 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.preference.PreferenceManager
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
+import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.ALG
+import ru.tohaman.rg2.Constants.LINK
+import ru.tohaman.rg2.Constants.TIME
 import ru.tohaman.rg2.DebugTag.TAG
+import ru.tohaman.rg2.R
 import ru.tohaman.rg2.ui.games.ScrambleGeneratorFragmentDirections
-import ru.tohaman.rg2.ui.learn.LearnFragmentDirections
+import ru.tohaman.rg2.ui.youtube.YouTubeActivity
 import timber.log.Timber
 
 
@@ -35,9 +44,10 @@ object MakeLinksClickable {
 
     class CustomerTextClick(var url: String, var clickTextHolder: ClickTextHolder?) : ClickableSpan() {
         override fun onClick(widget: View) {
+            val ctx = widget.context
             //Пробуем обработать строку во внешнем обработчике,
-            var internalCall = false //clickTextHolder?.onUrlClick(url) ?: false
-            //если он не смог, то проверяем стандартные для программы
+            var internalCall = clickTextHolder?.onUrlClick(url) ?: false
+            //если он не смог, то проверяем на внутренние обработчики
             if (!internalCall) {
                 when {
                     url.startsWith("rg2://scrmbl", true) or url.startsWith("rg2://scramble",true) -> {
@@ -47,14 +57,25 @@ object MakeLinksClickable {
                         internalCall = true
                     }
                     url.startsWith("rg2://ytplay", true) or url.startsWith("rg2://player", true) -> {
-                        widget.findNavController().navigate(
-                            LearnFragmentDirections.actionGlobalYouTubeFragment(getTimeFromUrl(url), getLinkFromUrl(url))
-                        )
-                        internalCall = true
+                        if ((getConnectionType(ctx) > getInternetLimits(ctx))) {
+                            val intent = Intent(ctx, YouTubeActivity::class.java)
+                            intent.putExtra(TIME, getTimeFromUrl(url))
+                            intent.putExtra(LINK, getLinkFromUrl(url))
+                            intent.putExtra(ALG, getAlgFromUrl(url))
+                            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                            ctx.startActivity(intent)
+                            internalCall = true
+                        } else {
+                            Snackbar.make(widget, ctx.getString(R.string.check_internet_access), Snackbar.LENGTH_SHORT)
+                                .setAction(ctx.getString(R.string.ok)) { }
+                                .setActionTextColor(ContextCompat.getColor(ctx, R.color.colorAccent))
+                                .show()
+                        }
                     }
                 }
             }
-            //Если ссылка не подходит и внутреннему обработчику, то пробуем открыть как обычную ссылку
+            //Если ссылка не подходит и внутреннему обработчику, то пробуем открыть как обычную ссылку браузером
+            //canOpen = смогли ли обработать ссылку хоть каким-то обработчиком или браузером
             val canOpen = if (internalCall) true
                 else widget.context.browse(url, false)
 
@@ -83,6 +104,21 @@ fun Context.browse(url: String, newTask: Boolean = false): Boolean {
     }
 }
 
+
+//Получаем текущий лимит на использование интернета установленный в настройках, 0 - любой, 1 - WiFi, интернет недоступен - 4
+//потом будем сравнивать с текущим доступным в системе 0 - недоступен, 1 - 3G/4G, 2 - WiFi, 3 - VPN
+private fun getInternetLimits(context: Context): Int {
+    //val sp = context.getSharedPreferences("${context.applicationInfo.packageName}_preferences", Context.MODE_PRIVATE)
+    val sp = PreferenceManager.getDefaultSharedPreferences(context)
+    val allInternet = sp.getBoolean(Constants.ALL_INTERNET, true)
+    val wiFi = sp.getBoolean(Constants.ONLY_WIFI, false)
+    return when {
+        allInternet -> 0
+        wiFi -> 1
+        else -> 4
+    }
+}
+
 //получаем нормальный скрамбл из строки вида rg2://scrmbl?scram=D2_F\'_R_L_U_R\'_D\'_B2_R\'_F2_R2_U2_R2_U\'
 fun getScrambleFromUrl(url: String): String {
     //берем только часть строки после scram=
@@ -93,7 +129,7 @@ fun getScrambleFromUrl(url: String): String {
     return scramble
 }
 
-//получаем время из строки вида "rg2://player/time=0:41/link=QJ8-8l9dQ_U" или "rg2://ytplay?time=0:41&link=QJ8-8l9dQ_U"
+//получаем время из строки вида "rg2://player/time=0:41/link=QJ8-8l9dQ_U" или "rg2://ytplay?time=17:33&link=Oh7HESee4wY&alg=F (R U R’ U’)(R U R’ U’) F’"
 fun getTimeFromUrl(url: String): String {
     val time =      //берем все что после time= и до & или /
         url.substringAfter("time=")
@@ -104,7 +140,17 @@ fun getTimeFromUrl(url: String): String {
 }
 
 fun getLinkFromUrl(url: String): String {
-    val url = url.substringAfter("link=")
-    Timber.d("$TAG .getTimeFromUrl $url from url = [${url}]")
-    return url
+    val link =
+        url.substringAfter("link=")
+            .substringBefore("&")
+    Timber.d("$TAG .getLinkFromUrl $link from url = [${url}]")
+    return link
+}
+
+fun getAlgFromUrl(url: String): String {
+    val alg =
+        url.substringAfter("link=")
+            .substringBefore("&")
+    Timber.d("$TAG .getAlgFromUrl $alg from url = [${url}]")
+    return alg
 }

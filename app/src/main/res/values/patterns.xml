@@ -212,6 +212,10 @@
     <p style="text-align:center"><img src="pattern_4_1.xml" width="20%%"></p>
     <p><b><a href="rg2://ytplay?time=7:02&link=l6V7517N_lQ">Алгоритм:</a> (R F B\' D\') F2 (D B F\' R\') F2 (U R2 U\') (D F2 D\')</b></p>
 
+    <p>А если сделать вот так, то такая змейка не будет замыкаться</p>
+    <p style="text-align:center"><img src="pattern_4_5.xml" width="20%%"></p>
+    <p><b>Алгоритм: D\' U2 L D F U\' L\' R F R\' F\' U\' F\'</b></p>
+
     <p>Узор, который тоже можно отнести к змейкам, ведь он идет через весь кубик.</p>
     <p style="text-align:center"><img src="pattern_4_2.xml" width="20%%"></p>
 
@@ -307,6 +311,10 @@
     <a href="rg2://ytplay?time=11:24&link=l6V7517N_lQ">Пропеллер.</a></p>
     <p style="text-align:center"><img src="pattern_7_2.xml" width="20%%"></p>
     <p><b><a href="rg2://ytplay?time=11:40&link=l6V7517N_lQ">Алгоритм:</a> U\' L2 U2 R2 U\' B2 L\' B D R\' B\' L\' B\' D2 B\' L D B\' U</b></p>
+
+    <p>А можно еще развернуть ребра, спасибо Жене Долонову за идею.</p>
+    <p style="text-align:center"><img src="pattern_7_8.xml" width="20%%"></p>
+    <p><b>Алгоритм: F U\' D\' R\' D B\' L2 F D B U\' F2 D2 F2 R2 B2 R2 F2 U\' L2 U\'</b></p>
 
     <p>Еще можно выполнить вот такой алгоритм, получится интересный, но не симметричный узор. С одной
     стороны длинные уголки, а с другой четыре уголка не на своих местах.</p>

@@ -19,9 +19,14 @@ object Constants {
     //Константы для увеличения/уменьшения размера текста
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта
     const val step = 0.15f                                  //шаг увеличения коэффициента
+    //Другие настройки программы
     const val IS_SCREEN_ALWAYS_ON = "isScreenAlwaysON"      //Не выключаьб экран, если приложение запущено
     const val IS_VIDEO_SCREEN_ON = "isYouTubeDisplayAlwaysOn"   //Не выключать экран при просмотре YouTube в отдельном окне
     const val IS_TEXT_SELECTABLE = "isTextSelectable"       //Возможность выделить/скопировать текст из обучалки
+    //Использование интернета
+    const val ALL_INTERNET = "useAllInternet"               //Используем любой доступный интернет (Boolean)
+    const val ONLY_WIFI = "useOnlyWiFi"                     //Используем интернет только при наличии Wi-Fi (Boolean)
+    const val NOT_USE_INTERNET = "doNotUseInternet"         //Не использовать интернет
 
     //Настройки Генератора скрмблов
     const val CURRENT_SCRAMBLE = "currentScramble"          //Последний придуманный скрамбл (текущий) (String)
@@ -65,19 +70,30 @@ object Constants {
     const val CURRENT_AZBUKA = "CURRENT_AZBUKA"             //Текущая азбука
     const val CUSTOM_AZBUKA = "CUSTOM_AZBUKA"               //Сохраненная пользовательская азбука
 
+    //Для передачи номера фрагмента во фрагмент
+    const val CUR_ITEM_ID = "itemId"                //id в фазе для выбранного фрагмента
+
+    //Для приема/передачи параметров видео
+    const val TIME = "time"
+    const val LINK = "link"
+    const val ALG = "alg"
+
     val galleryDrawables = listOf(
         TipsItem(R.drawable.frame_1, "Обязательно прочитайте этот раздел"),
-        TipsItem(R.drawable.frame_2, "Добавляйте в избранное отдельные этапы или головоломки целиком"),
-        TipsItem(R.drawable.frame_3, "Забыли азбуку? Нажмите зеленую кнопку"),
-        TipsItem(R.drawable.frame_10, "Смотрите в видео, как правильно выполнять алгоритм"),
+        TipsItem(R.drawable.frame_10, "Смотрите в видео, как правильно выполнять алгоритмы"),
         TipsItem(R.drawable.frame_11, "Эта кнопка позволяет повторить видео с того момента, с которого Вы начали его смотреть"),
+        TipsItem(R.drawable.frame_3, "Забыли азбуку? Нажмите зеленую кнопку"),
+        TipsItem(R.drawable.frame_2, "Добавляйте в избранное отдельные этапы или головоломки целиком"),
+        TipsItem(R.drawable.frame_13, "Открывайте избранное из любого места при помощи долгого тапа по любому сердечку"),
+        TipsItem(R.drawable.frame_14, "Просто смахните элемент избранного в сторону, чтобы его удалить"),
+        TipsItem(R.drawable.frame_15, "Меняйте пункты избранного местами"),
         TipsItem(R.drawable.frame_4, "Создавайте свои комментарии к этапам, и вы их увидите в меню"),
         TipsItem(R.drawable.frame_5, "Щелкните по скрамблу в генераторе, чтобы задать свой скрамбл"),
         TipsItem(R.drawable.frame_6, "Щелкните по скрамблу в таймере, чтобы его сменить"),
         TipsItem(R.drawable.frame_7, "Таймер можно поставить на паузу, нажав на верхнюю панель"),
         TipsItem(R.drawable.frame_8, "При сохранении результата в таймере можно сразу задать свой комментарий"),
-        TipsItem(R.drawable.frame_12, "Возможность копировать текст можно включить в настройках"),
-        TipsItem(R.drawable.frame_9, "Эту кнопку можно отключить в настройках программы")
+        TipsItem(R.drawable.frame_12, "Возможность копировать текст обучалки можно включить в настройках"),
+        TipsItem(R.drawable.frame_9, "Мешает кнопка? Отключите ее в настройках программы")
     )
 
     val PLLS_NAME = listOf<String>("Ga","","Y","F","H","","Gb","Na","Ra","Ja","Ua","Aa","Gc","Nb","Rb","Jb","Ub","Ab","Gd","","V","T","Z","E")

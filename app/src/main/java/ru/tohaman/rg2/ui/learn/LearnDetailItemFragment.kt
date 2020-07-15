@@ -13,25 +13,22 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import org.jetbrains.annotations.NotNull
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.tohaman.rg2.Constants.CUR_ITEM_ID
 import ru.tohaman.rg2.Constants.IS_TEXT_SELECTABLE
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.rg2.utils.ClickTextHolder
-import ru.tohaman.rg2.utils.dp
-import ru.tohaman.rg2.utils.toEditable
-import ru.tohaman.rg2.utils.toast
+import ru.tohaman.rg2.utils.*
 import timber.log.Timber
+import java.lang.Exception
 
 
 class LearnDetailItemFragment : Fragment() {
     private val detailViewModel by sharedViewModel<LearnDetailViewModel>()
-    private val sp: SharedPreferences by inject()
     private lateinit var binding: FragmentLearnDetailItemBinding
     private var fragmentNum = 0
     private lateinit var item: MainDBItem
@@ -40,11 +37,9 @@ class LearnDetailItemFragment : Fragment() {
     //т.к. это фрагмент (страница) внутри ViewPager,
     //то передача/прием данных осуществляются классически через Bundle putInt/getInt
     companion object {
-        private const val CUR_ITEM_ID = "itemId"
-
-        fun newInstance(mainDBItem: MainDBItem) = LearnDetailItemFragment().apply {
+        fun newInstance(fragmentId: Int) = LearnDetailItemFragment().apply {
             arguments = Bundle().apply {
-                putInt(CUR_ITEM_ID, mainDBItem.id)
+                putInt(CUR_ITEM_ID, fragmentId)
             }
         }
     }
@@ -52,8 +47,8 @@ class LearnDetailItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            fragmentNum = detailViewModel.getNumByID(it.getInt(CUR_ITEM_ID))
-            Timber.d("$TAG Фрагмент DetailItem = $fragmentNum")
+            fragmentNum = it.getInt(CUR_ITEM_ID)
+           // Timber.d("$TAG Фрагмент получаем номер фрагмента из Bundle = $fragmentNum")
         }
 
     }
@@ -66,30 +61,11 @@ class LearnDetailItemFragment : Fragment() {
             .apply {
                 // Делаем ссылки кликабельными
                 content.descriptionText.movementMethod = LinkMovementMethod.getInstance()
-                val isTextSelectable = sp.getBoolean(IS_TEXT_SELECTABLE, false)
 
                 detailViewModel.liveCurrentItems.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         //Timber.d("$TAG Фрагмент = $fragmentNum, $it.size")
-                        if (fragmentNum < it.size) {
-                            item = it[fragmentNum]
-                            mainDBItem = item
-                            content.descriptionText.setTextIsSelectable(isTextSelectable)
-                            content.urlClick = clickableText()
-
-                            content.titleText.setTextIsSelectable(isTextSelectable)
-                            content.youtubeView.enabled = item.url != ""
-                        }
-                    }
-                })
-
-                val youTubePlayerView = content.youtubeView.youtubePlayerView
-                lifecycle.addObserver(youTubePlayerView)
-
-                youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                    override fun onReady(youTubePlayer: YouTubePlayer) {
-                        val videoId = item.url
-                        youTubePlayer.cueVideo(videoId, 0f)
+                        setViewElementsProperties(it)
                     }
                 })
 
@@ -100,19 +76,63 @@ class LearnDetailItemFragment : Fragment() {
         return binding.root
     }
 
+    private fun @NotNull FragmentLearnDetailItemBinding.setViewElementsProperties(itemsList: List<MainDBItem>) {
+        if (fragmentNum < itemsList.size) {            //На всякий случай проверяем, что номер фрагмента не больше, чем размер List, иначе не сможем получить данные из List'a
+            item = itemsList[fragmentNum]
+            mainDBItem = item
+            content.urlClick = clickableText()
+            content.descriptionText.setTextIsSelectable(detailViewModel.isTextSelectable)
+            content.titleText.setTextIsSelectable(detailViewModel.isTextSelectable)
 
-    private fun clickableText(): ClickTextHolder {
-        return object : ClickTextHolder {
-            override fun onUrlClick(url: String): Boolean {
-                Timber.d("$TAG Типа обработали клик по $url")
-                //TODO Сделать обработку ссылок, если ссылка типа RG2://ytplay.. открываем плеер
-                //если ссылка типа rg2://pager?phase=ROZOV&item=5 переход к головоломке
-                //иначе возвращаем false
-
-                return true
+            //Если надо отображать плеер, то инициализируем его
+            if (detailViewModel.isYouTubePlayerEnabled(fragmentNum)) {
+                content.youtubeView.enabled = true
+                val youTubePlayerView = content.youtubeView.youtubePlayerView
+                lifecycle.addObserver(youTubePlayerView)
+                youTubePlayerView.addYouTubePlayerListener(
+                    detailViewModel.youTubePlayerListener(fragmentNum)
+                )
+            } else {
+                content.youtubeView.enabled = false
             }
         }
     }
+
+    //Обработчик сликов по ссылкам в тексте, который передаем в TextView, тут обрабатываем только клики по переходам к другому этапу
+    //генератор скрамблов и видео открываем стандартным обработчиком в MakeLinksClickable.kt
+    private fun clickableText(): ClickTextHolder {
+        return object : ClickTextHolder {
+            override fun onUrlClick(url: String): Boolean {
+                return if (url.startsWith("rg2://pager", true)) {
+                    findNavController().popBackStack()
+                    findNavController().navigate(
+                        LearnFragmentDirections.actionToLearnDetails(getIdFromUrl(url), getPhaseFromUrl(url))
+                    )
+                    Timber.d("$TAG ссылка на другой этап, переходим к ${getIdFromUrl(url)}, ${getPhaseFromUrl(url)}")
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    //парсим ссылку типа "rg2://pager?phase=BEGIN&item=1"
+    fun getIdFromUrl(url: String): Int {
+        return try {
+            url.substringAfter("item=").toInt()
+        } catch (e: Exception) {
+            Timber.e("$TAG Ошибка преобразования id в $url. Ошибка: $e")
+            return 0
+        }
+    }
+
+    fun getPhaseFromUrl(url: String): String {
+        return url.substringAfter("phase=")
+            .substringBefore("&")
+            .substringBefore("/")
+    }
+
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         activity?.menuInflater?.inflate(R.menu.favourite_context_menu, menu)
@@ -150,8 +170,10 @@ class LearnDetailItemFragment : Fragment() {
         }
 
         binding.share.setOnClickListener {
-            //TODO Реализовать кнопку "поделиться"
-            toast("Будет реализовано в следующих версиях программы", it)
+            val link = "https://play.google.com/store/apps/details?id=ru.tohaman.rg2"
+            val textToShare = getString(R.string.textToShare1) + link + "\n " + getString(R.string.textToShare2)
+            val shareTitle = getString(R.string.shareTitle)
+            context?.shareText(shareTitle, textToShare)
         }
 
         //вызываем созданный в коде AlertDialog https://android--code.blogspot.com/2020/03/android-kotlin-alertdialog-edittext.html
@@ -168,14 +190,14 @@ class LearnDetailItemFragment : Fragment() {
                 val textInputEditText = constraintLayout.findViewWithTag<TextInputEditText>("textInputEditTextTag")
 
                 textInputEditText.text = comment.toEditable()
-                textInputEditText.hint = "или алгоритм"
-                builder.setTitle("Напишите свой комментарий:")
+                textInputEditText.hint = getString(R.string.editCommentHint)
+                builder.setTitle(getString(R.string.editCommentTitle))
                     .setPositiveButton("OK") { _, _ ->
                         item.comment = textInputEditText.text.toString()
                         binding.mainDBItem = item
                         detailViewModel.updateComment(item)
                     }
-                    .setNegativeButton("Отмена", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                 val dialog = builder.create()
                 dialog.show()
 

@@ -1,50 +1,63 @@
 package ru.tohaman.rg2.ui.learn
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.*
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.ALL_INTERNET
+import ru.tohaman.rg2.Constants.NOT_USE_INTERNET
+import ru.tohaman.rg2.Constants.ONLY_WIFI
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.entitys.BasicMove
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
+import ru.tohaman.rg2.utils.getConnectionType
 import ru.tohaman.rg2.utils.getPhasesToTypesMap
 import timber.log.Timber
 
 class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
+    private val sp: SharedPreferences by inject()
     private val ctx = context
     var currentId = 0
 
     private var currentItems: MutableList<MainDBItem> = mutableListOf()
-    private var _currentItems : MutableLiveData<List<MainDBItem>> = MutableLiveData()
+    private var _currentItems: MutableLiveData<List<MainDBItem>> = MutableLiveData()
     val liveCurrentItems: LiveData<List<MainDBItem>>
         get() = _currentItems
 
     private var phasesToTypes: MutableMap<String, String> = mutableMapOf()
-    private var cubeTypes : List<BasicMove> = listOf()
-    private var mutableCubeTypes : MutableLiveData<List<BasicMove>> = MutableLiveData()
+    private var cubeTypes: List<BasicMove> = listOf()
+    private var mutableCubeTypes: MutableLiveData<List<BasicMove>> = MutableLiveData()
     val liveDataCubeTypes: LiveData<List<BasicMove>> get() = mutableCubeTypes
 
     private var favouritesList: MutableList<MainDBItem> = mutableListOf()
     private var mutableFavouritesList: MutableLiveData<List<MainDBItem>> = MutableLiveData()
     val liveDataFavouritesList: LiveData<List<MainDBItem>> get() = mutableFavouritesList
 
+    val isTextSelectable = sp.getBoolean(Constants.IS_TEXT_SELECTABLE, false)
+    private var internetLimits = 0
+
     init {
+        Timber.d("$TAG Инициализируем LearnDetailViewModel")
         getFavourite()
     }
 
     fun setCurrentItems (phase: String, id: Int) {
         Timber.d("$TAG setCurrentItems start")
+        internetLimits = getInternetLimits()
         _currentItems = MutableLiveData()
         viewModelScope.launch (Dispatchers.IO)  {
-            //runBlocking (Dispatchers.IO) {
             currentItems = repository.getDetailsItems(phase).toMutableList() //}
             _currentItems.postValue(currentItems)
             currentId = getNumByID(id)
-            Timber.d("$TAG curItem Initiated with Id=$currentId count=${currentItems.size} items=$currentItems")
+            //Timber.d("$TAG curItem Initiated with Id=$currentId count=${currentItems.size} items=$currentItems")
         }
     }
 
@@ -102,4 +115,30 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
 
+    fun isYouTubePlayerEnabled(fragmentNum: Int): Boolean {
+        val url = currentItems[fragmentNum].url
+        val enabled = (getConnectionType(ctx) > internetLimits) and (url != "")
+        Timber.d("$TAG .isYouTubePlayerEnabled enabled = [${enabled}]")
+        return enabled
+    }
+
+    //Получаем текущий лимит на использование интернета установленный в настройках, 0 - любой, 1 - WiFi, интернет недоступен - 4
+    //потом будем сравнивать с текущим доступным в системе 0 - недоступен, 1 - 3G/4G, 2 - WiFi, 3 - VPN
+    private fun getInternetLimits(): Int {
+        val allInternet = sp.getBoolean(ALL_INTERNET, true)
+        val wiFi = sp.getBoolean(ONLY_WIFI, false)
+        return when {
+            allInternet -> 0
+            wiFi -> 1
+            else -> 4
+        }
+    }
+
+    fun youTubePlayerListener(fragmentNum: Int): AbstractYouTubePlayerListener =
+        object : AbstractYouTubePlayerListener() {
+        override fun onReady(youTubePlayer: YouTubePlayer) {
+            val videoId = currentItems[fragmentNum].url
+            youTubePlayer.cueVideo(videoId, 0f)
+        }
+    }
 }

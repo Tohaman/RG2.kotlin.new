@@ -17,19 +17,22 @@ import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.entitys.CubeType
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.rg2.utils.NonNullMutableLiveData
 import timber.log.Timber
 
 
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val sp = get<SharedPreferences>()
-
     private val repository : ItemsRepository by inject()
     private val ctx = context
+
     private var typesCount = 10
+
     //номер закладки открываемой по-умолчанию
-    private var currentCubeType = sp.getInt(CUR_CUBE_TYPE, 2)
+    private var _currentCubeType = sp.getInt(CUR_CUBE_TYPE, 2)
+    private val currentCubeTypeMLD = MutableLiveData<Int>(_currentCubeType)
+    val currentCubeType: LiveData<Int> get() = currentCubeTypeMLD
+
     private var backFrom : HashMap<String, String> = hashMapOf()    //map для получения предыдущей фазы, по ее названию через map.getOrDefault()
 
     //Массив из MediatorLiveData, содержащих списки записей определенной фазы
@@ -44,6 +47,10 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     val liveDataCubeTypes : LiveData<List<CubeType>>
         get() = mutableCubeTypes
 
+    //При лонгклике храним элемент по которому кликнули
+    var selectedItem: MainDBItem = MainDBItem("WRONG", 0)
+
+    //Нужно ли отображать зеленую кнопку FAB
     var needShowFab = ObservableBoolean()
 
     init {
@@ -63,14 +70,26 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             val showFab = sp.getBoolean(Constants.SHOW_FAB, true)
             needShowFab.set(showFab)
             cubeTypes.map {
-                val list = getPhaseFromRepository(it.curPhase)
+                var list = getPhaseFromRepository(it.curPhase)
+                if (it.curPhase != it.initPhase) {
+                    list = addBackItem(list)
+                }
                 //Заменяем пустой MediatorLiveData() на значение из базы
                 mainDBItemsMediatorArray[it.id].postValue(list)
             }
         }
     }
 
-    fun getCurrentType(): Int = currentCubeType
+    private fun addBackItem(list: List<MainDBItem>): List<MainDBItem> {
+
+
+        return list
+    }
+
+    fun getCurrentType(): Int {
+        Timber.d("$TAG .getCurrentType $_currentCubeType")
+        return _currentCubeType
+    }
 
     private fun initCubeTypes() {
             runBlocking (Dispatchers.IO) { cubeTypes = repository.getCubeTypes() }
@@ -80,7 +99,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     fun setCurrentCubeType(id: Int) {
-        currentCubeType = id
+        _currentCubeType = id
         sp.edit().putInt(CUR_CUBE_TYPE, id).apply()
     }
 
@@ -90,19 +109,39 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     //возвращаем true если вернулись на одну фазу назад или false если и так в главной фазе
     fun canReturnToOnePhaseBack() : Boolean {
-        val fromPhase = cubeTypes[currentCubeType].curPhase
-        val defaultPhase = cubeTypes[currentCubeType].initPhase
+        val fromPhase = cubeTypes[_currentCubeType].curPhase
+        val defaultPhase = cubeTypes[_currentCubeType].initPhase
         var toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
         if (defaultPhase == FAVOURITES) toPhase = FAVOURITES
-        Timber.d( "$TAG backOnePhase Page - $currentCubeType, fromPhase - $fromPhase, toPhase - $toPhase, $cubeTypes")
+        Timber.d( "$TAG backOnePhase Page - $_currentCubeType, fromPhase - $fromPhase, toPhase - $toPhase, $cubeTypes")
         return if (fromPhase != toPhase) {
                 changePhaseTo(toPhase)
             true
         } else false
     }
 
+    //Получаем номер закладки из cubeTypes на которой находится головоломка (phase)
+    fun changeTypeAndPhase(phase: String) {
+        //Сначала по фазу определяем ее основную, идем вверх по backFrom, пока не получим в ответ null. Для основных в backFrom нет записи
+        var mainPhase = phase
+        while ( backFrom[mainPhase] != null) {
+            mainPhase = backFrom[mainPhase]!!
+        }
+
+        //по названию основной фазы определяем номер, если такой основной нет, то считаем, что это "BEGIN3X3" и соответственно номер 2
+        var type = 2
+        cubeTypes.forEachIndexed { index, cubeType ->
+            if (mainPhase == cubeType.initPhase) type = index
+        }
+
+        Timber.d("$TAG .getTypeFromPhase phase = [${phase}] -> mainPhase = $mainPhase, Type = $type")
+        _currentCubeType = type
+        currentCubeTypeMLD.postValue(_currentCubeType)
+        changePhaseTo(phase)
+    }
+
     private fun changePhaseTo(phase: String) {
-        cubeTypes[currentCubeType].curPhase = phase
+        cubeTypes[_currentCubeType].curPhase = phase
         saveCubeTypes()
         updateCurrentPhasesToArray()
     }
@@ -116,7 +155,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     //обновляем данные в текущих фазах (перечитываем из репозитория) для основного меню, выполняем в фоне
     private fun updateCurrentPhasesToArray() {
-        Timber.d("$TAG updateCurrentPhasesToArray curTypes = ${cubeTypes[currentCubeType]}")
+        Timber.d("$TAG updateCurrentPhasesToArray curTypes = ${cubeTypes[_currentCubeType]}")
         viewModelScope.launch (Dispatchers.IO){
             cubeTypes.map {
                 val listItem = getPhaseFromRepository(it.curPhase)
@@ -137,7 +176,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun onMainMenuItemClick(menuItem: MainDBItem) {
         val phase = ctx.getString(menuItem.description)
-        Timber.d( "$TAG Selected_Page $currentCubeType - setToPhase - $phase")
+        Timber.d( "$TAG Selected_Page $_currentCubeType - setToPhase - $phase")
         changePhaseTo(phase)
     }
 

@@ -68,8 +68,8 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
         val isUserDonate = sp.getInt(PAYED_COINS, 0)
         val startCount = sp.getInt(Constants.START_COUNT, 1)
         Timber.d("$TAG .checkDonationShow $startCount $isUserDonate")
-        //Если пользователь не платил, то каждый 15 вход переводим на окно Доната
-        if ((isUserDonate == 0) and (startCount % 15 == 0)) {
+        //Если пользователь не платил, то каждый 10ый вход переводим на окно Доната
+        if ((isUserDonate == 0) and (startCount % 10 == 0)) {
             //Поставим закладку на страничку с донатом
             sp.edit().putInt(Constants.INFO_BOOKMARK, 1).apply()
             onStartOpenDonate.call()

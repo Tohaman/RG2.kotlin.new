@@ -19,7 +19,6 @@ import timber.log.Timber
 class LearnMenuFragment : Fragment() {
     private val learnViewModel by sharedViewModel<LearnViewModel>()
     private var ctId : Int = 0
-    private lateinit var selectedItem: MainDBItem
     private lateinit var binding : FragmentLearnMenuBinding
 
     //Поскольку для вызова этого фрагмента НЕ используется Navigation component, то
@@ -49,29 +48,35 @@ class LearnMenuFragment : Fragment() {
                 menuList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
                 val menuAdapter = MenuAdapter()
-                menuAdapter.attachCallBack(object: MenuAdapter.OnClickCallBack {
-                    override fun openItem(menuItem: MainDBItem) {
-                        Timber.d("$TAG openItem $menuItem")
-                        onMenuItemClick(menuItem)
-                    }
-                    override fun favouriteChange(menuItem: MainDBItem) {
-                        Timber.d("$TAG favouriteLambdaChange $menuItem")
-                        learnViewModel.onFavouriteChangeClick(menuItem)
-                    }
+                menuAdapter.attachCallBack(onClickCallBack())
 
-                    override fun longClick(menuItem: MainDBItem, view: View) {
-                        Timber.d("$TAG onLongItemClick - $menuItem")
-                        selectedItem = menuItem
-                    }
-
-                })
-                learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer {
+                learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer { listMainDBItems ->
                     val phase = learnViewModel.getPhaseNameById(ctId)
-                    menuAdapter.refreshItems(it, phase)
+                    menuAdapter.refreshItems(listMainDBItems, phase)
                 })
                 menuList.adapter = menuAdapter
             }
         return binding.root
+    }
+
+    private fun onClickCallBack(): MenuAdapter.OnClickCallBack {
+        return object : MenuAdapter.OnClickCallBack {
+            override fun openItem(menuItem: MainDBItem) {
+                Timber.d("$TAG openItem $menuItem")
+                onMenuItemClick(menuItem)
+            }
+
+            override fun favouriteChange(menuItem: MainDBItem) {
+                learnViewModel.onFavouriteChangeClick(menuItem)
+                Timber.d("$TAG favouriteLambdaChange $menuItem")
+            }
+
+            override fun longClick(menuItem: MainDBItem, view: View) {
+                learnViewModel.selectedItem = menuItem
+                Timber.d("$TAG onLongItemClick - $menuItem")
+            }
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,6 +97,7 @@ class LearnMenuFragment : Fragment() {
                 true
             }
             R.id.change_favourite -> {
+                val selectedItem = learnViewModel.selectedItem
                 Timber.d("$TAG Сменить статус $selectedItem")
                 learnViewModel.onFavouriteChangeClick(selectedItem)
                 true
@@ -103,14 +109,15 @@ class LearnMenuFragment : Fragment() {
 
     private fun onMenuItemClick(item: MainDBItem) {
         Timber.d("$TAG onItemClick - ${item.id}, ${item.phase}")
-    if (item.url == "submenu") {
-        learnViewModel.onMainMenuItemClick(item)
-    } else {
-        findNavController().navigate(
+        //learnViewModel.changeTypeAndPhase(item.phase)         //Разблокировать если нужно перейти на закладку головоломки (сменить тип)
+        if (item.url == "submenu") {
+            learnViewModel.onMainMenuItemClick(item)
+        } else {
             //Чтобы работал этот генерируемый класс безопасной передачи аргументов, надо добавить в зависимости classpath
             //https://developer.android.com/jetpack/androidx/releases/navigation#safe_args или https://habr.com/ru/post/416025/
-            LearnFragmentDirections.actionToLearnDetails(item.id, item.phase)
-        )
+            findNavController().navigate(
+                LearnFragmentDirections.actionToLearnDetails(item.id, item.phase)
+            )
+        }
     }
-}
 }

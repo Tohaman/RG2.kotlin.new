@@ -1,13 +1,12 @@
 package ru.tohaman.rg2.koin
 
-import android.content.Context
 import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import androidx.room.Room
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module
-import ru.tohaman.rg2.ui.shared.UiUtilViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.*
 import ru.tohaman.rg2.ui.MigrationsViewModel
@@ -18,13 +17,17 @@ import ru.tohaman.rg2.ui.learn.LearnDetailViewModel
 import ru.tohaman.rg2.ui.learn.LearnViewModel
 import ru.tohaman.rg2.ui.learn.MiniHelpViewModel
 import ru.tohaman.rg2.ui.settings.SettingsViewModel
+import ru.tohaman.rg2.ui.shared.UiUtilViewModel
+import ru.tohaman.rg2.ui.youtube.YouTubeViewModel
 
 private const val DATABASE_NAME = "room_base.db"
 private const val OLD_DATABASE_NAME = "base.db"
 
 val appModule = module{
     single<SharedPreferences> {
-        androidContext().getSharedPreferences("${androidContext().applicationInfo.packageName}_preferences", Context.MODE_PRIVATE) }
+        //androidContext().getSharedPreferences("${androidContext().applicationInfo.packageName}_preferences", Context.MODE_PRIVATE)
+        PreferenceManager.getDefaultSharedPreferences(androidContext())
+    }
     single {
         Room.databaseBuilder(androidContext(), MainDb::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration() //На время разработки программы, каждый раз пересоздаем базу, вместо миграции
@@ -54,6 +57,7 @@ val viewModelsModule = module {
     viewModel { GamesViewModel() }
     viewModel { SettingsViewModel() }
     viewModel { MiniHelpViewModel() }
+    viewModel { YouTubeViewModel() }
     viewModel { MigrationsViewModel(androidApplication()) }
     viewModel { DonateViewModel(androidApplication()) }
     viewModel { PllTrainerViewModel(androidApplication()) }

@@ -3,6 +3,8 @@ package ru.tohaman.rg2.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.text.Editable
 import android.text.Html
@@ -12,6 +14,7 @@ import android.util.TypedValue
 import android.view.View
 import androidx.annotation.MainThread
 import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
@@ -108,6 +111,36 @@ fun toast(message: String, view: View) {
         .show()
 }
 
+
+@Suppress("DEPRECATION")
+fun getConnectionType(context: Context): Int {
+    var result = 0 // Returns connection type. 0: none; 1: mobile data; 2: wifi; 3: vpn
+    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        cm?.run {
+            cm.getNetworkCapabilities(cm.activeNetwork)?.run {
+                when {
+                    hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> result = 2
+                    hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> result = 1
+                    hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> result = 3
+                }
+            }
+        }
+    } else {
+        cm?.run {
+            cm.activeNetworkInfo?.run {
+                when (type) {
+                    ConnectivityManager.TYPE_WIFI -> result = 2
+                    ConnectivityManager.TYPE_MOBILE -> result = 1
+                    ConnectivityManager.TYPE_VPN -> result = 3
+                }
+            }
+        }
+    }
+    //Timber.d("$TAG .getConnectionType result = [${result}]")
+    return result
+}
+
 //------------------- классы для внутриигровых покупок ------------------------
 
 /**
@@ -136,6 +169,7 @@ enum class Status {
     LOADING
 }
 
+//Класс для одноразового вызова из viewModel вызовом call()
 class SingleLiveEvent<T> : MutableLiveData<T>() {
     private val mPending: AtomicBoolean = AtomicBoolean(false)
 

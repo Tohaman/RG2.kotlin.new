@@ -15,24 +15,25 @@
             type="ru.tohaman.rg2.ui.learn.LearnDetailViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/appBar"
             layout="@layout/include_app_bar"
-            app:title='@{title}'
             app:tabbed="@{true}"
+            app:title='@{@string/action_info}'
             />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/infoViewPager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appBar" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

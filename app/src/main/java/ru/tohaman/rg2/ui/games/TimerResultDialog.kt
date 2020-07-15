@@ -35,7 +35,7 @@ class TimerResultDialog : DialogFragment() {
                 val adapter = TimerResultAdapter()
                 adapter.attachCallBack(callBack)
                 titleText.text = requireContext().getText(R.string.timer_resault_title)
-
+                hint.text = ""
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager (context)
 

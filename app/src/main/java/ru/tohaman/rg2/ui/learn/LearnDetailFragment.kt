@@ -31,8 +31,7 @@ class LearnDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.d("$TAG onCreate with $phase, $phaseId")
-
+        Timber.d("$TAG Create LearnDetailFragment with $phase, $phaseId")
         detailViewModel.setCurrentItems(phase, phaseId)
     }
 
@@ -70,8 +69,6 @@ class LearnDetailFragment : Fragment() {
                         detailViewPager.setCurrentItem(detailViewModel.currentId,false)
                     }
                 })
-
-                viewModel = detailViewModel
             }
 
         return binding.root
@@ -86,7 +83,7 @@ class LearnDetailFragment : Fragment() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return LearnDetailItemFragment.newInstance(detailItems[position])
+            return LearnDetailItemFragment.newInstance(detailViewModel.getNumByID(detailItems[position].id))
         }
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка

@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.adapters.universal.DataBindingRecyclerAdapter
@@ -48,7 +49,7 @@ fun setHtmlResource(textView: TextView, htmlId: Int) {
         drawable
     }
 
-    val spannedString = spannedString(textString, imgGetter, tagHandler)
+    val spannedString = MakeLinksClickable.reformatText(spannedString(textString, imgGetter, tagHandler), null)
 
     textView.text = spannedString
 }
@@ -167,4 +168,12 @@ fun setRecyclerViewItems(recyclerView: RecyclerView, items: List<RecyclerItem>?)
     adapter.submitList(
         items.orEmpty()
     )
+}
+
+@BindingAdapter("app:state")
+fun setStateBackground(imgView: ImageView, state: PlayerConstants.PlayerState) {
+    if (state == PlayerConstants.PlayerState.PLAYING)
+        imgView.setImageResource(R.drawable.player_pause)
+    else
+        imgView.setImageResource(R.drawable.player_play)
 }

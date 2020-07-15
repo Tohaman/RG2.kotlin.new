@@ -102,13 +102,8 @@
             android:id="@+id/action_destLearnDetails_to_dialog_favourites"
             app:destination="@id/dialog_favourites" />
         <action
-            android:id="@+id/action_destLearnDetails_to_youTubeFragment2"
-            app:destination="@id/youTubeFragment">
-            <argument
-                android:name="time" />
-            <argument
-                android:name="link" />
-        </action>
+            android:id="@+id/action_destLearnDetails_to_youTubeActivity"
+            app:destination="@id/youTubeActivity" />
 
     </fragment>
 
@@ -249,26 +244,22 @@
         tools:layout="@layout/fragment_algorithms_properties" />
 
 
-    <fragment
-        android:id="@+id/youTubeFragment"
-        android:name="ru.tohaman.rg2.ui.youtube.YouTubeFragment"
-        android:label="YouTubeFragment">
-        <argument
-            android:name="time"
-            android:defaultValue="def_time"
-            app:argType="string" />
-        <argument
-            android:name="link"
-            android:defaultValue="def_link"
-            app:argType="string" />
-    </fragment>
-
-    <action
-        android:id="@+id/action_global_youTubeFragment"
-        app:destination="@id/youTubeFragment" />
-
     <action
         android:id="@+id/action_global_scrambleGeneratorFragment"
         app:destination="@id/scrambleGeneratorFragment" />
+
+    <activity
+        android:id="@+id/youTubeActivity"
+        android:name="ru.tohaman.rg2.ui.youtube.YouTubeActivity"
+        android:label="YouTubeActivity">
+        <argument
+            android:name="time"
+            android:defaultValue="0:00"
+            app:argType="string" />
+        <argument
+            android:name="link"
+            android:defaultValue="de f_link"
+            app:argType="string" />
+    </activity>
 
 </navigation>

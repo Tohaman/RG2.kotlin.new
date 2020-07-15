@@ -86,4 +86,5 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
             }
         }
     }
+
 }
