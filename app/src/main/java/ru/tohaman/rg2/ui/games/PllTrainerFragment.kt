@@ -59,11 +59,6 @@ class PllTrainerFragment: Fragment() {
                         adapter.refreshItems(it)
                     }
                 })
-
-                //TODO удалить обзервер, за ненадобностью. Пока нужен для отладки.
-                pllViewModel.state.observe(viewLifecycleOwner, Observer {
-                    Timber.d("$TAG state = $it")
-                })
             }
 
         return binding.root

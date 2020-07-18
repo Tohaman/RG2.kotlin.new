@@ -142,7 +142,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         @Suppress("DEPRECATION")
         SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0)
     }
-    private val soundLow = soundPool.load(ctx, R.raw.metronom_sample,1)
+    private val soundLow = soundPool.load(ctx, R.raw.metronom,1)
 
 
     private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""

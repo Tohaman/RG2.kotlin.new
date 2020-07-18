@@ -15,8 +15,14 @@ import ru.tohaman.rg2.Constants.NOT_USE_INTERNET
 import ru.tohaman.rg2.Constants.ONLY_WIFI
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.ItemsRepository
+import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
 import ru.tohaman.rg2.dbase.entitys.BasicMove
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
+import ru.tohaman.rg2.dbase.entitys.PllGameItem
+import ru.tohaman.rg2.ui.games.PllTrainerItemViewModel
+import ru.tohaman.rg2.ui.learn.list_items.LeftMenuItemViewModel
+import ru.tohaman.rg2.ui.learn.list_items.OnClickByLeftMenuItem
+import ru.tohaman.rg2.utils.SingleLiveEvent
 import ru.tohaman.rg2.utils.getConnectionType
 import ru.tohaman.rg2.utils.getPhasesToTypesMap
 import timber.log.Timber
@@ -32,17 +38,25 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     val liveCurrentItems: LiveData<List<MainDBItem>>
         get() = _currentItems
 
+    private var currentLeftMenuItems = mutableListOf<RecyclerItem>()
+    private val _currentLeftMenuItems = MutableLiveData<List<RecyclerItem>>()
+    val liveCurrentLeftMenuItems : LiveData<List<RecyclerItem>>
+        get() = _currentLeftMenuItems
+
     private var phasesToTypes: MutableMap<String, String> = mutableMapOf()
     private var cubeTypes: List<BasicMove> = listOf()
     private var mutableCubeTypes: MutableLiveData<List<BasicMove>> = MutableLiveData()
     val liveDataCubeTypes: LiveData<List<BasicMove>> get() = mutableCubeTypes
 
     private var favouritesList: MutableList<MainDBItem> = mutableListOf()
-    private var mutableFavouritesList: MutableLiveData<List<MainDBItem>> = MutableLiveData()
+    private val mutableFavouritesList: MutableLiveData<List<MainDBItem>> = MutableLiveData()
     val liveDataFavouritesList: LiveData<List<MainDBItem>> get() = mutableFavouritesList
 
     val isTextSelectable = sp.getBoolean(Constants.IS_TEXT_SELECTABLE, false)
     private var internetLimits = 0
+
+    private val _isLeftMenuOpen = MutableLiveData<Boolean>()
+    val isLeftMenuOpen: LiveData<Boolean> get() = _isLeftMenuOpen
 
     init {
         Timber.d("$TAG Инициализируем LearnDetailViewModel")
@@ -57,10 +71,12 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
             currentItems = repository.getDetailsItems(phase).toMutableList() //}
             _currentItems.postValue(currentItems)
             currentId = getNumByID(id)
+            updateLeftMenuAdapter(currentItems)
             //Timber.d("$TAG curItem Initiated with Id=$currentId count=${currentItems.size} items=$currentItems")
         }
     }
 
+    //Возвращает номер фрагмента по id этапа
     fun getNumByID(id: Int): Int {
         return currentItems.indexOf(currentItems.first { it.id == id })
     }
@@ -107,13 +123,27 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
-    fun onFavouriteSwapPosition(fromPosition: Int, toPosition: Int) {
-        Timber.d( "$TAG swap from $fromPosition. to $toPosition")
-        favouritesList[fromPosition].subId = toPosition
-        favouritesList[toPosition].subId = fromPosition
-        //mutableFavouritesList.postValue(favouritesList)
+    val onLeftMenuItemPressing  = SingleLiveEvent<Nothing>()
+
+    private fun onClickByLeftMenuItem(): OnClickByLeftMenuItem {
+        return object : OnClickByLeftMenuItem {
+            override fun onItemClick(mainDBItem: MainDBItem) {
+                Timber.d("$TAG .onItemClick mainDBItem = [${mainDBItem}]")
+                closeLeftMenu()
+                currentId = getNumByID(mainDBItem.id)
+                onLeftMenuItemPressing.call()
+            }
+        }
     }
 
+    private fun updateLeftMenuAdapter (items: List<MainDBItem>) {
+        currentLeftMenuItems = items
+            .map { LeftMenuItemViewModel(it) }
+            .onEach { it.clickHandler = onClickByLeftMenuItem() }
+            .map { it.toRecyclerItem() }
+            .toMutableList()
+        _currentLeftMenuItems.postValue(currentLeftMenuItems)
+    }
 
     fun isYouTubePlayerEnabled(fragmentNum: Int): Boolean {
         val url = currentItems[fragmentNum].url
@@ -141,4 +171,13 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
             youTubePlayer.cueVideo(videoId, 0f)
         }
     }
+
+    fun openLeftMenu() {
+        _isLeftMenuOpen.postValue(true)
+    }
+
+    fun closeLeftMenu() {
+        _isLeftMenuOpen.postValue(false)
+    }
+
 }

@@ -20,7 +20,7 @@
             android:id="@+id/appBar"
             layout="@layout/include_app_bar"
             app:tabbed="@{false}"
-            app:title="@{@string/azbuka_training}"
+            app:title="@{@string/pll_training}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

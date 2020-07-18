@@ -5,37 +5,70 @@
 
     <data>
         <variable
-            name="title"
-            type="String" />
+            name="viewModel"
+            type="ru.tohaman.rg2.ui.learn.LearnDetailViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:animateLayoutChanges="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="fixed"
-                app:tabGravity="center"
-                app:tabPaddingTop="8dp"
-                app:tabPaddingBottom="8dp"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/detailViewPager"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:preview="@layout/fragment_learn_menu"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:animateLayoutChanges="true">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabGravity="center"
+                    app:tabMode="fixed"
+                    app:tabPaddingBottom="8dp"
+                    app:tabPaddingTop="8dp" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/detailViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:preview="@layout/fragment_learn_menu" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/menuFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginLeft="@dimen/middle_margin"
+                app:backgroundTint="@color/colorPrimary"
+                app:backgroundTintMode="screen"
+                android:onClick="@{() -> viewModel.openLeftMenu()}"
+                app:srcCompat="@drawable/ic_menu_main" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="?android:windowBackground"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            app:items="@{viewModel.liveCurrentLeftMenuItems}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_left_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>
