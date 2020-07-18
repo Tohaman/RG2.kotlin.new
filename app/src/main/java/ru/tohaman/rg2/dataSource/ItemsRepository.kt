@@ -3,9 +3,11 @@ package ru.tohaman.rg2.dataSource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dbase.daos.*
 
 import ru.tohaman.rg2.dbase.entitys.*
+import timber.log.Timber
 
 /**
  * The Repository ist a simple Java class that abstracts the data layer from the rest of the app
@@ -30,7 +32,7 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun getSubMenuList(): List<MainDBItem> {
         if (allMainDBItems.isEmpty()) {
-            allMainDBItems = mainDao.getAllItems().toMutableList()     //если кэш пустой, обновляем его
+            reloadFullCache()
             return mainDao.getSubMenuList()
         } else return allMainDBItems
             .filter { it.url == "submenu" }
@@ -39,7 +41,7 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun getPhaseFromMain(phase: String): List<MainDBItem>  {
         if (allMainDBItems.isEmpty()) {
-            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            reloadFullCache()
             return mainDao.getPhaseFromMain(phase)
         } else return allMainDBItems
             .filter { it.phase == phase }
@@ -49,7 +51,7 @@ class ItemsRepository (private val mainDao : MainDao,
     //WHERE phase = :phase and url <> 'submenu' ORDER BY ID
     suspend fun getDetailsItems(phase: String): List<MainDBItem> {
         if (allMainDBItems.isEmpty()) {
-            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            reloadFullCache()
             return mainDao.getDetailsItems(phase)
         } else return allMainDBItems
             .filter { (it.phase == phase) and (it.url != "submenu") }
@@ -58,7 +60,7 @@ class ItemsRepository (private val mainDao : MainDao,
 
     suspend fun getItem(phase: String, id: Int): MainDBItem {
         if (allMainDBItems.isEmpty()) {
-            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            reloadFullCache()
             return mainDao.getItem(phase, id) ?: MainDBItem("", 0)
         } else return allMainDBItems
             .filter { (it.phase == phase) and (it.id == id) }
@@ -68,7 +70,7 @@ class ItemsRepository (private val mainDao : MainDao,
     //WHERE isFavourite = 1 ORDER BY SubID
     suspend fun getFavourites(): List<MainDBItem> {
         if (allMainDBItems.isEmpty()) {
-            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            reloadFullCache()
             return mainDao.getFavourites()
         } else return allMainDBItems
             .filter { it.isFavourite }
@@ -108,6 +110,11 @@ class ItemsRepository (private val mainDao : MainDao,
             allMainDBItems.removeAll {(it.id == item.id) and (it.phase == item.phase)}
             allMainDBItems.add(item)
         }
+    }
+
+    private fun reloadFullCache() {
+        Timber.d("$TAG .reloadFullCache ")
+        allMainDBItems = mainDao.getAllItems().toMutableList()     //если кэш пустой, обновляем его
     }
 
     // Работа с таблицей Types
