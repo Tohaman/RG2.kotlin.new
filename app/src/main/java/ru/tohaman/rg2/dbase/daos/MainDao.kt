@@ -22,8 +22,8 @@ interface MainDao {
         const val table: String = "main"
     }
 
-    @Query("SELECT * FROM $table WHERE phase = 'BEGIN'")
-    fun getAllLiveItems() : LiveData<List<MainDBItem>>
+    @Query("SELECT * FROM $table")
+    fun getAllItems() : List<MainDBItem>
 
     @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
     suspend fun getPhaseFromMain(phase : String) : List<MainDBItem>

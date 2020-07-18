@@ -17,8 +17,8 @@ android {
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 18
         targetSdkVersion 29
-        versionCode 309
-        versionName '2.20200712.1'
+        versionCode 310
+        versionName '2.20200718.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

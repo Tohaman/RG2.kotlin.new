@@ -235,7 +235,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     private fun getSubMenuList () {
-        viewModelScope.launch {
+        viewModelScope.launch (Dispatchers.IO) {
             val subMenusList = repository.getSubMenuList()
             subMenusList.map {it ->
                 backFrom.put(ctx.getString(it.description), it.phase)

@@ -1,6 +1,8 @@
 package ru.tohaman.rg2.dataSource
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.tohaman.rg2.dbase.daos.*
 
 import ru.tohaman.rg2.dbase.entitys.*
@@ -23,28 +25,90 @@ class ItemsRepository (private val mainDao : MainDao,
                        private val oldBaseDao: OldBaseDao) : ItemDataSource {
 
     // Работа с основной таблицей
+    // Кэш для основной базы
+    private var allMainDBItems = mutableListOf<MainDBItem>()
 
-    suspend fun getSubMenuList() : List<MainDBItem> = mainDao.getSubMenuList()
+    suspend fun getSubMenuList(): List<MainDBItem> {
+        if (allMainDBItems.isEmpty()) {
+            allMainDBItems = mainDao.getAllItems().toMutableList()     //если кэш пустой, обновляем его
+            return mainDao.getSubMenuList()
+        } else return allMainDBItems
+            .filter { it.url == "submenu" }
+            .sortedBy { it.id }
+    }
 
-    suspend fun getPhaseFromMain(phase: String): List<MainDBItem> = mainDao.getPhaseFromMain(phase)
+    suspend fun getPhaseFromMain(phase: String): List<MainDBItem>  {
+        if (allMainDBItems.isEmpty()) {
+            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            return mainDao.getPhaseFromMain(phase)
+        } else return allMainDBItems
+            .filter { it.phase == phase }
+            .sortedBy { it.id }
+    }
 
-    suspend fun getDetailsItems(phase: String): List<MainDBItem> = mainDao.getDetailsItems(phase)
+    //WHERE phase = :phase and url <> 'submenu' ORDER BY ID
+    suspend fun getDetailsItems(phase: String): List<MainDBItem> {
+        if (allMainDBItems.isEmpty()) {
+            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            return mainDao.getDetailsItems(phase)
+        } else return allMainDBItems
+            .filter { (it.phase == phase) and (it.url != "submenu") }
+            .sortedBy { it.id }
+    }
 
-    suspend fun getItem(phase: String, id: Int): MainDBItem = mainDao.getItem(phase, id) ?: MainDBItem("", 0)
+    suspend fun getItem(phase: String, id: Int): MainDBItem {
+        if (allMainDBItems.isEmpty()) {
+            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            return mainDao.getItem(phase, id) ?: MainDBItem("", 0)
+        } else return allMainDBItems
+            .filter { (it.phase == phase) and (it.id == id) }
+            .getOrNull(0) ?: MainDBItem("", 0)
+    }
 
-    fun getLivePhaseFromMain(phase: String): LiveData<List<MainDBItem>> = mainDao.getLivePhaseFromMain(phase)
+    //WHERE isFavourite = 1 ORDER BY SubID
+    suspend fun getFavourites(): List<MainDBItem> {
+        if (allMainDBItems.isEmpty()) {
+            allMainDBItems = mainDao.getAllItems().toMutableList()      //если кэш пустой, обновляем его
+            return mainDao.getFavourites()
+        } else return allMainDBItems
+            .filter { it.isFavourite }
+            .sortedBy { it.subId }
+    }
 
-    suspend fun getFavourites(): List<MainDBItem> = mainDao.getFavourites()
+    suspend fun clearMainTable() {
+        mainDao.deleteAllItems()
+        allMainDBItems.clear()
+    }
 
-    suspend fun clearMainTable() = mainDao.deleteAllItems()
+    suspend fun insert2Main(item: MainDBItem) {
+        mainDao.insert(item)
+        allMainDBItems.removeAll {(it.id == item.id) and (it.phase == item.phase)}
+        allMainDBItems.add(item)
+    }
 
-    suspend fun insert2Main(item: MainDBItem) = mainDao.insert(item)
+    suspend fun insert2Main(items: List<MainDBItem>) {
+        mainDao.insert(items)
+        items.map {item ->
+            allMainDBItems.removeAll {(it.id == item.id) and (it.phase == item.phase)}
+            allMainDBItems.add(item)
+        }
+    }
 
-    suspend fun insert2Main(items: List<MainDBItem>) = mainDao.insert(items)
+    fun updateMainItem(item: MainDBItem?) {
+        mainDao.update(item)
+        item?.let {
+            allMainDBItems.removeAll { (it.id == item.id) and (it.phase == item.phase) }
+            allMainDBItems.add(item)
+        }
+    }
 
-    fun updateMainItem(item: MainDBItem?) = mainDao.update(item)
-
-    fun updateMainItem(items: List<MainDBItem>) = mainDao.update(items)
+    fun updateMainItem(items: List<MainDBItem>) {
+        mainDao.update(items)
+        items.map {item ->
+            allMainDBItems.removeAll {(it.id == item.id) and (it.phase == item.phase)}
+            allMainDBItems.add(item)
+        }
+    }
 
     // Работа с таблицей Types
 
