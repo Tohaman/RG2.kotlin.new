@@ -142,6 +142,35 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Размер текста скрамбла"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:fontFamily="sans-serif-medium"
+                app:isEnabled="@{viewModel.needShowScramble ? true : false }"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/small_margin"
+                android:visibility="@{viewModel.isScrambleTextShowing ? View.VISIBLE : View.GONE}"
+                tools:text="U2 F2 L' D2 R U F' L2 B2 R L2 B2 U R"
+                android:textSizeSP="@{viewModel.scrambleTextSize + 16}"
+                android:text="@{viewModel.currentScramble}"/>
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="10"
+                app:isEnabled="@{viewModel.needShowScramble ? true : false }"
+                android:padding="@dimen/big_padding"
+                android:progress="@{viewModel.scrambleTextSize}"
+                app:onSeekListener="@{viewModel.onSeekTextSize()}" />
+
 
             <Switch
                 android:id="@+id/needBackButton"

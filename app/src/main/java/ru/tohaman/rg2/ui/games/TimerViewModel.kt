@@ -24,6 +24,7 @@ import org.koin.core.get
 import org.koin.core.inject
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.CURRENT_SCRAMBLE
+import ru.tohaman.rg2.Constants.SCRAMBLE_TEXT_SIZE
 import ru.tohaman.rg2.Constants.TIMER_DELAYED
 import ru.tohaman.rg2.Constants.TIMER_METRONOM
 import ru.tohaman.rg2.Constants.TIMER_METRONOM_FREQ
@@ -116,6 +117,31 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         _needShowScramble = value
         sp.edit().putBoolean(TIMER_NEED_SCRAMBLE, value).apply()
     }
+
+    private var _scrambleTextSize = sp.getInt(SCRAMBLE_TEXT_SIZE, 6)
+    val scrambleTextSize = ObservableInt(_scrambleTextSize)
+    val isScrambleTextShowing = ObservableBoolean(false)
+
+    fun onSeekTextSize(): OnSeekBarChangeListener? {
+        return object : OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                _scrambleTextSize = progress
+                scrambleTextSize.set(_scrambleTextSize)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                isScrambleTextShowing.set(true)
+                scrambleTextSize.set(_scrambleTextSize)
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                Timber.d("$TAG .onStopTrackingTouch seekBar = [${_scrambleTextSize}]")
+                sp.edit().putInt(SCRAMBLE_TEXT_SIZE, _scrambleTextSize).apply()
+                isScrambleTextShowing.set(false)
+            }
+        }
+    }
+
 
     private val _needBackButton = sp.getBoolean(TIMER_NEED_BACK, true)
     val needBackButton = ObservableBoolean(_needBackButton)
