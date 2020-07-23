@@ -10,12 +10,12 @@
     </string-array>
 
     <integer-array name="blind_4x4_icon">
-        <item>@drawable/blind</item>
-        <item>@drawable/blind_2</item>
-        <item>@drawable/blind_3</item>
-        <item>@drawable/blind_4</item>
-        <item>@drawable/blind_5</item>
-        <item>@drawable/blind_6</item>
+        <item>@drawable/blind_4x4_1</item>
+        <item>@drawable/blind_4x4_2</item>
+        <item>@drawable/blind_4x4_3</item>
+        <item>@drawable/blind_4x4_4</item>
+        <item>@drawable/blind_4x4_5</item>
+        <item>@drawable/blind_4x4_6</item>
     </integer-array>
 
     <string-array name="blind_4x4_descr">
