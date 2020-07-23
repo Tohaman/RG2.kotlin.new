@@ -119,7 +119,7 @@ class FillDB {
             basicInit("BASIC_SKEWB", R.array.basic_skewb_moves, R.array.basic_skewb_icons, R.array.basic_skewb_toasts, context)
             basicInit("BASIC_SQUARE", R.array.basic_square_moves, R.array.basic_square_icons, R.array.basic_square_toasts, context)
 
-            //Фазы для меню мини-Игр
+            //Фазы для меню тренажеров
             phaseInit("GAMES", R.array.games_title, R.array.games_icon, R.array.games_help, R.array.games_url, context)
         }
 

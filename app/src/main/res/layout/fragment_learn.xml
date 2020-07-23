@@ -29,19 +29,19 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/multiFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/fab_margin"
-            android:layout_marginRight="50dp"
-            app:backgroundTintMode="screen"
-            android:visibility="@{viewModel.needShowFab ? View.VISIBLE : View.GONE}"
-            app:backgroundTint="@color/colorAccent"
-            android:onClick="@{() -> viewModel.canReturnToOnePhaseBack()}"
-            app:srcCompat="@drawable/ic_fab_backward"
-            app:layout_anchor="@+id/learnViewPager"
-            app:layout_anchorGravity="end|bottom"/>
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/multiFab"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="@dimen/fab_margin"-->
+<!--            android:layout_marginRight="50dp"-->
+<!--            app:backgroundTintMode="screen"-->
+<!--            android:visibility="@{viewModel.needShowFab ? View.VISIBLE : View.GONE}"-->
+<!--            app:backgroundTint="@color/colorAccent"-->
+<!--            android:onClick="@{() -> viewModel.canReturnToOnePhaseBack()}"-->
+<!--            app:srcCompat="@drawable/ic_fab_backward"-->
+<!--            app:layout_anchor="@+id/learnViewPager"-->
+<!--            app:layout_anchorGravity="end|bottom"/>-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

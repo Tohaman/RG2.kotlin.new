@@ -83,24 +83,24 @@
                     app:onSeekListener="@{viewModel.onTextSeek()}" />
 
 
-                <TextView
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/big_margin"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:text="@string/fab_button" />
+<!--                <TextView-->
+<!--                    style="@style/TextAppearance.MaterialComponents.Headline6"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/big_margin"-->
+<!--                    android:layout_marginBottom="@dimen/small_margin"-->
+<!--                    android:text="@string/fab_button" />-->
 
-                <Switch
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/big_margin"
-                    android:checked="@={viewModel.needShowFab}"
-                    android:onCheckedChanged="@{(switch, checked) -> viewModel.needShowFabChange(checked)}"
-                    android:switchPadding="@dimen/dimen_margin_8"
-                    android:text="@string/show_fab_text"
-                    tools:ignore="RtlHardcoded" />
+<!--                <Switch-->
+<!--                    style="@style/TextAppearance.MaterialComponents.Subtitle1"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="@dimen/big_margin"-->
+<!--                    android:checked="@={viewModel.needShowFab}"-->
+<!--                    android:onCheckedChanged="@{(switch, checked) -> viewModel.needShowFabChange(checked)}"-->
+<!--                    android:switchPadding="@dimen/dimen_margin_8"-->
+<!--                    android:text="@string/show_fab_text"-->
+<!--                    tools:ignore="RtlHardcoded" />-->
 
                 <TextView
                     style="@style/TextAppearance.MaterialComponents.Headline6"

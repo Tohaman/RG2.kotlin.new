@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.text.Html
+import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.SeekBar
@@ -110,6 +111,11 @@ fun commentChoose(textView: TextView, favComment: String, comment: String) {
 @BindingAdapter("app:text")
 fun textToString(textView: TextView, int: Int) {
     textView.text = int.toString()
+}
+
+@BindingAdapter("android:textSizeSP")
+fun textSizeToSP(textView: TextView, size: Int) {
+    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size.toFloat());
 }
 
 @BindingAdapter("app:fullDate")

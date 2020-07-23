@@ -5,7 +5,7 @@
 
     <string name="action_info">Инфо</string>
     <string name="action_learn">Обучалки</string>
-    <string name="action_games">Мини игры</string>
+    <string name="action_games">Тренажеры</string>
     <string name="main_settings">Настройки</string>
     <string name="games_help">Помощь</string>
     <string name="games_azbuka_select">Выбор азбуки</string>
@@ -106,7 +106,7 @@
     <string name="LoadStdPllNames">Стандартные названия</string>
     <string name="PllNamesSettings">Настройки PLL алгоритмов</string>
     <string name="pll_random_side">Случайная сторона</string>
-    <string name="main_games_clicked">МиниИгры</string>
+    <string name="main_games_clicked">Тренажеры</string>
     <string name="day_tips">Совет дня:</string>
     <string name="about_programm">О программе</string>
     <string name="thanks_programm">Спасибо</string>
@@ -124,7 +124,7 @@
     <string name="mini_help_settings_switch_text">Отображение подсказок по интерфейсу при загрузке программы</string>
     <string name="check_internet_access">Проверьте доступность интернета</string>
     <string name="youtube_video_warning">Используемые в программе видео занимают очень много места и сохранить их все в памяти телефона НЕВОЗМОЖНО, поэтому для просмотра видео требуется интернет. Вы можете ограничить использование интернета программой.</string>
-    <string name="use_all_internet">Использоввать любой доступный интернет (3G/4G/Wi-Fi)</string>
+    <string name="use_all_internet">Использовать любой доступный интернет (3G/4G/Wi-Fi)</string>
     <string name="use_wifi">Использовать только Wi-Fi</string>
     <string name="do_not_use_internet">Не использовать интернет (без просмотра видео)</string>
     <string name="using_internet">Использование интернета</string>

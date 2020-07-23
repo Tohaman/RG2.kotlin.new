@@ -30,7 +30,7 @@ import ru.tohaman.rg2.interfaces.SetLetterButtonsInt
 import ru.tohaman.rg2.utils.toMutableLiveData
 import timber.log.Timber
 
-//Эта viewModel используется для общих настроек миниИгр + настройки Генератора скрамблов (Азбуки) и настройки теренировки Азбуки
+//Эта viewModel используется для общих настроек Тренажеров + настройки Генератора скрамблов (Азбуки) и настройки теренировки Азбуки
 class GamesViewModel: ViewModel(), KoinComponent, GamesAzbukaButtons, SetLetterButtonsInt {
     private val repository : ItemsRepository by inject()
     private val sp = get<SharedPreferences>()

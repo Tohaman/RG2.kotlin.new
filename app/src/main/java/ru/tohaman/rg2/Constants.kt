@@ -42,6 +42,7 @@ object Constants {
     const val TIMER_NEED_SCRAMBLE = "needScramble"          //Включено ли отображение скрамбла в таймере (Boolean)
     const val TIMER_NEED_BACK = "needBackButton"            //Отображнеи кнопки "назад" (Boolean)
     const val TIMER_METRONOM_FREQ = "metronomFrequency"     //Частота метронома (раз в минуту) (Int)
+    const val SCRAMBLE_TEXT_SIZE = "scrambleTextSize"       //Размер текста для отображения скрабла в таймере (Int)
 
     //Настройки для PLL тренировки
     const val IS_2SIDE_RECOGNITION = "is2SideRecognition"       //Определение ситуации по 2-м сторонам если true (Boolean), иначе по 3-м

@@ -3,6 +3,7 @@ package ru.tohaman.rg2.ui.info
 import android.app.Activity
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
@@ -145,6 +146,7 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
     //вызываем при нажатии на элемент в интерфейсе
     fun startItemPurchaseByNumber(number: Int) {
         activity?.let1 {
+            Timber.d("$TAG .startItemPurchaseByNumber $number, from $products")
             if (products.size > number) {
                 startPurchase(products[number], it)
             }
