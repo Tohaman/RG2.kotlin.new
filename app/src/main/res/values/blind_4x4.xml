@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="blind_4x4_title">
+        <item>@string/blind_4x4_st1_title</item>
+        <item>@string/blind_4x4_st2_title</item>
+        <item>@string/blind_4x4_st3_title</item>
+        <item>@string/blind_4x4_st4_title</item>
+        <item>@string/blind_4x4_st5_title</item>
+        <item>@string/blind_4x4_st6_title</item>
+    </string-array>
+
+    <integer-array name="blind_4x4_icon">
+        <item>@drawable/blind</item>
+        <item>@drawable/blind_2</item>
+        <item>@drawable/blind_3</item>
+        <item>@drawable/blind_4</item>
+        <item>@drawable/blind_5</item>
+        <item>@drawable/blind_6</item>
+    </integer-array>
+
+    <string-array name="blind_4x4_descr">
+        <item>@string/blind_4x4_st1_descr</item>
+        <item>@string/blind_4x4_st2_descr</item>
+        <item>@string/blind_4x4_st3_descr</item>
+        <item>@string/blind_4x4_st4_descr</item>
+        <item>@string/blind_4x4_st5_descr</item>
+        <item>@string/blind_4x4_st6_descr</item>
+    </string-array>
+
+    <string-array name="blind_4x4_url">
+        <item>@string/blind_4x4_st1_url</item>
+        <item>@string/blind_4x4_st2_url</item>
+        <item>@string/blind_4x4_st3_url</item>
+        <item>@string/blind_4x4_st4_url</item>
+        <item>@string/blind_4x4_st5_url</item>
+        <item>@string/blind_4x4_st6_url</item>
+    </string-array>
+
+    <string name="blind_4x4_st1_title">N1 Вступление</string>
+    <string name="blind_4x4_st1_descr" formatted="false"><![CDATA[
+        Из этой серии видео вы узнаете, как собрать кубик с закрытыми глазами. Словами очень сложно
+        передать, что необходимо делать, поэтому в комментариях к данному циклу видео, лишь краткое
+        описание, того о чем видео. Плюс алгоритмы, скрамблы и несколько картинок для упрощения
+        понимания/запоминания. В остальном, рекомендую посмотреть видео.<br/>
+        Если у вас есть идеи, что можно/нужно дописать к какому-нибудь из этапов, присылайте на почту
+        <a href="mailto:rubicsguide@yandex.ru">rubicsguide@yandex.ru</a>
+    ]]></string>
+    <string name="blind_4x4_st1_url">t8dHDN06q-s</string>
+
+    <string name="blind_4x4_st2_title">N2 Начальное положение</string>
+    <string name="blind_4x4_st2_descr" formatted="false"><![CDATA[
+        Как правильно держать кубик при слепой сборке.
+    ]]></string>
+    <string name="blind_4x4_st2_url">_WAUfH3GAFs</string>
+
+    <string name="blind_4x4_st3_title">N3 Запад</string>
+    <string name="blind_4x4_st3_descr" formatted="false"><![CDATA[
+        Первый из алгоритмов, который применяется при сборке вслепую - <b>Запад</b>.<br/>
+         <p style="text-align:center"><img src="blind_4x4_3_1.xml" width="30%%"></p>
+        Фингертрикс: <a href="rg2://ytplay?time=3:35&link=_yWZMTIM-fA">на видео 3:35</a>
+        (<a href="rg2://ytplay?time=7:22&link=_yWZMTIM-fA">или 7:22</a>) <br/>
+        <b>Алгоритм: (R U R\' U\') R\' F R2 U\' R\' U\' (R U R\' F\') </b>
+    ]]></string>
+    <string name="blind_4x4_st3_url">_yWZMTIM-fA</string>
+
+    <string name="blind_4x4_st4_title">N4 Буфер и корзина</string>
+    <string name="blind_4x4_st4_descr" formatted="false"><![CDATA[
+        Что такое буфер, где он находится и что такое корзина.
+    ]]></string>
+    <string name="blind_4x4_st4_url">YhwiRpWWyYQ</string>
+
+    <string name="blind_4x4_st5_title">N5 Первые установочные ходы</string>
+    <string name="blind_4x4_st5_descr" formatted="false"><![CDATA[
+        Что такое установочные ходы (setup move) и для чего они нужны.
+    ]]></string>
+    <string name="blind_4x4_st5_url">2kiRWJdcMkU</string>
+
+    <string name="blind_4x4_st6_title">N6 Первая практика</string>
+    <string name="blind_4x4_st6_descr" formatted="false"><![CDATA[
+        Пробуем собрать кубик, пока с открытыми глазами.<br/>
+        <b>Скрамбл в видео: F2 U2 R L2 B2 D F D2 R2 U R2 L2 R\' U R B D\'</b><br/>
+        Посмотреть как должен выглядеть куб после скрамбла, можно в
+        <a href="rg2://scrmbl?scram=F2_U2_R_L2_B2_D_F_D2_R2_U_R2_L2_R\'_U_R_B_D\'">генераторе скрамблов.</a>
+    ]]></string>
+    <string name="blind_4x4_st6_url">2Jz4yGBzWzM</string>
+
+</resources>

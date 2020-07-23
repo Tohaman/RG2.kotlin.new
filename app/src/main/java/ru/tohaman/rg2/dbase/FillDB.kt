@@ -67,6 +67,7 @@ class FillDB {
             phaseInit("BEGIN5X5",R.array.begin5_title,R.array.begin5_icon,R.array.begin5_descr,R.array.begin5_url,context)
             phaseInit("BIG_CUBES",R.array.big_cubes_title,R.array.big_cubes_icon,R.array.big_cubes_descr,R.array.big_cubes_url,context)
             phaseInit("BLIND", R.array.blind_title, R.array.blind_icon,R.array.blind_descr,R.array.blind_url,context)
+            phaseInit("BLIND4X4", R.array.blind_4x4_title, R.array.blind_4x4_icon,R.array.blind_4x4_descr,R.array.blind_4x4_url,context)
             phaseInit("BRICK", R.array.brick_title, R.array.brick_icon,R.array.brick_descr,R.array.brick_url,context)
             phaseInit("CLL",R.array.cll_title,R.array.cll_icon,R.array.cll_descr,R.array.cll_url,context,R.array.cll_comment)
             phaseInit("CLOVER", R.array.clover_title, R.array.clover_icon,R.array.clover_descr,R.array.clover_url,context)
