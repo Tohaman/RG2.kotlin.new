@@ -133,12 +133,12 @@
         то, для ситуации, когда наше ребро стоит справа:</p>
         <p style="text-align:center"><img src="pyraminx_3_2.xml"></p>
 
-        <b><a href="rg2://ytplay?time=5:58&link=nAT6_FdZF3w">Алгоритм:</a> L\' U L</b><br/><br/>
+        <b><a href="rg2://ytplay?time=5:58&link=nAT6_FdZF3w&alg=L\'_U_L">Алгоритм:</a> L\' U L</b><br/><br/>
 
         А для ситуации, когда ребро слева:
         <p style="text-align:center"><img src="pyraminx_3_3.xml"></p>
 
-        <b><a href="rg2://ytplay?time=4:57&link=nAT6_FdZF3w">Алгоритм:</a> R U\' R\'</b>
+        <b><a href="rg2://ytplay?time=4:57&link=nAT6_FdZF3w&alg=R_U\'_R\'">Алгоритм:</a> R U\' R\'</b>
 
         Повторяем для всех ребер цвета нижней стороны находящихся на втором этаже.
 
@@ -218,7 +218,7 @@
         <a href="rg2://ytplay?time=13:33&link=jwg4-0rwQyw">с первого раза,</a> то значит
         <a href="rg2://ytplay?time=13:42&link=jwg4-0rwQyw">соберется со второго.</a><br/><br/>
 
-        <b><a href="rg2://ytplay?time=12:52&link=jwg4-0rwQyw">Алгоритм:</a> R\' U\' R U\' R\' U\' R</b></p>
+        <b><a href="rg2://ytplay?time=12:52&link=jwg4-0rwQyw&alg=R\'_U\'_R_U\'_R\'_U\'_R">Алгоритм:</a> R\' U\' R U\' R\' U\' R</b></p>
 
         <p><b>3. <a href="rg2://ytplay?time=9:20&link=jwg4-0rwQyw">Два предателя.</a></b><p>
 
@@ -240,7 +240,7 @@
         <a href="rg2://ytplay?time=10:48&link=jwg4-0rwQyw">не вбок, а назад.</a>
         А потом как и раньше: поднимаем, загоняем, отпускаем.<br/><br/>
 
-        <b><a href="rg2://ytplay?time=11:14&link=jwg4-0rwQyw">Алгоритм:</a> (R\' L R L\') U (L\' U\' L)</b></p>
+        <b><a href="rg2://ytplay?time=11:14&link=jwg4-0rwQyw&alg=(R\'_L_R_L\')_U_(L\'_U\'_L)">Алгоритм:</a> (R\' L R L\') U (L\' U\' L)</b></p>
 
         Profit!!
 

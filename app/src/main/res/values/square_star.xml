@@ -175,7 +175,7 @@
         Из данного положения алгоритм для выполнения этих действий будет выглядеть
         <a href="rg2://ytplay?time=15:31&link=kWXQUGa-OMY">следующим образом.</a></p>
 
-        <p><a href="rg2://ytplay?time=16:24&link=kWXQUGa-OMY">Алгоритм:</a> <b>(1,0)/(-1,0)/(2,0)/(-2,0)</b></p>
+        <p><a href="rg2://ytplay?time=16:24&link=kWXQUGa-OMY&alg=(1,0)/(-1,0)/(2,0)/(-2,0)">Алгоритм:</a> <b>(1,0)/(-1,0)/(2,0)/(-2,0)</b></p>
 
         <p>Это и есть наш \"Звездочный пиф-паф\", всего четыре хода (если не считать слайсы).</p>
 
@@ -251,12 +251,12 @@
         <p>1. <a href="rg2://ytplay?time=24:51&link=kWXQUGa-OMY">Одна половинка не соответствует цвету верхней грани</a></p>
         <p style="text-align:center"><img src="sq_star_4_1.xml"></p>
 
-        <p><a href="rg2://ytplay?time=25:03&link=kWXQUGa-OMY">Алгоритм:</a> <b>/(3,0)/(3,0)/(3,0)</b></p>
+        <p><a href="rg2://ytplay?time=25:03&link=kWXQUGa-OMY&alg=/(3,0)/(3,0)/(3,0)">Алгоритм:</a> <b>/(3,0)/(3,0)/(3,0)</b></p>
 
         <p>2. <a href="rg2://ytplay?time=25:37&link=kWXQUGa-OMY">Обе половинки центра не соответствуют цвету верхней грани</a></p>
         <p style="text-align:center"><img src="sq_star_4_2.xml"></p>
 
-        <p><a href="rg2://ytplay?time=25:48&link=kWXQUGa-OMY">Алгоритм:</a> <b>/(3,3)/</b></p>
+        <p><a href="rg2://ytplay?time=25:48&link=kWXQUGa-OMY&alg=/(3,3)/">Алгоритм:</a> <b>/(3,3)/</b></p>
 
     ]]></string>
     <string name="sq_star_st4_url">kWXQUGa-OMY</string>
@@ -271,7 +271,7 @@
         лучи верхнего и нижнего слоев.</p>
 
         <p>Делается это при помощи всего лишь одного четырехходового алгоритма.</p>
-        <p><a href="rg2://ytplay?time=1:18&link=4yWNBooGitc">Алгоритм:</a> <b>/(-1,0)/(1,0)/</b></p>
+        <p><a href="rg2://ytplay?time=1:18&link=4yWNBooGitc&alg=/(-1,0)/(1,0)/">Алгоритм:</a> <b>/(-1,0)/(1,0)/</b></p>
 
         <p>который меняет два передних элемента на верхней грани. На самом деле не только их, но
         в этой головоломке и на этом этапе это не имеет значения. Как же применять этот алгоритм?</p>
@@ -327,12 +327,12 @@
         <p>1. <a href="rg2://ytplay?time=7:56&link=4yWNBooGitc">Одна половинка не соответствует цвету верхней грани</a></p>
         <p style="text-align:center"><img src="sq_star_5_8.xml"></p>
 
-        <p><a href="rg2://ytplay?time=8:13&link=4yWNBooGitc">Алгоритм:</a> <b>/(3,0)/(3,0)/(3,0)</b></p>
+        <p><a href="rg2://ytplay?time=8:13&link=4yWNBooGitc&alg=/(3,0)/(3,0)/(3,0)">Алгоритм:</a> <b>/(3,0)/(3,0)/(3,0)</b></p>
 
         <p>2. <a href="rg2://ytplay?time=8:33&link=4yWNBooGitc">Обе половинки центра не соответствуют цвету верхней грани</a></p>
         <p style="text-align:center"><img src="sq_star_5_9.xml"></p>
 
-        <p><a href="rg2://ytplay?time=8:41&link=4yWNBooGitc">Алгоритм:</a> <b>/(3,3)/</b></p>
+        <p><a href="rg2://ytplay?time=8:41&link=4yWNBooGitc&alg=/(3,3)/">Алгоритм:</a> <b>/(3,3)/</b></p>
 
 
     ]]></string>

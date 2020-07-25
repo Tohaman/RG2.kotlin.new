@@ -311,7 +311,7 @@
     направо (U), возвращаем на место центры (M\'), крыша 2 раза, повторить первые 3 хода, отменить
     перехват <b>y\'</b>.
     <p style="text-align:center"><img src="blaccel_10.xml" width="30%%"></p>
-    <b> <a href="rg2://ytplay?time=3:52&link=D6_k4MT6Rpk">Алгоритм:</a> y (M U M\') U2 (M U M\') y\'</b><br/><br/>
+    <b> <a href="rg2://ytplay?time=3:52&link=D6_k4MT6Rpk&alg=y_(M_U_M\')_U2_(M_U_M\')_y\'">Алгоритм:</a> y (M U M\') U2 (M U M\') y\'</b><br/><br/>
     <p>А если использовать простые установочные ходы, то данным алгоритмом решаются следующие
      <a href="rg2://ytplay?time=6:01&link=D6_k4MT6Rpk">ситуации:</a> ИЕ ИЁ ИЖ ИЗ, КЕ КЁ КЖ КЗ, ЛЕ ЛЁ ЛЖ ЛЗ, МЕ МЁ МЖ МЗ.
     Например  <a href="rg2://ytplay?time=5:13&link=D6_k4MT6Rpk">МЁд.</a></p>

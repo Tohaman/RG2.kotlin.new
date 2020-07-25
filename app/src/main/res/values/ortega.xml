@@ -182,11 +182,11 @@
         <p>Можно выполнить обычный Запад или Юг. А можно вот такой Юг, без вращений передней грани,
         но с вращением левой.</p>
         <p style="text-align:center"><img src="ortega_3_1.xml"></p>
-        <p><a href="rg2://ytplay?time=4:31&link=J7hNGHsQOtI">Алгоритм:</a> <b>R U2 R\' U\' R U2 L\' U R\' U\' L</b></p>
+        <p><a href="rg2://ytplay?time=4:31&link=J7hNGHsQOtI&alg=R_U2_R\'_U\'_R_U2_L\'_U_R\'_U\'_L">Алгоритм:</a> <b>R U2 R\' U\' R U2 L\' U R\' U\' L</b></p>
 
         <p>А для ситуации, когда глазки смотрят от нас, можно применить вот такой алгоритм.</p>
         <p style="text-align:center"><img src="ortega_3_9.xml"></p>
-        <p><a href="rg2://ytplay?time=4:46&link=J7hNGHsQOtI">Алгоритм:</a> <b>(R\' F) R\' F2 R U\' R\' F2 R2</b></p>
+        <p><a href="rg2://ytplay?time=4:46&link=J7hNGHsQOtI&alg=(R\'_F)_R\'_F2_R_U\'_R\'_F2_R2">Алгоритм:</a> <b>(R\' F) R\' F2 R U\' R\' F2 R2</b></p>
 
         <p><a href="rg2://ytplay?time=4:59&link=J7hNGHsQOtI"><b>1.2. PBL #2</b></a></p>
 
@@ -202,27 +202,27 @@
         <p>Самый часто попадающийся случай - снизу глазки и сверху глазки. Ставим обоими глазками
         от себя.</p>
         <p style="text-align:center"><img src="ortega_3_3.xml"></p>
-        <p><a href="rg2://ytplay?time=6:38&link=J7hNGHsQOtI">Алгоритм:</a> <b>R2 U\' (R2 U2 F2) U\' R2</b></p>
+        <p><a href="rg2://ytplay?time=6:38&link=J7hNGHsQOtI&alg=R2_U\'_(R2_U2_F2)_U\'_R2">Алгоритм:</a> <b>R2 U\' (R2 U2 F2) U\' R2</b></p>
 
         <p>Или вариант алгоритма для ситуации, когда глазки обоих слоев смотрят на вас.</p>
         <p style="text-align:center"><img src="ortega_3_10.xml"></p>
-        <p><a href="rg2://ytplay?time=6:59&link=J7hNGHsQOtI">Алгоритм:</a> <b>R2 U\' (B2 U2 R2) U\' R2</b></p>
+        <p><a href="rg2://ytplay?time=6:59&link=J7hNGHsQOtI&alg=R2_U\'_(B2_U2_R2)_U\'_R2">Алгоритм:</a> <b>R2 U\' (B2 U2 R2) U\' R2</b></p>
 
         <p><a href="rg2://ytplay?time=7:05&link=J7hNGHsQOtI"><b>2.2. PBL #4</b></a></p>
 
         <p>Снизу глазки, сверху нет глазок. Нижними глазками от себя.</p>
         <p style="text-align:center"><img src="ortega_3_4.xml"></p>
-        <p><a href="rg2://ytplay?time=7:21&link=J7hNGHsQOtI">Алгоритм:</a> <b>(R U\' F) U2 (F\' U R\')</b></p>
+        <p><a href="rg2://ytplay?time=7:21&link=J7hNGHsQOtI&alg=(R_U\'_F)_U2_(F\'_U_R\')">Алгоритм:</a> <b>(R U\' F) U2 (F\' U R\')</b></p>
 
         <p>Или вариант алгоритма для ситуации, когда глазки нижнего слоя смотрят на вас.</p>
         <p style="text-align:center"><img src="ortega_3_11.xml"></p>
-        <p><a href="rg2://ytplay?time=7:18&link=J7hNGHsQOtI">Алгоритм:</a> <b>(R U R U\') B2 (U R\' U\' R\')</b></p>
+        <p><a href="rg2://ytplay?time=7:18&link=J7hNGHsQOtI&alg=(R_U_R_U\')_B2_(U_R\'_U\'_R\')">Алгоритм:</a> <b>(R U R U\') B2 (U R\' U\' R\')</b></p>
 
         <p><a href="rg2://ytplay?time=7:25&link=J7hNGHsQOtI"><b>2.3. PBL #5</b></a></p>
 
         <p>Снизу глазки, сверху все собрано. Можно перевернуть и сделать любой алгоритм из PBL #1, но лучше так.</p>
         <p style="text-align:center"><img src="ortega_3_5.xml"></p>
-        <p><a href="rg2://ytplay?time=7:37&link=J7hNGHsQOtI">Алгоритм:</a> <b>R\' U L\' U\' R2 U\' R\' U2 R U\'</b></p>
+        <p><a href="rg2://ytplay?time=7:37&link=J7hNGHsQOtI&alg=R\'_U_L\'_U\'_R2_U\'_R\'_U2_R_U\'">Алгоритм:</a> <b>R\' U L\' U\' R2 U\' R\' U2 R U\'</b></p>
 
         <p><a href="rg2://ytplay?time=5:11&link=J7hNGHsQOtI">3. Нижний слой не собран, но глазок нет.</a></p>
 
@@ -230,7 +230,7 @@
 
         <p>Снизу нет глазок, сверху глазки. Ставим верхний слой глазками (блоком) к себе.</p>
         <p style="text-align:center"><img src="ortega_3_6.xml"></p>
-        <p><a href="rg2://ytplay?time=5:32&link=J7hNGHsQOtI">Алгоритм:</a> <b>(R\' F R\') F2 (R U\' R)</b><br/>
+        <p><a href="rg2://ytplay?time=5:32&link=J7hNGHsQOtI&alg=(R\'_F_R\')_F2_(R_U\'_R)">Алгоритм:</a> <b>(R\' F R\') F2 (R U\' R)</b><br/>
         или <b>(R U\' R) B2 (R\' B R\')</b><br/>
         или <b>(R U\' L) U2 (R\' U L\')</b></p>
 
@@ -239,7 +239,7 @@
         <p>Глазок нет ни сверху, ни снизу. Самая простая, но и самая редкая ситуация. Алгоритм один,
         но два варианта его выполнения.</p>
         <p style="text-align:center"><img src="ortega_3_7.xml"></p>
-        <p><a href="rg2://ytplay?time=5:42&link=J7hNGHsQOtI">Алгоритм:</a> <b>R L U2 R\' L\'</b><br/>
+        <p><a href="rg2://ytplay?time=5:42&link=J7hNGHsQOtI&alg=R_L_U2_R\'_L\'">Алгоритм:</a> <b>R L U2 R\' L\'</b><br/>
         по сути это: <b>R2 B2 R2</b></p>
 
         <p><a href="rg2://ytplay?time=5:46&link=J7hNGHsQOtI"><b>3.4. PBL #8</b></a></p>
@@ -247,7 +247,7 @@
         <p>Сверху слой собран, снизу нет глазок. Можно перевернуть кубик и сделать Австралию,
         а можно просто немного модифицировать алгоритм из PBL #2, по сути, объединив его с PBL #7.</p>
         <p style="text-align:center"><img src="ortega_3_8.xml"></p>
-        <p><a href="rg2://ytplay?time=5:46&link=J7hNGHsQOtI">Алгоритм:</a> <b>(R U\' R\' U\') F2 (U\' R U R\') D (F2) R2</b></p>
+        <p><a href="rg2://ytplay?time=5:46&link=J7hNGHsQOtI&alg=(R_U\'_R\'_U\')_F2_(U\'_R_U_R\')_D_(F2)_R2">Алгоритм:</a> <b>(R U\' R\' U\') F2 (U\' R U R\') D (F2) R2</b></p>
 
     ]]></string>
     <string name="ortega3_url">J7hNGHsQOtI</string>

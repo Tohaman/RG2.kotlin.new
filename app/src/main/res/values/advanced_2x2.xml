@@ -176,37 +176,37 @@
         головой к себе:
         <p style="text-align:center"><img src="v2x2_adv_2_4.xml"></p>
 
-        <p><b><a href="rg2://ytplay?time=4:10&link=MCwDjDgDsxk">Алгоритм:</a> (R U R\' U) R U2 R\'</b></p>
+        <p><b><a href="rg2://ytplay?time=4:10&link=MCwDjDgDsxk&alg=(R_U_R\'_U)_R_U2_R\'">Алгоритм:</a> (R U R\' U) R U2 R\'</b></p>
 
         <p><a href="rg2://ytplay?time=2:17&link=MCwDjDgDsxk"><b>2. Акула</b></a></p>
         <p style="text-align:center"><img src="v2x2_adv_2_5.xml"></p>
         Выполняется абсолютно аналогично Акуле из Ускорения N11 для кубика 3х3. Начальное
         положение -  Акула должна уплывать от нас направо:
         <p style="text-align:center"><img src="v2x2_adv_2_6.xml"></p>
-        <p><b><a href="rg2://ytplay?time=3:00&link=MCwDjDgDsxk">Алгоритм:</a> R U2 R\' U\' R U\' R\'</b></p>
+        <p><b><a href="rg2://ytplay?time=3:00&link=MCwDjDgDsxk&alg=R_U2_R\'_U\'_R_U\'_R\'">Алгоритм:</a> R U2 R\' U\' R U\' R\'</b></p>
 
         <p><a href="rg2://ytplay?time=4:43&link=MCwDjDgDsxk"><b>3. Глазки</b></a></p>
         <p style="text-align:center"><img src="v2x2_adv_2_7.xml"></p>
         А для Глазок все гораздо проще, чем для кубика 3х3. Т.к. ребра нам неважны, то можно
         применить Ускорение N7 - \"Букву Т\" с точкой, поэтому и ставим Глазками налево:
         <p style="text-align:center"><img src="v2x2_adv_2_8.xml"></p>
-        <p><b><a href="rg2://ytplay?time=5:13&link=MCwDjDgDsxk">Алгоритм:</a> F (R U R\' U\') F\'</b></p>
+        <p><b><a href="rg2://ytplay?time=5:13&link=MCwDjDgDsxk&alg=F_(R_U_R\'_U\')_F\'">Алгоритм:</a> F (R U R\' U\') F\'</b></p>
 
         <p><a href="rg2://ytplay?time=7:16&link=MCwDjDgDsxk"><b>4. Ушки</b></a></p>
         <p style="text-align:center"><img src="v2x2_adv_2_9.xml"></p>
         Для Ушек также можно применить алгоритм из Ускорения N7, но уже для \"Буквы Т\" с блоком.
         Начальное положение ушками налево:
         <p style="text-align:center"><img src="v2x2_adv_2_10.xml"></p>
-        <p><b><a href="rg2://ytplay?time=8:49&link=MCwDjDgDsxk">Алгоритм:</a> (R U R\' U\') (R\' F R F\')</b></p>
+        <p><b><a href="rg2://ytplay?time=8:49&link=MCwDjDgDsxk&alg=(R_U_R\'_U\')_(R\'_F_R_F\')">Алгоритм:</a> (R U R\' U\') (R\' F R F\')</b></p>
 
         <p><a href="rg2://ytplay?time=9:26&link=MCwDjDgDsxk"><b>5. Носик</b></a></p>
         <p style="text-align:center"><img src="v2x2_adv_2_11.xml"></p>
         А вот с Носиком все как и кубиком 3х3. Можно применить Ускорение N9, в этом случае взять
         глазиком к себе справа и наклонить кубик от себя.
         <p style="text-align:center"><img src="v2x2_adv_2_12.xml"></p>
-        <p><b><a href="rg2://ytplay?time=10:07&link=MCwDjDgDsxk">Алгоритм:</a> x (D\' R\') U\' R (D R\') U R x\'</b></p>
+        <p><b><a href="rg2://ytplay?time=10:07&link=MCwDjDgDsxk&alg=x_(D\'_R\')_U\'_R_(D_R\')_U_R_x\'">Алгоритм:</a> x (D\' R\') U\' R (D R\') U R x\'</b></p>
         а можно алгоритм из OLL #56, в этом случае наклонять никуда не надо:
-        <p><b><a href="rg2://ytplay?time=1:31&link=VLwoXOWd0Pc">Алгоритм:</a> F\' (R U R\' U\') (R\' F R)</b></p>
+        <p><b><a href="rg2://ytplay?time=1:31&link=VLwoXOWd0Pc&alg=F\'_(R_U_R\'_U\')_(R\'_F_R)">Алгоритм:</a> F\' (R U R\' U\') (R\' F R)</b></p>
 
         <p><a href="rg2://ytplay?time=11:41&link=MCwDjDgDsxk"><b>6. Вертолет</b></a></p>
         <p style="text-align:center"><img src="v2x2_adv_2_13.xml"></p>
@@ -216,7 +216,7 @@
         Вертолет. В любом случае поставить глазками налево, ушками направо:</p>
         <p style="text-align:center"><img src="v2x2_adv_2_14.xml"></p>
 
-        <p><b><a href="rg2://ytplay?time=12:31&link=MCwDjDgDsxk">Алгоритм:</a> R U2 R2\' U\' R2 U\' R2\' U2 R</b></p>
+        <p><b><a href="rg2://ytplay?time=12:31&link=MCwDjDgDsxk&alg=R_U2_R2\'_U\'_R2_U\'_R2\'_U2_R">Алгоритм:</a> R U2 R2\' U\' R2 U\' R2\' U2 R</b></p>
 
         <p>Еще один быстрый вариант, сделать обычный бумеранг, т.е. В лондон, два пиф-пафа, из Лондона.</p>
         <p><b>Алгоритм: F (R U R\' U\')(R U R\' U\') F\'</b></p>
@@ -226,7 +226,7 @@
         Казалось бы ситуация из Ускорения N4, т.е. в Лондон, три пиф-пафа, из Лондона. Но есть
         способ лучше, всего лишь в пять ходов.
         <p style="text-align:center"><img src="v2x2_adv_2_16.xml"></p>
-        <p><b><a href="rg2://ytplay?time=16:37&link=MCwDjDgDsxk">Алгоритм:</a> R2 U2 R\' U2 R2</b></p>
+        <p><b><a href="rg2://ytplay?time=16:37&link=MCwDjDgDsxk&alg=R2_U2_R\'_U2_R2">Алгоритм:</a> R2 U2 R\' U2 R2</b></p>
 
     ]]></string>
     <string name="adv2x2_st3_url">MCwDjDgDsxk</string>

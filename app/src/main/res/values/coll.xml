@@ -218,7 +218,7 @@
         <p>Делаем северо-западную Акулу, потом простую Рыбку.</p>
         <p style="text-align:center"><img src="coll_1.xml"></p>
 
-        <a href="rg2://ytplay?time=0:08&link=CFIQMKxJP4k">Алгоритм:</a> <b>(R\' U\' R U\') R\' U2 R (R U R\' U) R U2 R\'</b><br/>
+        <a href="rg2://ytplay?time=0:08&link=CFIQMKxJP4k&alg=(R\'_U\'_R_U\')_R\'_U2_R_(R_U_R\'_U)_R_U2_R\'">Алгоритм:</a> <b>(R\' U\' R U\') R\' U2 R (R U R\' U) R U2 R\'</b><br/>
         или тот же алгоритм, но в чуть другой записи:<br/>
         <b>(R\' U\' R U\') R\' U2 R2 U R\' U R U2 R\'</b>
     ]]></string>
@@ -233,7 +233,7 @@
         <p>Выключаем свет, Австралия, Включаем свет.</p>
         <p style="text-align:center"><img src="coll_2.xml"></p>
 
-        <a href="rg2://ytplay?time=0:28&link=CFIQMKxJP4k">Алгоритм:</a> <b>R\' (F R U\' R\' U\' R U R\' F\' R U R\' U\' R\' F R F\') R</b>
+        <a href="rg2://ytplay?time=0:28&link=CFIQMKxJP4k&alg=R\'_(F_R_U\'_R\'_U\'_R_U_R\'_F\'_R_U_R\'_U\'_R\'_F_R_F\')_R">Алгоритм:</a> <b>R\' (F R U\' R\' U\' R U R\' F\' R U R\' U\' R\' F R F\') R</b>
     ]]></string>
     <string name="coll_st2_url">CFIQMKxJP4k</string>
     <string name="coll_st2_comment">R\' (F R U\' R\' U\' R U R\' F\' R U R\' U\' R\' F R F\') R</string>
@@ -247,7 +247,7 @@
         ну и начальное положение тоже противоположное, т.е. глазками от себя.</p>
         <p style="text-align:center"><img src="coll_3.xml"></p>
 
-        <a href="rg2://ytplay?time=0:43&link=CFIQMKxJP4k">Алгоритм:</a> <b>R2 D\' R U2 R\' D R U2 R</b>
+        <a href="rg2://ytplay?time=0:43&link=CFIQMKxJP4k&alg=R2_D\'_R_U2_R\'_D_R_U2_R">Алгоритм:</a> <b>R2 D\' R U2 R\' D R U2 R</b>
     ]]></string>
     <string name="coll_st3_url">CFIQMKxJP4k</string>
     <string name="coll_st3_comment">R2 D\' R U2 R\' D R U2 R</string>
@@ -277,7 +277,7 @@
         все очень удобно.</p>
         <p style="text-align:center"><img src="coll_5.xml"></p>
 
-        <a href="rg2://ytplay?time=1:26&link=CFIQMKxJP4k">Алгоритм:</a> <b>F (R U\' R\' U) (R U R\' U R U\' R\') F\'</b>
+        <a href="rg2://ytplay?time=1:26&link=CFIQMKxJP4k&alg=F_(R_U\'_R\'_U)_(R_U_R\'_U_R_U\'_R\')_F\'">Алгоритм:</a> <b>F (R U\' R\' U) (R U R\' U R U\' R\') F\'</b>
 
         <p>Ну или можно использовать вот такой алгоритм:</p>
 
@@ -294,7 +294,7 @@
         <p>Просто выучите новый алгоритм. :)</p>
         <p style="text-align:center"><img src="coll_6.xml"></p>
 
-        <a href="rg2://ytplay?time=1:51&link=CFIQMKxJP4k">Алгоритм:</a> <b>R2 D\' R U R\' D R U R U\' R\' U\' R</b>
+        <a href="rg2://ytplay?time=1:51&link=CFIQMKxJP4k&alg=R2_D\'_R_U_R\'_D_R_U_R_U\'_R\'_U\'_R">Алгоритм:</a> <b>R2 D\' R U R\' D R U R U\' R\' U\' R</b>
     ]]></string>
     <string name="coll_st6_url">CFIQMKxJP4k</string>
     <string name="coll_st6_comment">R2 D\' R U R\' D R U R U\' R\' U\' R</string>
@@ -325,7 +325,7 @@
         ставим на место левую переднюю пару.</p>
         <p style="text-align:center"><img src="coll_8.xml"></p>
 
-        <a href="rg2://ytplay?time=0:23&link=rVrNZWbnXTg">Алгоритм:</a> <b>(R\' U R) U2 (R\' L\' U R) U\' L</b>
+        <a href="rg2://ytplay?time=0:23&link=rVrNZWbnXTg&alg=(R\'_U_R)_U2_(R\'_L\'_U_R)_U\'_L">Алгоритм:</a> <b>(R\' U R) U2 (R\' L\' U R) U\' L</b>
     ]]></string>
     <string name="coll_st8_url">rVrNZWbnXTg</string>
     <string name="coll_st8_comment">(R\' U R) U2 (R\' L\' U R) U\' L</string>
@@ -337,7 +337,7 @@
         <p>Развернуть ушками налево и сделать пиф-паф, английский пиф-паф с первыми жирными ходами.</p>
         <p style="text-align:center"><img src="coll_9.xml"></p>
 
-        <a href="rg2://ytplay?time=0:45&link=rVrNZWbnXTg">Алгоритм:</a> <b>U\' (Rw U R\' U\') (Rw\' F R F\')</b>
+        <a href="rg2://ytplay?time=0:45&link=rVrNZWbnXTg&alg=U\'_(Rw_U_R\'_U\')_(Rw\'_F_R_F\')">Алгоритм:</a> <b>U\' (Rw U R\' U\') (Rw\' F R F\')</b>
     ]]></string>
     <string name="coll_st9_url">rVrNZWbnXTg</string>
     <string name="coll_st9_comment">U\' (Rw U R\' U\') (Rw\' F R F\')</string>
@@ -366,7 +366,7 @@
         <p>В Лондон, пиф-паф, рыбный пиф-паф с обратными ходами крыши, пиф-паф без последнего хода, из Лондона.</p>
         <p style="text-align:center"><img src="coll_11.xml"></p>
 
-        <a href="rg2://ytplay?time=1:20&link=rVrNZWbnXTg">Алгоритм:</a> <b>U2 (F (R U R\' U\') (R U\' R\' U\') R U R\' F\')</b>
+        <a href="rg2://ytplay?time=1:20&link=rVrNZWbnXTg&alg=U2_(F_(R_U_R\'_U\')_(R_U\'_R\'_U\')_R_U_R\'_F\')">Алгоритм:</a> <b>U2 (F (R U R\' U\') (R U\' R\' U\') R U R\' F\')</b>
     ]]></string>
     <string name="coll_st11_url">rVrNZWbnXTg</string>
     <string name="coll_st11_comment">U2 (F (R U R\' U\') (R U\' R\' U\') R U R\' F\')</string>
@@ -378,7 +378,7 @@
         <p>В видео алгоритм написан неверно.</p>
         <p style="text-align:center"><img src="coll_12.xml"></p>
 
-        <a href="rg2://ytplay?time=1:46&link=rVrNZWbnXTg">Алгоритм:</a> <b>R\' U R2 D Rw\' U2 Rw D\' R2 U\' R</b>
+        <a href="rg2://ytplay?time=1:46&link=rVrNZWbnXTg&alg=R\'_U_R2_D_Rw\'_U2_Rw_D\'_R2_U\'_R">Алгоритм:</a> <b>R\' U R2 D Rw\' U2 Rw D\' R2 U\' R</b>
     ]]></string>
     <string name="coll_st12_url">rVrNZWbnXTg</string>
     <string name="coll_st12_comment">R\' U R2 D Rw\' U2 Rw D\' R2 U\' R</string>
@@ -409,7 +409,7 @@
         <p></p>
         <p style="text-align:center"><img src="coll_14.xml"></p>
 
-        <a href="rg2://ytplay?time=0:52&link=U0dP8MJw-Ig">Алгоритм:</a> <b>R U2 R D R\' U2 R D\' R2</b>
+        <a href="rg2://ytplay?time=0:52&link=U0dP8MJw-Ig&alg=R_U2_R_D_R\'_U2_R_D\'_R2">Алгоритм:</a> <b>R U2 R D R\' U2 R D\' R2</b>
     ]]></string>
     <string name="coll_st14_url">U0dP8MJw-Ig</string>
     <string name="coll_st14_comment">R U2 R D R\' U2 R D\' R2</string>
@@ -435,7 +435,7 @@
         <p>Крыша дважды, два хода против часовой, первые 10 ходов Юга, свет дважды.</p>
         <p style="text-align:center"><img src="coll_16.xml"></p>
 
-        <a href="rg2://ytplay?time=1:37&link=U0dP8MJw-Ig">Алгоритм:</a> <b>U2 (R\' U\' (R U R\' F\' R U R\' U\' R\' F) R2)</b>
+        <a href="rg2://ytplay?time=1:37&link=U0dP8MJw-Ig&alg=U2_(R\'_U\'_(R_U_R\'_F\'_R_U_R\'_U\'_R\'_F)_R2)">Алгоритм:</a> <b>U2 (R\' U\' (R U R\' F\' R U R\' U\' R\' F) R2)</b>
     ]]></string>
     <string name="coll_st16_url">U0dP8MJw-Ig</string>
     <string name="coll_st16_comment">U2 (R\' U\' (R U R\' F\' R U R\' U\' R\' F) R2)</string>
@@ -447,7 +447,7 @@
         <p>На самом деле, очень удобный и быстрый алгоритм, хотя и с вращениями задней грани.</p>
         <p style="text-align:center"><img src="coll_17.xml"></p>
 
-        <a href="rg2://ytplay?time=2:01&link=U0dP8MJw-Ig">Алгоритм:</a> <b>R\' F R B\' R\' F\' R B</b>
+        <a href="rg2://ytplay?time=2:01&link=U0dP8MJw-Ig&alg=R\'_F_R_B\'_R\'_F\'_R_B">Алгоритм:</a> <b>R\' F R B\' R\' F\' R B</b>
     ]]></string>
     <string name="coll_st17_url">U0dP8MJw-Ig</string>
     <string name="coll_st17_comment">R\' F R B\' R\' F\' R B</string>
@@ -460,7 +460,7 @@
         На самом деле, очень удобный фингертрикс.</p>
         <p style="text-align:center"><img src="coll_18.xml"></p>
 
-        <a href="rg2://ytplay?time=2:22&link=U0dP8MJw-Ig">Алгоритм:</a> <b>F R\' F\' L F R F\' L\'</b>
+        <a href="rg2://ytplay?time=2:22&link=U0dP8MJw-Ig&alg=F_R\'_F\'_L_F_R_F\'_L\'">Алгоритм:</a> <b>F R\' F\' L F R F\' L\'</b>
     ]]></string>
     <string name="coll_st18_url">U0dP8MJw-Ig</string>
     <string name="coll_st18_comment">F R\' F\' L F R F\' L\'</string>
@@ -475,7 +475,7 @@
         <p>Акула с пиф-пафом посередине.</p>
         <p style="text-align:center"><img src="coll_19.xml"></p>
 
-        <a href="rg2://ytplay?time=0:07&link=GJ7nsaOvwbM">Алгоритм:</a> <b>R U2 R\' U\' (R U R\' U\') R U\' R\'</b>
+        <a href="rg2://ytplay?time=0:07&link=GJ7nsaOvwbM&alg=R_U2_R\'_U\'_(R_U_R\'_U\')_R_U\'_R\'">Алгоритм:</a> <b>R U2 R\' U\' (R U R\' U\') R U\' R\'</b>
     ]]></string>
     <string name="coll_st19_url">GJ7nsaOvwbM</string>
     <string name="coll_st19_comment">R U2 R\' U\' (R U R\' U\') R U\' R\'</string>
@@ -487,7 +487,7 @@
         <p>Классический вариант решения с тремя пиф-пафами.</p>
         <p style="text-align:center"><img src="coll_20.xml"></p>
 
-        <a href="rg2://ytplay?time=0:21&link=GJ7nsaOvwbM">Алгоритм:</a> <b>F (R U R\' U\')3 F\'</b>
+        <a href="rg2://ytplay?time=0:21&link=GJ7nsaOvwbM&alg=F_(R_U_R\'_U\')3_F\'">Алгоритм:</a> <b>F (R U R\' U\')3 F\'</b>
     ]]></string>
     <string name="coll_st20_url">GJ7nsaOvwbM</string>
     <string name="coll_st20_comment">F (R U R\' U\')3 F\'</string>
@@ -499,7 +499,7 @@
         <p>Поставить парой направо и начать с рыбного пиф-пафа.</p>
         <p style="text-align:center"><img src="coll_21.xml"></p>
 
-        <a href="rg2://ytplay?time=0:34&link=GJ7nsaOvwbM">Алгоритм:</a> <b>{U} (R U R\' U) R U L\' U R\' U\' L</b>
+        <a href="rg2://ytplay?time=0:34&link=GJ7nsaOvwbM&alg={U}_(R_U_R\'_U)_R_U_L\'_U_R\'_U\'_L">Алгоритм:</a> <b>{U} (R U R\' U) R U L\' U R\' U\' L</b>
     ]]></string>
     <string name="coll_st21_url">GJ7nsaOvwbM</string>
     <string name="coll_st21_comment">{U} (R U R\' U) R U L\' U R\' U\' L</string>
@@ -511,7 +511,7 @@
         <p>Поставить парой к себе.</p>
         <p style="text-align:center"><img src="coll_22.xml"></p>
 
-        <a href="rg2://ytplay?time=0:50&link=GJ7nsaOvwbM">Алгоритм:</a> <b>{U} F (R U\' R\' U R U2 R\' U\' R U R\' U\') F\'</b>
+        <a href="rg2://ytplay?time=0:50&link=GJ7nsaOvwbM&alg={U}_F_(R_U\'_R\'_U_R_U2_R\'_U\'_R_U_R\'_U\')_F\'">Алгоритм:</a> <b>{U} F (R U\' R\' U R U2 R\' U\' R U R\' U\') F\'</b>
     ]]></string>
     <string name="coll_st22_url">GJ7nsaOvwbM</string>
     <string name="coll_st22_comment">{U} F (R U\' R\' U R U2 R\' U\' R U R\' U\') F\'</string>
@@ -526,7 +526,7 @@
         <p>Обычный вертолет.</p>
         <p style="text-align:center"><img src="coll_23.xml"></p>
 
-        <a href="rg2://ytplay?time=0:14&link=YTpCBRiAuow">Алгоритм:</a> <b>R U2\' R2\' U\' R2 U\' R2\' U2\' R</b>
+        <a href="rg2://ytplay?time=0:14&link=YTpCBRiAuow&alg=R_U2\'_R2\'_U\'_R2_U\'_R2\'_U2\'_R">Алгоритм:</a> <b>R U2\' R2\' U\' R2 U\' R2\' U2\' R</b>
     ]]></string>
     <string name="coll_st23_url">YTpCBRiAuow</string>
     <string name="coll_st23_comment">R U2\' R2\' U\' R2 U\' R2\' U2\' R</string>
@@ -539,7 +539,7 @@
         <p>Пиф-паф, три хода английского пиф-пафа, еще два пиф-пафа, завершаем английский пиф-паф.</p>
         <p style="text-align:center"><img src="coll_24.xml"></p>
 
-        <a href="rg2://ytplay?time=0:29&link=YTpCBRiAuow">Алгоритм:</a> <b>(R U R\' U\') R\' F R (R U R\' U\')2 F\'</b>
+        <a href="rg2://ytplay?time=0:29&link=YTpCBRiAuow&alg=(R_U_R\'_U\')_R\'_F_R_(R_U_R\'_U\')2_F\'">Алгоритм:</a> <b>(R U R\' U\') R\' F R (R U R\' U\')2 F\'</b>
     ]]></string>
     <string name="coll_st24_url">YTpCBRiAuow</string>
     <string name="coll_st24_comment">(R U R\' U\') R\' F R (R U R\' U\')2 F\'</string>
@@ -565,7 +565,7 @@
 
         <p style="text-align:center"><img src="coll_26.xml"></p>
 
-        <a href="rg2://ytplay?time=1:16&link=YTpCBRiAuow">Алгоритм:</a> <b>R U\' L\' U R\' U L U L\' U L</b>
+        <a href="rg2://ytplay?time=1:16&link=YTpCBRiAuow&alg=R_U\'_L\'_U_R\'_U_L_U_L\'_U_L">Алгоритм:</a> <b>R U\' L\' U R\' U L U L\' U L</b>
     ]]></string>
     <string name="coll_st26_url">YTpCBRiAuow</string>
     <string name="coll_st26_comment">R U\' L\' U R\' U L U L\' U L</string>
@@ -577,7 +577,7 @@
         <p>10 первых ходов светофора, уводим и загоняем F2L пару.</p>
         <p style="text-align:center"><img src="coll_27.xml"></p>
 
-        <a href="rg2://ytplay?time=1:32&link=YTpCBRiAuow">Алгоритм:</a> <b>(R\' U\' F\') (R U R\' U\') R\' F R2 (U2 R\' U2 R)</b>
+        <a href="rg2://ytplay?time=1:32&link=YTpCBRiAuow&alg=(R\'_U\'_F\')_(R_U_R\'_U\')_R\'_F_R2_(U2_R\'_U2_R)">Алгоритм:</a> <b>(R\' U\' F\') (R U R\' U\') R\' F R2 (U2 R\' U2 R)</b>
     ]]></string>
     <string name="coll_st27_url">YTpCBRiAuow</string>
     <string name="coll_st27_comment">(R\' U\' F\') (R U R\' U\') R\' F R2 (U2 R\' U2 R)</string>
@@ -590,7 +590,7 @@
         <p>Длинный и не очень удобный алгоритм, изначально лучше взять большим пальцем правой руки сверху.</p>
         <p style="text-align:center"><img src="coll_28.xml"></p>
 
-        <a href="rg2://ytplay?time=2:09&link=YTpCBRiAuow">Алгоритм:</a> <b>R2\' D\' R U R\' D R U R U\' R\' U R U R\' U R</b>
+        <a href="rg2://ytplay?time=2:09&link=YTpCBRiAuow&alg=R2\'_D\'_R_U_R\'_D_R_U_R_U\'_R\'_U_R_U_R\'_U_R">Алгоритм:</a> <b>R2\' D\' R U R\' D R U R U\' R\' U R U R\' U R</b>
     ]]></string>
     <string name="coll_st28_url">YTpCBRiAuow</string>
     <string name="coll_st28_comment">R2\' D\' R U R\' D R U R U\' R\' U R U R\' U R</string>

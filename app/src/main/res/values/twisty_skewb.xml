@@ -83,7 +83,7 @@
     возвращаем уведенный сверху угол на место. На языке формул (а его можно посмотреть нажав на \"?\"
     в правом верхнем углу этого окна) это будет выглядеть так:</p>
 
-    <p><a href="rg2://ytplay?time=3:18&link=dRrWDdKd-cI">Алгоритм:</a> <b>R\' D\' R D</b></p>
+    <p><a href="rg2://ytplay?time=3:18&link=dRrWDdKd-cI&alg=R\'_D\'_R_D">Алгоритм:</a> <b>R\' D\' R D</b></p>
 
     <p>А если угол не развернулся как надо, то просто повторите алгоритм <a href="rg2://ytplay?time=3:49&link=dRrWDdKd-cI">ещё раз.</a></p>
 
@@ -167,7 +167,7 @@
     их, то центры два раза поменяются местами, т.е. в итоге останутся на своих местах, но при этом
     перевернутся.</p>
 
-    <p><a href="rg2://ytplay?time=12:08&link=dRrWDdKd-cI">Алгоритм:</a> <b>(RU’ LU RU LU’)2</b></p>
+    <p><a href="rg2://ytplay?time=12:08&link=dRrWDdKd-cI&alg=(RU’_LU_RU_LU’)2">Алгоритм:</a> <b>(RU’ LU RU LU’)2</b></p>
 
     <p><b>2. Перевернуты <a href="rg2://ytplay?time=12:28&link=dRrWDdKd-cI">два смежных центра</a></b></p>
 
@@ -219,7 +219,7 @@
 
     <p>И выполнить четыре верхних правых пиф-пафа.</p>
 
-    <p><a href="rg2://ytplay?time=17:24&link=dRrWDdKd-cI">Алгоритм:</a> (RU’ LU RU LU’)4</p>
+    <p><a href="rg2://ytplay?time=17:24&link=dRrWDdKd-cI&alg=(RU’_LU_RU_LU’)4">Алгоритм:</a> (RU’ LU RU LU’)4</p>
 
     <p><b>2. <a href="rg2://ytplay?time=17:52&link=dRrWDdKd-cI">Два угла</a> стоят неправильно.</b></p>
 

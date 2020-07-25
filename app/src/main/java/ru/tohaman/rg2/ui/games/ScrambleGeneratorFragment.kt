@@ -13,11 +13,9 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.adapters.AzbukaGridAdapter
-import ru.tohaman.rg2.databinding.DialogGetLetterBinding
 import ru.tohaman.rg2.databinding.DialogGetScrambleBinding
 import ru.tohaman.rg2.databinding.FragmentGamesScrambleGeneratorBinding
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
-import ru.tohaman.rg2.ui.youtube.YouTubeFragmentArgs
 import timber.log.Timber
 
 class ScrambleGeneratorFragment: Fragment() {

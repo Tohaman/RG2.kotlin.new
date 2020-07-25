@@ -199,7 +199,7 @@
     <p>В этом случае просто делаем пиф-паф два раза, держа кубик как на картинке (средним
     перевернутым центром к себе). И т.к. наш любимый пиф-паф не только меняет центры местами, но еще
     и разворачивает их, то два пиф-пафа вернут центры на свои места, а так же перевернут их.</p>
-    <p><a href="rg2://ytplay?time=21:22&link=rh3rMuESOIM">Алгоритм:</a> <b>(RU’ LU RU LU’)2</b></p>
+    <p><a href="rg2://ytplay?time=21:22&link=rh3rMuESOIM&alg=(RU’_LU_RU_LU’)2">Алгоритм:</a> <b>(RU’ LU RU LU’)2</b></p>
 
     <p>2. <a href="rg2://ytplay?time=21:50&link=rh3rMuESOIM">Перевернуты два смежных центра</a></p>
 
@@ -207,7 +207,7 @@
 
     <p>В этом случае, берем головоломку любым из двух правильно стоящих центров к себе и делаем два
     пиф-пафа, получаем ситуацию с тремя перевернутыми центрами, а как ее решать уже знаем.</p>
-    <p><a href="rg2://ytplay?time=22:07&link=rh3rMuESOIM">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y’ (RU’ LU RU LU’)2</b></p>
+    <p><a href="rg2://ytplay?time=22:07&link=rh3rMuESOIM&alg=(RU’_LU_RU_LU’)2_y’_(RU’_LU_RU_LU’)2">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y’ (RU’ LU RU LU’)2</b></p>
 
     <p>3. <a href="rg2://ytplay?time=22:45&link=rh3rMuESOIM">Перевернуты два противоположных центра</a></p>
 
@@ -215,7 +215,7 @@
 
     <p>Берем головоломку любым перевернутым центром к себе и делаем два пиф-пафа, опять же получаем
     ситуацию с тремя перевернутыми центрами, которую уже знаем как решать.</p>
-    <p><a href="rg2://ytplay?time=23:09&link=rh3rMuESOIM">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2</b></p>
+    <p><a href="rg2://ytplay?time=23:09&link=rh3rMuESOIM&alg=(RU’_LU_RU_LU’)2_y2_(RU’_LU_RU_LU’)2">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2</b></p>
 
     <p>4. <a href="rg2://ytplay?time=23:51&link=rh3rMuESOIM">Перевернут только один центр</a></p>
 
@@ -223,7 +223,7 @@
 
     <p>Берем головоломку этим перевернутым центром к себе и опять же делаем два пиф-пафа, получаем
     ситуацию с двумя противоположными перевернутыми углами, которую уже знаем как решать.</p>
-    <p><a href="rg2://ytplay?time=24:05&link=rh3rMuESOIM">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y’ (RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2</b></p>
+    <p><a href="rg2://ytplay?time=24:05&link=rh3rMuESOIM&alg=(RU’_LU_RU_LU’)2_y’_(RU’_LU_RU_LU’)2_y2_(RU’_LU_RU_LU’)2">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y’ (RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2</b></p>
 
     <p>5. <a href="rg2://ytplay?time=24:48&link=rh3rMuESOIM">Перевернуты все четыре центра</a></p>
 
@@ -231,7 +231,7 @@
 
     <p>Делаем два пиф-пафа из любого положения и получаем ситуацию с одним перевернутым центром,
     которую тоже уже знаем как решать.</p>
-    <p><a href="rg2://ytplay?time=25:17&link=rh3rMuESOIM">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2 y’ (RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2</b></p>
+    <p><a href="rg2://ytplay?time=25:17&link=rh3rMuESOIM&alg=(RU’_LU_RU_LU’)2_y2_(RU’_LU_RU_LU’)2_y’_(RU’_LU_RU_LU’)2_y2_(RU’_LU_RU_LU’)2">Алгоритм:</a> <b>(RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2 y’ (RU’ LU RU LU’)2 y2 (RU’ LU RU LU’)2</b></p>
 
     <p>6. <a href="rg2://ytplay?time=26:14&link=rh3rMuESOIM">Два неверно стоящих центра</a></p>
 
@@ -260,7 +260,7 @@
     <p style="text-align:center"><img src="container_5_1.xml" width="20%%"></p>
 
     <p>И выполнить 4 верхних правых пиф-пафа.</p>
-    <p><a href="rg2://ytplay?time=30:09&link=rh3rMuESOIM">Алгоритм:</a> (RU’ LU RU LU’)4</p>
+    <p><a href="rg2://ytplay?time=30:09&link=rh3rMuESOIM&alg=(RU’_LU_RU_LU’)4">Алгоритм:</a> (RU’ LU RU LU’)4</p>
 
     <p>2. <a href="rg2://ytplay?time=30:45&link=rh3rMuESOIM">Неправильно ориентированы 2 угла</a></p>
 
@@ -273,7 +273,7 @@
     как обычно справа. Должна получится ситуация, когда четыре уголка стоят неправильно, ну а как
     решить ее, уже знаем.</p>
 
-    <p><a href="rg2://ytplay?time=32:39&link=rh3rMuESOIM">Алгоритм:</a> (RU’ LU RU LU’)4 y’ (RU’ LU RU LU’)4</p>
+    <p><a href="rg2://ytplay?time=32:39&link=rh3rMuESOIM&alg=(RU’_LU_RU_LU’)4_y’_(RU’_LU_RU_LU’)4">Алгоритм:</a> (RU’ LU RU LU’)4 y’ (RU’ LU RU LU’)4</p>
 
     <p>Profit!</p>
     ]]></string>

@@ -97,7 +97,7 @@
     с нижней на верхнюю грань (<b>R2</b>) и отводим его на переднюю грань (<b>U</b>). Теперь поворачиваем
     правую грань на 90 градусов (<b>R</b>) и возвращаем белое ребро обратно, т.е. делаем <b>U’ R2’</b>.</p>
 
-    <p><a href="rg2://ytplay?time=5:35&link=5-Ffk_qxlt4">Алгоритм:</a> <b>R2 U R U’ R2’</b></p>
+    <p><a href="rg2://ytplay?time=5:35&link=5-Ffk_qxlt4&alg=R2_U_R_U’_R2’">Алгоритм:</a> <b>R2 U R U’ R2’</b></p>
     ]]></string>
     <string name="cylinder_st2_url">5-Ffk_qxlt4</string>
 
@@ -111,7 +111,7 @@
 
     <p style="text-align:center"><img src="cylinder_3_1.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=7:19&link=5-Ffk_qxlt4">Алгоритм:</a> <b>R U R’ U’</b></p>
+    <p><a href="rg2://ytplay?time=7:19&link=5-Ffk_qxlt4&alg=R_U_R’_U’">Алгоритм:</a> <b>R U R’ U’</b></p>
 
     <p>Если же на крыше нет белых уголков, а нижний слой еще не собран, значит какой-то из уголков стоит
     на своем месте, но просто неправильно развернут. <a href="rg2://ytplay?time=8:17&link=5-Ffk_qxlt4">В этом случае,</a>

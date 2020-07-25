@@ -454,7 +454,7 @@
         воспользуемся тем же алгоритмом, который скорее всего вам уже известен по \"Ускорениям для
         новичков\" как <a href="rg2://ytplay?time=4:06&link=KpQ7Jc6xMGE">\"Рыбка\".</a></p>
 
-        <p><a href="rg2://ytplay?time=4:42&link=KpQ7Jc6xMGE">Алгоритм:</a> <b>(R U R\' U) R U2 R\'</b></p>
+        <p><a href="rg2://ytplay?time=4:42&link=KpQ7Jc6xMGE&alg=(R_U_R\'_U)_R_U2_R\'">Алгоритм:</a> <b>(R U R\' U) R U2 R\'</b></p>
 
         Чаще всего у вас будет получаться ситуация, когда
         <a href="rg2://ytplay?time=4:14&link=KpQ7Jc6xMGE">одно ребро уже стоит</a> на своем месте, т.е.

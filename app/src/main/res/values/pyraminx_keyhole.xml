@@ -177,13 +177,13 @@
 
     <p style="text-align:center"><img src="keyhole_4_4.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=11:30&link=n7siuMZuvVk">Алгоритм:</a> <b>L’ R’ L R</b></p>
+    <p><a href="rg2://ytplay?time=11:30&link=n7siuMZuvVk&alg=L’_R’_L_R">Алгоритм:</a> <b>L’ R’ L R</b></p>
 
     <p>А для ситуации, когда место ребра слева:</p>
 
     <p style="text-align:center"><img src="keyhole_4_5.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=10:06&link=n7siuMZuvVk">Алгоритм:</a> <b>R L R’ L’</b></p>
+    <p><a href="rg2://ytplay?time=10:06&link=n7siuMZuvVk&alg=R_L_R’_L’">Алгоритм:</a> <b>R L R’ L’</b></p>
 
     <p>2. Если же ребро стоит на своем месте, <a href="rg2://ytplay?time=10:35&link=n7siuMZuvVk">но перевернуто.</a></p>
 
@@ -195,7 +195,7 @@
     берем головоломку этим ребром к себе и ставим его на место при помощи этого же алгоритма, которым
     его выгоняли на нижний слой.</p>
 
-    <p><a href="rg2://ytplay?time=10:56&link=n7siuMZuvVk">Алгоритм:</a> <b>(L’ R’ L R) D (L’ R’ L R)</b></p>
+    <p><a href="rg2://ytplay?time=10:56&link=n7siuMZuvVk&alg=(L’_R’_L_R)_D_(L’_R’_L_R)">Алгоритм:</a> <b>(L’ R’ L R) D (L’ R’ L R)</b></p>
     ]]></string>
     <string name="keyhole_st4_url">n7siuMZuvVk</string>
 
@@ -222,7 +222,7 @@
     <p style="text-align:center"><img src="keyhole_5_2.xml" width="20%%"></p>
 
     <p>в этой ситуации нам надо сделать всем знакомый левый пирамидный пиф-паф.<br/>
-    <a href="rg2://ytplay?time=15:07&link=n7siuMZuvVk">Алгоритм:</a> <b>L R’ L’ R</b></p>
+    <a href="rg2://ytplay?time=15:07&link=n7siuMZuvVk&alg=L_R’_L’_R">Алгоритм:</a> <b>L R’ L’ R</b></p>
 
     <p><a href="rg2://ytplay?time=15:18&link=n7siuMZuvVk">Вторая(базовая) ситуация,</a> правильно
     ориентированное ребро слева.</p>
@@ -230,7 +230,7 @@
     <p style="text-align:center"><img src="keyhole_5_1.xml" width="20%%"></p>
 
     <p>в этой ситуации делаем правый пирамидный пиф-паф.<br/>
-    <a href="rg2://ytplay?time=15:49&link=n7siuMZuvVk">Алгоритм:</a> <b>R’ L R L’</b></p>
+    <a href="rg2://ytplay?time=15:49&link=n7siuMZuvVk&alg=R’_L_R_L’">Алгоритм:</a> <b>R’ L R L’</b></p>
 
     <p><a href="rg2://ytplay?time=15:57&link=n7siuMZuvVk">Третья ситуация</a> похожа на две предыдущие,
     но в ней правильно ориентированное ребро стоит на своем месте.</p>
@@ -242,9 +242,9 @@
     пиф-паф с той стороны, с которой это ребро. Получаем противоположную базовую ситуацию, делаем соответствующий
     перехват и решаем ее.</p>
 
-    <p><a href="rg2://ytplay?time=16:37&link=n7siuMZuvVk">Алгоритм:</a> <b>(R’ L R L’) z (L R’ L’ R)</b></p>
+    <p><a href="rg2://ytplay?time=16:37&link=n7siuMZuvVk&alg=(R’_L_R_L’)_z_(L_R’_L’_R)">Алгоритм:</a> <b>(R’ L R L’) z (L R’ L’ R)</b></p>
 
-    <p>Или если взять таким ребром сверху слева, то <a href="rg2://ytplay?time=17:16&link=n7siuMZuvVk">Алгоритм:</a> <b>(L R’ L’ R) z’ (R’ L R L’)</b></p>
+    <p>Или если взять таким ребром сверху слева, то <a href="rg2://ytplay?time=17:16&link=n7siuMZuvVk&alg=(L_R’_L’_R)_z’_(R’_L_R_L’)">Алгоритм:</a> <b>(L R’ L’ R) z’ (R’ L R L’)</b></p>
 
     <p><a href="rg2://ytplay?time=17:33&link=n7siuMZuvVk">Четвертая и пятая ситуации</a> - когда все
     ребра ориентированы правильно, но стоят не на своих местах. Можно назвать эти ситуации “пирамидный
@@ -259,14 +259,14 @@
     <p style="text-align:center"><img src="keyhole_5_4.xml" width="20%%"></p>
 
     <p>Значит делаем левый пиф-паф, перехват и еще один левый пиф-паф</p>
-    <p><a href="rg2://ytplay?time=18:34&link=n7siuMZuvVk">Алгоритм:</a> <b>(L R’ L’ R) z (L R’ L’ R)</b></p>
+    <p><a href="rg2://ytplay?time=18:34&link=n7siuMZuvVk&alg=(L_R’_L’_R)_z_(L_R’_L’_R)">Алгоритм:</a> <b>(L R’ L’ R) z (L R’ L’ R)</b></p>
 
     <p>Совпадающее по цвету с противоположной гранью <a href="rg2://ytplay?time=18:49&link=n7siuMZuvVk">ребро справа</a></p>
 
     <p style="text-align:center"><img src="keyhole_5_5.xml" width="20%%"></p>
 
     <p>Значит делаем правый пиф-паф, перехват и еще один правый пиф-паф</p>
-    <p><a href="rg2://ytplay?time=19:19&link=n7siuMZuvVk">Алгоритм:</a> <b>(R’ L R L’) z’ (R’ L R L’)</b></p>
+    <p><a href="rg2://ytplay?time=19:19&link=n7siuMZuvVk&alg=(R’_L_R_L’)_z’_(R’_L_R_L’)">Алгоритм:</a> <b>(R’ L R L’) z’ (R’ L R L’)</b></p>
     ]]></string>
     <string name="keyhole_st5_url">n7siuMZuvVk</string>
 

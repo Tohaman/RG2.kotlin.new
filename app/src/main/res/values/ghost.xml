@@ -222,7 +222,7 @@
 
     <p style="text-align:center"><img src="ghost_3_1.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=18:23&link=Kul7jGhYiPQ">Алгоритм:</a> <b>R\' D\' R D</b></p>
+    <p><a href="rg2://ytplay?time=18:23&link=Kul7jGhYiPQ&alg=R\'_D\'_R_D">Алгоритм:</a> <b>R\' D\' R D</b></p>
 
     <p>Теперь, чтобы было проще понять, какой угол нам надо искать и ставить, при помощи этого
     алгоритма можно довольно легко сделать так, чтобы все четыре уголка в форме треугольников оказались на верхней
@@ -276,7 +276,7 @@
     грань, чтобы наши установленные уголки не пострадали при развороте центра. Поэтому формула для разворота
     ребра будет выглядеть следующим образом:</p>
 
-    <p><a href="rg2://ytplay?time=26:27&link=Kul7jGhYiPQ">Алгоритм:</a> <b>(R2 U2) {R*} (U2 R2)</b>,
+    <p><a href="rg2://ytplay?time=26:27&link=Kul7jGhYiPQ&alg=(R2_U2)_{R*}_(U2_R2)">Алгоритм:</a> <b>(R2 U2) {R*} (U2 R2)</b>,
     где <b>R*</b> — это R, R\' или R2 в зависимости от того, на сколько надо развернуть центр.</p>
 
     <p>Начнем с разворота центров <a href="rg2://ytplay?time=27:13&link=Kul7jGhYiPQ">в виде прямоугольников</a>
@@ -426,7 +426,7 @@
 
     <p style="text-align:center"><img src="ghost_7_1.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=43:26&link=Kul7jGhYiPQ">Алгоритм:</a> <b>(R U R’ U) R U2 R’</b></p>
+    <p><a href="rg2://ytplay?time=43:26&link=Kul7jGhYiPQ&alg=(R_U_R’_U)_R_U2_R’">Алгоритм:</a> <b>(R U R’ U) R U2 R’</b></p>
 
     <p>3. <a href="rg2://ytplay?time=42:54&link=Kul7jGhYiPQ">Ни одно ребро</a> не стоит на своем месте.</p>
 
@@ -454,7 +454,7 @@
 
     <p style="text-align:center"><img src="ghost_8_2.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=45:14&link=Kul7jGhYiPQ">Алгоритм:</a> <b>(R’ F’ L F)(R F’ L’ F)</b>
+    <p><a href="rg2://ytplay?time=45:14&link=Kul7jGhYiPQ&alg=(R’_F’_L_F)(R_F’_L’_F)">Алгоритм:</a> <b>(R’ F’ L F)(R F’ L’ F)</b>
     или <b>(U’ L’ U R)(U’ L U R’)</b></p>
 
     <p>Но в шейпмодах я предпочитаю использовать алгоритм «Инфаркт» из методики Максима Чечнева, т.к.
@@ -473,7 +473,7 @@
 
     <p style="text-align:center"><img src="ghost_8_3.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=46:25&link=Kul7jGhYiPQ">Алгоритм:</a> <b>(U2 R U2 R\') F2 (U2 L\' U2 L) F2</b></p>
+    <p><a href="rg2://ytplay?time=46:25&link=Kul7jGhYiPQ&alg=(U2_R_U2_R\')_F2_(U2_L\'_U2_L)_F2">Алгоритм:</a> <b>(U2 R U2 R\') F2 (U2 L\' U2 L) F2</b></p>
 
     <p>Ну а после того, как длинный треугольный уголок окажется
     <a href="rg2://ytplay?time=46:53&link=Kul7jGhYiPQ">на своем месте,</a> уже легко понять, где должны
@@ -501,7 +501,7 @@
     чтобы спереди справа оказался другой неверно ориентированный угол. И продолжаем делать перевернутые
     пиф-пафы. Повторяем эти действия пока все уголки не будут развернуты как надо.</p>
 
-    <p><a href="rg2://ytplay?time=48:18&link=Kul7jGhYiPQ">Алгоритм:</a> (R’ D’ R D)2</p>
+    <p><a href="rg2://ytplay?time=48:18&link=Kul7jGhYiPQ&alg=(R’_D’_R_D)2">Алгоритм:</a> (R’ D’ R D)2</p>
 
     <p>В процессе разворота углов верхнего слоя разбирается нижний слой. Не обращаем на это внимания.
     После установки последнего угла верхнего слоя в правильное положение, нижний слой тоже должен собраться.

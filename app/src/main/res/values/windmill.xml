@@ -277,7 +277,7 @@
         а вот перед вторым выполнением уже надо будет расположить дядей на 9 и 12 часов. Либо
         просто выполнить алгоритм <b>Запад</b>.</p>
 
-        <p><a href="rg2://ytplay?time=26:19&link=pMiD39HVDYo">Алгоритм:</a> <b>(R U R\' U\') (R\' F R2 U\' R\' U\') (R U R\' F\')</b></p>
+        <p><a href="rg2://ytplay?time=26:19&link=pMiD39HVDYo&alg=(R_U_R\'_U\')_(R\'_F_R2_U\'_R\'_U\')_(R_U_R\'_F\')">Алгоритм:</a> <b>(R U R\' U\') (R\' F R2 U\' R\' U\') (R U R\' F\')</b></p>
     ]]></string>
     <string name="windmill_st7_url">pMiD39HVDYo</string>
 
@@ -299,7 +299,7 @@
         <b>(КРЫША 2 РАЗА)</b> и Лондонский <b>СВЕТ СЛЕВА ВЫКЛЮЧАЕТСЯ</b>. Возвращаемся из
         <b>ДОЛГОЙ поездки В ЛОНДОН</b> (переднюю грань крутим 2 раза).</p>
 
-        <p><a href="rg2://ytplay?time=28:15&link=pMiD39HVDYo">Алгоритм:</a> <b>(U2 R U2 R\') F2 (U2 L\' U2 L) F2</b></p>
+        <p><a href="rg2://ytplay?time=28:15&link=pMiD39HVDYo&alg=(U2_R_U2_R\')_F2_(U2_L\'_U2_L)_F2">Алгоритм:</a> <b>(U2 R U2 R\') F2 (U2 L\' U2 L) F2</b></p>
 
         <p>Если кубик не собрался <a href="rg2://ytplay?time=28:33&link=pMiD39HVDYo">с первого раза,</a>
         значит соберется со второго, нужно просто повторить данный алгоритм.</p>

@@ -148,7 +148,7 @@
 
     <p style="text-align:center"><img src="tw_cube_2_1.xml" width="30%%"></p>
 
-    <p><a href="rg2://ytplay?time=7:48&link=UUPOcx-yX6s">Алгоритм:</a> <b>R2 U\' R2</b></p>
+    <p><a href="rg2://ytplay?time=7:48&link=UUPOcx-yX6s&alg=R2_U\'_R2">Алгоритм:</a> <b>R2 U\' R2</b></p>
 
     <p>Если ребер на верхней грани нет, то ищем белые ребра на верхнем слое
     <a href="rg2://ytplay?time=8:03&link=UUPOcx-yX6s">(третьем этаже).</a> Такие ребра тоже ставим
@@ -159,7 +159,7 @@
 
     <p style="text-align:center"><img src="tw_cube_2_2.xml" width="30%%"></p>
 
-    <p><a href="rg2://ytplay?time=8:39&link=UUPOcx-yX6s">Алгоритм:</a> <b>R F R’ F’</b> или <b>x (R U R’ U’) x’</b></p>
+    <p><a href="rg2://ytplay?time=8:39&link=UUPOcx-yX6s&alg=R_F_R’_F’">Алгоритм:</a> <b>R F R’ F’</b> или <b>x (R U R’ U’) x’</b></p>
 
     <p>Если ребер наверху <a href="rg2://ytplay?time=9:17&link=UUPOcx-yX6s">совсем нет,</a> значит
     спускаемся еще ниже и ищем их на втором этаже. Такие ребра просто поднимаем наверх при помощи
@@ -169,7 +169,7 @@
 
     <p style="text-align:center"><img src="tw_cube_2_4.xml" width="30%%"></p>
 
-    <p><a href="rg2://ytplay?time=9:31&link=UUPOcx-yX6s">Алгоритм:</a> <b>(R U R’ U’)</b></p>
+    <p><a href="rg2://ytplay?time=9:31&link=UUPOcx-yX6s&alg=(R_U_R’_U’)">Алгоритм:</a> <b>(R U R’ U’)</b></p>
 
     <p>Ну и, если крест еще не собран, а ребер нет ни на верхнем слое, ни на втором этаже, значит они
     уже стоят <a href="rg2://ytplay?time=9:47&link=UUPOcx-yX6s">рядом с белым центром,</a> но по всей
@@ -197,7 +197,7 @@
 
     <p style="text-align:center"><img src="tw_cube_3_1.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=12:16&link=UUPOcx-yX6s">Алгоритм:</a> <b>R U R’ U’</b></p>
+    <p><a href="rg2://ytplay?time=12:16&link=UUPOcx-yX6s&alg=R_U_R’_U’">Алгоритм:</a> <b>R U R’ U’</b></p>
 
     <p>Если уголка <a href="rg2://ytplay?time=13:35&link=UUPOcx-yX6s">на третьем этаже нет,</a> значит
     он есть на первом, находим его и сначала выгоняем на крышу, тем же пиф-пафом, а потом ставим на
@@ -235,7 +235,7 @@
 
     <p>и делаем сначала жирный простой пиф-паф, а потом жирный английский пиф-паф.</p>
 
-    <p><a href="rg2://ytplay?time=16:53&link=UUPOcx-yX6s">Алгоритм:</a> <b>(Rw U Rw’ U’)(Rw’ F Rw F’)</b></p>
+    <p><a href="rg2://ytplay?time=16:53&link=UUPOcx-yX6s&alg=(Rw_U_Rw’_U’)(Rw’_F_Rw_F’)">Алгоритм:</a> <b>(Rw U Rw’ U’)(Rw’ F Rw F’)</b></p>
 
     <p>Повторяем эти действия для всех ребер, кроме последнего.</p>
 
@@ -264,7 +264,7 @@
     (U2) и делаем все те же два жирных пиф-пафа, но в другой последовательности, т.е. сначала жирный
     английский пиф-паф, а потом жирный простой пиф-паф.</p>
 
-    <p><a href="rg2://ytplay?time=20:21&link=UUPOcx-yX6s">Алгоритм:</a> <b>(Rw’ F Rw F’)(Rw U Rw’ U’)</b></p>
+    <p><a href="rg2://ytplay?time=20:21&link=UUPOcx-yX6s&alg=(Rw’_F_Rw_F’)(Rw_U_Rw’_U’)">Алгоритм:</a> <b>(Rw’ F Rw F’)(Rw U Rw’ U’)</b></p>
     ]]></string>
     <string name="tw_cube_st5_url">UUPOcx-yX6s</string>
 
@@ -285,19 +285,19 @@
 
     <p style="text-align:center"><img src="tw_cube_5_1.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=22:29&link=UUPOcx-yX6s">Алгоритм:</a> <b>F (R U R’ U’) F’</b></p>
+    <p><a href="rg2://ytplay?time=22:29&link=UUPOcx-yX6s&alg=F_(R_U_R’_U’)_F’">Алгоритм:</a> <b>F (R U R’ U’) F’</b></p>
 
     <p>2. <a href="rg2://ytplay?time=22:47&link=UUPOcx-yX6s">Бумеранг</a></p>
 
     <p style="text-align:center"><img src="tw_cube_5_2.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=23:07&link=UUPOcx-yX6s">Алгоритм:</a> <b>F (R U R’ U’) (R U R’ U’) F’</b></p>
+    <p><a href="rg2://ytplay?time=23:07&link=UUPOcx-yX6s&alg=F_(R_U_R’_U’)_(R_U_R’_U’)_F’">Алгоритм:</a> <b>F (R U R’ U’) (R U R’ U’) F’</b></p>
 
     <p>3. <a href="rg2://ytplay?time=23:30&link=UUPOcx-yX6s">Пуля</a></p>
 
     <p style="text-align:center"><img src="tw_cube_5_3.xml" width="20%%"></p>
 
-    <p><a href="rg2://ytplay?time=23:37&link=UUPOcx-yX6s">Алгоритм:</a> <b>F (R U R’ U’) S (R U R’ U’) Fw’</b></p>
+    <p><a href="rg2://ytplay?time=23:37&link=UUPOcx-yX6s&alg=F_(R_U_R’_U’)_S_(R_U_R’_U’)_Fw’">Алгоритм:</a> <b>F (R U R’ U’) S (R U R’ U’) Fw’</b></p>
 
     <p><i>Если на этом этапе вам попалась какая-то другая ситуация,</i></p>
 
@@ -329,7 +329,7 @@
 
     <p>Берем правильно стоящим уголком к себе слева и делаем \"Рыбку\"</p>
 
-    <p><a href="rg2://ytplay?time=24:57&link=UUPOcx-yX6s">Алгоритм:</a> <b>(R U R’ U) R U2 R’</b></p>
+    <p><a href="rg2://ytplay?time=24:57&link=UUPOcx-yX6s&alg=(R_U_R’_U)_R_U2_R’">Алгоритм:</a> <b>(R U R’ U) R U2 R’</b></p>
 
     <p>Если рыбка не собралась <a href="rg2://ytplay?time=25:28&link=UUPOcx-yX6s">с первого раза,</a>
     значит соберется со второго, но перед выполнением не забудьте снова поставить Рыбку головой к себе
@@ -384,7 +384,7 @@
     кубик или повернуть верхнюю грань так, чтобы глазки смотрели прямо на нас, и выполнить вот такой
     алгоритм.</p>
 
-    <p><a href="rg2://ytplay?time=29:24&link=UUPOcx-yX6s">Алгоритм:</a> <b>R\' U2 R U2 R\' F (R U R\' U\') R\' F\' R2 U\'</b></p>
+    <p><a href="rg2://ytplay?time=29:24&link=UUPOcx-yX6s&alg=R\'_U2_R_U2_R\'_F_(R_U_R\'_U\')_R\'_F\'_R2_U\'">Алгоритм:</a> <b>R\' U2 R U2 R\' F (R U R\' U\') R\' F\' R2 U\'</b></p>
 
     <p>А чтобы легче запомнить такой длинный алгоритм, воспользуемся запоминалкой от Максима Чечнева:<br/>
     Мы очень устали и хотим спать, поэтому <b>ВЫКЛЮЧАЕМ СВЕТ</b> (R\'), и наступает длинная-длинная
@@ -405,7 +405,7 @@
     <p>В этом случае, делаем алгоритм для одиноких “Глазок”, и они обязательно где-то появятся, а что
     делать в этом случае вы уже знаете, снова взять Глазками к себе и выполнить алгоритм еще раз.</p>
 
-    <p><a href="rg2://ytplay?time=30:38&link=UUPOcx-yX6s">Алгоритм:</a> <b>R\' U2 R U2 R\' F (R U R\' U\') R\' F\' R2 U\'</b></p>
+    <p><a href="rg2://ytplay?time=30:38&link=UUPOcx-yX6s&alg=R\'_U2_R_U2_R\'_F_(R_U_R\'_U\')_R\'_F\'_R2_U\'">Алгоритм:</a> <b>R\' U2 R U2 R\' F (R U R\' U\') R\' F\' R2 U\'</b></p>
     ]]></string>
     <string name="tw_cube_st8_url">UUPOcx-yX6s</string>
 
@@ -427,7 +427,7 @@
     <p>Если после выполнения алгоритма, ребра не встали на свои места, значит его просто надо повторить
     еще один раз.</p>
 
-    <p><a href="rg2://ytplay?time=32:21&link=UUPOcx-yX6s">Алгоритм:</a> <b>(R U R\' U\')(L\' U\' L U)(U R U\' R\')(U\' L\' U L)</b></p>
+    <p><a href="rg2://ytplay?time=32:21&link=UUPOcx-yX6s&alg=(R_U_R\'_U\')(L\'_U\'_L_U)(U_R_U\'_R\')(U\'_L\'_U_L)">Алгоритм:</a> <b>(R U R\' U\')(L\' U\' L U)(U R U\' R\')(U\' L\' U L)</b></p>
 
     <p>2. <a href="rg2://ytplay?time=33:13&link=UUPOcx-yX6s">Четыре ребра</a> стоят не на своих местах</p>
 
@@ -435,7 +435,7 @@
     и левый анти-пиф-паф. И получаем ситуацию, когда только три ребра будут стоять не на своем месте.
     Что делать в этом случае вы уже знаете: взять тройным блоком к себе и повторить алгоритм.</p>
 
-    <p><a href="rg2://ytplay?time=33:24&link=UUPOcx-yX6s">Алгоритм:</a> <b>(R U R\' U\')(L\' U\' L U)(U R U\' R\')(U\' L\' U L)</b></p>
+    <p><a href="rg2://ytplay?time=33:24&link=UUPOcx-yX6s&alg=(R_U_R\'_U\')(L\'_U\'_L_U)(U_R_U\'_R\')(U\'_L\'_U_L)">Алгоритм:</a> <b>(R U R\' U\')(L\' U\' L U)(U R U\' R\')(U\' L\' U L)</b></p>
 
     <p>P.S. Чтобы на этом этапе не выполнять <a href="rg2://ytplay?time=34:03&link=UUPOcx-yX6s">алгоритм два раза,</a>
     когда только три ребра стоят не на своем месте, можно выполнить этот же алгоритм, только наоборот,

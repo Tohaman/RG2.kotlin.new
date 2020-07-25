@@ -165,7 +165,7 @@
         методом Яу для 4х4, то вы уже знаете этот алгоритм. По сути, мы просто выгоняем ребро наверх
         через правую грань, а ставим обратно через переднюю.<p>
 
-        <p><a href="rg2://ytplay?time=8:21&link=W0mbroPt9eI">Алгоритм:</a> <b>(R U R’) (F R’ F’ R)</b></p>
+        <p><a href="rg2://ytplay?time=8:21&link=W0mbroPt9eI&alg=(R_U_R’)_(F_R’_F’_R)">Алгоритм:</a> <b>(R U R’) (F R’ F’ R)</b></p>
 
         <p>Рассмотрим несколько основных ситуаций:</p>
 
@@ -224,7 +224,7 @@
         и поставить его в передний правый слот при этом все это сделав через удобную правую грань.</p>
         <p style="text-align:center"><img src="freeslice_24.xml"></p>
 
-        <p><a href="rg2://ytplay?time=12:29&link=yLawQt8dCIY">Алгоритм:</a> <b>R’ U R2 U’ R’</b></p>
+        <p><a href="rg2://ytplay?time=12:29&link=yLawQt8dCIY&alg=R’_U_R2_U’_R’">Алгоритм:</a> <b>R’ U R2 U’ R’</b></p>
 
         <p>Повторяем такую сборку ребер до тех пор, пока не закончатся все несобранные ребра на верхнем
         и нижнем слое, т.е. таким методом мы можем легко собрать восемь ребер (четыре ребра на верхней
@@ -382,7 +382,7 @@
 
         <p style="text-align:center"><img src="paritet_7.xml"></p>
 
-        <p><a href="rg2://ytplay?time=5:26&link=7Ef6BHrrPZs">Алгоритм:</a> <b>(Rw U2) x (Rw U2 Rw U2)(Rw’ U2 Lw U2 Rw’ U2) Rw U2 (Rw’ U2 Rw’)</b></p>
+        <p><a href="rg2://ytplay?time=5:26&link=7Ef6BHrrPZs&alg=(Rw_U2)_x_(Rw_U2_Rw_U2)(Rw’_U2_Lw_U2_Rw’_U2)_Rw_U2_(Rw’_U2_Rw’)">Алгоритм:</a> <b>(Rw U2) x (Rw U2 Rw U2)(Rw’ U2 Lw U2 Rw’ U2) Rw U2 (Rw’ U2 Rw’)</b></p>
 
         <p>Для кубиков побольше нужно вращать только те слои, на которых требуется переставить
         (перевернуть) элементы. Самое главное, это правильно сделать ход «x» в этом алгоритме.
@@ -405,13 +405,13 @@
         1. Первая видна на этапе сборки ребер, т.е. ситуация аналогичная ситуации из кубика 5х5.</p>
         <p style="text-align:center"><img src="paritet_6.xml"></p>
         
-        <p><a href="rg2://ytplay?time=8:43&link=7Ef6BHrrPZs">Алгоритм:</a> <b>(Rw U2)(Rw Lw’)(Rw U2 Rw U2)(Rw’ U2 Lw U2 Rw’ U2) Rw U2 (Rw’ U2 Rw’)</b></p>
+        <p><a href="rg2://ytplay?time=8:43&link=7Ef6BHrrPZs&alg=(Rw_U2)(Rw_Lw’)(Rw_U2_Rw_U2)(Rw’_U2_Lw_U2_Rw’_U2)_Rw_U2_(Rw’_U2_Rw’)">Алгоритм:</a> <b>(Rw U2)(Rw Lw’)(Rw U2 Rw U2)(Rw’ U2 Lw U2 Rw’ U2) Rw U2 (Rw’ U2 Rw’)</b></p>
 
         <p>2. Вторая ситуация видна только на этапе OLL, и аналогична паритету из 4х4. В этом случае,
         уже крутим не по две, а по три грани</p>
         <p style="text-align:center"><img src="paritet_3.xml"></p>
 
-        <p><a href="rg2://ytplay?time=9:30&link=7Ef6BHrrPZs">Алгоритм:</a> <b>(3Rw U2) x (3Rw U2 3Rw U2)(3Rw’ U2 3Lw U2 3Rw’ U2) 3Rw U2 (3Rw’ U2 3Rw’)</b></p>
+        <p><a href="rg2://ytplay?time=9:30&link=7Ef6BHrrPZs&alg=(3Rw_U2)_x_(3Rw_U2_3Rw_U2)(3Rw’_U2_3Lw_U2_3Rw’_U2)_3Rw_U2_(3Rw’_U2_3Rw’)">Алгоритм:</a> <b>(3Rw U2) x (3Rw U2 3Rw U2)(3Rw’ U2 3Lw U2 3Rw’ U2) 3Rw U2 (3Rw’ U2 3Rw’)</b></p>
 
         <p><a href="rg2://ytplay?time=9:56&link=7Ef6BHrrPZs">Надеюсь,</a>
         что аналогии для еще более больших кубиков вы сможете провести сами. В нечетных
@@ -428,7 +428,7 @@
         использования специального алгоритма (хотя с ним и быстрее). И поэтому, по сути, паритетом
         не является. Вот как это делается:</p>
 
-        <p><a href="rg2://ytplay?time=11:19&link=7Ef6BHrrPZs">Алгоритм:</a> <b>3Uw’ Флип 3Uw 3Dw Флип 3Dw’</b><br/>
+        <p><a href="rg2://ytplay?time=11:19&link=7Ef6BHrrPZs&alg=3Uw’_Флип_3Uw_3Dw_Флип_3Dw’">Алгоритм:</a> <b>3Uw’ Флип 3Uw 3Dw Флип 3Dw’</b><br/>
         Но можно и не трогать средний слой, тогда получится не так наглядно, но крутить чуть проще:<br/>
         <b>Uw’ Флип Uw Dw Флип Dw’</b></p>
 
@@ -442,19 +442,19 @@
 
         <p>А алгоритм для нее очень простой и подходит как для четных, так и для нечетных кубиков.</p>
 
-        <p><a href="rg2://ytplay?time=12:21&link=7Ef6BHrrPZs">Алгоритм:</a> <b>Rw2 F2 U2 2R2 U2 F2 Rw2</b></p>
+        <p><a href="rg2://ytplay?time=12:21&link=7Ef6BHrrPZs&alg=Rw2_F2_U2_2R2_U2_F2_Rw2">Алгоритм:</a> <b>Rw2 F2 U2 2R2 U2 F2 Rw2</b></p>
 
         <p>Если вы собираете нечетный куб фрислайсом
         <a href="rg2://ytplay?time=13:10&link=7Ef6BHrrPZs">по оси E,</a> то этот алгоритм будет выглядеть вот так:</p>
 
-        <p><a href="rg2://ytplay?time=13:32&link=7Ef6BHrrPZs">Алгоритм:</a> <b>(Uw2 R2 F2) Uw2 (F2 R2 Uw2)</b></p>
+        <p><a href="rg2://ytplay?time=13:32&link=7Ef6BHrrPZs&alg=(Uw2_R2_F2)_Uw2_(F2_R2_Uw2)">Алгоритм:</a> <b>(Uw2 R2 F2) Uw2 (F2 R2 Uw2)</b></p>
 
         <p>поскольку положение углов на этом этапе нас не интересует, то вместо аналога хода <b>2R2</b> для
         этого положения кубика - <b>2U2</b>, просто вращаем обе верхние грани, т.е. <b>Uw2</b>.</p>
 
         <p>Отмечу, что для PLL этапа кубика 4х4 есть и более
         <a href="rg2://ytplay?time=13:53&link=7Ef6BHrrPZs">удобный вариант:</a><br/>
-        <a href="rg2://ytplay?time=14:11&link=7Ef6BHrrPZs">Алгоритм:</a> <b>2R2 U2 2R2 Uw2 2R2 Uw2 U2</b></p>
+        <a href="rg2://ytplay?time=14:11&link=7Ef6BHrrPZs&alg=2R2_U2_2R2_Uw2_2R2_Uw2_U2">Алгоритм:</a> <b>2R2 U2 2R2 Uw2 2R2 Uw2 U2</b></p>
 
         <p>Который можно использовать и для других больших четных кубиков, но там крутить несколько
         средних граней не так удобно, поэтому первый алгоритм, на мой взгляд, будет предпочтительнее.</p>
