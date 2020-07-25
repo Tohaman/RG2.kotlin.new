@@ -242,16 +242,16 @@
         ребрами <a href="rg2://ytplay?time=5:15&link=e1kxrYYZ08Y">к себе и справа.</a>
         <p style="text-align:center"><img src="megaminx_5_1.xml"> == <img src="megaminx_5_2.xml"></p>
 
-        И делаем <a href="rg2://ytplay?time=5:35&link=e1kxrYYZ08Y">Австралию.</a>
+        И делаем <a href="rg2://ytplay?time=5:35&link=e1kxrYYZ08Y&alg=(F_R)_(U\'_R\'_U\'_R_U_R\'_F\')_(R_U_R\'_U\')_(R\'_F_R_F\')">Австралию.</a>
         С первого раза ребра могут и не встать на свои места, значит нужно выполнить алгоритм
-        <a href="rg2://ytplay?time=6:19&link=e1kxrYYZ08Y">еще раз.</a><br/>
+        <a href="rg2://ytplay?time=6:19&link=e1kxrYYZ08Y&alg=(F_R)_(U\'_R\'_U\'_R_U_R\'_F\')_(R_U_R\'_U\')_(R\'_F_R_F\')">еще раз.</a><br/>
         <b>Алгоритм: (F R) (U\' R\' U\' R U R\' F\') (R U R\' U\') (R\' F R F\')</b><br/><br/>
 
         <a href="rg2://ytplay?time=3:08&link=e1kxrYYZ08Y">Если с промежутком,</a>
         то берем одним ребром к себе, а вторым сзади справа.
         <p style="text-align:center"><img src="megaminx_5_3.xml"> == <img src="megaminx_5_4.xml"></p>
 
-        <a href="rg2://ytplay?time=3:58&link=e1kxrYYZ08Y">Делаем Запад.</a>
+        <a href="rg2://ytplay?time=3:58&link=e1kxrYYZ08Y&alg=(R_U_R\'_U\')_(R\'_F_R2_U\'_R\'_U\')_(R_U_R\'_F\')">Делаем Запад.</a>
         С первого раза ребра могут и не встать на свои места, значит встанут со второго.<br/>
         <b>Алгоритм: (R U R\' U\') (R\' F R2 U\' R\' U\') (R U R\' F\')</b><br/><br/>
 
