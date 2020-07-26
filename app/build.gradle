@@ -18,7 +18,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 29
         versionCode 311
-        versionName '2.20200718.2'
+        versionName '2.20200726.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

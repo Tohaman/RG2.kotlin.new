@@ -31,5 +31,7 @@ class InfoViewModel(app: Application): AndroidViewModel(app), KoinComponent {
 
     val textAbout = ObservableInt(R.string.about)
 
+
+
     val textThanks = ObservableInt(R.string.thanks)
 }
