@@ -13,6 +13,7 @@ import ru.tohaman.rg2.Constants.PAYED_COINS
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.ItemsRepository
+import ru.tohaman.rg2.utils.SingleLiveEvent
 import timber.log.Timber
 
 class InfoViewModel(app: Application): AndroidViewModel(app), KoinComponent {
@@ -38,4 +39,5 @@ class InfoViewModel(app: Application): AndroidViewModel(app), KoinComponent {
     )
 
     val currentVersion = "ver. ${BuildConfig.VERSION_NAME}"
+
 }
