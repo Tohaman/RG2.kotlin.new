@@ -43,12 +43,28 @@
                         android:layout_margin="@dimen/middle_margin"
                         app:srcCompat="@drawable/ic_icon_rg2" />
 
-                    <TextView
-                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/mid_padding"
-                        android:text="@string/app_description" />
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Headline5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/mid_padding"
+                            android:text="@string/app_description" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/mid_padding"
+                            tools:text="ver. 20200701.1"
+                            android:textSize="12sp"
+                            android:text="@{viewModel.currentVersion}" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </LinearLayout>
 
