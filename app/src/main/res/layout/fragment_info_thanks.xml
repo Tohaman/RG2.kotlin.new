@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:htmlText="@{viewModel.textThanks}"
-                    tools:text="@string/thanks"
+                    tools:text="@string/please_donate"
                     />
 
                 <LinearLayout
