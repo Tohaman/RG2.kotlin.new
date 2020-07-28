@@ -7,6 +7,7 @@
         <item>BEGIN4X4</item>
         <item>BEGIN5X5</item>
         <item>BIG_CUBES</item>
+        <item>BLIND4X4</item>
         <item>CLOVER</item>
         <item>CONTAINER</item>
         <item>IVY</item>
@@ -24,6 +25,7 @@
         <item>BASIC4X4</item>
         <item>BASIC5X5</item>
         <item>BASIC5X5</item>
+        <item>BASIC4X4</item>
         <item>BASIC_CLOVER</item>
         <item>BASIC_CONTAINER</item>
         <item>BASIC_IVY</item>

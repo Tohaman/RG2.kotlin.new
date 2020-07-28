@@ -148,9 +148,9 @@
     <string name="basic_4x4_st1_toast">Правая по часовой</string>
     <string name="basic_4x4_st2_move">R\'</string>
     <string name="basic_4x4_st2_toast">Правая против часовой</string>
-    <string name="basic_4x4_st3_move">2R</string>
+    <string name="basic_4x4_st3_move">2R (r)</string>
     <string name="basic_4x4_st3_toast">Втророй правый слой по часовой</string>
-    <string name="basic_4x4_st4_move">2R\'</string>
+    <string name="basic_4x4_st4_move">2R\' (r\')</string>
     <string name="basic_4x4_st4_toast">Втророй правый слой против часовой</string>
     <string name="basic_4x4_st5_move">Rw</string>
     <string name="basic_4x4_st5_toast">Два правых слоя по часовой</string>
@@ -158,7 +158,7 @@
     <string name="basic_4x4_st6_toast">Два правых слоя против часовой</string>
     <string name="basic_4x4_st7_move">R2</string>
     <string name="basic_4x4_st7_toast">Правая дважды</string>
-    <string name="basic_4x4_st8_move">2R2</string>
+    <string name="basic_4x4_st8_move">2R2(r2)</string>
     <string name="basic_4x4_st8_toast">Второй правый слой дважды</string>
     <string name="basic_4x4_st9_move">Rw2</string>
     <string name="basic_4x4_st9_toast">Два правых слоя дважды</string>
@@ -166,9 +166,9 @@
     <string name="basic_4x4_st10_toast">Левая по часовой</string>
     <string name="basic_4x4_st11_move">L\'</string>
     <string name="basic_4x4_st11_toast">Левая против часовой</string>
-    <string name="basic_4x4_st12_move">2L</string>
+    <string name="basic_4x4_st12_move">2L (l)</string>
     <string name="basic_4x4_st12_toast">Второй левый слой по часовой</string>
-    <string name="basic_4x4_st13_move">2L\'</string>
+    <string name="basic_4x4_st13_move">2L\' (l\')</string>
     <string name="basic_4x4_st13_toast">Второй левый слой против часовой</string>
     <string name="basic_4x4_st14_move">Lw</string>
     <string name="basic_4x4_st14_toast">Два левых слоя по часовой</string>
@@ -176,7 +176,7 @@
     <string name="basic_4x4_st15_toast">Два левых слоя против часовой</string>
     <string name="basic_4x4_st16_move">L2</string>
     <string name="basic_4x4_st16_toast">Левая грань дважды</string>
-    <string name="basic_4x4_st17_move">2L2</string>
+    <string name="basic_4x4_st17_move">2L2(l2)</string>
     <string name="basic_4x4_st17_toast">Второй левый слой дважды</string>
     <string name="basic_4x4_st18_move">Lw2</string>
     <string name="basic_4x4_st18_toast">Два левых слоя дважды</string>
@@ -184,9 +184,9 @@
     <string name="basic_4x4_st19_toast">Верхняя по часовой</string>
     <string name="basic_4x4_st20_move">U\'</string>
     <string name="basic_4x4_st20_toast">Верхняя против часовой</string>
-    <string name="basic_4x4_st21_move">2U</string>
+    <string name="basic_4x4_st21_move">2U (u)</string>
     <string name="basic_4x4_st21_toast">Второй верхний слой по часовой</string>
-    <string name="basic_4x4_st22_move">2U\'</string>
+    <string name="basic_4x4_st22_move">2U\' (u\')</string>
     <string name="basic_4x4_st22_toast">Второй верхний слой против часовой</string>
     <string name="basic_4x4_st23_move">Uw</string>
     <string name="basic_4x4_st23_toast">Два вехних слоя по часовой</string>
@@ -194,7 +194,7 @@
     <string name="basic_4x4_st24_toast">Два верхних слоя против часовой</string>
     <string name="basic_4x4_st25_move">U2</string>
     <string name="basic_4x4_st25_toast">Верхняя грань дважды</string>
-    <string name="basic_4x4_st26_move">2U2</string>
+    <string name="basic_4x4_st26_move">2U2(u2)</string>
     <string name="basic_4x4_st26_toast">Второй верхний слой дважды</string>
     <string name="basic_4x4_st27_move">Uw2</string>
     <string name="basic_4x4_st27_toast">Два вехних слоя дважды</string>
@@ -202,9 +202,9 @@
     <string name="basic_4x4_st28_toast">Передняя по часовой</string>
     <string name="basic_4x4_st29_move">F\'</string>
     <string name="basic_4x4_st29_toast">Передняя против часовой</string>
-    <string name="basic_4x4_st30_move">2F</string>
+    <string name="basic_4x4_st30_move">2F (f)</string>
     <string name="basic_4x4_st30_toast">Второй передний слой по часовой</string>
-    <string name="basic_4x4_st31_move">2F\'</string>
+    <string name="basic_4x4_st31_move">2F\' (f\')</string>
     <string name="basic_4x4_st31_toast">Второй передний слой против часовой</string>
     <string name="basic_4x4_st32_move">Fw</string>
     <string name="basic_4x4_st32_toast">Два передних слоя по часовой</string>
@@ -214,9 +214,9 @@
     <string name="basic_4x4_st34_toast">Задняя по часовой</string>
     <string name="basic_4x4_st35_move">B\'</string>
     <string name="basic_4x4_st35_toast">Задняя против часовой</string>
-    <string name="basic_4x4_st36_move">2B</string>
+    <string name="basic_4x4_st36_move">2B (b)</string>
     <string name="basic_4x4_st36_toast">Второй задний слой по часовой</string>
-    <string name="basic_4x4_st37_move">2B\'</string>
+    <string name="basic_4x4_st37_move">2B\' (b\')</string>
     <string name="basic_4x4_st37_toast">Второй задний слой против часовой</string>
     <string name="basic_4x4_st38_move">Bw</string>
     <string name="basic_4x4_st38_toast">Два задних слоя по часовой</string>

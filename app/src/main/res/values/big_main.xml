@@ -6,7 +6,7 @@
         <item>Продвинутый 4х4 (метод Яу)</item>
         <item>Кубик 5х5 для начинающих</item>
         <item>Как собрать любой большой куб</item>
-<!--        <item>Сборка 4х4 вслепую</item>-->
+        <item>Сборка 4х4 вслепую</item>
     </string-array>
 
     <integer-array name="big_main_icon">
