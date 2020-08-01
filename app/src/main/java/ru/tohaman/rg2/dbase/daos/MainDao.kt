@@ -23,7 +23,7 @@ interface MainDao {
     }
 
     @Query("SELECT * FROM $table")
-    fun getAllItems() : List<MainDBItem>
+    suspend fun getAllItems() : List<MainDBItem>
 
     @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
     suspend fun getPhaseFromMain(phase : String) : List<MainDBItem>
@@ -35,16 +35,7 @@ interface MainDao {
     suspend fun getItem(phase : String, id: Int) : MainDBItem?
 
     @Query("SELECT *  FROM $table WHERE isFavourite = 1 ORDER BY SubID")
-    fun getFavourites() : List<MainDBItem>
-
-    @Query("SELECT *  FROM $table WHERE isFavourite = 1")
-    fun getLiveFavourites() : LiveData<List<MainDBItem>>
-
-    @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
-    fun getLivePhaseFromMain(phase : String) : LiveData<List<MainDBItem>>
-
-    @Query("SELECT *  FROM $table WHERE phase = :phase ORDER BY ID")
-    fun observePhase(phase : String) : LiveData<List<MainDBItem>>
+    suspend fun getFavourites() : List<MainDBItem>
 
     @Query("SELECT distinct * FROM $table WHERE url = 'submenu' ORDER BY ID")
     suspend fun getSubMenuList(): List<MainDBItem>
@@ -56,10 +47,10 @@ interface MainDao {
     suspend fun insert(mainDBItem: MainDBItem?)
 
     @Update
-    fun update(mainDBItem: MainDBItem?)
+    suspend fun update(mainDBItem: MainDBItem?): Int
 
     @Update
-    fun update(mainDBItem: List<MainDBItem>)
+    suspend fun update(mainDBItem: List<MainDBItem>): Int
 
     @Delete
     fun delete(mainDBItem: MainDBItem?)

@@ -1,13 +1,18 @@
 package ru.tohaman.rg2.dataSource
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dbase.daos.*
 
 import ru.tohaman.rg2.dbase.entitys.*
 import timber.log.Timber
+import java.io.File
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * The Repository ist a simple Java class that abstracts the data layer from the rest of the app
@@ -17,7 +22,8 @@ import timber.log.Timber
     Since Room doesn’t allow database queries on the main thread, then we use suspend fun
  */
 
-class ItemsRepository (private val mainDao : MainDao,
+class ItemsRepository (context: Context,
+                       private val mainDao : MainDao,
                        private val typeDao: CubeTypesDao,
                        private val movesDao: MovesDao,
                        private val azbukaDao: AzbukaDao,
@@ -29,93 +35,127 @@ class ItemsRepository (private val mainDao : MainDao,
     // Работа с основной таблицей
     // Кэш для основной базы
     private var allMainDBItems = mutableListOf<MainDBItem>()
+    private val fileName = "rg2_repolog.log"
+    private val file = File(context.filesDir, fileName)
+
+    init {
+        runBlocking(Dispatchers.IO) {
+            reloadFullCache()               //перечитываем кэш, при создании репозитория
+            Timber.d("$TAG .path = ${file.path} ")
+        }
+    }
 
     suspend fun getSubMenuList(): List<MainDBItem> {
-        if (allMainDBItems.isEmpty()) {
-            reloadFullCache()
-            return mainDao.getSubMenuList()
-        } else return allMainDBItems
+        val list = allMainDBItems
             .filter { it.url == "submenu" }
             .sortedBy { it.id }
+
+        return if (list.isEmpty()) {
+            mainDao.getSubMenuList()
+        } else list
     }
 
     suspend fun getPhaseFromMain(phase: String): List<MainDBItem>  {
-        if (allMainDBItems.isEmpty()) {
-            reloadFullCache()
-            return mainDao.getPhaseFromMain(phase)
-        } else return allMainDBItems
+        val list = allMainDBItems
             .filter { it.phase == phase }
             .sortedBy { it.id }
+
+        return if (list.isEmpty()) {
+            mainDao.getPhaseFromMain(phase)
+        } else list
     }
 
     //WHERE phase = :phase and url <> 'submenu' ORDER BY ID
     suspend fun getDetailsItems(phase: String): List<MainDBItem> {
-        if (allMainDBItems.isEmpty()) {
-            reloadFullCache()
-            return mainDao.getDetailsItems(phase)
-        } else return allMainDBItems
+        val list = allMainDBItems
             .filter { (it.phase == phase) and (it.url != "submenu") }
             .sortedBy { it.id }
+
+        return if (list.isEmpty()) {
+            mainDao.getDetailsItems(phase)
+        } else list
     }
 
     suspend fun getItem(phase: String, id: Int): MainDBItem {
-        if (allMainDBItems.isEmpty()) {
-            reloadFullCache()
-            return mainDao.getItem(phase, id) ?: MainDBItem("", 0)
-        } else return allMainDBItems
+        val item = allMainDBItems
             .filter { (it.phase == phase) and (it.id == id) }
-            .getOrNull(0) ?: MainDBItem("", 0)
+            .getOrNull(0)
+        return item ?: (mainDao.getItem(phase, id) ?: MainDBItem("", 0))
     }
 
     //WHERE isFavourite = 1 ORDER BY SubID
     suspend fun getFavourites(): List<MainDBItem> {
-        if (allMainDBItems.isEmpty()) {
-            reloadFullCache()
-            return mainDao.getFavourites()
-        } else return allMainDBItems
+        val list = allMainDBItems
             .filter { it.isFavourite }
             .sortedBy { it.subId }
+
+        return if (list.isEmpty())
+            mainDao.getFavourites()
+        else list
     }
 
     suspend fun clearMainTable() {
-        mainDao.deleteAllItems()
         allMainDBItems.clear()
+        mainDao.deleteAllItems()
     }
 
-    suspend fun insert2Main(item: MainDBItem) {
+    suspend fun insertItemToMain(item: MainDBItem) {
         mainDao.insert(item)
-        allMainDBItems.removeAll {(it.id == item.id) and (it.phase == item.phase)}
+        allMainDBItems.removeAll { (it.id == item.id) and (it.phase == item.phase) }
         allMainDBItems.add(item)
     }
 
-    suspend fun insert2Main(items: List<MainDBItem>) {
+    suspend fun insertListToMain(items: List<MainDBItem>) {
         mainDao.insert(items)
-        items.map {item ->
-            allMainDBItems.removeAll {(it.id == item.id) and (it.phase == item.phase)}
-            allMainDBItems.add(item)
-        }
-    }
-
-    fun updateMainItem(item: MainDBItem?) {
-        mainDao.update(item)
-        item?.let {
+        items.map { item ->
             allMainDBItems.removeAll { (it.id == item.id) and (it.phase == item.phase) }
             allMainDBItems.add(item)
         }
     }
 
-    fun updateMainItem(items: List<MainDBItem>) {
-        mainDao.update(items)
-        items.map {item ->
-            allMainDBItems.removeAll {(it.id == item.id) and (it.phase == item.phase)}
-            allMainDBItems.add(item)
+    suspend fun updateMainItem(item: MainDBItem?) {
+        if (mainDao.update(item) > 0) {
+            item?.let {
+                if (allMainDBItems.any { (it.id == item.id) and (it.phase == item.phase) }) {
+                    allMainDBItems.removeAll { (it.id == item.id) and (it.phase == item.phase) }
+                    allMainDBItems.add(item)
+                }
+            }
+        } else {
+            saveDataToLog("$TAG Не смогли обновить в базе: $item")
         }
     }
 
-    private fun reloadFullCache() {
+    suspend fun updateMainItem(items: List<MainDBItem>) {
+        if (mainDao.update(items) > 0) {
+            items.map { item ->
+                if (allMainDBItems.any { (it.id == item.id) and (it.phase == item.phase) }) {
+                    allMainDBItems.removeAll { (it.id == item.id) and (it.phase == item.phase) }
+                    allMainDBItems.add(item)
+                }
+            }
+        } else {
+            saveDataToLog("$TAG Не смогли обновить в базе: $items")
+        }
+    }
+
+    suspend fun reloadFullCache() {
         Timber.d("$TAG .reloadFullCache ")
         allMainDBItems.clear()
         allMainDBItems = mainDao.getAllItems().toMutableList()     //если кэш пустой, обновляем его
+        saveDataToLog("$TAG Обновили кэш, получили ${allMainDBItems.size} из базы")
+    }
+
+    private fun saveDataToLog(data: String) {
+        if (BuildConfig.DEBUG) {
+            try {
+                val sdf = SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.getDefault())
+                val currentDate = sdf.format(Date())
+                file.writeText("$currentDate $data")
+            } catch (e: Exception) {
+                Timber.e("$TAG Не смогли записать данные $data в лог. Причина: $e")
+            }
+        }
     }
 
     // Работа с таблицей Types

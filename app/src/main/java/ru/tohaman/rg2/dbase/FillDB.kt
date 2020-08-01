@@ -29,6 +29,7 @@ class FillDB {
             azbukaInit()                            //Инициализируем азбуку
             //testTimeNote()                          //добавляем тестовые записи для таблицы результатов сборки
 
+            repository.reloadFullCache()
             Timber.d( "$TAG Основная таблица заполнена")
         }
 
@@ -39,7 +40,7 @@ class FillDB {
         }
 
         private suspend fun insertWrongItem() {
-            repository.insert2Main(MainDBItem("WRONG", 0, "Что-то пошло не так", R.drawable.ic_warning, R.string.wrong))
+            repository.insertItemToMain(MainDBItem("WRONG", 0, "Что-то пошло не так", R.drawable.ic_warning, R.string.wrong))
         }
 
         private suspend fun insertPhasesToMainTable(context: Context) {
@@ -178,7 +179,7 @@ class FillDB {
                 }
                 item
             }.apply {  icons.recycle(); descriptions.recycle() }
-            repository.insert2Main(list)
+            repository.insertListToMain(list)
         }
 
         private suspend fun basicInit(type: String, movesArray: Int, iconsArray: Int, toastsArray: Int, context: Context) {
