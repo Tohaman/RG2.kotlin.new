@@ -114,6 +114,7 @@ class ItemsRepository (private val mainDao : MainDao,
 
     private fun reloadFullCache() {
         Timber.d("$TAG .reloadFullCache ")
+        allMainDBItems.clear()
         allMainDBItems = mainDao.getAllItems().toMutableList()     //если кэш пустой, обновляем его
     }
 
