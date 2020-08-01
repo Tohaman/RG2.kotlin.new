@@ -52,7 +52,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val mutableFavouritesList: MutableLiveData<List<MainDBItem>> = MutableLiveData()
     val liveDataFavouritesList: LiveData<List<MainDBItem>> get() = mutableFavouritesList
 
-    val isTextSelectable = sp.getBoolean(Constants.IS_TEXT_SELECTABLE, false)
+    var isTextSelectable = sp.getBoolean(Constants.IS_TEXT_SELECTABLE, false)
     private var internetLimits = 0
 
     private val _isLeftMenuOpen = MutableLiveData<Boolean>()
@@ -72,6 +72,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
             _currentItems.postValue(currentItems)
             currentId = getNumByID(id)
             updateLeftMenuAdapter(currentItems)
+            isTextSelectable = sp.getBoolean(Constants.IS_TEXT_SELECTABLE, false)
             //Timber.d("$TAG curItem Initiated with Id=$currentId count=${currentItems.size} items=$currentItems")
         }
     }

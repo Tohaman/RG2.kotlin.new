@@ -83,6 +83,7 @@ class LearnDetailItemFragment : Fragment() {
             content.urlClick = clickableText()
             content.descriptionText.setTextIsSelectable(detailViewModel.isTextSelectable)
             content.titleText.setTextIsSelectable(detailViewModel.isTextSelectable)
+            content.descriptionText.linksClickable = true
 
             //Если надо отображать плеер, то инициализируем его
             if (detailViewModel.isYouTubePlayerEnabled(fragmentNum)) {

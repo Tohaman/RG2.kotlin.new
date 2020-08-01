@@ -4,6 +4,8 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.text.Html
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
 import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
@@ -77,6 +79,8 @@ fun setClickedHtmlResource(textView: TextView, htmlId: Int, urlClickCallBack: Cl
     val spannedString = MakeLinksClickable.reformatText(spannedString(textString, imgGetter, tagHandler), urlClickCallBack)
 
     textView.text = spannedString
+    Linkify.addLinks(textView, Linkify.WEB_URLS)
+    textView.movementMethod = LinkMovementMethod.getInstance()
 }
 
 private val tagHandler = Html.TagHandler { opening, tag, output, xmlReader ->
