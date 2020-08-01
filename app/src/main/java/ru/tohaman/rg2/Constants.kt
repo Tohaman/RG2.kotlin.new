@@ -94,7 +94,7 @@ object Constants {
         TipsItem(R.drawable.frame_7, "Таймер можно поставить на паузу, нажав на верхнюю панель"),
         TipsItem(R.drawable.frame_8, "При сохранении результата в таймере можно сразу задать свой комментарий"),
         TipsItem(R.drawable.frame_12, "Возможность копировать текст обучалки можно включить в настройках"),
-        TipsItem(R.drawable.frame_9, "Мешает кнопка? Отключите ее в настройках программы")
+        TipsItem(R.drawable.frame_9, "Нажмите на текущую версию, чтобы посмотреть всю историю изменений")
     )
 
     val PLLS_NAME = listOf<String>("Ga","","Y","F","H","","Gb","Na","Ra","Ja","Ua","Aa","Gc","Nb","Rb","Jb","Ub","Ab","Gd","","V","T","Z","E")
