@@ -49,10 +49,13 @@
         <p>Если у вас есть идеи, что можно/нужно дописать к какому-нибудь из этапов, присылайте на почту
         <a href="mailto:rubicsguide@yandex.ru">rubicsguide@yandex.ru</a></p>
 
-        <p>Меняем местами <a href="rg2://ytplay?time=6:42&link=8CpDAdF_CY4&alg=l\'_U2_l_d2_l\'_U2_l_d2">3 центровых элемента.</a><br/>
-        <b><a href="rg2://ytplay?time=6:02&link=8CpDAdF_CY4&alg=l\'_U2_l_d2_l\'_U2_l_d2">Алгоритм:</a> l\' U2 l d2 l\' U2 l d2</b></p>
+        <p>Меняем местами <a href="rg2://ytplay?time=6:42&link=8CpDAdF_CY4&alg=l\'_U2_l_d2_l\'_U2_l_d2">3 центровых элемента:</a></p>
 
-        <p>Меняем местами два ребра, находящиеся друг напротив друга.<br/>
+        <p style="text-align:center"><img src="blind_4x4_1_1.xml" width="30%%"> => y => <img src="blind_4x4_1_2.xml" width="30%%"></p>
+
+        <p><b><a href="rg2://ytplay?time=6:02&link=8CpDAdF_CY4&alg=l\'_U2_l_d2_l\'_U2_l_d2">Алгоритм:</a> l\' U2 l d2 l\' U2 l d2</b></p>
+
+        <p>Меняем местами два ребра, находящиеся друг напротив друга:<br/>
         <b><a href="rg2://ytplay?time=7:23&link=8CpDAdF_CY4&alg=l\'_U2_l\'_U2_F2_l\'_F2_r_U2_r\'_U2_l2">Алгоритм:</a> l\' U2 l\' U2 F2 l\' F2 r U2 r\' U2 l2</b></p>
 
         <p>Меняем местами 2 ребра рядом (Студент).<br/>
