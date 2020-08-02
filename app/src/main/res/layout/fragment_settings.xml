@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -20,6 +21,12 @@
             layout="@layout/include_app_bar"
             app:tabbed="@{false}"
             app:title="@{@string/main_settings}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.godMode ? View.VISIBLE : View.GONE}"
+            android:text="Режим разработчика"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -158,6 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/big_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:onClick="@{() -> viewModel.miniHelpTextClick()}"
                     android:text="@string/mini_help_settings_text" />
 
                 <Switch

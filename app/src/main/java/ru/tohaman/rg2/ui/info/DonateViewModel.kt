@@ -13,6 +13,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.get
 import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.GOD_MODE
 import ru.tohaman.rg2.Constants.PAYED_COINS
 import ru.tohaman.rg2.DebugTag
 import ru.tohaman.rg2.DebugTag.TAG
@@ -66,7 +67,9 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
 
     //Проверяем нужно ли перейти на страничку доната
     fun checkDonationShow() {
-        val isUserDonate = sp.getInt(PAYED_COINS, 0)
+        //Если включен режим разработчика, то прибавляем к монеткам 1 (типа заплатил)
+        val godMoney = if (sp.getBoolean(GOD_MODE, false)) 1 else 0
+        val isUserDonate = sp.getInt(PAYED_COINS, 0) + godMoney
         val startCount = sp.getInt(Constants.START_COUNT, 1)
         Timber.d("$TAG .checkDonationShow $startCount $isUserDonate")
         //Если пользователь не платил, то каждый 10ый вход переводим на окно Доната

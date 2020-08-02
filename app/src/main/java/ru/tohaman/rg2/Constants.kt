@@ -23,6 +23,7 @@ object Constants {
     const val IS_SCREEN_ALWAYS_ON = "isScreenAlwaysON"      //Не выключаьб экран, если приложение запущено
     const val IS_VIDEO_SCREEN_ON = "isYouTubeDisplayAlwaysOn"   //Не выключать экран при просмотре YouTube в отдельном окне
     const val IS_TEXT_SELECTABLE = "isTextSelectable"       //Возможность выделить/скопировать текст из обучалки
+    const val GOD_MODE = "godMode"                          //Режим разработчика (Boolean)
     //Использование интернета
     const val ALL_INTERNET = "useAllInternet"               //Используем любой доступный интернет (Boolean)
     const val ONLY_WIFI = "useOnlyWiFi"                     //Используем интернет только при наличии Wi-Fi (Boolean)

@@ -22,7 +22,9 @@ import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
 import ru.tohaman.rg2.BuildConfig
+import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.ALL_PLL_COUNT
+import ru.tohaman.rg2.Constants.GOD_MODE
 import ru.tohaman.rg2.Constants.IS_2SIDE_RECOGNITION
 import ru.tohaman.rg2.Constants.PLL_KEYS_NAME
 import ru.tohaman.rg2.Constants.PLL_ANSWER_VARIANTS
@@ -240,7 +242,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     // -------------------- Game ------------------------------
 
     private var correctAnswer = 0 //Random().nextInt(21)
-    val showHint = ObservableBoolean(BuildConfig.DEBUG)
+    val showHint = ObservableBoolean(BuildConfig.DEBUG or sp.getBoolean(GOD_MODE, false))
     var rightAnswer = ObservableField<String>("A")
     var timerProgress = ObservableInt(100)
 

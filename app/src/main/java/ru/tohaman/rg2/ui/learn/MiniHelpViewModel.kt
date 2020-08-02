@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import ru.tohaman.rg2.Constants
+import ru.tohaman.rg2.Constants.GOD_MODE
 import ru.tohaman.rg2.Constants.HELP_COUNT
 import ru.tohaman.rg2.Constants.ON_START_MINI_HELP
 import ru.tohaman.rg2.Constants.PAYED_COINS
@@ -42,7 +43,8 @@ class MiniHelpViewModel: ViewModel(), KoinComponent {
 
     //Проверяем нужно ли отображать миниХелп
     fun checkMiniHelpShow() {
-        _onStartMiniHelpEnabled.postValue(sp.getBoolean(ON_START_MINI_HELP, true))
+        _onStartMiniHelpEnabled.postValue(sp.getBoolean(ON_START_MINI_HELP, true)
+                and !sp.getBoolean(GOD_MODE, false))
         _tipsItem = galleryDrawables[showingMiniHelpNumber()]
         tipsItem.set(_tipsItem)
     }

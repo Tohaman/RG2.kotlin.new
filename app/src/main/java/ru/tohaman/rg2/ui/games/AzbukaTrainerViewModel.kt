@@ -25,6 +25,7 @@ import org.koin.core.inject
 import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.CURRENT_AZBUKA
+import ru.tohaman.rg2.Constants.GOD_MODE
 import ru.tohaman.rg2.Constants.TRAINING_TIMER
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
@@ -47,7 +48,7 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
     private var edgesArray = listOf<String>()
     private var cornersArray = listOf<String>()
 
-    val showHint = ObservableBoolean(BuildConfig.DEBUG)
+    val showHint = ObservableBoolean(BuildConfig.DEBUG or sp.getBoolean(GOD_MODE, false))
     val rightAnswerLetter = ObservableField<String>("")
     val timerProgress = ObservableInt(100)
 

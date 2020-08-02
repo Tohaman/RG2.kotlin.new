@@ -1,6 +1,7 @@
 package ru.tohaman.rg2.ui.settings
 
 import android.content.SharedPreferences
+import android.os.Handler
 import android.widget.SeekBar
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import ru.tohaman.rg2.Constants.ALL_INTERNET
+import ru.tohaman.rg2.Constants.GOD_MODE
 import ru.tohaman.rg2.Constants.IS_SCREEN_ALWAYS_ON
 import ru.tohaman.rg2.Constants.IS_TEXT_SELECTABLE
 import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
@@ -27,9 +29,6 @@ class SettingsViewModel: ViewModel(), KoinComponent {
 
     private val theme = sp.getString(THEME, "AppTheme")
     var isThemeDark = ObservableBoolean()
-
-    private val showFab = sp.getBoolean(SHOW_FAB, true)
-    var needShowFab = ObservableBoolean(showFab)
 
     private val _textSize = sp.getInt(TEXT_SIZE, 2)
     var textSize = ObservableInt(_textSize)
@@ -94,6 +93,23 @@ class SettingsViewModel: ViewModel(), KoinComponent {
     //МиниХелп при старте программы
     private val _onStartMiniHelp = sp.getBoolean(ON_START_MINI_HELP, true)
     var onStartMiniHelp = ObservableBoolean(_onStartMiniHelp)
+
+    private var _godMode = sp.getBoolean(GOD_MODE, false)
+    var godMode = ObservableBoolean(_godMode)
+    var godCount = 0
+
+    fun miniHelpTextClick() {
+        if (godCount == 6) {
+            godCount += 1
+            _godMode = !_godMode
+            godMode.set(_godMode)
+            sp.edit().putBoolean(GOD_MODE, _godMode).apply()
+        } else {
+            godCount += 1
+            Handler().postDelayed({ godCount = 0}, 2500)
+        }
+
+    }
 
     fun isOnStartMiniHelpEnabled(value: Boolean) {
         sp.edit().putBoolean(ON_START_MINI_HELP, value).apply()
