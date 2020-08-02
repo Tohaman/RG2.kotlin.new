@@ -97,6 +97,6 @@ object Constants {
         TipsItem(R.drawable.frame_9, "Нажмите на текущую версию, чтобы посмотреть всю историю изменений")
     )
 
-    val PLLS_NAME = listOf<String>("Ga","","Y","F","H","","Gb","Na","Ra","Ja","Ua","Aa","Gc","Nb","Rb","Jb","Ub","Ab","Gd","","V","T","Z","E")
+    val PLL_KEYS_NAME = listOf<String>("Ga","","Y","F","H","","Gb","Na","Ra","Ja","Ua","Aa","Gc","Nb","Rb","Jb","Ub","Ab","Gd","","V","T","Z","E")
 
 }

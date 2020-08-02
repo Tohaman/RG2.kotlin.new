@@ -24,7 +24,7 @@ import org.koin.core.inject
 import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants.ALL_PLL_COUNT
 import ru.tohaman.rg2.Constants.IS_2SIDE_RECOGNITION
-import ru.tohaman.rg2.Constants.PLLS_NAME
+import ru.tohaman.rg2.Constants.PLL_KEYS_NAME
 import ru.tohaman.rg2.Constants.PLL_ANSWER_VARIANTS
 import ru.tohaman.rg2.Constants.PLL_RANDOM_SIDE
 import ru.tohaman.rg2.Constants.PLL_TRAINING_TIMER
@@ -283,7 +283,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
         return if (_is2SideRecognition) twoSideLayerDrawable(rotatedCube) else threeSideLayerDrawable(rotatedCube)
     }
 
-    private var btnList = PLLS_NAME
+    private var btnList = PLL_KEYS_NAME
     private var _buttonsList = btnList.toMutableLiveData()
     val buttonsList: LiveData<List<String>> get() = _buttonsList
 
