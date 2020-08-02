@@ -193,10 +193,10 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     //Добавляем или убираем из избранного в зависимости от menuItem.isFavourite
     //
     fun onFavouriteChangeClick(menuItem: MainDBItem, position: Int = menuItem.subId) {
-        Timber.d( "$TAG favouriteChange for - $menuItem")
         viewModelScope.launch (Dispatchers.IO) {
-            menuItem.isFavourite = !menuItem.isFavourite
+            Timber.d( "$TAG favouriteChange for - $menuItem")
             val list = repository.getFavourites().toMutableList()
+            menuItem.isFavourite = !menuItem.isFavourite
             if (menuItem.isFavourite) {             // добавляем в избранное
                 list.add(position, menuItem)
                 list.indices.map {i -> list[i].subId = i}
