@@ -67,6 +67,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
         Timber.d("$TAG setCurrentItems start")
         internetLimits = getInternetLimits()
         _currentItems = MutableLiveData()
+        closeLeftMenu()
         viewModelScope.launch (Dispatchers.IO)  {
             currentItems = repository.getDetailsItems(phase).toMutableList() //}
             _currentItems.postValue(currentItems)
@@ -130,7 +131,6 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
         return object : OnClickByLeftMenuItem {
             override fun onItemClick(mainDBItem: MainDBItem) {
                 Timber.d("$TAG .onItemClick mainDBItem = [${mainDBItem}]")
-                closeLeftMenu()
                 currentId = getNumByID(mainDBItem.id)
                 onLeftMenuItemPressing.call()
             }
@@ -175,10 +175,13 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun openLeftMenu() {
         _isLeftMenuOpen.postValue(true)
+        Timber.d("$TAG .openLeftMenu true")
     }
 
+    //не вызывается когда при открыом меню кликнули мимо него
     fun closeLeftMenu() {
         _isLeftMenuOpen.postValue(false)
+        Timber.d("$TAG .openLeftMenu false")
     }
 
 }

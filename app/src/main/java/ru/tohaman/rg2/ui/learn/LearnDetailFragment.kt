@@ -81,7 +81,6 @@ class LearnDetailFragment : Fragment() {
 
                 //Блокируем открытие левого меню по свайпу, оставляем только открытие по нажатию на FAB
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                detailViewModel.closeLeftMenu()
                 detailViewModel.isLeftMenuOpen.observe(viewLifecycleOwner, Observer {
                     it?.let {
                         if (it) drawerLayout.openDrawer(GravityCompat.START)
@@ -91,6 +90,7 @@ class LearnDetailFragment : Fragment() {
 
                 detailViewModel.onLeftMenuItemPressing.observe(viewLifecycleOwner, Observer {
                     detailViewPager.setCurrentItem(detailViewModel.currentId,false)
+                    detailViewModel.closeLeftMenu()
                 })
 
                 interceptBackPressing()
@@ -104,12 +104,14 @@ class LearnDetailFragment : Fragment() {
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
             override fun handleOnBackPressed() {
                 //т.е. isLeftMenuOpen.value может быть null, то сравниваем с true
-                if (detailViewModel.isLeftMenuOpen.value == true)
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                else
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+                    detailViewModel.closeLeftMenu()
+                } else {
                     findNavController().popBackStack()
                 }
             }
+        }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
