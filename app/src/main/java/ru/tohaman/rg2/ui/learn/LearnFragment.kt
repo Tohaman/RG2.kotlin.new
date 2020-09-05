@@ -103,14 +103,6 @@ class LearnFragment : Fragment() {
                     findNavController().navigate(R.id.destInfo)
                 })
 
-//                val notShowMiniHelp = miniHelpViewModel.notShowMore.value ?: false
-//                if (!notShowMiniHelp) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
-
-//                val number = miniHelpViewModel.showingMiniHelpNumber()
-//                number?.let {
-//                    val action = LearnFragmentDirections.actionDestLearnToMiniHelpDialog(it)
-//                    findNavController().navigate(action)
-//                }
             }
 
         return binding.root
