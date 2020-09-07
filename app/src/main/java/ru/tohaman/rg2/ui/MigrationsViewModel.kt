@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants.CURRENT_AZBUKA
 import ru.tohaman.rg2.Constants.CUSTOM_AZBUKA
 import ru.tohaman.rg2.Constants.FAVORITES
 import ru.tohaman.rg2.Constants.LAST_VERSION
-import ru.tohaman.rg2.Constants.START_COUNT
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.ItemsRepository
@@ -57,9 +57,7 @@ class MigrationsViewModel(app : Application): AndroidViewModel(app), KoinCompone
     }
 
     private fun migrateStartCount() {
-        var startCount = sp.getInt("startcount", 0)
-        startCount++
-        sp.edit().putInt(START_COUNT, startCount).apply()
+        AppSettings.startCount += 1
     }
 
     private fun migrateCommentsToRoomBase() {

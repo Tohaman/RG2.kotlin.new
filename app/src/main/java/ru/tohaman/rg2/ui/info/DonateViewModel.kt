@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.get
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.GOD_MODE
@@ -70,7 +71,7 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
         //Если включен режим разработчика, то прибавляем к монеткам 1 (типа заплатил)
         val godMoney = if (sp.getBoolean(GOD_MODE, false)) 1 else 0
         val isUserDonate = sp.getInt(PAYED_COINS, 0) + godMoney
-        val startCount = sp.getInt(Constants.START_COUNT, 1)
+        val startCount = AppSettings.startCount
         Timber.d("$TAG .checkDonationShow $startCount $isUserDonate")
         //Если пользователь не платил, то каждый 10ый вход переводим на окно Доната
         if ((isUserDonate == 0) and (startCount % 10 == 0)) {
@@ -78,7 +79,7 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
             sp.edit().putInt(Constants.INFO_BOOKMARK, 1).apply()
             onStartOpenDonate.call()
             //Увеличим счетчик входов, чтобы повторно не вызвалось
-            sp.edit().putInt(Constants.START_COUNT, startCount + 1 ).apply()
+            AppSettings.startCount = startCount + 1
         }
     }
 

@@ -10,18 +10,23 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.jetbrains.annotations.NotNull
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.databinding.FragmentLearnDetailBinding
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
 import ru.tohaman.rg2.ui.games.GameStates
+import ru.tohaman.rg2.ui.in_app_review.RequestInAppReviewUseCase
 import ru.tohaman.rg2.ui.shared.UiUtilViewModel
 import timber.log.Timber
 
@@ -31,6 +36,7 @@ class LearnDetailFragment : Fragment() {
     private val phaseId by lazy { args.id }
     private val phase by lazy { args.phase }
     private lateinit var binding: FragmentLearnDetailBinding
+    private val requestInAppReviewUseCase : RequestInAppReviewUseCase by inject()
     //private var currentId = 0
 
     private val uiUtilViewModel by sharedViewModel<UiUtilViewModel>()
@@ -105,14 +111,20 @@ class LearnDetailFragment : Fragment() {
             override fun handleOnBackPressed() {
                 //т.е. isLeftMenuOpen.value может быть null, то сравниваем с true
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//                    drawerLayout.closeDrawer(GravityCompat.START)
                     detailViewModel.closeLeftMenu()
                 } else {
                     findNavController().popBackStack()
+                    tryLaunchInAppReview()
                 }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+
+    private fun tryLaunchInAppReview() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            requestInAppReviewUseCase.launchReview(requireActivity())
+        }
     }
 
 

@@ -6,17 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
 import org.koin.core.get
-import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.GOD_MODE
 import ru.tohaman.rg2.Constants.HELP_COUNT
 import ru.tohaman.rg2.Constants.ON_START_MINI_HELP
-import ru.tohaman.rg2.Constants.PAYED_COINS
-import ru.tohaman.rg2.Constants.START_COUNT
 import ru.tohaman.rg2.Constants.galleryDrawables
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.entitys.TipsItem
 import ru.tohaman.rg2.utils.NonNullMutableLiveData
-import ru.tohaman.rg2.utils.SingleLiveEvent
 import timber.log.Timber
 
 class MiniHelpViewModel: ViewModel(), KoinComponent {

@@ -9,7 +9,7 @@ object Constants {
     const val THEME = "theme"                               //Тема приложения (String)
     const val SHOW_FAB = "showFAB"                          //Отображать плавающую кнопку в основном меню (Boolean)
     const val TEXT_SIZE = "mainTextSize"                    //+ к изначально задуманному размеру текста в обучалках (Int)
-    const val START_COUNT = "startCount"                    //количество запусков
+    //const val START_COUNT = "startCount"                    //количество запусков
     const val LAST_VERSION = "version"                      //последняя сохраненная версия программы
     const val HELP_COUNT = "helpCount"                      //Сколько раз был показан миниХелп по программе при старте
     const val ON_START_MINI_HELP = "onStartHelpEnabled"     //true, если надо показывать окно миниХелпа при запуске
@@ -76,9 +76,19 @@ object Constants {
     const val CUR_ITEM_ID = "itemId"                //id в фазе для выбранного фрагмента
 
     //Для приема/передачи параметров видео
-    const val TIME = "time"
-    const val LINK = "link"
-    const val ALG = "alg"
+    const val TIME = "time"                                 //время начала видео
+    const val LINK = "link"                                 //ссылка(код) на видео
+    const val ALG = "alg"                                   //алгоритм для видео
+
+    //Оценка приложения (ReviewInfo)
+//    const val LAST_REVIEW_DATE = "lastReviewDate"           //дата, когда последний раз предлагали оценить приложение
+//    const val DAY_ENTER_COUNT = "dayEnterCount"             //количество входов за "сегодня"
+//    const val DAY_OF_LAST_ENTER = "dayOfLastEnter"           //дата последнего входа
+
+    //Паттерны для использования дат
+    const val DAY_PATTERN = "dd/MM/yy"                      //время с точность до дня
+    const val DAY_TIME_PATTERN = "dd/MM/yy HH:mm:ss"        //с точностью до секунды
+
 
     val galleryDrawables = listOf(
         TipsItem(R.drawable.frame_1, "Обязательно прочитайте этот раздел"),

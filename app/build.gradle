@@ -15,10 +15,11 @@ android {
     defaultConfig {
         applicationId 'ru.tohaman.rg2'
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
         minSdkVersion 18
         targetSdkVersion 29
-        versionCode 314
-        versionName '2.20200802.1'
+        versionCode 315
+        versionName '2.20200905.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -58,12 +59,16 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
 
-    //для работы viewModel и биндинга
+    // для работы viewModel и биндинга
     ext { lifecycle_version = '2.2.0' }
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    // App Startup library https://developer.android.com/topic/libraries/app-startup?hl=ru
+    implementation "androidx.startup:startup-runtime:1.0.0-alpha03"
 
     // Room components
     ext { roomVersion = '2.2.5' }
@@ -85,7 +90,7 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.1"
 
     //Koin для Внедрения зависимостей - https://github.com/InsertKoinIO/koin
-    ext { koin_version = "2.1.5" }
+    ext { koin_version = "2.2.0-alpha-1" }
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
@@ -112,6 +117,9 @@ dependencies {
 
     //Подключаем покупки в playMarket
     implementation 'com.android.billingclient:billing-ktx:3.0.0'
+
+    //Упрощаем доступ к SharedPref https://github.com/chibatching/Kotpref
+    implementation 'com.chibatching.kotpref:kotpref:2.11.0'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

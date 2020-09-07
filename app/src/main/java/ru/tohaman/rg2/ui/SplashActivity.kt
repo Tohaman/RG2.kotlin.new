@@ -10,22 +10,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.tohaman.rg2.BuildConfig
-import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.Constants.LAST_VERSION
-import ru.tohaman.rg2.Constants.START_COUNT
+import ru.tohaman.rg2.Constants.DAY_PATTERN
 import ru.tohaman.rg2.Constants.TEXT_SIZE
 import ru.tohaman.rg2.Constants.THEME
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dbase.FillDB
 import timber.log.Timber
 import ru.tohaman.rg2.DebugTag.TAG
-import ru.tohaman.rg2.ui.learn.MiniHelpViewModel
-import ru.tohaman.rg2.ui.shared.MyDefaultActivity
+import ru.tohaman.rg2.AppSettings
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {
-    private val sharedPreferences: SharedPreferences by inject()
+    private val sp: SharedPreferences by inject()
     private val migrationsViewModel by viewModel<MigrationsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +53,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkEnteringCount() {
-        var startCount = sharedPreferences.getInt(START_COUNT, 0)
+        var startCount = AppSettings.startCount
         if (startCount == 0) {
             dbInit(this)        //Первый запуск программы
         } else {
@@ -63,7 +61,30 @@ class SplashActivity : AppCompatActivity() {
         }
         startCount++
         //startCount = 0                //Если надо сбросить счетчик
-        sharedPreferences.edit().putInt(START_COUNT, startCount).apply()
+        var dateOfLastEnter = AppSettings.dayOfLastEnter
+        var currentDayEnterCount = AppSettings.dayEnterCount
+
+        val sdf = SimpleDateFormat(DAY_PATTERN, Locale.getDefault())
+        val now = Calendar.getInstance()
+        val stringToday = sdf.format(now.time)
+        val stringDayOfLastEnter = sdf.format(Date(dateOfLastEnter))
+
+        Timber.d("$TAG .checkEnteringCount today = $stringToday, lastEnter = $stringDayOfLastEnter")
+        if (stringToday == stringDayOfLastEnter) {
+            currentDayEnterCount++
+        } else {
+            dateOfLastEnter = now.timeInMillis
+            currentDayEnterCount = 1
+        }
+
+        saveEnterParameters(currentDayEnterCount, dateOfLastEnter, startCount)
+    }
+
+    private fun saveEnterParameters(currentDayEnterCount: Int, lastEnterDate: Long, startCount: Int) {
+        Timber.d("$TAG .saveEnterParameters currentDayEnterCount = [${currentDayEnterCount}], dateOfLastEnter = [${lastEnterDate}], startCount = [${startCount}]")
+        AppSettings.dayEnterCount = currentDayEnterCount
+        AppSettings.dayOfLastEnter = lastEnterDate
+        AppSettings.startCount = startCount
     }
 
     private fun dbInit(context: Context) {
@@ -71,8 +92,8 @@ class SplashActivity : AppCompatActivity() {
         //Чтобы дождаться завершения выполнения инициализации, запустим в runBlocking,
         //а поскольку нельзя к БД Room обращаться в основном потоке, то запустим корутину в IO потоке
         runBlocking(Dispatchers.IO) {
-            sharedPreferences.edit().putInt(TEXT_SIZE, 2).apply()
-            sharedPreferences.edit().putString(THEME, "AppTheme").apply()
+            sp.edit().putInt(TEXT_SIZE, 2).apply()
+            sp.edit().putString(THEME, "AppTheme").apply()
             FillDB.reCreateDB(context)
             migrationsViewModel.migrateFavourite()
         }
