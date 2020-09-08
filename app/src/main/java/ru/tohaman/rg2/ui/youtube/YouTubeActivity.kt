@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants.ALG
 import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
 import ru.tohaman.rg2.Constants.LINK
@@ -27,7 +28,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class YouTubeActivity: MyDefaultActivity() {
-    private val sp: SharedPreferences by inject()
     private val youTubeViewModel by viewModel<YouTubeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class YouTubeActivity: MyDefaultActivity() {
 
     private fun setDisplayOnProperties() {
         // Проверяем значения из настроек, выключать экран или нет при прсмотре видео
-        val sleepOnYouTube = sp.getBoolean(IS_VIDEO_SCREEN_ON, false)
+        val sleepOnYouTube = AppSettings.isYouTubeDisplayAlwaysOn
         if (sleepOnYouTube) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         } else {

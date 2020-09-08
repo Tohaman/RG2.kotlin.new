@@ -8,6 +8,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.android.inject
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants.IS_SCREEN_ALWAYS_ON
 import ru.tohaman.rg2.utils.getThemeFromSharedPreference
 
@@ -17,16 +18,14 @@ import ru.tohaman.rg2.utils.getThemeFromSharedPreference
  */
 
 abstract class MyDefaultActivity : AppCompatActivity() {
-    private val sp: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(getThemeFromSharedPreference(sp))
+        setTheme(getThemeFromSharedPreference())
         //Включаем поддержку векторной графики на устройствах ниже Лилипопа (5.0)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
 
         //Настраиваем отключение экрана
-        val isScreenAlwaysOn = sp.getBoolean(IS_SCREEN_ALWAYS_ON, false)
-        if (isScreenAlwaysOn) {
+        if (AppSettings.isScreenAlwaysON) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         } else {
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

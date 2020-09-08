@@ -21,6 +21,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import timber.log.Timber
@@ -93,8 +94,8 @@ fun getPhasesToTypesMap(context: Context): Map<String, String> {
 //            ListPagers[i].comment
 //        }
 //
-fun getThemeFromSharedPreference(sp: SharedPreferences) : Int {
-    val theme = sp.getString("theme", "AppTheme")
+fun getThemeFromSharedPreference() : Int {
+    val theme = AppSettings.theme
     Timber.d("$TAG SetActivityTheme - $theme")
     return when (theme)  {
         "AppThemeLight" -> R.style.AppThemeLight
@@ -175,7 +176,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, Observer {
+        super.observe(owner, {
             if (mPending.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }

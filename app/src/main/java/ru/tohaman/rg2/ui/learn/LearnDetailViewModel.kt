@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.ALL_INTERNET
 import ru.tohaman.rg2.Constants.NOT_USE_INTERNET
@@ -29,7 +30,6 @@ import timber.log.Timber
 
 class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
-    private val sp: SharedPreferences by inject()
     private val ctx = context
     var currentId = 0
 
@@ -52,7 +52,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     private val mutableFavouritesList: MutableLiveData<List<MainDBItem>> = MutableLiveData()
     val liveDataFavouritesList: LiveData<List<MainDBItem>> get() = mutableFavouritesList
 
-    var isTextSelectable = sp.getBoolean(Constants.IS_TEXT_SELECTABLE, false)
+    var isTextSelectable = AppSettings.isTextSelectable
     private var internetLimits = 0
 
     private val _isLeftMenuOpen = MutableLiveData<Boolean>()
@@ -73,7 +73,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
             _currentItems.postValue(currentItems)
             currentId = getNumByID(id)
             updateLeftMenuAdapter(currentItems)
-            isTextSelectable = sp.getBoolean(Constants.IS_TEXT_SELECTABLE, false)
+            isTextSelectable = AppSettings.isTextSelectable
             //Timber.d("$TAG curItem Initiated with Id=$currentId count=${currentItems.size} items=$currentItems")
         }
     }
@@ -156,8 +156,8 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     //Получаем текущий лимит на использование интернета установленный в настройках, 0 - любой, 1 - WiFi, интернет недоступен - 4
     //потом будем сравнивать с текущим доступным в системе 0 - недоступен, 1 - 3G/4G, 2 - WiFi, 3 - VPN
     private fun getInternetLimits(): Int {
-        val allInternet = sp.getBoolean(ALL_INTERNET, true)
-        val wiFi = sp.getBoolean(ONLY_WIFI, false)
+        val allInternet = AppSettings.useAllInternet
+        val wiFi = AppSettings.useOnlyWiFi
         return when {
             allInternet -> 0
             wiFi -> 1

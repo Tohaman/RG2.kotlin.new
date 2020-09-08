@@ -18,10 +18,22 @@ object AppSettings: KotprefModel() {
     //где используется PreferenceManager.getDefaultSharedPreferences, задаем "ru.tohaman.rg2_preferences"
     override val kotprefName: String = "${context.applicationInfo.packageName}_preferences"
 
+    var theme by stringPref(default = "AppTheme")
+
     var startCount by intPref(default = 0)
 
     var dayEnterCount by intPref(default = 1)
     var lastCallReviewTimestamp by longPref(default = 0)
     var dayOfLastEnter by longPref(default = 0)
 
+    var mainTextSize by intPref(default = 2)
+
+    var isScreenAlwaysON by booleanPref(default = false)                    //Не выключать экран, если приложение запущено
+    var isYouTubeDisplayAlwaysOn by booleanPref(default = false)            //Не выключать экран при просмотре YouTube в отдельном окне
+    var isTextSelectable by booleanPref(default = false)                    //Возможность выделить/скопировать текст из обучалки
+
+    //Использование интернета
+    var useAllInternet by booleanPref(default = true)                       //Используем любой доступный интернет (Boolean)
+    var useOnlyWiFi by booleanPref(default = false)                         //Используем интернет только при наличии Wi-Fi (Boolean)
+    var doNotUseInternet by booleanPref(default = false)                    //Не использовать интернет
 }

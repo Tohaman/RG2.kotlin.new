@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.TEXT_SIZE
 import ru.tohaman.rg2.Constants.THEME
@@ -47,7 +48,7 @@ class MainActivity : MyDefaultActivity(), SharedPreferences.OnSharedPreferenceCh
             lifecycleOwner = this@MainActivity
         }
 
-        val sizeCoefficient = sharedPreferences.getInt(TEXT_SIZE, 2)
+        val sizeCoefficient = AppSettings.mainTextSize
         adjustFontScale(resources.configuration, sizeCoefficient)
 
         miniHelpViewModel.checkMiniHelpShow()

@@ -20,7 +20,7 @@ object Constants {
     const val startValue: Float = 0.7f                      //начальное значение размера шрифта
     const val step = 0.15f                                  //шаг увеличения коэффициента
     //Другие настройки программы
-    const val IS_SCREEN_ALWAYS_ON = "isScreenAlwaysON"      //Не выключаьб экран, если приложение запущено
+    const val IS_SCREEN_ALWAYS_ON = "isScreenAlwaysON"      //Не выключать экран, если приложение запущено
     const val IS_VIDEO_SCREEN_ON = "isYouTubeDisplayAlwaysOn"   //Не выключать экран при просмотре YouTube в отдельном окне
     const val IS_TEXT_SELECTABLE = "isTextSelectable"       //Возможность выделить/скопировать текст из обучалки
     const val GOD_MODE = "godMode"                          //Режим разработчика (Boolean)

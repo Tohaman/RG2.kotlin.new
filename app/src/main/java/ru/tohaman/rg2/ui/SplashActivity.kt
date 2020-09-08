@@ -23,7 +23,6 @@ import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {
-    private val sp: SharedPreferences by inject()
     private val migrationsViewModel by viewModel<MigrationsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,8 +91,8 @@ class SplashActivity : AppCompatActivity() {
         //Чтобы дождаться завершения выполнения инициализации, запустим в runBlocking,
         //а поскольку нельзя к БД Room обращаться в основном потоке, то запустим корутину в IO потоке
         runBlocking(Dispatchers.IO) {
-            sp.edit().putInt(TEXT_SIZE, 2).apply()
-            sp.edit().putString(THEME, "AppTheme").apply()
+            AppSettings.mainTextSize = 2
+            AppSettings.theme = "AppTheme"
             FillDB.reCreateDB(context)
             migrationsViewModel.migrateFavourite()
         }
