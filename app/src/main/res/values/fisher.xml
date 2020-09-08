@@ -410,7 +410,7 @@
     выполняем алгоритм. После чего, один из уголков обязательно окажется на своем месте, т.е. мы получим
     ситуацию с тремя углами, которую уже знаем как решать.</p>
 
-    <p><a href="rg2://ytplay?time=43:48&link=Jy9OuYQuabI&alg=(U2_R_U2_R\')_F2_(U2_L_U2_L\')_F2">Алгоритм:</a> <b>(U2 R U2 R\') F2 (U2 L U2 L\') F2</b></p>
+    <p><a href="rg2://ytplay?time=43:48&link=Jy9OuYQuabI&alg=(U2_R_U2_R\')_F2_(U2_L\'_U2_L)_F2">Алгоритм:</a> <b>(U2 R U2 R\') F2 (U2 L\' U2 L) F2</b></p>
     ]]></string>
     <string name="fisher_st10_url">Jy9OuYQuabI</string>
 
