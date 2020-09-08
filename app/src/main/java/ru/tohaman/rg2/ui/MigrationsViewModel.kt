@@ -1,51 +1,40 @@
 package ru.tohaman.rg2.ui
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
-import org.koin.core.get
 import org.koin.core.inject
 import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.BuildConfig
 import ru.tohaman.rg2.Constants.CURRENT_AZBUKA
 import ru.tohaman.rg2.Constants.CUSTOM_AZBUKA
-import ru.tohaman.rg2.Constants.FAVORITES
-import ru.tohaman.rg2.Constants.LAST_VERSION
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dataSource.entitys.Favorite
-import ru.tohaman.rg2.dataSource.getCubeFromCurrentAzbuka
-import ru.tohaman.rg2.dataSource.getLettersFromCurrentAzbuka
 import ru.tohaman.rg2.dataSource.resetCube
 import ru.tohaman.rg2.dbase.entitys.AzbukaDBItem
-import ru.tohaman.rg2.dbase.entitys.MainDBItem
 import ru.tohaman.rg2.dbase.entitys.TimeNoteItem
 import timber.log.Timber
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MigrationsViewModel(app : Application): AndroidViewModel(app), KoinComponent {
     private val repository : ItemsRepository by inject()
-    private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
     fun migrationToNewVersion() {
         //номер текущей версии программы
-        val lastVersion = sp.getInt(LAST_VERSION, BuildConfig.VERSION_CODE)
+        val lastVersion = AppSettings.version
         val currentVersion = BuildConfig.VERSION_CODE
         Timber.d("$TAG .migrationToNewVersion lastVersion = $lastVersion, curVersion = $currentVersion")
         if (lastVersion < 300) updateToVersion300()
-        sp.edit().putInt(LAST_VERSION,currentVersion).apply()
+        AppSettings.version = currentVersion
     }
 
     private fun updateToVersion300() {
