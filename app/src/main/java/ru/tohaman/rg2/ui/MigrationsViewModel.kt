@@ -137,8 +137,8 @@ class MigrationsViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
 
     private fun getFavoriteListFromSharedPref() : MutableSet<Favorite> {
-        val defaultString = ctx.getString(R.string.def_favorites)
-        val json = sp.getString(FAVORITES, defaultString)
+        var json = AppSettings.favorites
+        if (json == "empty") json = ctx.getString(R.string.def_favorites)
         val gson = GsonBuilder().create()
         val itemsListType = object : TypeToken<MutableSet<Favorite>>() {}.type
         return gson.fromJson(json, itemsListType)
