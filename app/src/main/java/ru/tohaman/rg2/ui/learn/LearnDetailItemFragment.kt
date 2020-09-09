@@ -1,7 +1,6 @@
 package ru.tohaman.rg2.ui.learn
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.*
@@ -14,17 +13,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import org.jetbrains.annotations.NotNull
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.tohaman.rg2.Constants.CUR_ITEM_ID
-import ru.tohaman.rg2.Constants.IS_TEXT_SELECTABLE
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.FragmentLearnDetailItemBinding
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.rg2.utils.*
+import ru.tohaman.rg2.utils.ClickTextHolder
+import ru.tohaman.rg2.utils.dp
+import ru.tohaman.rg2.utils.shareText
+import ru.tohaman.rg2.utils.toEditable
 import timber.log.Timber
-import java.lang.Exception
 
 
 class LearnDetailItemFragment : Fragment() {

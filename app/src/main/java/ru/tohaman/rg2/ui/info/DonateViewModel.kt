@@ -2,25 +2,12 @@ package ru.tohaman.rg2.ui.info
 
 import android.app.Activity
 import android.app.Application
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.koin.core.KoinComponent
-import org.koin.core.get
 import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.BuildConfig
-import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.Constants.GOD_MODE
-import ru.tohaman.rg2.Constants.PAYED_COINS
-import ru.tohaman.rg2.DebugTag
 import ru.tohaman.rg2.DebugTag.TAG
-import ru.tohaman.rg2.utils.Resource
 import ru.tohaman.rg2.utils.SingleLiveEvent
-import ru.tohaman.rg2.utils.Status
 import timber.log.Timber
 import kotlin.let as let1
 

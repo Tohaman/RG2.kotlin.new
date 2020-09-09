@@ -2,22 +2,18 @@ package ru.tohaman.rg2.ui
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants.DAY_PATTERN
-import ru.tohaman.rg2.Constants.TEXT_SIZE
-import ru.tohaman.rg2.Constants.THEME
+import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dbase.FillDB
 import timber.log.Timber
-import ru.tohaman.rg2.DebugTag.TAG
-import ru.tohaman.rg2.AppSettings
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -59,13 +59,21 @@ object AppSettings: KotprefModel() {
     //Основное меню
     var currentCubeType by intPref(default = 2)                                  //Текущая головоломка (пункт меню)
 
-
     //Настройки Генератора скрмблов
     var currentScramble by stringPref("R F L B U2 L B' R F' D B R L F D R' D L")          //Последний придуманный скрамбл (текущий) (String)
     var isBufferEdgeSet by booleanPref(default = true)                      //Переплавка буфера ребер (Boolean)
     var isBufferCornerSet by booleanPref(default = true)                    //Переплавка буфера углов (Boolean)
     var scrambleLength by intPref(default = 14)                                  //Длина скрамбла (Int)
     var showSolving by booleanPref(default = true)                          //Показывать решение для скрамбла (Boolean)
+
+    //Настройки таймера
+    var isTimerDelayed by booleanPref(default = true)              //Нужна задержка перед срабатыванием Готовности таймера? (Boolean)
+    var isOneHanded by booleanPref(default = false)              //Однорукий тайиер? (True - однорукий, False - двурукий)
+    var isMetronomEnabled by booleanPref(default = false)          //Включен ли метроном (Boolean)
+    var needScramble by booleanPref(default = true)          //Включено ли отображение скрамбла в таймере (Boolean)
+    var needBackButton by booleanPref(default = true)            //Отображнеи кнопки "назад" (Boolean)
+    var metronomFrequency by intPref(default = 60)     //Частота метронома (раз в минуту) (Int)
+    var scrambleTextSize by intPref(default = 6)       //Размер текста для отображения скрабла в таймере (Int)
 
     //Меню Информации
     var infoBookmark by intPref(default = 1)                                    //Текущая выбранная закладка на странице Info

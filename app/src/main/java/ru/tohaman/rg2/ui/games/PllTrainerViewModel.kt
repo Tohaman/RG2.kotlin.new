@@ -1,7 +1,6 @@
 package ru.tohaman.rg2.ui.games
 
 import android.app.Application
-import android.content.SharedPreferences
 import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
@@ -19,18 +18,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
-import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.BuildConfig
-import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.Constants.ALL_PLL_COUNT
-import ru.tohaman.rg2.Constants.GOD_MODE
-import ru.tohaman.rg2.Constants.IS_2SIDE_RECOGNITION
 import ru.tohaman.rg2.Constants.PLL_KEYS_NAME
-import ru.tohaman.rg2.Constants.PLL_ANSWER_VARIANTS
-import ru.tohaman.rg2.Constants.PLL_RANDOM_SIDE
-import ru.tohaman.rg2.Constants.PLL_TRAINING_TIMER
-import ru.tohaman.rg2.Constants.PLL_TRAINING_TIMER_TIME
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.*
@@ -40,99 +31,96 @@ import ru.tohaman.rg2.interfaces.SelectAnswerInt
 import ru.tohaman.rg2.interfaces.WrongAnswerInt
 import ru.tohaman.rg2.utils.toMutableLiveData
 import timber.log.Timber
-import java.lang.Exception
 import java.util.*
 
 class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt, SelectAnswerInt {
     private val repository : ItemsRepository by inject()
-    private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
     //----------------------- Settings -------------------------------
 
-    private var _is2SideRecognition = sp.getBoolean(IS_2SIDE_RECOGNITION, true)
+    private var _is2SideRecognition = AppSettings.is2SideRecognition
     var is2SideRecognition = ObservableBoolean(_is2SideRecognition)
 
     fun twoSideRecognitionSelect() {
         Timber.d("$TAG .twoSideRecognitionSelect ")
         _is2SideRecognition = true
         is2SideRecognition.set(_is2SideRecognition)
-        sp.edit().putBoolean(IS_2SIDE_RECOGNITION, _is2SideRecognition).apply()
+        AppSettings.is2SideRecognition = _is2SideRecognition
     }
 
     fun threeSideRecognitionSelect() {
         Timber.d("$TAG .threeSideRecognitionSelect ")
         _is2SideRecognition = false
         is2SideRecognition.set(_is2SideRecognition)
-        sp.edit().putBoolean(IS_2SIDE_RECOGNITION, _is2SideRecognition).apply()
+        AppSettings.is2SideRecognition = _is2SideRecognition
     }
 
-    private var _pllRandomSide = sp.getBoolean(PLL_RANDOM_SIDE, false)
+    private var _pllRandomSide = AppSettings.pllRandomSide
     val pllRandomSide = ObservableBoolean(_pllRandomSide)
 
     fun pllRandomSideChange(value: Boolean) {
         _pllRandomSide = value
         pllRandomSide.set(value)
-        sp.edit().putBoolean(PLL_RANDOM_SIDE, value).apply()
+        AppSettings.pllRandomSide = value
     }
 
-    private var _pllTrainingTimer = sp.getBoolean(PLL_TRAINING_TIMER, true)
+    private var _pllTrainingTimer = AppSettings.pllTrainingTimer
     val pllTrainingTimer = ObservableBoolean(_pllTrainingTimer)
 
-    private var _pllTrainingTimerTime = sp.getInt(PLL_TRAINING_TIMER_TIME, 6)
+    private var _pllTrainingTimerTime = AppSettings.pllTrainingTimerTime
     val pllTrainingTimerTime = ObservableInt(_pllTrainingTimerTime)
 
     fun pllTrainingTimerChange(value: Boolean) {
         _pllTrainingTimer = value
         pllTrainingTimer.set(value)
-        sp.edit().putBoolean(PLL_TRAINING_TIMER, value).apply()
+        AppSettings.pllTrainingTimer = value
     }
 
     fun minusTimerTime() {
         _pllTrainingTimerTime -= 1
         if (_pllTrainingTimerTime < 2) _pllTrainingTimerTime = 2
         pllTrainingTimerTime.set(_pllTrainingTimerTime)
-        sp.edit().putInt(PLL_TRAINING_TIMER_TIME, _pllTrainingTimerTime).apply()
+        AppSettings.pllTrainingTimerTime = _pllTrainingTimerTime
     }
 
     fun plusTimerTime() {
         _pllTrainingTimerTime += 1
         if (_pllTrainingTimerTime > 15) _pllTrainingTimerTime = 15
         pllTrainingTimerTime.set(_pllTrainingTimerTime)
-        sp.edit().putInt(PLL_TRAINING_TIMER_TIME, _pllTrainingTimerTime).apply()
+        AppSettings.pllTrainingTimerTime = _pllTrainingTimerTime
     }
 
-    private var _allPllCount = sp.getBoolean(ALL_PLL_COUNT, true)
+    private var _allPllCount = AppSettings.allPllCount
     var allPllCount = ObservableBoolean(_allPllCount)
 
     fun allVariantsSelect() {
         _allPllCount = true
         allPllCount.set(_allPllCount)
-        sp.edit().putBoolean(ALL_PLL_COUNT, _allPllCount).apply()
+        AppSettings.allPllCount = _allPllCount
     }
 
     fun someVariantsSelect() {
         _allPllCount = false
         allPllCount.set(_allPllCount)
-        sp.edit().putBoolean(ALL_PLL_COUNT, _allPllCount).apply()
+        AppSettings.allPllCount = _allPllCount
     }
 
-    private var _pllAnswerVariants = sp.getInt(PLL_ANSWER_VARIANTS, 6)
+    private var _pllAnswerVariants = AppSettings.pllAnswerVariants
     var pllAnswerVariants = ObservableInt(_pllAnswerVariants)
 
     fun minusAnswerVariants() {
         _pllAnswerVariants -= 2
         if (_pllAnswerVariants < 2) _pllAnswerVariants = 2
         pllAnswerVariants.set(_pllAnswerVariants)
-        sp.edit().putInt(PLL_ANSWER_VARIANTS, _pllAnswerVariants).apply()
+        AppSettings.pllAnswerVariants = _pllAnswerVariants
     }
 
     fun plusAnswerVariants() {
         _pllAnswerVariants += 2
         if (_pllAnswerVariants > 8) _pllAnswerVariants = 8
         pllAnswerVariants.set(_pllAnswerVariants)
-        sp.edit().putInt(PLL_ANSWER_VARIANTS, _pllAnswerVariants).apply()
-
+        AppSettings.pllAnswerVariants = _pllAnswerVariants
     }
 
     //-------------------Окно выбора и настройки PLL алгоритмов ------------------------
@@ -242,7 +230,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     // -------------------- Game ------------------------------
 
     private var correctAnswer = 0 //Random().nextInt(21)
-    val showHint = ObservableBoolean(BuildConfig.DEBUG or sp.getBoolean(GOD_MODE, false))
+    val showHint = ObservableBoolean(BuildConfig.DEBUG or AppSettings.godMode)
     var rightAnswer = ObservableField<String>("A")
     var timerProgress = ObservableInt(100)
 

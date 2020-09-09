@@ -1,7 +1,7 @@
 package ru.tohaman.rg2.ui.games
 
+import android.annotation.SuppressLint
 import android.app.Application
-import android.content.SharedPreferences
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
@@ -20,17 +20,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
-import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.Constants.CURRENT_SCRAMBLE
-import ru.tohaman.rg2.Constants.SCRAMBLE_TEXT_SIZE
-import ru.tohaman.rg2.Constants.TIMER_DELAYED
-import ru.tohaman.rg2.Constants.TIMER_METRONOM
-import ru.tohaman.rg2.Constants.TIMER_METRONOM_FREQ
-import ru.tohaman.rg2.Constants.TIMER_NEED_BACK
-import ru.tohaman.rg2.Constants.TIMER_NEED_SCRAMBLE
-import ru.tohaman.rg2.Constants.TIMER_ONE_HANDED
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.ItemsRepository
@@ -45,7 +37,6 @@ import java.util.*
 class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, ShowPreloaderInt {
     // ------- Общие переменные ---------
     private val repository : ItemsRepository by inject()
-    private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
     //-------- Управление настройками таймера (TimerSettings) ----------------
@@ -53,29 +44,29 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     private val _showPreloader = false
     override val showPreloader = ObservableBoolean(_showPreloader)
 
-    private val _isTimerDelayed = sp.getBoolean(TIMER_DELAYED, true)
+    private val _isTimerDelayed = AppSettings.isTimerDelayed
     val isTimerDelayed = ObservableBoolean(_isTimerDelayed)
 
     fun isTimerDelayedChange(value: Boolean) {
         Timber.d("$TAG .isTimerDelayedChange $value")
-        sp.edit().putBoolean(TIMER_DELAYED, value).apply()
+        AppSettings.isTimerDelayed = value
     }
 
-    private val _isOneHanded = sp.getBoolean(TIMER_ONE_HANDED, false)
+    private val _isOneHanded = AppSettings.isOneHanded
     val isOneHanded = ObservableBoolean(_isOneHanded)
 
     fun isOneHandedChange(value: Boolean) {
-        sp.edit().putBoolean(TIMER_ONE_HANDED, value).apply()
+        AppSettings.isOneHanded = value
     }
 
-    private val _metronom = sp.getBoolean(TIMER_METRONOM, false)
+    private val _metronom = AppSettings.isMetronomEnabled
     val metronom = ObservableBoolean(_metronom)
 
     fun isMetronomChange(value: Boolean) {
-        sp.edit().putBoolean(TIMER_METRONOM, value).apply()
+        AppSettings.isMetronomEnabled = value
     }
 
-    private var _metronomFrequency = sp.getInt(TIMER_METRONOM_FREQ, 60)
+    private var _metronomFrequency = AppSettings.metronomFrequency
     val metronomFrequency = ObservableInt(_metronomFrequency)
 
     fun onSeek(): OnSeekBarChangeListener? {
@@ -90,7 +81,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 Timber.d("$TAG .onStopTrackingTouch ${metronomFrequency.get()}")
-                sp.edit().putInt(TIMER_METRONOM_FREQ, metronomFrequency.get()).apply()
+                AppSettings.metronomFrequency = metronomFrequency.get()
             }
         }
     }
@@ -99,26 +90,26 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         _metronomFrequency -= 1
         if (_metronomFrequency == 0) {_metronomFrequency = 1}
         metronomFrequency.set(_metronomFrequency)
-        sp.edit().putInt(TIMER_METRONOM_FREQ, _metronomFrequency).apply()
+        AppSettings.metronomFrequency = _metronomFrequency
     }
 
     fun plusFreq() {
         _metronomFrequency += 1
         if (_metronomFrequency == 241) {_metronomFrequency = 240}
         metronomFrequency.set(_metronomFrequency)
-        sp.edit().putInt(TIMER_METRONOM_FREQ, _metronomFrequency).apply()
+        AppSettings.metronomFrequency = _metronomFrequency
     }
 
-    private var _needShowScramble = sp.getBoolean(TIMER_NEED_SCRAMBLE, true)
+    private var _needShowScramble = AppSettings.needScramble
     val needShowScramble = ObservableBoolean(_needShowScramble)
     val showTopLayout = ObservableBoolean(true)
 
     fun needScrambleChange(value: Boolean) {
         _needShowScramble = value
-        sp.edit().putBoolean(TIMER_NEED_SCRAMBLE, value).apply()
+        AppSettings.needScramble = value
     }
 
-    private var _scrambleTextSize = sp.getInt(SCRAMBLE_TEXT_SIZE, 6)
+    private var _scrambleTextSize = AppSettings.scrambleTextSize
     val scrambleTextSize = ObservableInt(_scrambleTextSize)
     val isScrambleTextShowing = ObservableBoolean(false)
 
@@ -136,18 +127,18 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 Timber.d("$TAG .onStopTrackingTouch seekBar = [${_scrambleTextSize}]")
-                sp.edit().putInt(SCRAMBLE_TEXT_SIZE, _scrambleTextSize).apply()
+                AppSettings.scrambleTextSize = _scrambleTextSize
                 isScrambleTextShowing.set(false)
             }
         }
     }
 
 
-    private val _needBackButton = sp.getBoolean(TIMER_NEED_BACK, true)
+    private val _needBackButton = AppSettings.needBackButton
     val needBackButton = ObservableBoolean(_needBackButton)
 
     fun needBackButtonChange(value: Boolean) {
-        sp.edit().putBoolean(TIMER_NEED_BACK, value).apply()
+        AppSettings.needBackButton = value
     }
 
     //------------------ Управление самим Таймером -----------------------
@@ -171,15 +162,15 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     private val soundLow = soundPool.load(ctx, R.raw.metronom,1)
 
 
-    private var _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
+    private var _currentScramble = AppSettings.currentScramble
     var currentScramble = ObservableField<String>(_currentScramble)
 
     fun reloadScrambleParameters(){
         viewModelScope.launch (Dispatchers.IO) {
-            cornerBuffer = sp.getBoolean(Constants.BUFFER_CORNER, true)
-            edgeBuffer = sp.getBoolean(Constants.BUFFER_EDGE, true)
-            scrambleLength = sp.getInt(Constants.SCRAMBLE_LENGTH, 14)
-            _currentScramble = sp.getString(CURRENT_SCRAMBLE, "R F L B U2 L B' R F' D B R L F D R' D L") ?: ""
+            cornerBuffer = AppSettings.isBufferCornerSet
+            edgeBuffer = AppSettings.isBufferEdgeSet
+            scrambleLength = AppSettings.scrambleLength
+            _currentScramble = AppSettings.currentScramble
             Timber.d("$TAG .reloadScrambleParameters $_currentScramble")
             currentScramble.set(_currentScramble)
             val listDBAzbuka = repository.getAzbukaItems(Constants.CURRENT_AZBUKA)
@@ -218,7 +209,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
                 )
                 currentScramble.set(scramble)
                 //сохраняем скрамбл
-                sp.edit().putString(CURRENT_SCRAMBLE, scramble).apply()
+                AppSettings.currentScramble = scramble
             }
             //delay(2000)
             showPreloader.set(false)                                        //убираем прелоадер
@@ -240,6 +231,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     var rightCircleColor = ObservableInt(redColor)
 
 
+    @SuppressLint("ClickableViewAccessibility")
     fun onTouchOneHandPanel(): View.OnTouchListener? {
         return View.OnTouchListener { _, event ->
             //Timber.d("$TAG action = $action, $v")
@@ -251,6 +243,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun onTouchLeftPanel(): View.OnTouchListener? {
         return View.OnTouchListener { _, event ->
             //Timber.d("$TAG action = $action, $v")
@@ -262,6 +255,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun onTouchRightPanel(): View.OnTouchListener? {
         return View.OnTouchListener { _, event ->
             //Timber.d("$TAG action = $action, $v")
@@ -273,6 +267,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun onTouchTopInsidePanel(): View.OnTouchListener? {
         return View.OnTouchListener { _, event ->
             val action = event.action

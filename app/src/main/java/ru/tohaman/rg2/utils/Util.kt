@@ -1,7 +1,6 @@
 package ru.tohaman.rg2.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -9,12 +8,10 @@ import android.os.Build
 import android.text.Editable
 import android.text.Html
 import android.text.Spanned
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.MainThread
 import androidx.annotation.Nullable
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
@@ -25,7 +22,6 @@ import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import timber.log.Timber
-import java.lang.Exception
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**

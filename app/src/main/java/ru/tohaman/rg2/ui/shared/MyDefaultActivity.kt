@@ -1,15 +1,12 @@
 package ru.tohaman.rg2.ui.shared
 
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import org.koin.android.ext.android.inject
 import ru.tohaman.rg2.AppSettings
-import ru.tohaman.rg2.Constants.IS_SCREEN_ALWAYS_ON
 import ru.tohaman.rg2.utils.getThemeFromSharedPreference
 
 /**

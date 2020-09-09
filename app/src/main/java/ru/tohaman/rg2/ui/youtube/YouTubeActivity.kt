@@ -1,31 +1,18 @@
 package ru.tohaman.rg2.ui.youtube
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants.ALG
-import ru.tohaman.rg2.Constants.IS_VIDEO_SCREEN_ON
 import ru.tohaman.rg2.Constants.LINK
 import ru.tohaman.rg2.Constants.TIME
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.databinding.ActivityYoutubeBinding
 import ru.tohaman.rg2.ui.shared.MyDefaultActivity
-import ru.tohaman.rg2.ui.shared.UiUtilViewModel
 import timber.log.Timber
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 
 class YouTubeActivity: MyDefaultActivity() {
     private val youTubeViewModel by viewModel<YouTubeViewModel>()

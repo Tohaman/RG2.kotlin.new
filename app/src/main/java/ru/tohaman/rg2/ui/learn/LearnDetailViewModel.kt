@@ -1,8 +1,10 @@
 package ru.tohaman.rg2.ui.learn
 
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.Dispatchers
@@ -10,17 +12,11 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import ru.tohaman.rg2.AppSettings
-import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.Constants.ALL_INTERNET
-import ru.tohaman.rg2.Constants.NOT_USE_INTERNET
-import ru.tohaman.rg2.Constants.ONLY_WIFI
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
 import ru.tohaman.rg2.dbase.entitys.BasicMove
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.rg2.dbase.entitys.PllGameItem
-import ru.tohaman.rg2.ui.games.PllTrainerItemViewModel
 import ru.tohaman.rg2.ui.learn.list_items.LeftMenuItemViewModel
 import ru.tohaman.rg2.ui.learn.list_items.OnClickByLeftMenuItem
 import ru.tohaman.rg2.utils.SingleLiveEvent

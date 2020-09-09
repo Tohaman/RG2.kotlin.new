@@ -1,7 +1,6 @@
 package ru.tohaman.rg2.ui.games
 
 import android.app.Application
-import android.content.SharedPreferences
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -20,13 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
-import org.koin.core.get
 import org.koin.core.inject
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.BuildConfig
-import ru.tohaman.rg2.Constants
 import ru.tohaman.rg2.Constants.CURRENT_AZBUKA
-import ru.tohaman.rg2.Constants.GOD_MODE
-import ru.tohaman.rg2.Constants.TRAINING_TIMER
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.*
@@ -38,17 +34,16 @@ import java.util.*
 
 class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt {
     private val repository : ItemsRepository by inject()
-    private val sp = get<SharedPreferences>()
     private val ctx = app.baseContext
 
-    private var trainingCorners = sp.getBoolean(Constants.TRAINING_CORNERS, true)
-    private var trainingEdges = sp.getBoolean(Constants.TRAINING_EDGES, true)
-    private var trainingTimer = sp.getBoolean(TRAINING_TIMER, true)
-    private var trainingTimerTime = sp.getInt(Constants.TRAINING_TIMER_TIME, 6)
+    private var trainingCorners = AppSettings.trainingCorners
+    private var trainingEdges = AppSettings.trainingEdges
+    private var trainingTimer = AppSettings.trainingTimer
+    private var trainingTimerTime = AppSettings.trainingTimerTime
     private var edgesArray = listOf<String>()
     private var cornersArray = listOf<String>()
 
-    val showHint = ObservableBoolean(BuildConfig.DEBUG or sp.getBoolean(GOD_MODE, false))
+    val showHint = ObservableBoolean(BuildConfig.DEBUG or AppSettings.godMode)
     val rightAnswerLetter = ObservableField<String>("")
     val timerProgress = ObservableInt(100)
 
@@ -82,10 +77,10 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
 
     fun reloadSettings() {
         viewModelScope.launch (Dispatchers.IO) {
-            trainingCorners = sp.getBoolean(Constants.TRAINING_CORNERS, true)
-            trainingEdges = sp.getBoolean(Constants.TRAINING_EDGES, true)
-            trainingTimer = sp.getBoolean(TRAINING_TIMER, true)
-            trainingTimerTime = sp.getInt(Constants.TRAINING_TIMER_TIME, 6)
+            trainingCorners = AppSettings.trainingCorners
+            trainingEdges = AppSettings.trainingEdges
+            trainingTimer = AppSettings.trainingTimer
+            trainingTimerTime = AppSettings.trainingTimerTime
 
             val listDBAzbuka = repository.getAzbukaItems(CURRENT_AZBUKA)
             currentLetters = getLettersFromCurrentAzbuka(prepareAzbukaToShowInGridView(listDBAzbuka))
