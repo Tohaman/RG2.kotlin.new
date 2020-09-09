@@ -29,9 +29,7 @@ import kotlin.let as let1
  * подробнее https://developer.android.com/google/play/billing/integrate#kotlin
  */
 
-class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
-    PurchasesUpdatedListener {
-    private val sp = get<SharedPreferences>()
+class DonateViewModel(app: Application): AndroidViewModel(app), PurchasesUpdatedListener {
 
     //Создаем экземпляр Billing-клиента
     private var billingClient = BillingClient.newBuilder(app)
@@ -69,14 +67,14 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
     //Проверяем нужно ли перейти на страничку доната
     fun checkDonationShow() {
         //Если включен режим разработчика, то прибавляем к монеткам 1 (типа заплатил)
-        val godMoney = if (sp.getBoolean(GOD_MODE, false)) 1 else 0
-        val isUserDonate = sp.getInt(PAYED_COINS, 0) + godMoney
+        val godMoney = if (AppSettings.godMode) 1 else 0
+        val isUserDonate = AppSettings.payCoins + godMoney
         val startCount = AppSettings.startCount
         Timber.d("$TAG .checkDonationShow $startCount $isUserDonate")
         //Если пользователь не платил, то каждый 10ый вход переводим на окно Доната
         if ((isUserDonate == 0) and (startCount % 10 == 0)) {
             //Поставим закладку на страничку с донатом
-            sp.edit().putInt(Constants.INFO_BOOKMARK, 1).apply()
+            AppSettings.infoBookmark = 1
             onStartOpenDonate.call()
             //Увеличим счетчик входов, чтобы повторно не вызвалось
             AppSettings.startCount = startCount + 1
@@ -116,7 +114,7 @@ class DonateViewModel(app: Application): AndroidViewModel(app), KoinComponent,
             .build()
         //Запишем в SP, что пользователь что-то заплатил (условные 50 тугриков), если там не 0,
         // то не будем его периодически перекидывать на страничку с рекламой
-        sp.edit().putInt(PAYED_COINS, 50).apply()
+        AppSettings.payCoins = 50
 
         //Если true, то отображаем snackBar - Спасибо за поддержку!
         billingClient.consumeAsync(params) { _, _ ->

@@ -1,38 +1,35 @@
 package ru.tohaman.rg2.ui.learn
 
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
-import org.koin.core.get
 import org.koin.core.inject
-import ru.tohaman.rg2.Constants
-import ru.tohaman.rg2.Constants.CUR_CUBE_TYPE
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants.FAVOURITES
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.entitys.CubeType
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
-import ru.tohaman.rg2.utils.Resource
 import timber.log.Timber
 
 
 //Наследуемся и от KoinComponent чтобы был доступ к inject (у Activity, Fragment, Service он есть и без этого)
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
-    private val sp = get<SharedPreferences>()
     private val repository : ItemsRepository by inject()
     private val ctx = context
 
     private var typesCount = 10
 
     //номер закладки открываемой по-умолчанию
-    private var _currentCubeType = sp.getInt(CUR_CUBE_TYPE, 2)
+    private var _currentCubeType = AppSettings.currentCubeType
     private val currentCubeTypeMLD = MutableLiveData<Int>(_currentCubeType)
     val currentCubeType: LiveData<Int> get() = currentCubeTypeMLD
 
@@ -70,7 +67,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     fun initPhasesToArray() {
         Timber.d("$TAG initPhasesToArray")
         viewModelScope.launch (Dispatchers.IO) {
-            val showFab = sp.getBoolean(Constants.SHOW_FAB, true)
+            val showFab = AppSettings.showFAB
             needShowFab.set(showFab)
             cubeTypes.map {
                 var list = getPhaseFromRepository(it.curPhase)
@@ -107,7 +104,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     fun setCurrentCubeType(id: Int) {
         _currentCubeType = id
-        sp.edit().putInt(CUR_CUBE_TYPE, id).apply()
+        AppSettings.currentCubeType = id
     }
 
     fun getPhaseNameById(id: Int): String {
