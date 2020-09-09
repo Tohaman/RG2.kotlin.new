@@ -1,14 +1,10 @@
 package ru.tohaman.rg2.ui.learn
 
-import android.content.SharedPreferences
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
-import org.koin.core.get
-import ru.tohaman.rg2.Constants.GOD_MODE
-import ru.tohaman.rg2.Constants.HELP_COUNT
-import ru.tohaman.rg2.Constants.ON_START_MINI_HELP
+import ru.tohaman.rg2.AppSettings
 import ru.tohaman.rg2.Constants.galleryDrawables
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.dataSource.entitys.TipsItem
@@ -16,12 +12,11 @@ import ru.tohaman.rg2.utils.NonNullMutableLiveData
 import timber.log.Timber
 
 class MiniHelpViewModel: ViewModel(), KoinComponent {
-    private val sp = get<SharedPreferences>()
 
     private var _tipsItem = galleryDrawables[0]
     val tipsItem = ObservableField<TipsItem>(_tipsItem)
 
-    private var _helpCount = sp.getInt(HELP_COUNT, 0)
+    private var _helpCount = AppSettings.helpCount
 
     private fun showingMiniHelpNumber(): Int {
         val maxHelpCount = galleryDrawables.count()
@@ -39,8 +34,8 @@ class MiniHelpViewModel: ViewModel(), KoinComponent {
 
     //Проверяем нужно ли отображать миниХелп
     fun checkMiniHelpShow() {
-        _onStartMiniHelpEnabled.postValue(sp.getBoolean(ON_START_MINI_HELP, true)
-                and !sp.getBoolean(GOD_MODE, false))
+        _onStartMiniHelpEnabled.postValue( AppSettings.onStartHelpEnabled
+                and !AppSettings.godMode)
         _tipsItem = galleryDrawables[showingMiniHelpNumber()]
         tipsItem.set(_tipsItem)
     }
@@ -48,7 +43,7 @@ class MiniHelpViewModel: ViewModel(), KoinComponent {
     fun closeHelpAndDoNotShowInSession() {
         _helpCount += 1
         Timber.d("$TAG .closeAndDoNotShowInSession $_helpCount")
-        sp.edit().putInt(HELP_COUNT, _helpCount).apply()
+        AppSettings.helpCount = _helpCount
         _onStartMiniHelpEnabled.postValue(false)
     }
 
@@ -58,6 +53,6 @@ class MiniHelpViewModel: ViewModel(), KoinComponent {
 
 
     fun doNotShowChange(value: Boolean) {
-        sp.edit().putBoolean(ON_START_MINI_HELP, !value).apply()
+        AppSettings.onStartHelpEnabled = !value
     }
 }
