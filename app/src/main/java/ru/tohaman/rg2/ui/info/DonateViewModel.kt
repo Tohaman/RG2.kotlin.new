@@ -58,8 +58,8 @@ class DonateViewModel(app: Application): AndroidViewModel(app), PurchasesUpdated
         val isUserDonate = AppSettings.payCoins + godMoney
         val startCount = AppSettings.startCount
         Timber.d("$TAG .checkDonationShow $startCount $isUserDonate")
-        //Если пользователь не платил, то каждый 10ый вход переводим на окно Доната
-        if ((isUserDonate == 0) and (startCount % 10 == 0)) {
+        //Если пользователь не платил, то каждый 6ый вход переводим на окно Доната
+        if ((isUserDonate == 0) and (startCount % 6 == 0)) {
             //Поставим закладку на страничку с донатом
             AppSettings.infoBookmark = 1
             onStartOpenDonate.call()
