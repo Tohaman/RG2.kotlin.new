@@ -17,7 +17,7 @@ import java.util.*
 
 //Используем плагин https://github.com/PierfrancescoSoffritti/android-youtube-player#api-documentation
 class YouTubeViewModel: ViewModel(), KoinComponent {
-    private lateinit var player: YouTubePlayer
+    private var player: YouTubePlayer? = null
     var currentState = ObservableField<PlayerConstants.PlayerState>(PlayerConstants.PlayerState.UNKNOWN)
     private var startTime = 0f
     private var currentSecond = 0f
@@ -50,25 +50,25 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
 
 
     fun onMarkClick() {
-        player.seekTo(startTime)
+        player?.seekTo(startTime)
     }
 
     fun onForwardClick() {
         currentSecond += 10
-        player.seekTo(currentSecond)
+        player?.seekTo(currentSecond)
     }
 
     fun onBackwardClick() {
         currentSecond -= 10
         if (currentSecond < 0) currentSecond = 0f
-        player.seekTo(currentSecond)
+        player?.seekTo(currentSecond)
     }
 
     fun onPlayPauseClick() {
         if (currentState.get() == PlayerConstants.PlayerState.PLAYING)
-            player.pause()
+            player?.pause()
         else
-            player.play()
+            player?.play()
     }
 
 
