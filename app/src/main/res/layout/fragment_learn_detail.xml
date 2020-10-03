@@ -57,7 +57,7 @@
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/leftRecyclerView"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -67,6 +67,7 @@
             android:dividerHeight="0dp"
             app:items="@{viewModel.liveCurrentLeftMenuItems}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:scrollPosition="@{viewModel.liveCurrentLeftMenuPosition}"
             tools:listitem="@layout/item_left_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

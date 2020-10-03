@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import ru.tohaman.rg2.DebugTag.TAG
@@ -25,6 +26,7 @@ import ru.tohaman.rg2.utils.MakeLinksClickable
 import ru.tohaman.rg2.utils.getResource
 import ru.tohaman.rg2.utils.spannedString
 import timber.log.Timber
+import java.text.FieldPosition
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,7 +54,8 @@ fun setHtmlResource(textView: TextView, htmlId: Int) {
         drawable
     }
 
-    val spannedString = MakeLinksClickable.reformatText(spannedString(textString, imgGetter, tagHandler), null)
+    val spannedString =
+        MakeLinksClickable.reformatText(spannedString(textString, imgGetter, tagHandler), null)
 
     textView.text = spannedString
 }
@@ -76,7 +79,10 @@ fun setClickedHtmlResource(textView: TextView, htmlId: Int, urlClickCallBack: Cl
         drawable
     }
 
-    val spannedString = MakeLinksClickable.reformatText(spannedString(textString, imgGetter, tagHandler), urlClickCallBack)
+    val spannedString = MakeLinksClickable.reformatText(
+        spannedString(textString, imgGetter, tagHandler),
+        urlClickCallBack
+    )
 
     textView.text = spannedString
     Linkify.addLinks(textView, Linkify.WEB_URLS)
@@ -91,12 +97,17 @@ private val tagHandler = Html.TagHandler { opening, tag, output, xmlReader ->
         val tag1 = tag
         val out = output
         val xml = xmlReader
-        Timber.d ("$TAG - tagHandler = $open, $tag1, $out, $xml")
+        Timber.d("$TAG - tagHandler = $open, $tag1, $out, $xml")
     }
 }
 
 @BindingAdapter("app:isEnabled", "app:enabledDrawable", "app:disabledDrawable")
-fun setDrawableByComment(imageView: ImageView, isFavourite: Boolean, enDrawable: Drawable?, disDrawable: Drawable?) {
+fun setDrawableByComment(
+    imageView: ImageView,
+    isFavourite: Boolean,
+    enDrawable: Drawable?,
+    disDrawable: Drawable?
+) {
     imageView.setImageDrawable(if (isFavourite) enDrawable else disDrawable)
 }
 
@@ -137,7 +148,6 @@ fun dateToString(textView: TextView, calendar: Calendar?) {
 }
 
 
-
 @BindingAdapter("onSeekListener")
 fun bindOnSeekListener(seekBar: SeekBar, listener: SeekBar.OnSeekBarChangeListener?) {
     seekBar.setOnSeekBarChangeListener(listener)
@@ -167,6 +177,16 @@ fun setDrawable(imageView: AppCompatImageView, drawable: LayerDrawable) {
     imageView.setImageDrawable(drawable)
 }
 
+
+@BindingAdapter("app:state")
+fun setStateBackground(imgView: ImageView, state: PlayerConstants.PlayerState) {
+    if (state == PlayerConstants.PlayerState.PLAYING)
+        imgView.setImageResource(R.drawable.player_pause)
+    else
+        imgView.setImageResource(R.drawable.player_play)
+}
+
+
 @BindingAdapter("items")
 fun setRecyclerViewItems(recyclerView: RecyclerView, items: List<RecyclerItem>?) {
     var adapter = (recyclerView.adapter as? DataBindingRecyclerAdapter)
@@ -180,10 +200,8 @@ fun setRecyclerViewItems(recyclerView: RecyclerView, items: List<RecyclerItem>?)
     )
 }
 
-@BindingAdapter("app:state")
-fun setStateBackground(imgView: ImageView, state: PlayerConstants.PlayerState) {
-    if (state == PlayerConstants.PlayerState.PLAYING)
-        imgView.setImageResource(R.drawable.player_pause)
-    else
-        imgView.setImageResource(R.drawable.player_play)
+@BindingAdapter("scrollPosition")
+fun setScrollPosition(recyclerView: RecyclerView, position: Int) {
+    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+    layoutManager.scrollToPositionWithOffset(position, 350)
 }

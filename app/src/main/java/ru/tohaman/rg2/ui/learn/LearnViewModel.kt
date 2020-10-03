@@ -18,6 +18,7 @@ import ru.tohaman.rg2.R
 import ru.tohaman.rg2.dataSource.ItemsRepository
 import ru.tohaman.rg2.dbase.entitys.CubeType
 import ru.tohaman.rg2.dbase.entitys.MainDBItem
+import ru.tohaman.rg2.dbase.entitys.PhasePositionItem
 import timber.log.Timber
 
 
@@ -25,8 +26,9 @@ import timber.log.Timber
 class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     private val repository : ItemsRepository by inject()
     private val ctx = context
+    var curListPosition = 0
 
-    private var typesCount = 10
+    private var typesCount = 0
 
     //номер закладки открываемой по-умолчанию
     private var _currentCubeType = AppSettings.currentCubeType
@@ -53,7 +55,12 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
     //Нужно ли отображать зеленую кнопку FAB
     var needShowFab = ObservableBoolean()
 
+    //переменная содержащая Мапу с фазами и положением в фазе
+    private var holderList  = mutableMapOf<String, Int>()
+
     init {
+        //Загрузим состояния для RecycleView фазы из базы
+        loadPhasesStateFromBase()
         //Получаем список MainDBItem в котором в getString(description) имя вызываемой фазы, а в name - из какой фазы она вызвается
         getSubMenuList()
         //Получаем список основных типов головоломок из базы
@@ -80,8 +87,9 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    //Добавляем в список запись для того, чтобы могли вернуться на уровень выше
     private fun addBackItem(list: List<MainDBItem>, initPhase: String): List<MainDBItem> {
-        Timber.d("$TAG .addBackItem list = [${list}], initPhase = [${initPhase}]")
+        //Timber.d("$TAG .addBackItem list = [${list}], initPhase = [${initPhase}]")
         val res = R.drawable.ic_arrow_up
         val backPhase = if (initPhase == FAVOURITES) initPhase else backFrom[list[0].phase] ?: initPhase
         val backItem = MainDBItem(backPhase,0, "...", res, 0, "submenu")
@@ -90,11 +98,13 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         return newList
     }
 
+    //возвращаем номер текущей закладки вьюпэйджера основного меню
     fun getCurrentType(): Int {
         Timber.d("$TAG .getCurrentType $_currentCubeType")
         return _currentCubeType
     }
 
+    //Инициализация закладок (основных типов) головоломок
     private fun initCubeTypes() {
             runBlocking (Dispatchers.IO) { cubeTypes = repository.getCubeTypes() }
 
@@ -102,17 +112,20 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
             mutableCubeTypes.postValue(cubeTypes)
     }
 
+    //Устанавливаем текущую закладку
     fun setCurrentCubeType(id: Int) {
         _currentCubeType = id
         AppSettings.currentCubeType = id
     }
 
+    //Получаем открытую фазу в определенной закладке
     fun getPhaseNameById(id: Int): String {
         return if (id <= cubeTypes.size) cubeTypes[id].curPhase else ""
     }
 
     //возвращаем true если вернулись на одну фазу назад или false если и так в главной фазе
     fun canReturnToOnePhaseBack() : Boolean {
+        saveCurrentPhasePosition()
         val fromPhase = cubeTypes[_currentCubeType].curPhase
         val defaultPhase = cubeTypes[_currentCubeType].initPhase
         var toPhase = backFrom.getOrElse(fromPhase, {defaultPhase})
@@ -126,7 +139,7 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
 
     //Получаем номер закладки из cubeTypes на которой находится головоломка (phase)
     fun changeTypeAndPhase(phase: String) {
-        //Сначала по фазу определяем ее основную, идем вверх по backFrom, пока не получим в ответ null. Для основных в backFrom нет записи
+        //Сначала по фазе определяем ее основную, идем вверх по backFrom, пока не получим в ответ null. Для основных в backFrom нет записи
         var mainPhase = phase
         while ( backFrom[mainPhase] != null) {
             mainPhase = backFrom[mainPhase]!!
@@ -171,6 +184,17 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    fun updateListPosition(position: Int, id: Int) {
+        if (_currentCubeType == id) {
+            curListPosition = position
+        }
+    }
+
+    fun getListPosition(phase: String): Int {
+        val position = holderList.getOrElse(phase) {0}
+        return position
+    }
+
     private suspend fun getPhaseFromRepository (phase: String): List<MainDBItem> {
         return if (phase != FAVOURITES) {
             repository.getPhaseFromMain(phase)
@@ -181,10 +205,34 @@ class LearnViewModel(context: Context) : ViewModel(), KoinComponent {
         }
     }
 
+    //меняем фазу на текущей закладке
     fun onMainMenuItemClick(menuItem: MainDBItem) {
         val phase = if (menuItem.description != 0) ctx.getString(menuItem.description) else menuItem.phase
         Timber.d( "$TAG Selected_Page $_currentCubeType - setToPhase - $phase")
         changePhaseTo(phase)
+    }
+
+    private fun loadPhasesStateFromBase() {
+        //TODO viewModelScope.launch (Dispatchers.IO)
+        runBlocking {
+            val list = repository.getAllPositions()
+            list?.let {
+                it.map {pp ->
+                    holderList[pp.phase] = pp.position
+                }
+            }
+        }
+    }
+
+    //сохраняем положение для текущей закладки
+    fun saveCurrentPhasePosition() {
+        val curPhase = cubeTypes[_currentCubeType].curPhase
+        //добавляем или переписываем значение в Map
+        holderList[curPhase] = curListPosition
+        viewModelScope.launch (Dispatchers.IO) {
+            val phasePosition = PhasePositionItem(curPhase, curListPosition)
+            repository.insertOrReplacePhasePosition(phasePosition)
+        }
     }
 
     //Добавляем или убираем из избранного в зависимости от menuItem.isFavourite

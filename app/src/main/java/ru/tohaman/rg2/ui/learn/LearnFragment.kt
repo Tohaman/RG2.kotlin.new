@@ -60,7 +60,7 @@ class LearnFragment : Fragment() {
             .apply {
                 viewModel = learnViewModel
                 learnViewPager.adapter = adapter
-                learnViewPager.offscreenPageLimit = 5
+                learnViewPager.offscreenPageLimit = 3
 
                 learnViewModel.currentCubeType.observe(viewLifecycleOwner, Observer {
                     it?.let {

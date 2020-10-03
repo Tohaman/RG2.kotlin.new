@@ -29,6 +29,7 @@ class ItemsRepository (context: Context,
                        private val azbukaDao: AzbukaDao,
                        private val timeNoteDao: TimeNoteDao,
                        private val pllGameDao: PllGameDao,
+                       private val phasePositionDao: PhasePositionDao,
                        private val oldTimeDao: OldTimeDao,
                        private val oldBaseDao: OldBaseDao) : ItemDataSource {
 
@@ -85,7 +86,7 @@ class ItemsRepository (context: Context,
         val list = allMainDBItems
             .filter { it.isFavourite }
             .sortedBy { it.subId }
-        Timber.d("$TAG .repo getFavourites ${list.size} - $list")
+        //Timber.d("$TAG .repo getFavourites ${list.size} - $list")
         return if (list.isEmpty())
             mainDao.getFavourites()
         else list
@@ -111,7 +112,7 @@ class ItemsRepository (context: Context,
     }
 
     suspend fun updateMainItem(item: MainDBItem?) {
-        Timber.d("$TAG .repo updateMainItem - $item")
+        //Timber.d("$TAG .repo updateMainItem - $item")
         if (mainDao.update(item) > 0) {
             item?.let {
                 if (allMainDBItems.any { (it.id == item.id) and (it.phase == item.phase) }) {
@@ -125,7 +126,7 @@ class ItemsRepository (context: Context,
     }
 
     suspend fun updateMainItem(items: List<MainDBItem>) {
-        Timber.d("$TAG .repo updateMainItemList - ${items.size} - $items")
+        //Timber.d("$TAG .repo updateMainItemList - ${items.size} - $items")
         if (mainDao.update(items) > 0) {
             items.map { item ->
                 if (allMainDBItems.any { (it.id == item.id) and (it.phase == item.phase) }) {
@@ -224,4 +225,12 @@ class ItemsRepository (context: Context,
     suspend fun getAllOldItems() = oldBaseDao.getAllOldItems()
 
     suspend fun getAllOldTimes() = oldTimeDao.getAllOldTimeItems()
+
+    // Работа с базой состояний RecycleView для каждой фазы
+
+    suspend fun getAllPositions() = phasePositionDao.getAllPositions()
+
+    suspend fun insertOrReplacePhasePosition(phasePositionItem: PhasePositionItem) = phasePositionDao.insertOrReplacePhasePosition(phasePositionItem)
+
+    suspend fun clearPhasePositions() = phasePositionDao.clearPhasePositions()
 }

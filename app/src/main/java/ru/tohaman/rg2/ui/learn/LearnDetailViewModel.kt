@@ -39,6 +39,10 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     val liveCurrentLeftMenuItems : LiveData<List<RecyclerItem>>
         get() = _currentLeftMenuItems
 
+    private var _currentLeftMenuPosition: MutableLiveData<Int> = MutableLiveData()
+    val liveCurrentLeftMenuPosition: LiveData<Int>
+        get() = _currentLeftMenuPosition
+
     private var phasesToTypes: MutableMap<String, String> = mutableMapOf()
     private var cubeTypes: List<BasicMove> = listOf()
     private var mutableCubeTypes: MutableLiveData<List<BasicMove>> = MutableLiveData()
@@ -140,6 +144,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
             .map { it.toRecyclerItem() }
             .toMutableList()
         _currentLeftMenuItems.postValue(currentLeftMenuItems)
+        _currentLeftMenuPosition.postValue(15)
     }
 
     fun isYouTubePlayerEnabled(fragmentNum: Int): Boolean {
@@ -170,6 +175,7 @@ class LearnDetailViewModel(context: Context) : ViewModel(), KoinComponent {
     }
 
     fun openLeftMenu() {
+        _currentLeftMenuPosition.postValue(currentId)
         _isLeftMenuOpen.postValue(true)
         Timber.d("$TAG .openLeftMenu true")
     }

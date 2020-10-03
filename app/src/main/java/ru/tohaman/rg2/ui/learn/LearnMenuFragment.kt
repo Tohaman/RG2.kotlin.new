@@ -2,12 +2,14 @@ package ru.tohaman.rg2.ui.learn
 
 import android.os.Bundle
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.tohaman.rg2.DebugTag.TAG
 import ru.tohaman.rg2.R
 import ru.tohaman.rg2.adapters.MenuAdapter
@@ -20,6 +22,7 @@ class LearnMenuFragment : Fragment() {
     private val learnViewModel by sharedViewModel<LearnViewModel>()
     private var ctId : Int = 0
     private lateinit var binding : FragmentLearnMenuBinding
+
 
     //Поскольку для вызова этого фрагмента НЕ используется Navigation component, то
     //передача/прием данных осуществляются классически через Bundle putInt/getInt
@@ -40,21 +43,37 @@ class LearnMenuFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         binding = FragmentLearnMenuBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = this@LearnMenuFragment
-                menuList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                menuList.layoutManager = layoutManager
 
                 val menuAdapter = MenuAdapter()
                 menuAdapter.attachCallBack(onClickCallBack())
 
                 learnViewModel.mainDBItemLiveArray[ctId].observe(viewLifecycleOwner, Observer { listMainDBItems ->
-                    val phase = learnViewModel.getPhaseNameById(ctId)
-                    menuAdapter.refreshItems(listMainDBItems, phase)
-                })
+                        val phase = learnViewModel.getPhaseNameById(ctId)
+                        menuAdapter.refreshItems(listMainDBItems, phase)
+                        val scrollToPosition = learnViewModel.getListPosition(phase)
+                        learnViewModel.updateListPosition(scrollToPosition, ctId)
+                        (menuList.layoutManager as LinearLayoutManager).scrollToPositionWithOffset (scrollToPosition, 0)
+                        Timber.d("$TAG .scrollToPosition = [${scrollToPosition} $phase $ctId]")
+                    })
                 menuList.adapter = menuAdapter
+
+                menuList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        learnViewModel.curListPosition = layoutManager.findFirstVisibleItemPosition()
+                    }
+                })
             }
         return binding.root
     }
@@ -84,7 +103,11 @@ class LearnMenuFragment : Fragment() {
         registerForContextMenu(binding.menuList)
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
         activity?.menuInflater?.inflate(R.menu.favourite_context_menu, menu)
     }
 
@@ -110,6 +133,7 @@ class LearnMenuFragment : Fragment() {
     private fun onMenuItemClick(item: MainDBItem) {
         Timber.d("$TAG onItemClick - ${item.id}, ${item.phase}")
         //learnViewModel.changeTypeAndPhase(item.phase)         //Разблокировать если нужно перейти на закладку головоломки (сменить тип)
+        learnViewModel.saveCurrentPhasePosition()               //Сохраняем текущее состояние скрола
         if (item.url == "submenu") {
             learnViewModel.onMainMenuItemClick(item)
         } else {

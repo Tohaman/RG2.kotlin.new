@@ -17,11 +17,14 @@ import ru.tohaman.rg2.dbase.entitys.*
  */
 
 @Database(
-    entities = [MainDBItem::class,
+    entities = [
+        MainDBItem::class,
         CubeType::class, BasicMove::class,
         AzbukaDBItem::class, TimeNoteItem::class,
-        PllGameItem::class, OldDbItem::class],
-    version = 6,
+        PllGameItem::class, OldDbItem::class,
+        PhasePositionItem::class
+    ],
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(LocalDateConverters::class)
@@ -32,4 +35,5 @@ abstract class MainDb : RoomDatabase() {
     abstract val azbukaDao: AzbukaDao
     abstract val timeNoteDao: TimeNoteDao
     abstract val pllGameDao: PllGameDao
+    abstract val phasePositionDao: PhasePositionDao
 }

@@ -30,8 +30,9 @@ val appModule = module{
     }
     single {
         Room.databaseBuilder(androidContext(), MainDb::class.java, DATABASE_NAME)
-            .fallbackToDestructiveMigration() //На время разработки программы, каждый раз пересоздаем базу, вместо миграции
-            //.addMigrations(MIGRATION_5_6)
+            //.fallbackToDestructiveMigration() //На время разработки программы, каждый раз пересоздаем базу, вместо миграции
+            .addMigrations(MIGRATION_6_7)
+            //.allowMainThreadQueries()
             .build()
     }
     single {
@@ -48,9 +49,10 @@ val appModule = module{
                             get<MainDb>().azbukaDao,
                             get<MainDb>().timeNoteDao,
                             get<MainDb>().pllGameDao,
+                            get<MainDb>().phasePositionDao,
                             get<OldDb>().oldTimeDao,
-                            get<OldDb>().oldBaseDao)}
-
+                            get<OldDb>().oldBaseDao
+    )}
 }
 
 val viewModelsModule = module {

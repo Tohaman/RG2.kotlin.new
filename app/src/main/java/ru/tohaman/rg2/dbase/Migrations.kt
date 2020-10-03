@@ -44,3 +44,12 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
     }
 }
 
+//Миграции для базы Room
+
+val MIGRATION_6_7 = object : Migration(6, 7) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("CREATE TABLE 'phasePositions' ('phase' TEXT NOT NULL, 'position' INTEGER NOT NULL, PRIMARY KEY(phase))")
+        Timber.d("$TAG .migrate 6_7 complete")
+    }
+}
+

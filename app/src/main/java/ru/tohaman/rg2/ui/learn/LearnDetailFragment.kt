@@ -142,7 +142,7 @@ class LearnDetailFragment : Fragment() {
 
         //передаем новые данные и оповещаем адаптер о необходимости обновления списка
         fun refreshItems(items: List<MainDBItem>) {
-            Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
+            //Timber.d("$TAG Обновляем список в адаптере DetailPagerAdapter $items")
             detailItems = items
             notifyDataSetChanged()
         }

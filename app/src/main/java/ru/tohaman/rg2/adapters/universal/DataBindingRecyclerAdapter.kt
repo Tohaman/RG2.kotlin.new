@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import ru.tohaman.rg2.dataSource.entitys.RecyclerItem
 
 class DataBindingRecyclerAdapter : ListAdapter<RecyclerItem, BindingViewHolder>(DiffCallback()) {
+    var position: Int = 0
 
     override fun getItemViewType(position: Int): Int {
         return getItem(position).layoutId
