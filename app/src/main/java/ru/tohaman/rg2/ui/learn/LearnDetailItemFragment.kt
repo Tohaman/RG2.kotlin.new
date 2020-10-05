@@ -24,6 +24,7 @@ import ru.tohaman.rg2.utils.dp
 import ru.tohaman.rg2.utils.shareText
 import ru.tohaman.rg2.utils.toEditable
 import timber.log.Timber
+import java.lang.IllegalArgumentException
 
 
 class LearnDetailItemFragment : Fragment() {
@@ -162,7 +163,11 @@ class LearnDetailItemFragment : Fragment() {
         }
 
         binding.fab.setOnClickListener {
-            findNavController().navigate(LearnDetailFragmentDirections.actionDestLearnDetailsToRecyclerViewDialog(item.phase))
+            try {
+                findNavController().navigate(LearnDetailFragmentDirections.actionDestLearnDetailsToRecyclerViewDialog(item.phase))
+            } catch (e: IllegalArgumentException) {
+                Timber.e("Can't navigate to ${item.phase} e.message")
+            }
         }
 
         binding.favourites.setOnClickListener {

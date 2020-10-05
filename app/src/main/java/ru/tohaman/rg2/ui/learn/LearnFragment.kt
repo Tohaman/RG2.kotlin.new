@@ -94,7 +94,13 @@ class LearnFragment : Fragment() {
 
                 miniHelpViewModel.onStartMiniHelpEnabled.observe(viewLifecycleOwner, Observer {
                     it?.let {
-                        if (it) findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
+                        if (it) {
+                            try {
+                                findNavController().navigate(R.id.action_destLearn_to_miniHelpDialog)
+                            } catch (e: IllegalArgumentException) {
+                                Timber.e("Can't navigate to miniHelp e.message")
+                            }
+                        }
                         else donateViewModel.checkDonationShow()
                     }
                 })

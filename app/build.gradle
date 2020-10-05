@@ -18,8 +18,8 @@ android {
         multiDexEnabled true
         minSdkVersion 18
         targetSdkVersion 29
-        versionCode 319
-        versionName '2.20201004.1'
+        versionCode 320
+        versionName '2.20201005.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
