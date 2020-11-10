@@ -1,8 +1,6 @@
 package ru.tohaman.rg2.ui.youtube
 
-import androidx.annotation.NonNull
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -73,13 +71,13 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
 
 
     fun setStartTime(stringTime: String) {
-        startTime = stringToTimeMillis(stringTime)
+        startTime = stringToTimeInSeconds(stringTime)
         currentSecond = startTime
     }
 
 
-    //Преобразует строку вида 0:25 в милисекунды (25000)
-    private fun stringToTimeMillis(text: String): Float {
+    //Преобразует строку вида 1:25 в секунды (85)
+    private fun stringToTimeInSeconds(text: String): Float {
         val date: Date
         val calendar = Calendar.getInstance()
         val format = SimpleDateFormat("m:s", Locale.ENGLISH)
@@ -87,7 +85,7 @@ class YouTubeViewModel: ViewModel(), KoinComponent {
             date = format.parse(text)!!
         } catch (e: ParseException) {
             Timber.e( "${DebugTag.TAG} Это не должно произойти. Ошибка при преобразовании даты. $e")
-            //но если произошло, то считаем что видео воспроизводится с начала возвращаем 0 милисек
+            //но если произошло, то считаем что видео воспроизводится с начала возвращаем 0 сек
             return 0f
         }
 
