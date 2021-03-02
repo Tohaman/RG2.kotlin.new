@@ -96,6 +96,7 @@ fun prepareAzbukaToShowInGridView(azbuka: List<AzbukaDBItem>) : MutableList<Azbu
 fun setAzbukaDBItemFromSimple(lettersArray: Array<String>, colorArray: IntArray, phase: String) : List<AzbukaDBItem> {
     //Timber.d ("$TAG setAzbukaDBItemFromSimple")
     val list = mutableListOf<AzbukaDBItem>()
+    // можно записать в одну строку - lettersArray.forEachIndexed { i, element -> list.add(AzbukaDBItem(phase, i, element, colorArray[i]))}
     for (i in lettersArray.indices) {
         list.add(AzbukaDBItem(phase, i, lettersArray[i], colorArray[i]))
     }
@@ -116,7 +117,7 @@ fun getCubeFromCurrentAzbuka(curAzbuka: List<AzbukaSimpleItem>): IntArray {
     return azbuka
 }
 
-//Получаем StringArray (массив букв) из азбуки
+//Получаем StringArray (массив 54 букв) из азбуки (массива из 108)
 fun getLettersFromCurrentAzbuka(curAzbuka: List<AzbukaSimpleItem>): Array<String> {
     val azbuka = Array(54) { "" }
     for (i in 0..8) {

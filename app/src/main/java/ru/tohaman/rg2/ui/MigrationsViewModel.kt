@@ -26,7 +26,6 @@ import java.util.*
 
 class MigrationsViewModel(app : Application): AndroidViewModel(app), KoinComponent {
     private val repository : ItemsRepository by inject()
-    private val ctx = app.baseContext
 
     fun migrationToNewVersion() {
         //номер текущей версии программы
@@ -126,6 +125,8 @@ class MigrationsViewModel(app : Application): AndroidViewModel(app), KoinCompone
 
 
     private fun getFavoriteListFromSharedPref() : MutableSet<Favorite> {
+        val ctx = getApplication<Application>().applicationContext
+
         var json = AppSettings.favorites
         if (json == "empty") json = ctx.getString(R.string.def_favorites)
         val gson = GsonBuilder().create()

@@ -72,8 +72,10 @@
                 android:layout_margin="@dimen/dimen_margin_8"
                 android:text="@{timeNote.comment}"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/scramble_textView"
-                app:layout_constraintTop_toBottomOf="@+id/timeText"
+                app:layout_constraintStart_toStartOf="@+id/scramble_textView"
+                app:layout_constraintTop_toBottomOf="@+id/scramble_textView"
                 tools:text="Some comment" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

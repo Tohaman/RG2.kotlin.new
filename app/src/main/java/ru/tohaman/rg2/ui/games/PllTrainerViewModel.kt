@@ -35,7 +35,6 @@ import java.util.*
 
 class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt, SelectAnswerInt {
     private val repository : ItemsRepository by inject()
-    private val ctx = app.baseContext
 
     //----------------------- Settings -------------------------------
 
@@ -290,6 +289,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     }
 
     override fun selectAnswer(selectedName: String) {
+        val ctx = getApplication<Application>().applicationContext
         Timber.d("$TAG .selectAnswer letter = [${selectedName}]")
         if (_state.value == GameStates.WAITING_4_ANSWER) {
             _state.postValue(GameStates.SHOW_ANSWER)
@@ -297,8 +297,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
                 if (selectedName == rightAnswer.get()) {
                     showRightAnswerAlert()
                 } else {
-                    val wrongText =
-                        ctx.getText(R.string.wrong_answer_text) as String + " ${rightAnswer.get()}"
+                    val wrongText = ctx.getText(R.string.wrong_answer_text) as String + " ${rightAnswer.get()}"
                     showWrongAnswerAlert(wrongText)
                 }
             }
@@ -377,6 +376,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     }
 
     private fun startTimer() {
+        val ctx = getApplication<Application>().applicationContext
         timerProgress.set(100)
         if (_pllTrainingTimer) { //Запускаем таймер, только если он включен в настройках
             val maxTime = System.currentTimeMillis() + _pllTrainingTimerTime * 1000
@@ -400,6 +400,7 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     private fun twoSideLayerDrawable(rotatedCube: IntArray): LayerDrawable {
         //цвет фона = 6 - черный
         rotatedCube[27] = 6
+        val ctx = getApplication<Application>().applicationContext
 
         return LayerDrawable(Array(28) { i ->
             val resID = ctx.resources.getIdentifier("z_2s_0$i", "drawable", ctx.packageName)
@@ -418,6 +419,9 @@ class PllTrainerViewModel(app : Application): AndroidViewModel(app), KoinCompone
     }
 
     private fun threeSideLayerDrawable(rotatedCube: IntArray): LayerDrawable {
+
+        val ctx = getApplication<Application>().applicationContext
+
         val drw0 = ContextCompat.getDrawable(ctx, R.drawable.z_3s_background)!!
         val drw1 = ContextCompat.getDrawable(ctx, R.drawable.z_3s_up)!!
         val drw2 = ContextCompat.getDrawable(ctx, R.drawable.z_3s_left)!!

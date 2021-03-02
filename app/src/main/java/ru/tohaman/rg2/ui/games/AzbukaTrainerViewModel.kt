@@ -34,7 +34,6 @@ import java.util.*
 
 class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComponent, WrongAnswerInt {
     private val repository : ItemsRepository by inject()
-    private val ctx = app.baseContext
 
     private var trainingCorners = AppSettings.trainingCorners
     private var trainingEdges = AppSettings.trainingEdges
@@ -156,6 +155,7 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
 
     //На входе разобранный по скрамблу куб, на выходе 28-ми слойный Drawable
     private fun getScrambledDrawable(scrambledCube: IntArray): LayerDrawable {
+        val ctx = getApplication<Application>().applicationContext
         //разворачиваем кубик т.к. с сине-оранжево-белой стороны (для моей азбуки) его проще отобразить, т.к. это первые три стороны в Array
         val scramble = "y y"
         val rotatedCube = runScramble(scrambledCube, scramble)
@@ -201,6 +201,7 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
         canvas.drawBitmap(originalBitmap, rect, rect, paint)
 
         //нарисуем исходник и преобразуем  в LayerDrawable
+        val ctx = getApplication<Application>().applicationContext
         val bitmapDrawable = BitmapDrawable(ctx.resources, maskBitmap)
         val drawableArray =  arrayOf (bitmapDrawable)
         return LayerDrawable (drawableArray)
@@ -219,6 +220,7 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
 
                 if (_state.value == GameStates.WAITING_4_ANSWER) {
                     _state.postValue(GameStates.TIME_IS_OVER)
+                    val ctx = getApplication<Application>().applicationContext
                     val wrongText = ctx.getText(R.string.time_is_over) as String + " ${rightAnswerLetter.get()}"
                     showWrongAnswerAlert(wrongText)
                 }
@@ -234,6 +236,7 @@ class AzbukaTrainerViewModel(app : Application): AndroidViewModel(app), KoinComp
                 if (letter == rightAnswerLetter.get()) {
                     showRightAnswerAlert()
                 } else {
+                    val ctx = getApplication<Application>().applicationContext
                     val wrongText =
                         ctx.getText(R.string.wrong_answer_text) as String + " ${rightAnswerLetter.get()}"
                     showWrongAnswerAlert(wrongText)

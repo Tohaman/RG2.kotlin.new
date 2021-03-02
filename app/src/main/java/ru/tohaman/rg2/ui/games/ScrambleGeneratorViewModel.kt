@@ -146,6 +146,7 @@ class ScrambleGeneratorViewModel: ViewModel(), KoinComponent, ScrambleDialogInt,
     }
 
     //Магия obsrvable меняем tmpScramble, а dialogScrambleText меняется сам, т.к. dialogScrambleText.get()=tmpScramble
+    //на самом деле все дело в том, что в куче это одна переменная (т.к. тип ссылочный)
     private var tmpScramble = ObservableField<String>("")
 
     override var dialogScrambleText: ObservableField<String>

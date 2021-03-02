@@ -10,14 +10,14 @@ apply plugin: "org.jetbrains.kotlin.kapt"
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId 'ru.tohaman.rg2'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         minSdkVersion 18
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 321
         versionName '2.20201018.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -75,14 +75,14 @@ dependencies {
 
 
     // Room components
-    ext { roomVersion = '2.2.5' }
+    ext { roomVersion = '2.2.6' }
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     //Фрагмент навигации
-    ext { nav_version = '2.3.1' }
+    ext { nav_version = '2.3.2' }
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.paging:paging-runtime-ktx:2.1.2"
@@ -104,7 +104,7 @@ dependencies {
     // Окно "умного рейтига" - App Rate https://github.com/codemybrainsout/smart-app-rate
     //implementation "com.codemybrainsout.rating:ratingdialog:1.0.8"
     //Для вызова встроенного рейтинга https://developer.android.com/guide/playcore/in-app-review
-    implementation 'com.google.android.play:core:1.8.3'
+    implementation 'com.google.android.play:core:1.9.0'
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
     //Timber для удобного вывода в лог данных - https://medium.com/mindorks/better-logging-in-android-using-timber-72e40cc2293d
@@ -120,12 +120,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     //Подключаем покупки в playMarket
-    implementation 'com.android.billingclient:billing-ktx:3.0.1'
+    implementation 'com.android.billingclient:billing-ktx:3.0.2'
 
     //Упрощаем доступ к SharedPref https://github.com/chibatching/Kotpref
     implementation 'com.chibatching.kotpref:kotpref:2.11.0'
 
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

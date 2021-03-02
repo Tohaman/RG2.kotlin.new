@@ -117,6 +117,7 @@ private fun edgeBufferSolve(cube: IntArray, elementPosition: Int, solve: String,
         23 -> {                    // для бело-красного ребра
             val pair4Melting = isAllEdgesOnItsPlace(tmpCube)
             if (!pair4Melting.allComplete) {
+                //переплавляем буфер (рекурсия)
                 val sc = meltingEdge(tmpCube, solv, pair4Melting.elementsNotOnPlace, azbuka)
                 solv = sc.solve
                 tmpCube = sc.cube
@@ -215,7 +216,7 @@ private fun meltingEdge(tmpCube: IntArray, solv: String, edgesListNotOnPlace: So
                 positionOfElement = edgePriority[j]!!
             } //ищем ребра на своем месте по приоритету edgePriority
             i++
-        } while (edgesListNotOnPlace[i] != null)
+        } while (i < edgesListNotOnPlace.size)
         j++
     }
     //переплавляем буфер (рекурсия)
@@ -233,7 +234,7 @@ private fun meltingCorner(tmpCube: IntArray, solv: String, cornersListNotOnPlace
                 positionOfElement = cornerPriority[j]!!
             } //ищем ребра на своем месте по приоритету cornerPriority
             i++
-        } while (cornersListNotOnPlace[i] != null)
+        } while (i < cornersListNotOnPlace.size)
         j++
     }
     //переплавляем буфер (рекурсия)

@@ -37,7 +37,6 @@ import java.util.*
 class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, ShowPreloaderInt {
     // ------- Общие переменные ---------
     private val repository : ItemsRepository by inject()
-    private val ctx = app.baseContext
 
     //-------- Управление настройками таймера (TimerSettings) ----------------
 
@@ -159,7 +158,7 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
         @Suppress("DEPRECATION")
         SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0)
     }
-    private val soundLow = soundPool.load(ctx, R.raw.metronom,1)
+    private val soundLow = soundPool.load(app.baseContext, R.raw.metronom,1)
 
 
     private var _currentScramble = AppSettings.currentScramble
@@ -224,9 +223,9 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     private var timerState = TimerStates.STOPPED
     private var delayMills = 500L
 
-    private val redColor = ContextCompat.getColor(ctx, R.color.red)
-    private val yellowColor = ContextCompat.getColor(ctx, R.color.yellow)
-    private val greenColor = ContextCompat.getColor(ctx, R.color.green)
+    private val redColor = ContextCompat.getColor(app.baseContext, R.color.red)
+    private val yellowColor = ContextCompat.getColor(app.baseContext, R.color.yellow)
+    private val greenColor = ContextCompat.getColor(app.baseContext, R.color.green)
     var leftCircleColor = ObservableInt(redColor)
     var rightCircleColor = ObservableInt(redColor)
 
