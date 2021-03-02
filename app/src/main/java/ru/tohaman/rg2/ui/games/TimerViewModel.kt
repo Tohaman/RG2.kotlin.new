@@ -309,7 +309,10 @@ class TimerViewModel(app : Application): AndroidViewModel(app), KoinComponent, S
     private fun tryChangeStateToReady() {
         viewModelScope.launch(Dispatchers.Main) {
             //Если старт с задержкой, то ждем иначе уменьшаем resetPressedTime, чтобы сразу перевести в READY
-            if (isTimerDelayed.get()) delay(delayMills) else resetPressedTime -= delayMills
+            if (isTimerDelayed.get())
+                delay(delayMills)
+            else
+                resetPressedTime -= delayMills
             //Проверяем не изменился ли resetPressedTime за время ожидания, и переводим в статус READY, а кружки в зеленый
             if (resetPressedTime + delayMills - 1 < System.currentTimeMillis()) {
                 changeStateToReady()

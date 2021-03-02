@@ -94,8 +94,8 @@ class SplashActivity : AppCompatActivity() {
             AppSettings.mainTextSize = 2
             AppSettings.theme = "AppTheme"
             FillDB.reCreateDB(context)
-            migrationsViewModel.migrateFavourite()
         }
+        migrationsViewModel.migrateFavourite()
     }
 
     private fun dbUpdate(context: Context) {

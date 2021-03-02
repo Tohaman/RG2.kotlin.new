@@ -2,22 +2,22 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: "org.jetbrains.kotlin.kapt"
+
+apply plugin: 'kotlin-android-extensions'
 
 //Плагин для доступа к аргументам фрагментов и активностей https://developer.android.com/jetpack/androidx/releases/navigation#safe_args
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId 'ru.tohaman.rg2'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         minSdkVersion 18
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 315
         versionName '2.20200905.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -39,7 +39,8 @@ android {
 
     //Включаем байндинг (связывание)
     buildFeatures{
-        dataBinding = true
+        dataBinding true
+        viewBinding = true
     }
 
     configurations.all {
@@ -55,7 +56,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -65,28 +66,28 @@ dependencies {
     ext { lifecycle_version = '2.2.0' }
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
 
     // App Startup library https://developer.android.com/topic/libraries/app-startup?hl=ru
-    implementation "androidx.startup:startup-runtime:1.0.0-beta01"
+    implementation "androidx.startup:startup-runtime:1.0.0"
 
     // Room components
-    ext { roomVersion = '2.2.5' }
+    ext { roomVersion = '2.2.6' }
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     //Фрагмент навигации
-    ext { nav_version = '2.3.0' }
+    ext { nav_version = '2.3.3' }
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.paging:paging-runtime-ktx:2.1.2"
-    implementation 'androidx.fragment:fragment-ktx:1.2.5'
+    implementation 'androidx.fragment:fragment-ktx:1.3.0'
     //implementation "android.arch.lifecycle:extensions:1.1.1"
 
     //bottom_app_bar
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation "androidx.preference:preference-ktx:1.1.1"
 
     //Koin для Внедрения зависимостей - https://github.com/InsertKoinIO/koin
@@ -100,7 +101,7 @@ dependencies {
     // Окно "умного рейтига" - App Rate https://github.com/codemybrainsout/smart-app-rate
     //implementation "com.codemybrainsout.rating:ratingdialog:1.0.8"
     //Для вызова встроенного рейтинга https://developer.android.com/guide/playcore/in-app-review
-    implementation 'com.google.android.play:core:1.8.2'
+    implementation 'com.google.android.play:core:1.9.1'
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
     //Timber для удобного вывода в лог данных - https://medium.com/mindorks/better-logging-in-android-using-timber-72e40cc2293d
@@ -116,7 +117,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     //Подключаем покупки в playMarket
-    implementation 'com.android.billingclient:billing-ktx:3.0.1'
+    implementation 'com.android.billingclient:billing-ktx:3.0.2'
 
     //Упрощаем доступ к SharedPref https://github.com/chibatching/Kotpref
     implementation 'com.chibatching.kotpref:kotpref:2.11.0'
